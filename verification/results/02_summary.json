@@ -1,0 +1,53 @@
+{
+  "task": "2_robot_welding",
+  "seed": 42,
+  "bootstrap_replicates": 1000,
+  "criteria": {
+    "K2-a": "해당",
+    "K2-b": "판정불가",
+    "K2-c": "판정불가",
+    "K2-d": "판정불가"
+  },
+  "counts": {
+    "raw_rows": 11939,
+    "raw_dates": 9,
+    "result_rows": 23,
+    "result_dates": 8,
+    "positive_result_dates": 8,
+    "reported_defect_count": 39,
+    "defect_type_counts": {
+      "1": 14,
+      "2": 13,
+      "3": 12
+    },
+    "missing_result_dates": [
+      "2020-03-27"
+    ],
+    "incomplete_type_dates": [
+      "2020-03-31"
+    ],
+    "date_idx_duplicate_rows": 1,
+    "unique_process_setting_combinations": 1574,
+    "rows_in_repeated_process_setting_combinations": 11824
+  },
+  "metrics": {
+    "reported_defect_counts_per_reporting_date": {
+      "estimate": 4.875,
+      "ci95": [
+        3.875,
+        6.128124999999997
+      ],
+      "unit": "reported counts per reporting date; not weld defect rate",
+      "resampling_unit": "date",
+      "n_dates": 8
+    },
+    "supervised_f1": null,
+    "supervised_pr_auc": null
+  },
+  "supervised_available": false,
+  "label_join_key_available": false,
+  "source_files": [
+    "2. 용접기 AI 데이터셋/2. 용접기 AI 데이터셋/scaled_data.csv",
+    "2. 용접기 AI 데이터셋/2. 용접기 AI 데이터셋/Welding Data Set_01.xlsx"
+  ]
+}

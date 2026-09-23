@@ -1,3 +1,4 @@
+# Tasks ②, ③, ⑤. XLSX source inspection in ② uses Python standard library XML/ZIP.
 pandas==2.3.3
 numpy==2.5.3
 scikit-learn==1.9.1
