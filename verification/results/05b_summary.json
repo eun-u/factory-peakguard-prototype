@@ -1,0 +1,252 @@
+{
+  "seed": 42,
+  "split_rows": {
+    "train": 16373,
+    "validation": 3505,
+    "test": 3510
+  },
+  "split_ranges": {
+    "train": [
+      "2021-01-08 01:00:00",
+      "2021-06-27 14:00:00"
+    ],
+    "validation": [
+      "2021-06-27 15:15:00",
+      "2021-08-09 08:30:00"
+    ],
+    "test": [
+      "2021-08-09 09:45:00",
+      "2021-09-14 23:00:00"
+    ]
+  },
+  "peak_threshold": 176.0,
+  "validation": {
+    "seasonal_mae": {
+      "day": 34.20912981455064,
+      "week": 23.019686162624822,
+      "average": 27.030955777460772
+    },
+    "persistence_mae": {
+      "latest_15m": 14.391440798858774,
+      "previous_hour_slot": 16.895292439372326,
+      "recent_hour_mean": 14.812553495007133
+    },
+    "seasonal_selected": "week",
+    "persistence_selected": "latest_15m",
+    "event_cutoff": {
+      "seasonal": 165.0,
+      "persistence": 142.0,
+      "lgb": 165.2409801225937
+    }
+  },
+  "test_support": {
+    "positions": 372,
+    "episodes": 147,
+    "days": 26,
+    "test_dates": 38,
+    "confusion": {
+      "seasonal": {
+        "position_tp": 200,
+        "position_fp": 368,
+        "position_fn": 172,
+        "episode_tp": 71,
+        "episode_fp": 48,
+        "episode_fn": 76,
+        "day_tp": 21,
+        "day_fp": 1,
+        "day_fn": 5
+      },
+      "persistence": {
+        "position_tp": 289,
+        "position_fp": 774,
+        "position_fn": 83,
+        "episode_tp": 58,
+        "episode_fp": 52,
+        "episode_fn": 89,
+        "day_tp": 26,
+        "day_fp": 1,
+        "day_fn": 0
+      },
+      "lgb": {
+        "position_tp": 295,
+        "position_fp": 305,
+        "position_fn": 77,
+        "episode_tp": 90,
+        "episode_fp": 46,
+        "episode_fn": 57,
+        "day_tp": 25,
+        "day_fp": 1,
+        "day_fn": 1
+      }
+    }
+  },
+  "test_metrics": {
+    "seasonal": {
+      "mae": 23.434188034188033,
+      "rmse": 45.528363783820616,
+      "peak_position_mae": 59.25806451612903,
+      "peak_episode_mae": 45.12695983155167,
+      "peak_day_mae": 41.89030275384286,
+      "position_f1": 0.425531914893617,
+      "episode_f1": 0.5338345864661654,
+      "day_f1": 0.875
+    },
+    "persistence": {
+      "mae": 18.46125356125356,
+      "rmse": 28.855268075803693,
+      "peak_position_mae": 27.731182795698924,
+      "peak_episode_mae": 25.742857142857144,
+      "peak_day_mae": 29.42889565977085,
+      "position_f1": 0.402787456445993,
+      "episode_f1": 0.45136186770428016,
+      "day_f1": 0.9811320754716981
+    },
+    "lgb": {
+      "mae": 9.288806697477064,
+      "rmse": 14.988552977712075,
+      "peak_position_mae": 17.770141448807113,
+      "peak_episode_mae": 15.745236908915517,
+      "peak_day_mae": 16.70521724675782,
+      "position_f1": 0.6069958847736625,
+      "episode_f1": 0.6360424028268551,
+      "day_f1": 0.9615384615384616
+    }
+  },
+  "test_ci95": {
+    "seasonal": {
+      "mae": [
+        13.144560733384264,
+        35.904261700743064
+      ],
+      "rmse": [
+        25.161038560154147,
+        61.49633609926702
+      ],
+      "peak_position_mae": [
+        24.649237733283893,
+        91.09140225505809
+      ],
+      "peak_episode_mae": [
+        18.450123188090462,
+        73.6996335065537
+      ],
+      "peak_day_mae": [
+        17.982970440408856,
+        67.42681395995753
+      ],
+      "position_f1": [
+        0.33487727632620745,
+        0.5190596355070526
+      ],
+      "episode_f1": [
+        0.424661769783721,
+        0.63089014482515
+      ],
+      "day_f1": [
+        0.7567567567567568,
+        0.96
+      ]
+    },
+    "persistence": {
+      "mae": [
+        15.58418213452099,
+        21.115828710124827
+      ],
+      "rmse": [
+        25.937537499105893,
+        31.46238835849491
+      ],
+      "peak_position_mae": [
+        25.451985308715507,
+        30.526162373819417
+      ],
+      "peak_episode_mae": [
+        23.39074739583333,
+        28.68811211798152
+      ],
+      "peak_day_mae": [
+        25.849136522538558,
+        34.01096904662648
+      ],
+      "position_f1": [
+        0.33282341207486554,
+        0.46281186915158207
+      ],
+      "episode_f1": [
+        0.3958140432098765,
+        0.5108832142148104
+      ],
+      "day_f1": [
+        0.9360992907801419,
+        1.0
+      ]
+    },
+    "lgb": {
+      "mae": [
+        7.612424122978052,
+        11.23169942563301
+      ],
+      "rmse": [
+        11.892239675147193,
+        18.508572890908034
+      ],
+      "peak_position_mae": [
+        13.879981594945368,
+        22.2827346417548
+      ],
+      "peak_episode_mae": [
+        12.501328719453092,
+        19.284703567232416
+      ],
+      "peak_day_mae": [
+        13.320508269695615,
+        21.208322798057775
+      ],
+      "position_f1": [
+        0.5289146005509642,
+        0.6723802001053185
+      ],
+      "episode_f1": [
+        0.5851851851851851,
+        0.6783247671056858
+      ],
+      "day_f1": [
+        0.8936170212765957,
+        1.0
+      ]
+    }
+  },
+  "comparison": {
+    "peak_mae_improvement_vs_persistence": 0.3592000175498017,
+    "ci95": [
+      0.19588950448530107,
+      0.501293641181301
+    ],
+    "resampling_dates": 38,
+    "bootstrap_draws": 1000
+  },
+  "criterion": {
+    "K5-d": "비해당"
+  },
+  "original_reference": {
+    "K5-b": "비해당",
+    "peak_mae_improvement_fraction": 0.7001228171404352,
+    "ci95": [
+      0.40184063592653957,
+      0.7892931421078992
+    ],
+    "classifier_f1": 0.5842956120092379,
+    "classifier_f1_ci95": [
+      0.49653110047846893,
+      0.6553571489592909
+    ]
+  },
+  "definitions": {
+    "persistence_b": "power at origin minus four 15-minute positions",
+    "peak": "actual value above training 95th percentile; alarms use validation-selected prediction cutoffs",
+    "event_cutoff": "prediction-value threshold maximizing validation position F1",
+    "episode": "consecutive 15-minute target positions within a calendar date; missing positions break runs",
+    "episode_match": "maximum one-to-one time-overlap matching",
+    "bootstrap": "1000 paired target-date block resamples; cutoffs and model selection held fixed"
+  }
+}
