@@ -20,7 +20,7 @@ requirements.txt | 66 | b9a22db6db69 | 문서
 tests/test_forecast.py | 3,320 | 617280a5ce02 | 코드/설정/기타
 verification/common.py | 8,477 | e0ad6857fc34 | 코드/설정/기타
 verification/README.md | 921 | 2eaac1059869 | 문서
-verification/report.py | 19,746 | bff4ce2e2357 | 코드/설정/기타
+verification/report.py | 19,888 | 95ea3d0583c8 | 코드/설정/기타
 verification/requirements.txt | 82 | 60ce32477104 | 문서
 verification/results/00_decision_criteria.md | 990 | 7742dd938e65 | 문서
 verification/results/01_inventory.md | self | self | 문서
@@ -45,7 +45,7 @@ verification/results/05_rolling_origin.csv | 2,291 | 48b57a5f69b5 | CSV 표
 verification/results/05_section.md | 7,079 | 8d618f074620 | 문서
 verification/results/05_summary.json | 20,136 | 5848dcca5009 | 코드/설정/기타
 verification/results/05_test_predictions.csv | 806,214 | 7042fa678fce | CSV 표
-verification/results/report.md | 20,696 | 51d264c81b77 | 문서
+verification/results/report.md | 20,838 | f3accb38d995 | 문서
 verification/run_all.py | 526 | 37c82eee837b | 코드/설정/기타
 verification/t3_press.py | 33,321 | 951a90243f76 | 코드/설정/기타
 verification/t5_power.py | 40,046 | f7c4a9f755ec | 코드/설정/기타
