@@ -1,0 +1,14 @@
+﻿feature,direction,auroc,ci_low,ci_high,warning
+AI1_Vibration_min,-1,0.8790046903569442,0.7461602671118531,0.9894347722394466,orientation chosen using both labels; diagnostic only
+AI1_Vibration_max,1,0.8732013673582955,0.7463113125049685,0.9618491136020351,orientation chosen using both labels; diagnostic only
+AI1_Vibration_std,1,0.8716114158518166,0.7497316956832817,0.9656649972175847,orientation chosen using both labels; diagnostic only
+AI0_Vibration_max,1,0.8697829716193657,0.7292908816281103,0.991652754590985,orientation chosen using both labels; diagnostic only
+AI0_Vibration_std,1,0.8629461801415056,0.722988711344304,1.0,orientation chosen using both labels; diagnostic only
+AI0_Vibration_min,-1,0.7746243739565944,0.5748807536370141,0.9523809523809522,orientation chosen using both labels; diagnostic only
+AI2_Current_std,-1,0.6927418713729231,0.5773809523809524,0.799658160426107,orientation chosen using both labels; diagnostic only
+AI2_Current_min,1,0.5824787343986009,0.42056999761507274,0.7354857301852292,orientation chosen using both labels; diagnostic only
+segment_length_samples,-1,0.5803322998648541,0.4687057794737261,0.6992666348676365,orientation chosen using both labels; diagnostic only
+AI2_Current_max,1,0.5409015025041736,0.37739685189601724,0.6984577470387152,orientation chosen using both labels; diagnostic only
+AI2_Current_mean,1,0.5289768662055807,0.32984736465537795,0.7374274584625169,orientation chosen using both labels; diagnostic only
+AI0_Vibration_mean,1,0.5180856983861992,0.3073912870657445,0.7101538278082518,orientation chosen using both labels; diagnostic only
+AI1_Vibration_mean,1,0.5044121154304794,0.29686978297161937,0.7120339454646631,orientation chosen using both labels; diagnostic only

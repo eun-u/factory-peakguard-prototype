@@ -1,0 +1,686 @@
+{
+  "structure": {
+    "source": "5. 자원 최적화 AI 데이터셋\\5. 자원 최적화 AI 데이터셋\\okm_augumented_2021.csv",
+    "source_rows": 6168,
+    "source_columns": [
+      "날짜",
+      "시간",
+      "15분",
+      "30분",
+      "45분",
+      "60분",
+      "평균",
+      "생산량",
+      "기온",
+      "풍속",
+      "습도",
+      "강수량",
+      "전기요금(계절)",
+      "day",
+      "d",
+      "m",
+      "공장인원",
+      "인건비"
+    ],
+    "15min_rows": 24672,
+    "start": "2021-01-01 00:15:00",
+    "end": "2021-09-15 00:00:00",
+    "missing_15min_power": 0,
+    "negative_raw_power": 0,
+    "zero_power": 74,
+    "iqr_outliers": 0,
+    "invalid_hours": 48,
+    "recovered_dates": [
+      "2021-07-13",
+      "2021-07-15"
+    ],
+    "recovered_15min_rows_excluded": 192,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "summer_present": true,
+    "winter_present": true,
+    "summer_month_count": 3,
+    "winter_month_count": 2,
+    "complete_summer_window": false,
+    "complete_winter_window": false,
+    "production_missing": 0,
+    "source_missing_by_column": {
+      "풍속": 3,
+      "강수량": 1,
+      "공장인원": 17
+    },
+    "weather_columns": [
+      "기온",
+      "풍속",
+      "습도",
+      "강수량"
+    ],
+    "other_source_columns": [
+      "전기요금(계절)",
+      "day",
+      "d",
+      "m",
+      "공장인원",
+      "인건비"
+    ],
+    "raw_average_matches_rounded_four_values_fraction": 1.0
+  },
+  "assumptions": [
+    "15/30/45/60분 열을 HH:15/30/45/(HH+1):00에 끝나는 연속 15분 위치로 간주한다. 제공 문서에서 경계 의미와 kW/kWh 단위를 확인하지 못했다.",
+    "잘못된 시간 값은 해당 날짜의 행 순서대로 00~23시를 임시 부여한다. 영향 받은 위치와 이들에 의존하는 특징 행은 학습·평가에서 제외한다.",
+    "시간당 생산량은 해당 시간이 끝난 뒤에만 알려진다고 가정한다. 익일 예측에는 전전날이 아닌 직전 달력날의 완료 생산량 합계를 사용한다. 미래의 실제 생산량·날씨·인력·요금과 같은 시간 평균 전력은 입력에서 제외한다.",
+    "계절 나이브는 예측 대상과 같은 15분 시각의 전일값, 전주값, 두 값의 평균을 후보로 두고 검증 MAE 최저 후보를 시험 전에 고정한다.",
+    "00~08, 08~16, 16~24시는 시계 기반 교대 대용 구간이며 실제 교대기록은 아니다. 제품 ID가 없어 제품 전환 조건은 분석할 수 없다.",
+    "피크는 학습 전력값의 95백분위 초과로 정의하며 계약수요·요금 초과가 아니다. C/L은 가상 비용비이고 조치가 비용 C를 들여 피크 손실을 회피한다고 가정한다."
+  ],
+  "q0": {
+    "15min_reshape_possible_under_assumption": true,
+    "k5a": "triggered",
+    "power_unit_confirmed": false,
+    "interval_boundary_confirmed": false,
+    "source_coverage": "2021 Jan-Sep 14 only; partial summer and Jan-Feb winter months, no complete Jul-Sep or Dec-Feb window"
+  },
+  "one_hour": {
+    "target": "15-minute value at origin + 1 hour",
+    "rows": {
+      "train": 16373,
+      "validation": 3505,
+      "test": 3510
+    },
+    "range": {
+      "train": [
+        "2021-01-08 01:00:00",
+        "2021-06-27 14:00:00"
+      ],
+      "validation": [
+        "2021-06-27 15:15:00",
+        "2021-08-09 08:30:00"
+      ],
+      "test": [
+        "2021-08-09 09:45:00",
+        "2021-09-14 23:00:00"
+      ]
+    },
+    "train_peak_95pct": 176.0,
+    "events": {
+      "train": 774,
+      "validation": 393,
+      "test": 372
+    },
+    "test_peak_days": 26,
+    "test_peak_episodes": 147,
+    "f1_cutoff_from_validation": {
+      "classifier": 0.1700303678583817,
+      "quantile": 0.11660933482847069
+    },
+    "naive_validation_mae": {
+      "day": 34.20912981455064,
+      "week": 23.019686162624822,
+      "average": 27.030955777460772
+    },
+    "naive_selected_on_validation": "week",
+    "quantile_crossings": {
+      "validation": 684,
+      "test": 531
+    },
+    "metrics": {
+      "day_mae": 38.91054131054131,
+      "day_rmse": 62.75763537387939,
+      "day_mape": 76.03108059249315,
+      "day_peak_mae": 43.45967741935484,
+      "week_mae": 23.434188034188033,
+      "week_rmse": 45.528363783820616,
+      "week_mape": 21.347030616725167,
+      "week_peak_mae": 59.25806451612903,
+      "average_mae": 28.05754985754986,
+      "average_rmse": 41.2388981866238,
+      "average_mape": 43.754536356586065,
+      "average_peak_mae": 49.090053763440864,
+      "naive_mae": 23.434188034188033,
+      "naive_rmse": 45.528363783820616,
+      "naive_mape": 21.347030616725167,
+      "naive_peak_mae": 59.25806451612903,
+      "lgb_mae": 9.288806697477066,
+      "lgb_rmse": 14.988552977712075,
+      "lgb_mape": 10.577831216602355,
+      "lgb_peak_mae": 17.770141448807113,
+      "peak_mae_improvement_fraction": 0.7001228171404352,
+      "q10_pinball": 2.6107066795476506,
+      "q10_coverage": 0.15185185185185185,
+      "q50_pinball": 5.044698025640632,
+      "q50_coverage": 0.5373219373219373,
+      "q90_pinball": 2.2855932959519554,
+      "q90_coverage": 0.8581196581196581,
+      "q95_pinball": 1.5315080226618016,
+      "q95_coverage": 0.9108262108262108,
+      "mean_pinball": 2.86812650595051,
+      "classifier_f1": 0.5842956120092379,
+      "classifier_prauc": 0.5552773059722906,
+      "classifier_brier": 0.06658343860398201,
+      "classifier_precision": 0.5121457489878543,
+      "classifier_recall": 0.6801075268817204,
+      "quantile_f1": 0.6232179226069247,
+      "quantile_prauc": 0.4955102603830792,
+      "quantile_brier": 0.06953943466898733,
+      "quantile_precision": 0.5016393442622951,
+      "quantile_recall": 0.8225806451612904,
+      "rev_0": 0.5876354365838113,
+      "rev_1": -0.06666666666666685,
+      "rev_2": 0.013238289205702814,
+      "rev_3": 0.1014094190443453,
+      "rev_4": 0.19082377476538073,
+      "rev_5": 0.1881656804733728,
+      "rev_6": 0.16145833333333343,
+      "rev_7": 0.19518716577540113,
+      "rev_8": 0.15906976744186066,
+      "rev_9": 0.10880958322934879,
+      "rev_10": 0.05420054200541995
+    },
+    "ci95": {
+      "day_mae": [
+        29.354694899767722,
+        49.709820180640904
+      ],
+      "day_rmse": [
+        50.6473202575114,
+        74.47075555079851
+      ],
+      "day_mape": [
+        44.284088212320825,
+        115.02565737558581
+      ],
+      "day_peak_mae": [
+        19.129925595238095,
+        72.61026371520774
+      ],
+      "week_mae": [
+        13.144560733384264,
+        35.904261700743064
+      ],
+      "week_rmse": [
+        25.161038560154147,
+        61.49633609926702
+      ],
+      "week_mape": [
+        13.498933055506331,
+        30.46413194976014
+      ],
+      "week_peak_mae": [
+        24.649237733283893,
+        91.09140225505809
+      ],
+      "average_mae": [
+        21.42054639251863,
+        35.544490291262136
+      ],
+      "average_rmse": [
+        33.087538946875206,
+        48.97110611363348
+      ],
+      "average_mape": [
+        27.837830671603847,
+        63.05363355606543
+      ],
+      "average_peak_mae": [
+        28.59245867768595,
+        67.35031830601092
+      ],
+      "naive_mae": [
+        13.144560733384264,
+        35.904261700743064
+      ],
+      "naive_rmse": [
+        25.161038560154147,
+        61.49633609926702
+      ],
+      "naive_mape": [
+        13.498933055506331,
+        30.46413194976014
+      ],
+      "naive_peak_mae": [
+        24.649237733283893,
+        91.09140225505809
+      ],
+      "lgb_mae": [
+        7.612424122978051,
+        11.231699425633009
+      ],
+      "lgb_rmse": [
+        11.892239675147191,
+        18.508572890908034
+      ],
+      "lgb_mape": [
+        8.06461267343121,
+        14.687645048967767
+      ],
+      "lgb_peak_mae": [
+        13.879981594945368,
+        22.2827346417548
+      ],
+      "peak_mae_improvement_fraction": [
+        0.40184063592653957,
+        0.7892931421078992
+      ],
+      "q10_pinball": [
+        1.984131883324248,
+        3.3133374624206
+      ],
+      "q10_coverage": [
+        0.10652635402465652,
+        0.20578509901572067
+      ],
+      "q50_pinball": [
+        3.9651060964037055,
+        6.343666015504945
+      ],
+      "q50_coverage": [
+        0.485144141572713,
+        0.5886056741795177
+      ],
+      "q90_pinball": [
+        1.8766693591867398,
+        2.7422413055760657
+      ],
+      "q90_coverage": [
+        0.8241348658211468,
+        0.8907939775822987
+      ],
+      "q95_pinball": [
+        1.2607304390868828,
+        1.8389676917459088
+      ],
+      "q95_coverage": [
+        0.8826427651352511,
+        0.936110805715827
+      ],
+      "mean_pinball": [
+        2.3348457014521324,
+        3.4821985147926666
+      ],
+      "classifier_f1": [
+        0.49653110047846893,
+        0.6553571489592909
+      ],
+      "classifier_prauc": [
+        0.4482911992582139,
+        0.6505560748091009
+      ],
+      "classifier_brier": [
+        0.050145794187242326,
+        0.08326976507163289
+      ],
+      "classifier_precision": [
+        0.4125421524663677,
+        0.6042599742599742
+      ],
+      "classifier_recall": [
+        0.5820721971537661,
+        0.7617977528089888
+      ],
+      "quantile_f1": [
+        0.5442737400498305,
+        0.6902683483449109
+      ],
+      "quantile_prauc": [
+        0.40147425111174817,
+        0.5900002288049875
+      ],
+      "quantile_brier": [
+        0.051570680418907465,
+        0.0881586265248265
+      ],
+      "quantile_precision": [
+        0.41395773334517455,
+        0.5825173107689231
+      ],
+      "quantile_recall": [
+        0.7241348411815598,
+        0.900594927913844
+      ],
+      "rev_0": [
+        0.39612561583512984,
+        0.7450993514627443
+      ],
+      "rev_1": [
+        -0.6262339163323899,
+        0.33731581691790385
+      ],
+      "rev_2": [
+        -0.40693519038433984,
+        0.3289389388285446
+      ],
+      "rev_3": [
+        -0.22520540695979355,
+        0.33582245241110165
+      ],
+      "rev_4": [
+        -0.024016423386648736,
+        0.35281820325301494
+      ],
+      "rev_5": [
+        0.043727678571428376,
+        0.308464989638863
+      ],
+      "rev_6": [
+        0.017619974586019164,
+        0.2711946185513442
+      ],
+      "rev_7": [
+        0.057701416094238074,
+        0.2957247726845738
+      ],
+      "rev_8": [
+        0.020993150684931423,
+        0.2542518853594841
+      ],
+      "rev_9": [
+        -0.008537193604090656,
+        0.1921338732064317
+      ],
+      "rev_10": [
+        -0.04168363192182419,
+        0.1280353200883003
+      ]
+    },
+    "k5b": "not_triggered",
+    "k5c": "not_triggered",
+    "rev_cost_ratios": [
+      0.01,
+      0.05,
+      0.1,
+      0.15000000000000002,
+      0.2,
+      0.25,
+      0.3,
+      0.35000000000000003,
+      0.4,
+      0.45,
+      0.5
+    ]
+  },
+  "daily": {
+    "target": "next calendar-day max of 15-minute positions, forecast at previous day 23:45",
+    "rows": {
+      "train": 165,
+      "validation": 36,
+      "test": 36
+    },
+    "range": {
+      "train": [
+        "2021-01-09",
+        "2021-06-22"
+      ],
+      "validation": [
+        "2021-06-23",
+        "2021-08-08"
+      ],
+      "test": [
+        "2021-08-09",
+        "2021-09-13"
+      ]
+    },
+    "train_daily_max_95pct": 199.0,
+    "test_daily_peak_days": 5,
+    "naive_selected_on_validation": "week",
+    "metrics": {
+      "naive_mae": 30.555555555555557,
+      "naive_rmse": 62.22584314861114,
+      "naive_mape": 18.559493269765508,
+      "naive_peak_mae": 85.6,
+      "lgb_mae": 26.844225847434487,
+      "lgb_rmse": 35.262102448580166,
+      "lgb_mape": 28.258773846907904,
+      "lgb_peak_mae": 46.418611208098895
+    },
+    "ci95": {
+      "naive_mae": [
+        14.165972222222221,
+        51.67638888888888
+      ],
+      "naive_rmse": [
+        30.93227745956465,
+        88.03564304688976
+      ],
+      "naive_mape": [
+        10.014274386390667,
+        29.03230063592321
+      ],
+      "naive_peak_mae": [
+        14.0,
+        186.0
+      ],
+      "lgb_mae": [
+        19.313501433834254,
+        35.19719780759922
+      ],
+      "lgb_rmse": [
+        24.80775554949721,
+        45.27733190529332
+      ],
+      "lgb_mape": [
+        17.042026790161472,
+        42.981176858681344
+      ],
+      "lgb_peak_mae": [
+        12.765558552145773,
+        88.6429664222293
+      ]
+    }
+  },
+  "rolling_origin": [
+    {
+      "fold": 1,
+      "model": "day",
+      "training_rows": 7014,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-03-22 03:30:00",
+      "evaluation_last": "2021-04-15 12:15:00",
+      "peak_threshold": 178.0,
+      "peak_events": 104,
+      "mae": 46.39572649572649,
+      "mae_ci_low": 32.24594647519582,
+      "mae_ci_high": 62.458013959390854,
+      "peak_mae": 65.0,
+      "peak_mae_ci_low": 21.540041666666667,
+      "peak_mae_ci_high": 109.40417956656347
+    },
+    {
+      "fold": 1,
+      "model": "week",
+      "training_rows": 7014,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-03-22 03:30:00",
+      "evaluation_last": "2021-04-15 12:15:00",
+      "peak_threshold": 178.0,
+      "peak_events": 104,
+      "mae": 28.46923076923077,
+      "mae_ci_low": 16.837165197313183,
+      "mae_ci_high": 42.59348337925791,
+      "peak_mae": 29.192307692307693,
+      "peak_mae_ci_low": 13.012279411764707,
+      "peak_mae_ci_high": 57.936264822134376
+    },
+    {
+      "fold": 1,
+      "model": "average",
+      "training_rows": 7014,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-03-22 03:30:00",
+      "evaluation_last": "2021-04-15 12:15:00",
+      "peak_threshold": 178.0,
+      "peak_events": 104,
+      "mae": 35.06367521367521,
+      "mae_ci_low": 25.696612461926325,
+      "mae_ci_high": 46.5477788379983,
+      "peak_mae": 43.86538461538461,
+      "peak_mae_ci_low": 22.590787128104257,
+      "peak_mae_ci_high": 64.34858989424207
+    },
+    {
+      "fold": 1,
+      "model": "lgb",
+      "training_rows": 7014,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-03-22 03:30:00",
+      "evaluation_last": "2021-04-15 12:15:00",
+      "peak_threshold": 178.0,
+      "peak_events": 104,
+      "mae": 11.8981073013163,
+      "mae_ci_low": 9.230796038584693,
+      "mae_ci_high": 15.314888326883409,
+      "peak_mae": 20.576224425237317,
+      "peak_mae_ci_low": 14.127496340376211,
+      "peak_mae_ci_high": 31.621816371062007
+    },
+    {
+      "fold": 2,
+      "model": "day",
+      "training_rows": 10524,
+      "evaluation_rows": 2339,
+      "evaluation_first": "2021-04-27 17:00:00",
+      "evaluation_last": "2021-05-22 01:30:00",
+      "peak_threshold": 177.0,
+      "peak_events": 44,
+      "mae": 46.035057716973064,
+      "mae_ci_low": 31.55818262020291,
+      "mae_ci_high": 60.10256471579016,
+      "peak_mae": 103.0909090909091,
+      "peak_mae_ci_low": 41.355094537815134,
+      "peak_mae_ci_high": 141.0240476190476
+    },
+    {
+      "fold": 2,
+      "model": "week",
+      "training_rows": 10524,
+      "evaluation_rows": 2339,
+      "evaluation_first": "2021-04-27 17:00:00",
+      "evaluation_last": "2021-05-22 01:30:00",
+      "peak_threshold": 177.0,
+      "peak_events": 44,
+      "mae": 26.878580589995725,
+      "mae_ci_low": 15.887118002665652,
+      "mae_ci_high": 39.205447590640425,
+      "peak_mae": 39.63636363636363,
+      "peak_mae_ci_low": 14.320080128205127,
+      "peak_mae_ci_high": 80.7703125
+    },
+    {
+      "fold": 2,
+      "model": "average",
+      "training_rows": 10524,
+      "evaluation_rows": 2339,
+      "evaluation_first": "2021-04-27 17:00:00",
+      "evaluation_last": "2021-05-22 01:30:00",
+      "peak_threshold": 177.0,
+      "peak_events": 44,
+      "mae": 34.54574604531851,
+      "mae_ci_low": 24.15944110327665,
+      "mae_ci_high": 45.097983001240046,
+      "peak_mae": 70.45454545454545,
+      "peak_mae_ci_low": 35.488839285714285,
+      "peak_mae_ci_high": 92.184375
+    },
+    {
+      "fold": 2,
+      "model": "lgb",
+      "training_rows": 10524,
+      "evaluation_rows": 2339,
+      "evaluation_first": "2021-04-27 17:00:00",
+      "evaluation_last": "2021-05-22 01:30:00",
+      "peak_threshold": 177.0,
+      "peak_events": 44,
+      "mae": 8.33516124934799,
+      "mae_ci_low": 7.063024528906066,
+      "mae_ci_high": 9.625334486752768,
+      "peak_mae": 19.10662832748068,
+      "peak_mae_ci_low": 12.210929382951381,
+      "peak_mae_ci_high": 30.138024537484483
+    },
+    {
+      "fold": 3,
+      "model": "day",
+      "training_rows": 14033,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-06-03 06:15:00",
+      "evaluation_last": "2021-06-27 15:00:00",
+      "peak_threshold": 175.0,
+      "peak_events": 148,
+      "mae": 37.14316239316239,
+      "mae_ci_low": 25.326601293406437,
+      "mae_ci_high": 50.51608939662661,
+      "peak_mae": 64.4391891891892,
+      "peak_mae_ci_low": 14.652595186781609,
+      "peak_mae_ci_high": 115.1311573825011
+    },
+    {
+      "fold": 3,
+      "model": "week",
+      "training_rows": 14033,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-06-03 06:15:00",
+      "evaluation_last": "2021-06-27 15:00:00",
+      "peak_threshold": 175.0,
+      "peak_events": 148,
+      "mae": 7.687179487179487,
+      "mae_ci_low": 6.135769121725053,
+      "mae_ci_high": 9.205348533516807,
+      "peak_mae": 16.243243243243242,
+      "peak_mae_ci_low": 12.844411764705884,
+      "peak_mae_ci_high": 19.828022197626513
+    },
+    {
+      "fold": 3,
+      "model": "average",
+      "training_rows": 14033,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-06-03 06:15:00",
+      "evaluation_last": "2021-06-27 15:00:00",
+      "peak_threshold": 175.0,
+      "peak_events": 148,
+      "mae": 20.75534188034188,
+      "mae_ci_low": 15.073496376811596,
+      "mae_ci_high": 27.158215811965814,
+      "peak_mae": 38.79391891891892,
+      "peak_mae_ci_low": 14.160203416149068,
+      "peak_mae_ci_high": 63.7255846984187
+    },
+    {
+      "fold": 3,
+      "model": "lgb",
+      "training_rows": 14033,
+      "evaluation_rows": 2340,
+      "evaluation_first": "2021-06-03 06:15:00",
+      "evaluation_last": "2021-06-27 15:00:00",
+      "peak_threshold": 175.0,
+      "peak_events": 148,
+      "mae": 6.185092499735273,
+      "mae_ci_low": 5.382432278751249,
+      "mae_ci_high": 6.936312437422893,
+      "peak_mae": 9.32340759583227,
+      "peak_mae_ci_low": 7.293006536458122,
+      "peak_mae_ci_high": 11.410346959397044
+    }
+  ],
+  "q5_unavailable": [
+    "actual_shift",
+    "product_id",
+    "product_transition"
+  ],
+  "bootstrap": "1000 paired calendar-day block resamples of the held-out test period; percentile 95% CI. Does not address one-season external validity.",
+  "q4_cost_formula": "r=C/L일 때 초과확률 > r이면 조치. L로 나눈 실현 비용은 r×조치 + 실제 초과×(1-조치), 완전예측 비용은 r×실제 초과. REV=(동시각 기후평균 비용-모델 비용)/(동시각 기후평균 비용-완전예측 비용); 분모가 0 이하면 정의하지 않는다. 기후평균은 학습구간의 같은 요일·15분 위치 초과 빈도를 라플라스 평활한 값이다.",
+  "criteria": {
+    "K5-a": "해당",
+    "K5-b": "비해당",
+    "K5-c": "비해당"
+  },
+  "headline": "1h peak MAE naive 59.26 [24.65, 91.09] vs LightGBM 17.77 [13.88, 22.28]; peak classifier F1 0.584 [0.497, 0.655]; test peak events 372"
+}

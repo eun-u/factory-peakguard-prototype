@@ -1,0 +1,769 @@
+{
+  "status": "ok",
+  "sources": [
+    "3. 소성가공 예지보전 AI 데이터셋\\3. 소성가공 예지보전 AI 데이터셋\\outlier_data.csv",
+    "3. 소성가공 예지보전 AI 데이터셋\\3. 소성가공 예지보전 AI 데이터셋\\press_data_normal.csv"
+  ],
+  "rejected": [],
+  "p0": {
+    "initial_rows": 20600,
+    "usable_rows": 20600,
+    "dropped_rows": 0,
+    "nominal_sample_seconds": 0.1,
+    "gap_threshold_seconds": 0.5,
+    "gap_rule": "new candidate segment when within-file/class timestamp gap > 5 x pooled median positive interval",
+    "gap_quantiles_seconds": {
+      "0": 0.1,
+      "0.5": 0.1,
+      "0.9": 0.1,
+      "0.95": 0.1,
+      "0.99": 5.37744000000001,
+      "1": 16.643
+    },
+    "interval_quantiles_by_class_seconds": {
+      "0": {
+        "0": 0.1,
+        "0.5": 0.1,
+        "0.9": 0.1,
+        "0.99": 5.3281799999999935,
+        "1": 16.643
+      },
+      "1": {
+        "0": 0.1,
+        "0.5": 0.1,
+        "0.9": 0.1,
+        "0.99": 6.418279999999978,
+        "1": 8.572
+      }
+    },
+    "nonpositive_intervals": 1,
+    "files": [
+      {
+        "source": "3. 소성가공 예지보전 AI 데이터셋\\3. 소성가공 예지보전 AI 데이터셋\\outlier_data.csv",
+        "label": 1,
+        "first": "2022-07-17 10:51:07.943000",
+        "last": "2022-07-17 10:53:53.540000",
+        "segment_count": 21,
+        "sample_count": 600,
+        "segment_length_samples": {
+          "0": 3.0,
+          "0.25": 15.0,
+          "0.5": 28.0,
+          "0.75": 47.0,
+          "1": 50.0
+        }
+      },
+      {
+        "source": "3. 소성가공 예지보전 AI 데이터셋\\3. 소성가공 예지보전 AI 데이터셋\\press_data_normal.csv",
+        "label": 0,
+        "first": "2022-07-12 00:00:00.019000",
+        "last": "2022-07-12 01:16:55.828000",
+        "segment_count": 599,
+        "sample_count": 20000,
+        "segment_length_samples": {
+          "0": 1.0,
+          "0.25": 20.0,
+          "0.5": 37.0,
+          "0.75": 50.0,
+          "1": 50.0
+        }
+      }
+    ],
+    "channels": {
+      "AI0_Vibration": {
+        "negative_fraction": 0.4995631067961165,
+        "minimum": -1.5027352,
+        "maximum": 1.8032037,
+        "quantiles": {
+          "0": -1.5027352,
+          "0.01": -0.199954169,
+          "0.25": -0.04467825,
+          "0.5": 0.0001035,
+          "0.75": 0.0449295,
+          "0.99": 0.19363124999999817,
+          "1": 1.8032037
+        },
+        "median_segment_lag1_autocorrelation": -0.02116502760891964
+      },
+      "AI1_Vibration": {
+        "negative_fraction": 0.5402912621359224,
+        "minimum": -0.7512533,
+        "maximum": 0.50932143,
+        "quantiles": {
+          "0": -0.7512533,
+          "0.01": -0.28277764000000005,
+          "0.25": -0.07071725,
+          "0.5": -0.009151,
+          "0.75": 0.061504249999999996,
+          "0.99": 0.3130125299999999,
+          "1": 0.50932143
+        },
+        "median_segment_lag1_autocorrelation": 0.2630334361406812
+      },
+      "AI2_Current": {
+        "negative_fraction": 0.49155339805825243,
+        "minimum": -399.35117,
+        "maximum": 538.82605,
+        "quantiles": {
+          "0": -399.35117,
+          "0.01": -247.8835034,
+          "0.25": -100.5460475,
+          "0.5": 3.828347,
+          "0.75": 104.55603500000001,
+          "0.99": 252.44505219999996,
+          "1": 538.82605
+        },
+        "median_segment_lag1_autocorrelation": 0.9281035541551078
+      }
+    },
+    "waveform_inference": {
+      "AI0_Vibration": "추정: 음수 존재는 부호 있는 파형/중심화 측정과 일치하나 원파형 확증은 아님",
+      "AI1_Vibration": "추정: 음수 존재는 부호 있는 파형/중심화 측정과 일치하나 원파형 확증은 아님"
+    },
+    "waveform_limit": "부호·분포·자기상관·표본 간격만으로 원파형/집계값을 확정할 수 없음"
+  },
+  "p1": [
+    {
+      "feature": "AI0_Vibration_mean",
+      "direction": 1,
+      "auroc": 0.5180856983861992,
+      "ci_low": 0.3073912870657445,
+      "ci_high": 0.7101538278082518,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI0_Vibration_std",
+      "direction": 1,
+      "auroc": 0.8629461801415056,
+      "ci_low": 0.722988711344304,
+      "ci_high": 1.0,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI0_Vibration_min",
+      "direction": -1,
+      "auroc": 0.7746243739565944,
+      "ci_low": 0.5748807536370141,
+      "ci_high": 0.9523809523809522,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI0_Vibration_max",
+      "direction": 1,
+      "auroc": 0.8697829716193657,
+      "ci_low": 0.7292908816281103,
+      "ci_high": 0.991652754590985,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI1_Vibration_mean",
+      "direction": 1,
+      "auroc": 0.5044121154304794,
+      "ci_low": 0.29686978297161937,
+      "ci_high": 0.7120339454646631,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI1_Vibration_std",
+      "direction": 1,
+      "auroc": 0.8716114158518166,
+      "ci_low": 0.7497316956832817,
+      "ci_high": 0.9656649972175847,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI1_Vibration_min",
+      "direction": -1,
+      "auroc": 0.8790046903569442,
+      "ci_low": 0.7461602671118531,
+      "ci_high": 0.9894347722394466,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI1_Vibration_max",
+      "direction": 1,
+      "auroc": 0.8732013673582955,
+      "ci_low": 0.7463113125049685,
+      "ci_high": 0.9618491136020351,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI2_Current_mean",
+      "direction": 1,
+      "auroc": 0.5289768662055807,
+      "ci_low": 0.32984736465537795,
+      "ci_high": 0.7374274584625169,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI2_Current_std",
+      "direction": -1,
+      "auroc": 0.6927418713729231,
+      "ci_low": 0.5773809523809524,
+      "ci_high": 0.799658160426107,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI2_Current_min",
+      "direction": 1,
+      "auroc": 0.5824787343986009,
+      "ci_low": 0.42056999761507274,
+      "ci_high": 0.7354857301852292,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "AI2_Current_max",
+      "direction": 1,
+      "auroc": 0.5409015025041736,
+      "ci_low": 0.37739685189601724,
+      "ci_high": 0.6984577470387152,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    },
+    {
+      "feature": "segment_length_samples",
+      "direction": -1,
+      "auroc": 0.5803322998648541,
+      "ci_low": 0.4687057794737261,
+      "ci_high": 0.6992666348676365,
+      "warning": "orientation chosen using both labels; diagnostic only"
+    }
+  ],
+  "p2": [
+    {
+      "representation": "raw",
+      "model": "IsolationForest",
+      "auroc": 0.9859126984126985,
+      "auroc_ci_low": 0.9714236111111111,
+      "auroc_ci_high": 0.9964285714285714,
+      "pr_auc": 0.7793670330421223,
+      "pr_auc_ci_low": 0.6294169371426004,
+      "pr_auc_ci_high": 0.9607286178808254
+    },
+    {
+      "representation": "raw",
+      "model": "OneClassSVM",
+      "auroc": 0.9978174603174602,
+      "auroc_ci_low": 0.9930555555555556,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.9779509379509381,
+      "pr_auc_ci_low": 0.9391489170380796,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "representation": "raw",
+      "model": "Mahalanobis",
+      "auroc": 0.9986111111111111,
+      "auroc_ci_low": 0.996031746031746,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.9854554865424434,
+      "pr_auc_ci_low": 0.9527450570871624,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "representation": "center",
+      "model": "IsolationForest",
+      "auroc": 0.9922619047619048,
+      "auroc_ci_low": 0.9815376984126983,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.9448904686999926,
+      "pr_auc_ci_low": 0.8701399466088436,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "representation": "center",
+      "model": "OneClassSVM",
+      "auroc": 0.9986111111111111,
+      "auroc_ci_low": 0.9952380952380953,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.9851834673263244,
+      "pr_auc_ci_low": 0.9520918565561424,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "representation": "center",
+      "model": "Mahalanobis",
+      "auroc": 0.9988095238095238,
+      "auroc_ci_low": 0.995828373015873,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.9873376623376624,
+      "pr_auc_ci_low": 0.9627461820105226,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "representation": "z",
+      "model": "IsolationForest",
+      "auroc": 0.966468253968254,
+      "auroc_ci_low": 0.9438492063492063,
+      "auroc_ci_high": 0.9865128968253968,
+      "pr_auc": 0.5312110496773599,
+      "pr_auc_ci_low": 0.4234653950575846,
+      "pr_auc_ci_high": 0.7423391128118018
+    },
+    {
+      "representation": "z",
+      "model": "OneClassSVM",
+      "auroc": 0.9920634920634921,
+      "auroc_ci_low": 0.9801587301587302,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.8666850919916345,
+      "pr_auc_ci_low": 0.715558892061089,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "representation": "z",
+      "model": "Mahalanobis",
+      "auroc": 0.9924603174603175,
+      "auroc_ci_low": 0.9815426587301587,
+      "auroc_ci_high": 0.9992063492063492,
+      "pr_auc": 0.886583444021156,
+      "pr_auc_ci_low": 0.7482509710283494,
+      "pr_auc_ci_high": 0.9923809523809523
+    },
+    {
+      "representation": "amplitude",
+      "model": "IsolationForest",
+      "auroc": 0.9563492063492063,
+      "auroc_ci_low": 0.9317410714285714,
+      "auroc_ci_high": 0.9775892857142858,
+      "pr_auc": 0.47580383138212706,
+      "pr_auc_ci_low": 0.37654504285280416,
+      "pr_auc_ci_high": 0.6698220438599355
+    },
+    {
+      "representation": "amplitude",
+      "model": "OneClassSVM",
+      "auroc": 0.9888888888888889,
+      "auroc_ci_low": 0.9751934523809523,
+      "auroc_ci_high": 0.9978174603174603,
+      "pr_auc": 0.8000829917157501,
+      "pr_auc_ci_low": 0.6564047287307113,
+      "pr_auc_ci_high": 0.9771488380041011
+    },
+    {
+      "representation": "amplitude",
+      "model": "Mahalanobis",
+      "auroc": 0.9807539682539682,
+      "auroc_ci_low": 0.9628918650793651,
+      "auroc_ci_high": 0.9928571428571429,
+      "pr_auc": 0.7520698513493358,
+      "pr_auc_ci_low": 0.5870265404499427,
+      "pr_auc_ci_high": 0.9182085908005807
+    }
+  ],
+  "p3": [
+    {
+      "score": "AI2_to_AI0",
+      "auroc": 0.8956349206349207,
+      "auroc_ci_low": 0.7803125000000001,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.8719789839039122,
+      "pr_auc_ci_low": 0.7413642621519496,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "score": "AI2_to_AI1",
+      "auroc": 0.8938492063492063,
+      "auroc_ci_low": 0.7882837301587302,
+      "auroc_ci_high": 0.9787847222222221,
+      "pr_auc": 0.7861811670080345,
+      "pr_auc_ci_low": 0.6183549422826249,
+      "pr_auc_ci_high": 0.9298270109253922
+    },
+    {
+      "score": "AI0_to_AI1",
+      "auroc": 0.9162698412698412,
+      "auroc_ci_low": 0.7944246031746033,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.8781414915007655,
+      "pr_auc_ci_low": 0.7471373784030956,
+      "pr_auc_ci_high": 1.0
+    },
+    {
+      "score": "combined",
+      "auroc": 0.9073412698412698,
+      "auroc_ci_low": 0.7876388888888889,
+      "auroc_ci_high": 1.0,
+      "pr_auc": 0.8748717873717876,
+      "pr_auc_ci_low": 0.7101489997254634,
+      "pr_auc_ci_high": 1.0
+    }
+  ],
+  "p4": [
+    {
+      "injection": "all_channel_offset_0.5sigma",
+      "score": "level",
+      "auroc": 0.9026388888888889,
+      "ci_low": 0.8723276909722222,
+      "ci_high": 0.9342078993055556,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_offset_0.5sigma",
+      "score": "relation",
+      "auroc": 0.6557638888888889,
+      "ci_low": 0.6333962673611111,
+      "ci_high": 0.6826046006944445,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_offset_1.0sigma",
+      "score": "level",
+      "auroc": 0.9752083333333333,
+      "ci_low": 0.9559756944444445,
+      "ci_high": 0.9920230034722222,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_offset_1.0sigma",
+      "score": "relation",
+      "auroc": 0.7976215277777777,
+      "ci_low": 0.7740954861111112,
+      "ci_high": 0.8243936631944446,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_offset_2.0sigma",
+      "score": "level",
+      "auroc": 1.0,
+      "ci_low": 0.9999999999999999,
+      "ci_high": 1.0,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_offset_2.0sigma",
+      "score": "relation",
+      "auroc": 0.9981423611111111,
+      "ci_low": 0.9936979166666667,
+      "ci_high": 1.0,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_scale_1.1",
+      "score": "level",
+      "auroc": 0.5819097222222221,
+      "ci_low": 0.572290798611111,
+      "ci_high": 0.5957326388888888,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_scale_1.1",
+      "score": "relation",
+      "auroc": 0.5684201388888889,
+      "ci_low": 0.5646345486111112,
+      "ci_high": 0.576650607638889,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_scale_1.3",
+      "score": "level",
+      "auroc": 0.7477083333333333,
+      "ci_low": 0.7234513888888889,
+      "ci_high": 0.7765568576388888,
+      "n_pairs": 240
+    },
+    {
+      "injection": "all_channel_scale_1.3",
+      "score": "relation",
+      "auroc": 0.6655034722222223,
+      "ci_low": 0.6563528645833333,
+      "ci_high": 0.6800065104166666,
+      "n_pairs": 240
+    },
+    {
+      "injection": "channel_shuffle_AI0_Vibration",
+      "score": "level",
+      "auroc": 0.6863368055555555,
+      "ci_low": 0.6557230902777778,
+      "ci_high": 0.7194288194444444,
+      "n_pairs": 240
+    },
+    {
+      "injection": "channel_shuffle_AI0_Vibration",
+      "score": "relation",
+      "auroc": 0.48368055555555556,
+      "ci_low": 0.46507725694444446,
+      "ci_high": 0.5032660590277778,
+      "n_pairs": 240
+    },
+    {
+      "injection": "channel_shuffle_AI1_Vibration",
+      "score": "level",
+      "auroc": 0.7729687499999999,
+      "ci_low": 0.7432565104166667,
+      "ci_high": 0.8083051215277777,
+      "n_pairs": 240
+    },
+    {
+      "injection": "channel_shuffle_AI1_Vibration",
+      "score": "relation",
+      "auroc": 0.48715277777777777,
+      "ci_low": 0.45503342013888887,
+      "ci_high": 0.5200026041666667,
+      "n_pairs": 240
+    },
+    {
+      "injection": "channel_shuffle_AI2_Current",
+      "score": "level",
+      "auroc": 0.7397048611111111,
+      "ci_low": 0.7099752604166667,
+      "ci_high": 0.7721597222222222,
+      "n_pairs": 240
+    },
+    {
+      "injection": "channel_shuffle_AI2_Current",
+      "score": "relation",
+      "auroc": 0.49979166666666663,
+      "ci_low": 0.4987669270833333,
+      "ci_high": 0.500642361111111,
+      "n_pairs": 240
+    }
+  ],
+  "p5": [
+    {
+      "alpha": 0.01,
+      "threshold": 9.197309470472687,
+      "rule": "1/1",
+      "normal_false_alarm_fraction": 0.016666666666666666,
+      "false_alarm_ci95": [
+        0.004166666666666667,
+        0.033437499999999905
+      ],
+      "false_alarm_events": 4,
+      "alarms_per_operating_hour": 17.91713325867861,
+      "alarms_per_hour_ci95": [
+        4.307753059559237,
+        38.62583751038384
+      ],
+      "chattering_transitions": 8,
+      "abnormal_segment_detection_fraction": 1.0,
+      "detection_ci95": [
+        1.0,
+        1.0
+      ],
+      "delay_segments_from_abnormal_start": 0,
+      "delay_seconds_from_abnormal_start": 0.0,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.01,
+      "threshold": 9.197309470472687,
+      "rule": "2/2",
+      "normal_false_alarm_fraction": 0.0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_events": 0,
+      "alarms_per_operating_hour": 0.0,
+      "alarms_per_hour_ci95": [
+        0.0,
+        0.0
+      ],
+      "chattering_transitions": 0,
+      "abnormal_segment_detection_fraction": 0.9523809523809523,
+      "detection_ci95": [
+        0.8571428571428571,
+        1.0
+      ],
+      "delay_segments_from_abnormal_start": 1,
+      "delay_seconds_from_abnormal_start": 8.781,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.01,
+      "threshold": 9.197309470472687,
+      "rule": "2/3",
+      "normal_false_alarm_fraction": 0.0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_events": 0,
+      "alarms_per_operating_hour": 0.0,
+      "alarms_per_hour_ci95": [
+        0.0,
+        0.0
+      ],
+      "chattering_transitions": 0,
+      "abnormal_segment_detection_fraction": 0.9047619047619048,
+      "detection_ci95": [
+        0.7619047619047619,
+        1.0
+      ],
+      "delay_segments_from_abnormal_start": 2,
+      "delay_seconds_from_abnormal_start": 15.672,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.01,
+      "threshold": 9.197309470472687,
+      "rule": "3/5",
+      "normal_false_alarm_fraction": 0.0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_events": 0,
+      "alarms_per_operating_hour": 0.0,
+      "alarms_per_hour_ci95": [
+        0.0,
+        0.0
+      ],
+      "chattering_transitions": 0,
+      "abnormal_segment_detection_fraction": 0.8095238095238095,
+      "detection_ci95": [
+        0.6190476190476191,
+        0.9523809523809523
+      ],
+      "delay_segments_from_abnormal_start": 4,
+      "delay_seconds_from_abnormal_start": 32.056,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.05,
+      "threshold": 6.569446938875538,
+      "rule": "1/1",
+      "normal_false_alarm_fraction": 0.041666666666666664,
+      "false_alarm_ci95": [
+        0.016666666666666666,
+        0.07083333333333333
+      ],
+      "false_alarm_events": 10,
+      "alarms_per_operating_hour": 44.79283314669653,
+      "alarms_per_hour_ci95": [
+        18.03655697122377,
+        76.88780866325081
+      ],
+      "chattering_transitions": 20,
+      "abnormal_segment_detection_fraction": 1.0,
+      "detection_ci95": [
+        1.0,
+        1.0
+      ],
+      "delay_segments_from_abnormal_start": 0,
+      "delay_seconds_from_abnormal_start": 0.0,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.05,
+      "threshold": 6.569446938875538,
+      "rule": "2/2",
+      "normal_false_alarm_fraction": 0.0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_events": 0,
+      "alarms_per_operating_hour": 0.0,
+      "alarms_per_hour_ci95": [
+        0.0,
+        0.0
+      ],
+      "chattering_transitions": 0,
+      "abnormal_segment_detection_fraction": 0.9523809523809523,
+      "detection_ci95": [
+        0.8571428571428571,
+        1.0
+      ],
+      "delay_segments_from_abnormal_start": 1,
+      "delay_seconds_from_abnormal_start": 8.781,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.05,
+      "threshold": 6.569446938875538,
+      "rule": "2/3",
+      "normal_false_alarm_fraction": 0.0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_events": 0,
+      "alarms_per_operating_hour": 0.0,
+      "alarms_per_hour_ci95": [
+        0.0,
+        0.0
+      ],
+      "chattering_transitions": 0,
+      "abnormal_segment_detection_fraction": 0.9047619047619048,
+      "detection_ci95": [
+        0.7619047619047619,
+        1.0
+      ],
+      "delay_segments_from_abnormal_start": 2,
+      "delay_seconds_from_abnormal_start": 15.672,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    },
+    {
+      "alpha": 0.05,
+      "threshold": 6.569446938875538,
+      "rule": "3/5",
+      "normal_false_alarm_fraction": 0.0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_events": 0,
+      "alarms_per_operating_hour": 0.0,
+      "alarms_per_hour_ci95": [
+        0.0,
+        0.0
+      ],
+      "chattering_transitions": 0,
+      "abnormal_segment_detection_fraction": 0.8095238095238095,
+      "detection_ci95": [
+        0.6190476190476191,
+        0.9523809523809523
+      ],
+      "delay_segments_from_abnormal_start": 4,
+      "delay_seconds_from_abnormal_start": 32.056,
+      "delay_ci95": [
+        null,
+        null
+      ]
+    }
+  ],
+  "warnings": {
+    "K3-a": "비해당",
+    "K3-b": "해당",
+    "K3-c": "비해당"
+  },
+  "warning_operands": {
+    "best_mean_std_auroc": 0.8716114158518166,
+    "best_normalized_auroc": 0.9988095238095238,
+    "combined_residual_auroc": 0.9073412698412698,
+    "best_shuffle_relation_auroc": 0.49979166666666663,
+    "segment_length_auroc": 0.5803322998648541
+  },
+  "limitations": [
+    "Candidate segments are defined by timestamp gaps, not verified press cycles.",
+    "Abnormal segments may belong to one recording session; segment CIs do not capture independent-failure uncertainty.",
+    "Normalized performance loss can reflect session shift or genuine fault-related level change.",
+    "No fault onset or return-to-normal timestamp is verified; release time is unmeasurable.",
+    "P1 score orientation uses both labels for diagnosis and is not a deployable classifier.",
+    "P5 detection delay is from abnormal file start; it is not validated early-warning lead time.",
+    "Channel shuffle interpolates donor segments when lengths differ; this also alters shape and autocorrelation.",
+    "Sequential chatter and one-session detection delay lack a defensible independent-event bootstrap CI."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "status": "ok",
+  "criteria": {
+    "K3-a": "비해당",
+    "K3-b": "해당",
+    "K3-c": "비해당"
+  },
+  "headline": "raw Mahalanobis AUROC 0.999 (95% CI 0.996–1.000); combined relation AUROC 0.907 (95% CI 0.788–1.000)",
+  "reason": null,
+  "sources": [
+    "3. 소성가공 예지보전 AI 데이터셋\\3. 소성가공 예지보전 AI 데이터셋\\outlier_data.csv",
+    "3. 소성가공 예지보전 AI 데이터셋\\3. 소성가공 예지보전 AI 데이터셋\\press_data_normal.csv"
+  ],
+  "warning_operands": {
+    "best_mean_std_auroc": 0.8716114158518166,
+    "best_normalized_auroc": 0.9988095238095238,
+    "combined_residual_auroc": 0.9073412698412698,
+    "best_shuffle_relation_auroc": 0.49979166666666663,
+    "segment_length_auroc": 0.5803322998648541
+  }
+}
