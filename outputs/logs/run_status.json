@@ -1,0 +1,283 @@
+{
+  "status": "completed_development",
+  "steps": {
+    "data": {
+      "seconds": 0.176,
+      "detail": {
+        "rows": 24672,
+        "historical_audit": {
+          "persistence": 27.731182795698924,
+          "lgb": 17.770141448807113,
+          "status": "verified_from_frozen_predictions",
+          "new_test_evaluation": false,
+          "note": "과거 저장 예측의 산술 재현이며 재학습 또는 신규 모델의 테스트 성능이 아님"
+        }
+      }
+    },
+    "development": {
+      "seconds": 1.038,
+      "detail": {
+        "cache": "verified"
+      }
+    },
+    "final": {
+      "seconds": 0.003,
+      "detail": {
+        "status": "date_locked",
+        "not_before": "2026-10-01T18:00:00+09:00",
+        "note": "No holdout evaluation performed"
+      }
+    },
+    "analysis": {
+      "seconds": 144.19,
+      "detail": {
+        "scope": "development_oof",
+        "selected_models": {
+          "1": "p1_latest",
+          "4": "lgbm_no_holiday_weight_2",
+          "16": "c3_holiday_hybrid",
+          "96": "c3_holiday_hybrid"
+        },
+        "horizon_curve": {
+          "status": "ok",
+          "paths": {
+            "table": "outputs\\tables\\horizon_curve.csv",
+            "advantage": "outputs\\tables\\horizon_advantage.csv",
+            "figure": "outputs\\figures\\horizon_curve.png"
+          },
+          "maximum_horizon_minutes_beating_baseline_ci": {
+            "persistence": 60,
+            "seasonal": 60
+          },
+          "development_comparator_maximum_horizon_minutes_beating_baseline_ci": {
+            "cbl": 15,
+            "persistence": 240,
+            "seasonal": 15
+          }
+        },
+        "errors": {
+          "paths": {
+            "conditions": "outputs\\tables\\error_conditions.csv",
+            "episodes": "outputs\\tables\\error_episodes.csv",
+            "evening_details": "outputs\\tables\\evening_episode_details.csv",
+            "evening_comparison": "outputs\\tables\\evening_episode_comparison.csv",
+            "evening_cases_figure": "outputs\\figures\\evening_missed_cases.png"
+          },
+          "evening_fn": 7,
+          "evening_tp": 11,
+          "warning": "조건별 비교는 탐색적 사후 분석이며 교대 및 인과 효과를 뜻하지 않습니다."
+        },
+        "energy_baseline": {
+          "status": "ok",
+          "paths": {
+            "peak_types": "outputs\\tables\\peak_types.csv",
+            "peak_type_summary": "outputs\\tables\\peak_type_summary.csv",
+            "energy_intensity_proxy": "outputs\\tables\\energy_intensity_proxy.csv",
+            "base_load_proxy": "outputs\\tables\\base_load_proxy.csv"
+          },
+          "production_coefficient_per_hour": 0.09784500921945272,
+          "train_end": "2021-03-15 12:00:00",
+          "warning": "동시각 생산량과 실측 기상을 사용한 사후 설명 모형입니다. 생산량 4등분 및 SEC는 단위 미확인 대리 지표이며 인과 효과가 아닙니다."
+        },
+        "tariff": {
+          "status": "ok",
+          "paths": {
+            "tariff_detail": "outputs\\tables\\tariff_counterfactual_detail.csv",
+            "tariff_summary": "outputs\\tables\\tariff_counterfactual_summary.csv"
+          },
+          "weight_basis": "illustrative_ordinal_scenario_with_official_discount",
+          "winter_schedule_confirmed": false,
+          "warning": "2021 관측에 2026 요금 시간대를 적용한 반사실적 분류입니다. 미확인 단가 대신 순서 가중치를 쓰면 금액과 절감액으로 해석할 수 없습니다. 2026 겨울 시간대는 원문 확인 전 추정값으로 별도 표시됩니다."
+        },
+        "alerting": {
+          "status": "ok",
+          "paths": {
+            "decision_feed": "outputs\\predictions\\decision_feed.csv",
+            "alert_rules": "outputs\\tables\\alert_rules.csv"
+          },
+          "warning": "OOF 개발구간의 경보 정책 비교입니다."
+        },
+        "decision": {
+          "status": "ok",
+          "path": "outputs\\tables\\relative_economic_value.csv",
+          "warning": "C/L은 가정한 무차원 비용비이며 실제 요금이나 절감액이 아닙니다."
+        },
+        "supplemental": {
+          "reliability": {
+            "status": "ok",
+            "n": 7551,
+            "events": 425,
+            "event_rate": 0.05628393590252947,
+            "brier": 0.02900980426910916,
+            "pr_auc": 0.7093210424320526,
+            "binning": "fixed_equal_width_10",
+            "ci_method": "target_date_block_bootstrap"
+          },
+          "scope": "development_oof",
+          "reliability_table": "outputs\\tables\\probability_reliability.csv",
+          "reliability_figure": "outputs\\figures\\F2_probability_reliability.png",
+          "expected_exceedance": {
+            "status": "ok",
+            "episodes": 148,
+            "evaluated_episodes": 148,
+            "mean_signed_error": -7.490824834227691,
+            "mean_signed_error_ci95": [
+              -9.336712334084442,
+              -5.674496756629085
+            ],
+            "mae": 7.962808004189939,
+            "mae_ci95": [
+              6.118309561800286,
+              9.770562320521341
+            ],
+            "spearman": 0.6731289083119373,
+            "interpretation": "Observed peak episodes only; maximum pointwise expected excess is a proxy, not calibrated episode-maximum expectation."
+          },
+          "expected_exceedance_episodes": "outputs\\tables\\expected_exceedance_episodes.csv",
+          "expected_exceedance_summary": "outputs\\tables\\expected_exceedance_summary.csv",
+          "decision_flow_figure": "outputs\\figures\\F4-1_forecast_alert_action.png"
+        },
+        "shift": {
+          "status": "ok",
+          "paths": {
+            "shift_actions": "outputs\\tables\\shift_actions.csv",
+            "shift_summary": "outputs\\tables\\shift_summary.csv"
+          },
+          "time_feasible_actions": 0,
+          "no_future_low_band_window": 396,
+          "warning": "사후 관측 생산량으로 계산한 가상 시나리오이며 설비 제약, 실제 이동 가능성 및 인과 효과는 검증되지 않았습니다. 오후 경보는 이미 지난 11~15시로 이동할 수 없습니다."
+        },
+        "applicability": {
+          "status": "ok",
+          "path": "outputs\\tables\\applicability_distance.csv",
+          "train_distance_p95": 0.17383425839375793,
+          "oof_fraction_beyond_p95": 0.23122765196662692,
+          "warning": "거리 계산은 관측 가능한 일부 특징의 개발구간 진단입니다. 12월 미관측의 외삽 위험을 직접 입증하거나 제거하지 않습니다."
+        },
+        "importance": {
+          "status": "ok",
+          "paths": {
+            "detail": "outputs\\tables\\permutation_importance_detail.csv",
+            "top10": "outputs\\tables\\permutation_importance_top10.csv"
+          },
+          "attribution_models": [
+            {
+              "horizon": 16,
+              "model": "lgbm_no_holiday",
+              "selected_model": "c3_holiday_hybrid",
+              "attribution_role": "development_comparator_not_selected"
+            },
+            {
+              "horizon": 1,
+              "model": "lgbm_no_holiday",
+              "selected_model": "p1_latest",
+              "attribution_role": "development_comparator_not_selected"
+            },
+            {
+              "horizon": 4,
+              "model": "lgbm_no_holiday_weight_2",
+              "selected_model": "lgbm_no_holiday_weight_2",
+              "attribution_role": "selected_point_model"
+            },
+            {
+              "horizon": 96,
+              "model": "lgbm_no_holiday",
+              "selected_model": "c3_holiday_hybrid",
+              "attribution_role": "development_comparator_not_selected"
+            }
+          ],
+          "warning": "검증 폴드 순열 중요도는 연관된 특징의 예측 기여 진단이며 인과 중요도가 아닙니다."
+        },
+        "figures": {
+          "condition_heatmap": "outputs\\figures\\condition_fn_fp_heatmap.png",
+          "rev_curve": "outputs\\figures\\relative_economic_value.png",
+          "peak_types": "outputs\\figures\\peak_type_distribution.png",
+          "alert_rules": "outputs\\figures\\alert_rule_tradeoff.png",
+          "importance": "outputs\\figures\\horizon_importance.png",
+          "tariff_comparison": "outputs\\figures\\tariff_counterfactual.png",
+          "shift_scenario": "outputs\\figures\\shift_scenario.png"
+        },
+        "summary_path": "outputs\\logs\\analysis_summary.json"
+      }
+    },
+    "report": {
+      "seconds": 31.847,
+      "detail": {
+        "chapters": [
+          "report/ch1_data.md",
+          "report/ch2_model.md",
+          "report/ch3_errors.md",
+          "report/ch4_field.md",
+          "report/ch5_novelty.md",
+          "report/ch6_repro.md"
+        ],
+        "roadmap": "docs/roadmap.html",
+        "slides": {
+          "html": "slides/development_deck.html",
+          "speaker_notes": "slides/speaker_notes.md",
+          "slides": 14
+        },
+        "scope": "development_draft"
+      }
+    },
+    "package": {
+      "seconds": 1.8,
+      "detail": {
+        "path": "submission/source/task05_development_reproduction.zip",
+        "sha256": "1f8482dde0c80c1b31745be50241c69274e05e1ecbe578d8f742a812568c1678",
+        "files": 209,
+        "bytes": 19604966,
+        "status": "development_reproduction_only",
+        "blind_scan": "review_required"
+      }
+    }
+  },
+  "holdout": "locked",
+  "fingerprint": {
+    "requirements.txt": "b18b7c772f3c4c709f98521872561aac94b106e845942a77f02abbaff93e30f9",
+    "eval_protocol.md": "1849bdf568d1d15d302713f2a5e11ac5fd04f041d8b656cdde4cc3ad9209bcaf",
+    "outputs/logs/adoption_criteria.md": "96d295770df82e736d059495a11a48ba8f1e1b09da59a24520326b3e2a5dc5df",
+    "run_all.py": "a082f09b05e47e0a915fed098432a387ac2ad5a2c50018291e009fde03263322",
+    "src/__init__.py": "a1db1b068fd28304db9042fbebb855fed77307b456929c79fe7000bca38ed87e",
+    "src/analysis/__init__.py": "46941c4570d4615bdd181b144047caf3ef29cf7679e2b95584253b6817d613e6",
+    "src/analysis/_common.py": "28ae6e3d3585bed35fc5c7e1083b33e83b3b8e0d5528c6e51f989734128381ec",
+    "src/analysis/alerting.py": "380d5fc15fb8135f46bf633c7f5cfb372e4bc27efa90daecd40d374e18894c0a",
+    "src/analysis/applicability.py": "ff81ad1eec01d02dada7ed2c2d1c0b3a7359c8c1e4915b7c74c5b6648d123d07",
+    "src/analysis/decision.py": "8a012426225c43cdfd812467289c8e7368667b4bbdeb238cf4672e2ff4f3935c",
+    "src/analysis/energy_baseline.py": "2569c7155ca622c7a3689fefd1309550537494cdb6f93a14c8099dd4c5878ac0",
+    "src/analysis/errors.py": "2f874bccf08789f45e5e3a2dedff6fdd4ad40e61143e187022c4ed3b9b365849",
+    "src/analysis/horizon_curve.py": "662264f51024e7e0acd7f148c4c03bc205d7d5b8a4f93b9822fca357714a37fd",
+    "src/analysis/importance.py": "dd42ad998eae2c9676edb5c3a80b2bd1b5fe70ea6853e9ca838cd1dbd138d644",
+    "src/analysis/pipeline.py": "4912fd9d2607d96ab4d2f6a2038f84aadccbf671d2919bd5f1859c42bfe4f971",
+    "src/analysis/simulate_shift.py": "b0f92b83b17320fbcb478f0f117ce986d64cd1d944a196cf5f4e3fda70640be4",
+    "src/analysis/supplemental.py": "5bed732f6590b2db99fe60710231025106ab9f749c854f539b0941ec80bd08d2",
+    "src/analysis/tariff.py": "e529e061d1d442aa0523b58dbca8007b39f9a3cce9c2ba6db116bce68f503473",
+    "src/bootstrap.py": "1cca328b5dbc7f219eb7e50ad9436706e9036e9d79ce430a835bd06b1c41e755",
+    "src/data.py": "0fad75e60482f60ef42c571f3dc39ace515e89afc0fe15138a7feddd68c91631",
+    "src/evaluate.py": "fb4d25ca78b341ac39f3990e21e90988927a0d835fb829ce944da42081412637",
+    "src/features.py": "aa6e359e681861960608160921a909949ecb98910f3ef653a09f83850596e32a",
+    "src/finalize.py": "fb9bf049b2eb183ffcf71f052ac5d8689625e1de51b33c3ec0572ecb3f9817b5",
+    "src/holidays.py": "7a867876f471dd57343b574936c609b8286c62c130607dd6b86db88aecc19d5c",
+    "src/model_reporting.py": "b495048d393706887a58e4b75d3a4b84bf0f39d6f0fead9df61448d270b54972",
+    "src/models/__init__.py": "1906a3639c5632fe0c2d99bb5201319714f77bdb71b86d1e771fe4fcdee734d8",
+    "src/models/baselines.py": "0dbb1f7d18ad3b2c6957be072ad2d1691527538db15bdbfbef419966c661740d",
+    "src/models/cbl.py": "5674d1a1c34f310680b8e05d03a6848c10522014ea6e7faaaa7ae6ef30b4cc3d",
+    "src/models/conformal.py": "301a8d67701c10b91755e397db1d90b7f3c36e706a686c76cace4196b40e7e6a",
+    "src/models/expected_exceedance.py": "28446abd70701f0187845011ec552900119220d987a47c4fe350819be3c70106",
+    "src/models/lgbm_point.py": "bcfaa188afdeb43c8d8171debed6965dde64f2b36eb3c88f414c4bf262cb3560",
+    "src/models/lgbm_quantile.py": "f800e66ad2bdd07a3c41045eeffcdf73ea0e240094c08e96eb3c8382c83d8805",
+    "src/models/peak_prob.py": "45ed4f11734bf248f6d04ca424934c34d7885c9bcbd40482a3729d23ae4820b8",
+    "src/packaging.py": "d1ed79f13881228f0e300fb2d0bf00e278ebb32dbef3478a97e5acc73c9d7717",
+    "src/reporting.py": "b7c878a09128682d7f9c963312b986e417606050047e6ea30f86a9875f366d7b",
+    "src/split.py": "05fd019cf2399e6f9940617e552e7a827cb3eaa87a5e6180e0a3fa7e1dd1d9bb",
+    "src/targets.py": "ff97de3c152a699b1a0cbea046b5eb16430b71144084f5363b95382f66c3cfa4",
+    "src/training.py": "403c11b01e4ea7b640abf7aa516b1ed538dec62edc4a12501e55963e12ed1b17",
+    "src/viz.py": "feb61f0c41e11ea1190f532ad9ada13a074bab4a9463c5c5813de995d71e2491",
+    "src/workflow.py": "8f7cdbc405a8e6de343661b3ec9aa20a20e00d42a68c6598abeb8d72725bf03e",
+    "configs/default.yaml": "493730657f943ed2822e5245d9f566123aacb173a3eefae743511da35c4db6cc",
+    "configs/tariff_2021.yaml": "6b0c88df9d96831c9a8fa5865d9262dd231598b4c1cfd61a387c79a5aeb64674",
+    "configs/tariff_2026.yaml": "b546e9ac2af3a24d1ade2ebd33b8a4c37d14f6f8c5eb0ea355201a2eb3701554",
+    "data/raw/task05_power/okm_augumented_2021.csv": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830"
+  },
+  "seconds": 179.091
+}

@@ -1,0 +1,7 @@
+﻿tariff_year,band,basis,missed_weight_metric,n,mae,missed_peak_n,evening_18_21_n,unverified_winter_n,weighted_abs_error_share,weighted_missed_peak_share,evening_weighted_missed_share
+2021,mid_peak,illustrative_ordinal_scenario,excess_above_tau_times_band_weight,2420,7.318481808628783,6,804,0,0.3416147729046745,0.21336459554513482,0.0
+2021,off_peak,illustrative_ordinal_scenario,excess_above_tau_times_band_weight,3854,8.304484441585567,19,156,0,0.30867017630893634,0.36811254396248533,0.0
+2021,peak,illustrative_ordinal_scenario,excess_above_tau_times_band_weight,1277,9.465245607740528,17,0,0,0.3497150507863891,0.41852286049237986,0.0
+2026,mid_peak,illustrative_ordinal_scenario_with_official_discount,excess_above_tau_times_band_weight,2382,9.269350578706316,35,144,0,0.40463742626732513,0.9157792836398838,0.0
+2026,off_peak,illustrative_ordinal_scenario_with_official_discount,excess_above_tau_times_band_weight,3861,7.030518642954789,3,156,0,0.24826608952885712,0.031945788964181994,0.0
+2026,peak,illustrative_ordinal_scenario_with_official_discount,excess_above_tau_times_band_weight,1308,9.616897627607187,4,660,0,0.3470964842038177,0.05227492739593417,0.0

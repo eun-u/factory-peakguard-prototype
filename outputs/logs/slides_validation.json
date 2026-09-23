@@ -1,0 +1,119 @@
+{
+  "status": "visually_verified",
+  "pdf": "slides/development_deck.pdf",
+  "pages": 14,
+  "slides": [
+    {
+      "page": 1,
+      "title": "1시간 앞의 15분 피크를 예측합니다",
+      "overflow": [],
+      "pdf_text_characters": 216
+    },
+    {
+      "page": 2,
+      "title": "원자료 6,168시간을 15분 24,672개로 전개",
+      "overflow": [],
+      "pdf_text_characters": 245
+    },
+    {
+      "page": 3,
+      "title": "예측 시점 이후의 정보는 입력하지 않았습니다",
+      "overflow": [],
+      "pdf_text_characters": 221
+    },
+    {
+      "page": 4,
+      "title": "예측거리마다 같은 모델을 강요하지 않았습니다",
+      "overflow": [],
+      "pdf_text_characters": 226
+    },
+    {
+      "page": 5,
+      "title": "1시간 피크 MAE: 지속모델보다 개선, CBL 우위는 불확실",
+      "overflow": [],
+      "pdf_text_characters": 257
+    },
+    {
+      "page": 6,
+      "title": "기법의 부가가치는 단계별로 검증했습니다",
+      "overflow": [],
+      "pdf_text_characters": 290
+    },
+    {
+      "page": 7,
+      "title": "상위 예측구간 q95 실제 커버리지 92.9%",
+      "overflow": [],
+      "pdf_text_characters": 220
+    },
+    {
+      "page": 8,
+      "title": "멀리 볼수록 피크 MAE가 커집니다",
+      "overflow": [],
+      "pdf_text_characters": 211
+    },
+    {
+      "page": 9,
+      "title": "저녁 미탐 7건 중 5건은 일대일 매칭의 결과",
+      "overflow": [],
+      "pdf_text_characters": 219
+    },
+    {
+      "page": 10,
+      "title": "피크 148건 중 147건은 기준선 초과 잔차형",
+      "overflow": [],
+      "pdf_text_characters": 208
+    },
+    {
+      "page": 11,
+      "title": "조치 비용 가정에 따라 경보 가치가 달라집니다",
+      "overflow": [],
+      "pdf_text_characters": 231
+    },
+    {
+      "page": 12,
+      "title": "2026 시간대 재분류의 결과는 ‘상대 가중’입니다",
+      "overflow": [],
+      "pdf_text_characters": 326
+    },
+    {
+      "page": 13,
+      "title": "같은 날 낮으로의 사후 이동은 실행 불가",
+      "overflow": [],
+      "pdf_text_characters": 214
+    },
+    {
+      "page": 14,
+      "title": "최종 판단은 동결 후 한 번의 테스트가 결정합니다",
+      "overflow": [],
+      "pdf_text_characters": 315
+    }
+  ],
+  "pptx": "not_generated_runtime_unavailable",
+  "visual_review_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "pdf_sha256": "d0700e799b6327c9ca4124e5791371f7dde203eab4c5decc3072ac03fc2b81ac",
+  "html_sha256": "b10e136dddfcd2e76b5ea29e97f2d1e99955ba24bfb5968ea5244cd0ef4985dd",
+  "checks": [
+    "all_pages_rendered_and_reviewed",
+    "header_index_clearance",
+    "body_takeaway_clearance",
+    "footer_clearance",
+    "no_outer_overflow",
+    "development_only_metrics",
+    "tariff_assumption_visible"
+  ]
+}

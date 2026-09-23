@@ -1,0 +1,9 @@
+﻿{
+    "task_name":  "FactoryPeakguard-Task05-Freeze-20261001",
+    "state":  "Ready",
+    "scheduled_kst":  "2026-10-01T18:00:00.0000000+09:00",
+    "interactive_logon_required":  true,
+    "start_when_available":  true,
+    "execution_completed":  false,
+    "note":  "PC must be available. If interactive_logon_required is true, this Windows user must be logged on. Python date and one-time lock remain authoritative."
+}

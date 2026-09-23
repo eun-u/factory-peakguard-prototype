@@ -1,40 +1,88 @@
-# 제6회 K-인공지능 제조데이터 분석 경진대회 · 과제 ⑤
+# 과제 ⑤ 전력사용량 예측 및 최대피크 위험조건 분석
 
-선택 과제는 **⑤ 제조 생산데이터 기반 전력사용량 예측 및 최대피크 위험조건 분석**이다. 이 저장소는 원본 자료, 사전 타당성 검증, 화면 시제품, 제출 준비물을 서로 구분해 관리한다. 현재 시제품과 사전 검증 결과는 최종 제출 모델이나 실제 전력요금 절감의 증거가 아니다.
+15분 전력의 피크·초과 크기·불확실성을 개발 교차검증으로 비교하고 CBL 기준선과 운영 시나리오를 분석한다.
+**2026-09-24 체크포인트는 개발 결과이며 최종 테스트는 2026-10-01 18:00 KST까지 잠겨 있다.** 최신 상태는 `outputs/logs/run_status.json`을 따른다.
 
-## 폴더 안내
+[로드맵 HTML](docs/roadmap.html) · [설계](PROJECT_DESIGN.md) · [결정](DECISIONS.md) · [진행](PROGRESS.md) · [보고서](report/REPORT_DRAFT.md) · [인계](submission/HANDOFF.md)
 
-| 경로 | 역할 |
-| :-- | :-- |
-| docs/official/ | 대회 공문 원본. 과제 문구, 평가표, 제출 형식의 기준 |
-| docs/decisions/ | ⑤ 선택에 관한 내부 의사결정 기록. 제출물 아님 |
-| data/raw/task05_power/ | 선택 과제의 원본 CSV와 원본 ZIP 사본 |
-| data/raw/task02_welding/, data/raw/task03_press/ | 과제 비교에 사용한 원본 자료 |
-| data/README.md | 원본 파일의 이전·현재 경로와 SHA-256 대응표 |
-| verification/ | ②·③·⑤ 사전 타당성 검증 코드와 당시 결과 스냅샷 |
-| prototype/ | ⑤의 과거 시점 전력예측 화면 시제품과 테스트 |
-| solution/ | 향후 ⑤ 제출용 학습·추론 구현 공간. 아직 최종 모델 없음 |
-| submission/ | 공문에 맞춘 제출물 준비 안내. 완성된 제출물은 아직 없음 |
+전체 문서의 역할과 생성 규칙은 [문서 안내](docs/INDEX.md)에 정리했다.
 
-원본 자료는 변경하지 않는다. data/raw/는 Git에서 제외하며, 필요한 팀원에게 원본을 별도로 전달한다. 기존 verification/results/의 보고서에는 재편 이전 원본 경로가 남아 있다. 이는 당시 실행 기록으로 보존했고, 새 경로는 data/README.md에서 확인한다.
+개발1시간 피크 MAE는 선정14.44·CBL18.26·persistence34.26이다. CBL 대비 개선95% CI가0을 포함하여 필수 성공 목표는 미입증이다.
+상위 q95 커버리지는92.9%이며 부족 폭과 폴드별 실패를 보고한다. 자동 테스트45개, 캐시 없는 독립 실행26분52초와 수치 일치를 검증했다([재현 기록](outputs/logs/fresh_reproduction.json)).
 
-## 현재 상태
+## 설치와 실행
 
-- ⑤의 1시간 후 15분 전력값 예측과 피크 사건을 사전 검증했다. 계절 나이브, persistence, LightGBM 비교는 [05b 보고서](verification/results/05b_report.md)에 있다.
-- ②·③·⑤의 데이터가 뒷받침하는 주장 범위는 [비교 보고서](verification/results/comparison_2_3_5.md)에 남겼다. 과제 선택은 ⑤로 확정했지만 이 비교 결과를 수상 우열로 해석하지 않는다.
-- [화면 시제품](prototype/README.md)은 과거 시점의 예측·불확실성·운영자 검토 상태를 확인하는 용도다. 제출용 학습·추론 파이프라인은 별도로 확정해야 한다.
+Python3.14 CPU 환경. 대회 CSV를 `data/raw/task05_power/okm_augumented_2021.csv`에 둔다.
+SHA-256: `8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830`.
+원자료는 공개 Git에서 제외하며 로컬 개발 재현ZIP에는 학습 CSV가 들어 있다.
 
-## 실행
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-pipeline.lock.txt
+.\.venv\Scripts\python.exe run_all.py
+```
 
-저장소 루트에서 Python 3.13과 프로젝트 가상환경을 사용한다.
+가상환경 활성화 후에는 `python run_all.py` 한 줄이다.
+검증 환경은 Windows·Python3.14이며 lock 파일은 실제 재현 실행에 사용한 버전을 고정한다.
+`requirements.txt`는 직접 의존성, `requirements-pipeline.lock.txt`는 전이 의존성까지 포함한 이번 결과의 설치 기준이다.
+data→development→final 날짜검사→analysis→report→package 순서로 실행한다.
+특징·기준선·점예측·분위수·위험·선정은 development 엔진에서 처리한다.
 
-    py -3.13 -m venv .venv
-    .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-    .\.venv\Scripts\python.exe -m streamlit run prototype/app.py --server.address 127.0.0.1
-    .\.venv\Scripts\python.exe -m unittest discover -s prototype/tests -v
+```powershell
+python -m pytest tests -q
+python run_all.py --only data
+python run_all.py --from analysis
+python run_all.py --only final
+python run_all.py --rebuild-dev
+```
 
-검증 스크립트의 별도 의존성은 verification/requirements.txt에 고정했다. 이전 결과 파일을 유지할 때는 verification/run_all.py를 이 작업 폴더에서 재실행하지 않는다. 이 스크립트는 기존 결과 스냅샷을 덮어쓴다.
+`--only`/`--from`은 `data`, `development`, `final`, `analysis`, `report`, `package`를 받는다.
+코드·설정·원본·기준 및 저장된 예측·표·모델 해시가 같은 개발 캐시만 재사용한다. 날짜 잠금 전 final은 테스트를 열지 않는다.
+CPU30분은 목표이며 실제 시간과 상태는 `outputs/logs/run_status.json`을 따른다.
 
-## 공문과 제출
+현재 작업 PC에는 `FactoryPeakguard-Task05-Freeze-20261001` 예약 작업을 등록했다.
+10월1일18시 KST 이후 `.venv`로 `run_all.py --from final`을 실행해 최종 평가·분석·보고서·ZIP을 갱신한다.
+PC가 사용 가능하고 해당 Windows 사용자가 로그인한 상태여야 하며, 놓친 시각은 다음 사용 가능 시점에 실행한다.
+등록 상태는 `outputs/logs/scheduled_freeze.json`, 실행 로그는 `outputs/logs/scheduled_freeze.log`다.
+다른 PC에서 재등록하려면 `powershell -NoProfile -File scripts/register_freeze_task.ps1`을 사용한다.
+완료된 테스트는 해시가 같은 결과만 재사용하고, 중단된 예약은 자동 재평가하지 않는다.
+동결 완료 뒤 개발 캐시 재생성과 모델 재선정을 거부한다.
 
-[공문 원본](<docs/official/제6회 K-인공지능 제조데이터 분석 경진대회 과제공개(일반국민,대학(원)생) (1).hwpx>)에 적힌 제출 기한은 **2026년 10월 8일 23:59**다. 공문은 보고서 PDF, 소스코드 ZIP, 발표자료 PDF·PPT, 설문 완료 화면을 요구하며 모든 제출물에서 소속·로고 등 참가자 식별정보를 금지한다. 상세 파일 구성은 [제출 안내](submission/README.md)에 정리했다. 이후 공지 변경 여부는 제출 전에 공식 포털에서 다시 확인해야 한다.
+## 구조와 산출물
+
+| 위치 | 내용 |
+| --- | --- |
+| configs/ | 기본설정·요금시간대·검증해시 |
+| src/, tests/ | 데이터·모델·분석·실행·검증 |
+| outputs/predictions/development_oof.csv | 개발 평가 예측, 테스트 아님 |
+| outputs/tables/development_cv.csv | 모델·폴드·거리 성능 |
+| outputs/logs/development_selection.json | 채택·선정 증거 |
+| outputs/tables/t2_development_cv.csv | 익일 최대 보조과제 |
+| outputs/figures/ | 한국어 그림 |
+| report/, slides/ | 보고서1~6장·14장 발표 HTML/PDF·발표자 메모 |
+| docs/roadmap.html | 제공 로드맵을 갱신한 문서 |
+| submission/source/ | 개발 재현ZIP·해시 |
+| verification/ | 동결된 과거 사전검증 |
+| prototype/ | 기존 Streamlit 시제품 |
+
+HTML: `python -m http.server 8765 --bind 127.0.0.1` 후 `/docs/roadmap.html`.
+선택 화면검증: `pip install playwright`, `python -m playwright install chromium`, `python scripts/qa_roadmap.py`.
+
+보고서 단계는 표·그림에서 `slides/development_deck.html`과 `slides/speaker_notes.md`도 생성한다.
+발표 PDF는 선택 도구로 `pip install -r requirements-artifacts.txt`, `python -m playwright install chromium`,
+`python scripts/export_slides.py`를 실행한다. PDF 생성은 모델 재현에 필요한 의존성이 아니다.
+14장·16:9·텍스트 보존·페이지 밖 넘침을 검사하며 렌더링 검토 기록은 `outputs/logs/slides_validation.json`이다.
+PPTX는 지정 제작 런타임 부재로 미생성이다. 발표 HTML 원본과 PDF 초안은 최종 테스트 수치를 포함하지 않는다.
+
+## 해석과 제출 경계
+
+원점은 구간 종료 직후이며 관측시각≤원점이다. 미래 생산·실측기상·인원·같은 시간 평균전력은 예측에서 제외한다.
+시간복원48행과 의존 특징·목표를 제외하고0값은 유지한다. CBL 참고값도 원점에 가용해야 한다.
+전력 단위·구간경계는 미확인 가정이다. 원화절감·인과효과·계절일반화를 주장하지 않는다.
+CBL은15분 준용이며 공식 DR정산의 완전 복제가 아니다. 요금단가 공란, 순서가중은 가정이다.
+저녁 경보 뒤 지난 낮으로 이동하는 계산을 실행 가능한 절감으로 표시하지 않는다.
+사전검증 테스트1회 열람을 공개하며 새 모델 선택은 개발구간만 사용한다.
+
+개발ZIP은 최종 블라인드 제출물과 다르다. 동결 증거의 과거 경로를 보존하고 검사 결과를 별도로 제공한다.
+설문은 본인 응답이 필요하며 완료 캡처를 대신 만들지 않는다. 10/5~6에 hwpx서식·PDF를 인계한다.
+발표 PDF 초안과 보고서 제출 PDF를 구분한다. 발표PPTX·최종예측·보고서hwpx/PDF·포털완료증거는 아직 미완료다.

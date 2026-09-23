@@ -3,3 +3,15 @@ __pycache__/
 .pytest_cache/
 .streamlit/secrets.toml
 data/raw/
+data/processed/
+outputs/models/
+outputs/predictions/
+outputs/logs/*cache.json
+outputs/logs/ui_*.png
+outputs/logs/claude_review.json
+outputs/logs/*.log
+outputs/logs/slides_qa/
+outputs/logs/*smoke*/
+submission/source/*.zip
+_validation/
+outputs/smoke*/

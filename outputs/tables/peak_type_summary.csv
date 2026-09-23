@@ -1,0 +1,3 @@
+﻿type,episodes,share,share_ci_low,share_ci_high,median_hour
+excess_residual,147,0.9932432432432432,0.9769186046511628,1.0,12.0
+production_explained,1,0.006756756756756757,0.0,0.023081395348837207,13.0

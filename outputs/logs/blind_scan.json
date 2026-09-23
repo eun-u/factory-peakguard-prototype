@@ -1,0 +1,9 @@
+{
+  "status": "review_required",
+  "findings": [],
+  "historical_provenance_paths": [
+    "verification/common.py",
+    "verification/t2_weld.py"
+  ],
+  "note": "Source archive preserves historical evidence; blind submission and document metadata review remain separate."
+}
