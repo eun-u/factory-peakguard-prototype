@@ -38,17 +38,23 @@ Q = (0.1, 0.5, 0.9, 0.95)
 
 
 def locate_source() -> Path:
-    """Identify the power CSV by its schema instead of relying on its filename."""
-    for path in ROOT.rglob("*.csv"):
-        if OUT in path.parents:
-            continue
+    """Identify the power CSV by schema within the canonical task ⑤ raw folder."""
+    source_dir = ROOT / "data" / "raw" / "task05_power"
+    if not source_dir.is_dir():
+        raise FileNotFoundError(f"Task ⑤ raw data directory is missing: {source_dir}")
+    matches = []
+    for path in source_dir.rglob("*.csv"):
         try:
             columns = pd.read_csv(path, nrows=0, encoding="utf-8-sig").columns
         except (UnicodeError, pd.errors.ParserError):
             continue
         if {"날짜", "시간", "15분", "30분", "45분", "60분"}.issubset(columns):
-            return path
-    raise FileNotFoundError("No CSV with the task ⑤ date/hour/four power columns")
+            matches.append(path)
+    if len(matches) != 1:
+        raise FileNotFoundError(
+            f"Expected one task ⑤ CSV with date/hour/four power columns, found {len(matches)}"
+        )
+    return matches[0]
 
 
 def load_series() -> tuple[pd.DataFrame, pd.DataFrame, dict]:

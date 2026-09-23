@@ -90,7 +90,10 @@ def _discover():
     """Use schema plus a binary label or class-specific filename; never infer a class from level."""
     candidates = []
     rejected = []
-    for path in sorted(ROOT.rglob("*")):
+    source_dir = ROOT / "data" / "raw" / "task03_press"
+    if not source_dir.is_dir():
+        raise FileNotFoundError(f"Task ③ raw data directory is missing: {source_dir}")
+    for path in sorted(source_dir.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in (".csv", ".parquet", ".xlsx", ".xls"):
             continue
         if any(p in (".venv", ".git", "verification", "__pycache__") for p in path.parts):

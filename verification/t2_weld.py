@@ -220,10 +220,12 @@ def _write_comparison(counts: dict[str, object], k2_a: str) -> None:
 
 def main() -> Path:
     RESULTS.mkdir(parents=True, exist_ok=True)
+    source_dir = ROOT / "data" / "raw" / "task02_welding"
+    if not source_dir.is_dir():
+        raise FileNotFoundError(f"Task ② raw data directory is missing: {source_dir}")
     source_files = sorted(
-        path for path in ROOT.rglob("*")
+        path for path in source_dir.rglob("*")
         if path.is_file()
-        and "2. 용접기 AI 데이터셋" in path.relative_to(ROOT).parts
         and path.suffix.lower() in {".xlsx", ".csv", ".pdf", ".hwp", ".hwpx", ".txt", ".md"}
     )
     workbook_files = [p for p in source_files if p.suffix.lower() == ".xlsx"]

@@ -1,0 +1,1 @@
+"""Power peak forecasting prototype."""
