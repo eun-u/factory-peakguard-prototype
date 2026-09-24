@@ -54,6 +54,52 @@ def _write_lock(path, record):
     temporary.replace(path)
 
 
+def _fit_selected_point(x, y, fit, stop, cal, target, tau, cfg, params,
+                        selected, baselines=None, baseline_name=None):
+    """Prepare the chosen point model; residual targets stay in residual units."""
+    residual = selected == "lgbm_residual_cbl"
+    cols = [col for col in x.columns
+            if not ((residual or "no_holiday" in selected) and col in HOLIDAY_COLUMNS)]
+    work = x.copy()
+    if residual:
+        if baselines is None or baseline_name not in baselines:
+            raise ValueError("Selected residual model requires its frozen CBL representative")
+        base = baselines[baseline_name].reindex(x.index)
+        work["residual_baseline"] = base
+        cols.append("residual_baseline")
+        fit, stop, cal = (part[np.isfinite(base.reindex(part).to_numpy(dtype=float))]
+                          for part in (fit, stop, cal))
+        if min(map(len, (fit, stop, cal))) < 30:
+            raise ValueError("Insufficient finite CBL rows for frozen residual model")
+        train_y = y.loc[fit] - base.loc[fit]
+        stop_y = y.loc[stop] - base.loc[stop]
+    else:
+        train_y, stop_y = y.loc[fit], y.loc[stop]
+    weight = float(selected.rsplit("_weight_", 1)[1]) if "_weight_" in selected else 1.
+    model = fit_point(work.loc[fit, cols], train_y, work.loc[stop, cols], stop_y, cfg,
+                      peak_threshold=None if residual else tau, peak_weight=weight, params=params)
+    prediction = model.predict(work.loc[cal, cols])
+    if residual:
+        prediction = prediction + base.loc[cal].to_numpy(dtype=float)
+    cutoff = _cutoff(y.loc[cal].to_numpy(), prediction, tau, target.loc[cal, "target_time"])
+    return {"model": model, "features": cols, "cutoff": cutoff, "name": selected,
+            "residual_baseline_model": baseline_name if residual else None}
+
+
+def _predict_selected_point(point, x, baselines):
+    if point.get("residual_baseline_model") is None:
+        return point["model"].predict(x[point["features"]])
+    base = baselines[point["residual_baseline_model"]].reindex(x.index)
+    work = x.copy()
+    work["residual_baseline"] = base
+    finite = np.isfinite(base.to_numpy(dtype=float))
+    prediction = np.full(len(x), np.nan)
+    if finite.any():
+        prediction[finite] = (base.to_numpy(dtype=float)[finite]
+                              + point["model"].predict(work.loc[finite, point["features"]]))
+    return prediction
+
+
 def _prepare_horizon(df_dev, boundary, horizon, cfg, development):
     delta = pd.Timedelta(minutes=15 * horizon)
     origins = df_dev.index[df_dev.index + delta < boundary]
@@ -86,6 +132,8 @@ def _prepare_horizon(df_dev, boundary, horizon, cfg, development):
         raise AssertionError("Final peak threshold did not stabilize")
     y = target.y
     choice = development["selection"]["by_horizon"][str(horizon)]
+    if choice.get("adaptive_q95") is not None:
+        raise ValueError("Adaptive q95 was not adopted in P2; final integration is not authorized")
     bcal = pd.concat([baseline_predictions(df_dev, cal, horizon),
                       cbl_all_predictions(df_dev, cal, horizon)], axis=1)
     bcal["c3_holiday_hybrid"] = bcal["c3_holiday_mid_4_6"].combine_first(bcal["c1_mid_6_10"])
@@ -102,15 +150,17 @@ def _prepare_horizon(df_dev, boundary, horizon, cfg, development):
     point = None
     selected = choice["point_model"]
     if selected.startswith("lgbm"):
-        cols = list(x.columns)
-        if "no_holiday" in selected:
-            cols = [col for col in cols if col not in HOLIDAY_COLUMNS]
-        weight = float(selected.rsplit("_weight_", 1)[1]) if "_weight_" in selected else 1.0
-        model = fit_point(x.loc[fit, cols], y.loc[fit], x.loc[stop, cols], y.loc[stop], cfg,
-                          peak_threshold=tau, peak_weight=weight, params=params)
-        cutoff = _cutoff(y.loc[cal].to_numpy(), model.predict(x.loc[cal, cols]), tau,
-                         target.loc[cal, "target_time"])
-        point = {"model": model, "features": cols, "cutoff": cutoff, "name": selected}
+        residual_b = None
+        if selected == "lgbm_residual_cbl":
+            from .models.residual import BASELINE_BY_HORIZON
+            fixed_baseline = BASELINE_BY_HORIZON[horizon]
+            if choice["cbl"] != fixed_baseline:
+                raise ValueError("Residual baseline differs from preregistered representative")
+            residual_b = cbl_all_predictions(df_dev, fit.append(stop).append(cal), horizon)
+            residual_b["c3_holiday_hybrid"] = residual_b["c3_holiday_mid_4_6"].combine_first(
+                residual_b["c1_mid_6_10"])
+        point = _fit_selected_point(x, y, fit, stop, cal, target, tau, cfg, params,
+                                     selected, residual_b, choice.get("cbl"))
     qcols = [col for col in x.columns if col not in HOLIDAY_COLUMNS]
     qmodels = fit_quantiles(x.loc[fit, qcols], y.loc[fit], x.loc[stop, qcols], y.loc[stop], cfg,
                             params=params)
@@ -250,7 +300,7 @@ def freeze_and_evaluate(df, cfg, output_dir="outputs"):
         point = bundle["point"]
         if point is not None:
             predictions.append(_row(good, horizon, -1, point["name"], target, tau,
-                                    point["model"].predict(x[point["features"]]), point["cutoff"]))
+                                    _predict_selected_point(point, x, btest), point["cutoff"]))
         qt = predict_quantiles(bundle["quantile_models"], x[bundle["quantile_features"]])
         bt = (assign_mondrian_bins(qt[.5], bundle["mondrian_edges"])
               if bundle["conformal"] == "b" else None)

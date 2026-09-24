@@ -116,3 +116,20 @@ class PredictabilityOperationsTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_operating_analysis_uses_selected_research_risk(monkeypatch):
+    import src.analysis.predictability_operations as operations
+    target = pd.Timestamp("2021-05-03 10:15")
+    common = {"origin": target-pd.Timedelta(hours=4), "target_time": target,
+              "horizon": 16, "fold": 0, "y": 95., "pred": 70., "tau": 90., "alert": False}
+    oof = pd.DataFrame([{**common, "model": "c3"},
+                        {**common, "model": "lgbm_quantile_b", "p_exceed": 0., "q95_cal": 80.},
+                        {**common, "model": "q95_rolling_672", "p_exceed": .2, "q95_cal": 96.}])
+    manifest = {"selection": {"by_horizon": {"16": {
+        "point_model": "c3", "conformal": "b", "risk_model": "q95_rolling_672"}}}}
+    monkeypatch.setattr(operations, "_fold_meta", lambda *_: {})
+    monkeypatch.setattr(operations, "_verify_oof", lambda frame, *_: frame)
+    result = operations._prepare_operational(oof, manifest, 16, pd.DataFrame())
+    assert result.risk_model.tolist() == ["q95_rolling_672"]
+    assert result.alert.tolist() == [True]

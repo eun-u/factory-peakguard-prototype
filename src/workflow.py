@@ -74,6 +74,10 @@ def fingerprint(root, *, development_only=False):
     root = Path(root)
     files = [root/"requirements.txt", root/"eval_protocol.md",
              root/"outputs/logs/adoption_criteria.md"]
+    # Preregistered candidate identities and the P1 feature gate are scientific
+    # inputs too. Editing either must invalidate a previously sealed CV cache.
+    files += sorted((root/"outputs/logs").glob("preregistration_0925_P*.md"))
+    files += [root/"outputs/logs/feature_spec_P2.md", root/"outputs/logs/feature_spec_P2.json"]
     if development_only:
         # New scientific modules must invalidate the old OOF cache too.  The
         # previous hand-maintained list omitted session_data and Phase 2 code.
@@ -105,6 +109,7 @@ def development_artifacts(outdir):
     if any(not path.is_file() for path in paths):
         raise RuntimeError("Development outputs are incomplete")
     paths += sorted((out/"models").glob("development_*.joblib"))
+    paths += sorted((out/"models/p2_adaptive").glob("*.joblib"))
     if len(paths) == len(names):
         raise RuntimeError("Development model bundles are missing")
     return {path.relative_to(out).as_posix(): digest(path) for path in paths}
@@ -145,6 +150,9 @@ def freeze_readiness(root, cfg, outdir, expected_fingerprint=None, *, allow_comp
     manifest = json.loads(selection.read_text(encoding="utf-8"))
     if not isinstance(manifest.get("selection"), dict) or not manifest.get("folds"):
         raise RuntimeError("Development selection manifest is incomplete")
+    if any(choice.get("adaptive_q95") is not None for choice in
+           manifest["selection"].get("by_horizon", {}).values()):
+        raise RuntimeError("Unadopted adaptive q95 cannot enter the prepared final path")
     lock = out/"logs/freeze_record.json"
     completed = False
     if lock.exists():

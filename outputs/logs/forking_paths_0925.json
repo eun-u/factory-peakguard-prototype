@@ -56,14 +56,25 @@
     ]
   },
   "P2": {
-    "status": "awaiting_preregistration_commit",
+    "status": "completed_before_integration_rerun",
+    "preregistration_commit": "3889a8e",
     "candidate_counts_by_horizon": {
       "4": 1,
       "16": 5,
       "96": 5
     },
     "total_candidates_planned": 11,
-    "candidates_executed": 0
+    "candidates_executed": 11,
+    "candidate_ids": ["lgbm_residual_cbl", "q95_rolling_672", "q95_aci_005", "q95_aci_010", "q95_aci_050"],
+    "confirmatory_hypotheses": 27,
+    "new_feature_sets": ["existing_no_holiday_plus_fixed_cbl_baseline"],
+    "m1_actual_model_fits": 9,
+    "m4_actual_quantile_model_fits": 60,
+    "m4_identical_fixed_repetitions": 2,
+    "retrospective_ridge_fits": 6,
+    "operational_scenarios": 16,
+    "new_candidates_adopted": [{"horizon": 16, "model": "lgbm_residual_cbl", "reason": "false_alarm_ci_after_peak_and_episode_ci_overlap"}],
+    "M2_M3_ablations_placebo": "not_executed_because_P1_gate_failed"
   },
   "P3": {
     "status": "not_started"

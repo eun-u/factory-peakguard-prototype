@@ -65,3 +65,29 @@ def test_run_evidence_keeps_history_after_auto_marker(tmp_path):
     record_run_evidence(tmp_path, tmp_path/"outputs", {"status": "completed_development", "steps": {}})
     assert progress.read_text(encoding="utf-8").startswith(history)
     assert progress.read_text(encoding="utf-8").count("보존할 결정") == 1
+
+
+def test_preregistered_gate_change_invalidates_fingerprint(tmp_path):
+    from src.workflow import fingerprint
+    folder = tmp_path / "outputs/logs"
+    folder.mkdir(parents=True)
+    gate = folder / "feature_spec_P2.json"
+    gate.write_text('{"m2_allowed": false}', encoding="utf-8")
+    before = fingerprint(tmp_path, development_only=True)
+    gate.write_text('{"m2_allowed": true}', encoding="utf-8")
+    assert fingerprint(tmp_path, development_only=True) != before
+
+
+def test_adaptive_calibration_bundle_is_sealed(tmp_path):
+    from src.workflow import development_artifacts
+    names = ["predictions/development_oof.csv", "tables/development_cv.csv",
+             "logs/development_selection.json", "predictions/t2_development_oof.csv",
+             "tables/t2_development_cv.csv", "models/development_h4.joblib",
+             "models/p2_adaptive/h16_fold0.joblib"]
+    for name in names:
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"original")
+    before = development_artifacts(tmp_path)
+    (tmp_path / names[-1]).write_bytes(b"tampered calibration")
+    assert development_artifacts(tmp_path) != before

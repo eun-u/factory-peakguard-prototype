@@ -9,8 +9,8 @@ split:
   calibration_fraction: 0.20
 freeze:
   not_before: '2026-10-01T18:00:00+09:00'
-  human_approval_required: false
-  reason: '2026-09-24 사용자 무개입 진행 지시; 날짜와 일회 평가 원칙은 유지'
+  human_approval_required: true
+  reason: '2026-09-24 최신 마스터 지시: 10-01 동결은 사람 승인 후, 예약 Disabled 유지'
 horizons: [1, 4, 16, 96]
 primary_horizon: 4
 peak: {tau_quantile: 0.95, sensitivity: [0.90, 0.975], target_T_quantile: 0.95}
@@ -33,3 +33,8 @@ shift: {fractions: [0.1, 0.2, 0.3], window_2026: ['11:00', '15:00']}
 bootstrap: {n: 1000, block: day}
 optional: {tsfm: false, peak_prob_classifier: false, expected_exceedance: true, pdp_ice: false}
 tariff: {old: configs/tariff_2021.yaml, current: configs/tariff_2026.yaml}
+research_0925:
+  enabled: true
+  preregistration: outputs/logs/preregistration_0925_P2.md
+  feature_gate: outputs/logs/feature_spec_P2.json
+  candidate_limit_per_horizon: 6

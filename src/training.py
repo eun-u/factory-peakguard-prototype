@@ -465,6 +465,12 @@ def run_development(df: pd.DataFrame, cfg: dict, output_dir="outputs") -> dict:
     df = _as_index(df)
     from .split import make_splits
     output_dir = Path(output_dir)
+    research_enabled = cfg.get("research_0925", {}).get("enabled") is True
+    if research_enabled:
+        from .session_data import SEALED_BOUNDARY
+        if (pd.Timestamp(cfg["split"]["test_start_origin"]) != SEALED_BOUNDARY
+                or df.index.max() >= SEALED_BOUNDARY):
+            raise ValueError("Phase 2 research development requires sealed-prefix input before fitting")
     (output_dir / "predictions").mkdir(parents=True, exist_ok=True)
     (output_dir / "tables").mkdir(parents=True, exist_ok=True)
     (output_dir / "logs").mkdir(parents=True, exist_ok=True)
@@ -491,15 +497,31 @@ def run_development(df: pd.DataFrame, cfg: dict, output_dir="outputs") -> dict:
     print("[development] evaluating date-block intervals and model selection", flush=True)
     metrics = evaluate_all(predictions, cfg=cfg)
     selection = _selection(predictions, metrics, cfg)
+    original_selection = None
+    research_summary = None
+    if research_enabled:
+        from .research_pipeline import run_research_development
+        research = run_research_development(df, cfg, predictions, metrics, selection,
+                                            manifests, output_dir)
+        predictions, metrics, selection = (research["predictions"], research["metrics"],
+                                           research["selection"])
+        original_selection = research["original_selection"]
+        research_summary = research["integration"]
     paths = {"predictions": output_dir / "predictions" / "development_oof.csv",
              "metrics": output_dir / "tables" / "development_cv.csv",
              "selection": output_dir / "logs" / "development_selection.json"}
     predictions.to_csv(paths["predictions"], index=False)
     metrics.to_csv(paths["metrics"], index=False)
-    paths["selection"].write_text(json.dumps({"selection": selection, "folds": manifests},
-                                              ensure_ascii=False, indent=2, default=str), encoding="utf-8")
-    return {"predictions": predictions, "metrics": metrics, "selection": selection,
-            "folds": manifests, "paths": {k: str(v) for k, v in paths.items()}}
+    manifest = {"selection": selection, "folds": manifests}
+    if original_selection is not None:
+        manifest["original_selection"] = original_selection
+    paths["selection"].write_text(json.dumps(manifest, ensure_ascii=False, indent=2,
+                                              default=str), encoding="utf-8")
+    result = {"predictions": predictions, "metrics": metrics, "selection": selection,
+              "folds": manifests, "paths": {k: str(v) for k, v in paths.items()}}
+    if research_summary is not None:
+        result["research_0925"] = research_summary
+    return result
 
 
 def freeze_and_evaluate(df: pd.DataFrame, cfg: dict, output_dir="outputs") -> dict:

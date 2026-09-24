@@ -205,7 +205,7 @@ def _prepare_operational(oof: pd.DataFrame, manifest: dict, horizon: int,
                          history: pd.DataFrame) -> pd.DataFrame:
     choice = manifest["selection"]["by_horizon"][str(horizon)]
     point_name = choice["point_model"]
-    risk_name = f"lgbm_quantile_{choice['conformal']}"
+    risk_name = choice.get("risk_model", f"lgbm_quantile_{choice['conformal']}")
     keys = ["origin", "target_time", "horizon", "fold"]
     x = oof.loc[oof.horizon.eq(horizon)]
     point = x.loc[x.model.eq(point_name), keys+["y", "pred", "tau"]]
