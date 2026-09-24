@@ -1,0 +1,317 @@
+{
+  "scope": "development_oof_only",
+  "test_boundary_exclusive": "2021-08-09 09:45:00",
+  "data_max_timestamp": "2021-08-09 09:30:00",
+  "original_selection_unchanged": true,
+  "fold_grid_exactly_reproduced": true,
+  "manual_audit_rows": 20,
+  "manual_audit_all_passed": true,
+  "key_missing": [
+    {
+      "fold": 0,
+      "partition": "raw_train",
+      "feature": "lag_96",
+      "n": 8367,
+      "missing_n": 96,
+      "missing_rate": 0.011473646468268197
+    },
+    {
+      "fold": 0,
+      "partition": "raw_train",
+      "feature": "lag_672",
+      "n": 8367,
+      "missing_n": 672,
+      "missing_rate": 0.08031552527787737
+    },
+    {
+      "fold": 0,
+      "partition": "raw_train",
+      "feature": "target_slot_1d_ago",
+      "n": 8367,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 0,
+      "partition": "raw_train",
+      "feature": "target_slot_7d_ago",
+      "n": 8367,
+      "missing_n": 576,
+      "missing_rate": 0.06884187880960918
+    },
+    {
+      "fold": 0,
+      "partition": "raw_validation",
+      "feature": "lag_96",
+      "n": 4199,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 0,
+      "partition": "raw_validation",
+      "feature": "lag_672",
+      "n": 4199,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 0,
+      "partition": "raw_validation",
+      "feature": "target_slot_1d_ago",
+      "n": 4199,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 0,
+      "partition": "raw_validation",
+      "feature": "target_slot_7d_ago",
+      "n": 4199,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 1,
+      "partition": "raw_train",
+      "feature": "lag_96",
+      "n": 12566,
+      "missing_n": 96,
+      "missing_rate": 0.007639662581569314
+    },
+    {
+      "fold": 1,
+      "partition": "raw_train",
+      "feature": "lag_672",
+      "n": 12566,
+      "missing_n": 672,
+      "missing_rate": 0.0534776380709852
+    },
+    {
+      "fold": 1,
+      "partition": "raw_train",
+      "feature": "target_slot_1d_ago",
+      "n": 12566,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 1,
+      "partition": "raw_train",
+      "feature": "target_slot_7d_ago",
+      "n": 12566,
+      "missing_n": 576,
+      "missing_rate": 0.045837975489415886
+    },
+    {
+      "fold": 1,
+      "partition": "raw_validation",
+      "feature": "lag_96",
+      "n": 4200,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 1,
+      "partition": "raw_validation",
+      "feature": "lag_672",
+      "n": 4200,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 1,
+      "partition": "raw_validation",
+      "feature": "target_slot_1d_ago",
+      "n": 4200,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 1,
+      "partition": "raw_validation",
+      "feature": "target_slot_7d_ago",
+      "n": 4200,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 2,
+      "partition": "raw_train",
+      "feature": "lag_96",
+      "n": 16766,
+      "missing_n": 96,
+      "missing_rate": 0.005725873792198497
+    },
+    {
+      "fold": 2,
+      "partition": "raw_train",
+      "feature": "lag_672",
+      "n": 16766,
+      "missing_n": 672,
+      "missing_rate": 0.04008111654538948
+    },
+    {
+      "fold": 2,
+      "partition": "raw_train",
+      "feature": "target_slot_1d_ago",
+      "n": 16766,
+      "missing_n": 0,
+      "missing_rate": 0.0
+    },
+    {
+      "fold": 2,
+      "partition": "raw_train",
+      "feature": "target_slot_7d_ago",
+      "n": 16766,
+      "missing_n": 576,
+      "missing_rate": 0.03435524275319098
+    },
+    {
+      "fold": 2,
+      "partition": "raw_validation",
+      "feature": "lag_96",
+      "n": 4200,
+      "missing_n": 192,
+      "missing_rate": 0.045714285714285714
+    },
+    {
+      "fold": 2,
+      "partition": "raw_validation",
+      "feature": "lag_672",
+      "n": 4200,
+      "missing_n": 192,
+      "missing_rate": 0.045714285714285714
+    },
+    {
+      "fold": 2,
+      "partition": "raw_validation",
+      "feature": "target_slot_1d_ago",
+      "n": 4200,
+      "missing_n": 192,
+      "missing_rate": 0.045714285714285714
+    },
+    {
+      "fold": 2,
+      "partition": "raw_validation",
+      "feature": "target_slot_7d_ago",
+      "n": 4200,
+      "missing_n": 192,
+      "missing_rate": 0.045714285714285714
+    }
+  ],
+  "h96_model_metrics": [
+    {
+      "model": "original_full",
+      "n": 7155,
+      "mae": 32.37440375180768,
+      "peak_mae": 42.04470761845979,
+      "episode_f1": 0.3333333333333333,
+      "false_alarms_positions": 853
+    },
+    {
+      "model": "original_no_holiday",
+      "n": 7155,
+      "mae": 31.207800839994366,
+      "peak_mae": 41.720845381150646,
+      "episode_f1": 0.22304832713754646,
+      "false_alarms_positions": 682
+    },
+    {
+      "model": "A_weekly_slot",
+      "n": 7155,
+      "mae": 19.84416491963662,
+      "peak_mae": 20.241192411924118,
+      "episode_f1": 0.4282238442822384,
+      "false_alarms_positions": 1243
+    },
+    {
+      "model": "B_four_features",
+      "n": 7155,
+      "mae": 25.128414283344835,
+      "peak_mae": 30.84510242120264,
+      "episode_f1": 0.44324324324324327,
+      "false_alarms_positions": 910
+    }
+  ],
+  "reference_model_mapping": {
+    "original_full": "lgbm (holiday-feature model)",
+    "original_no_holiday": "lgbm_no_holiday (31.2 overall-MAE comparison model)"
+  },
+  "fresh_refit_models": 6,
+  "fresh_refit_max_abs_difference": 2.842170943040401e-14,
+  "existing_point_candidates": [
+    {
+      "model_id": "lgbm",
+      "n": 7155,
+      "overall_mae": 32.37440375180768,
+      "peak_mae": 42.04470761845979
+    },
+    {
+      "model_id": "lgbm_no_holiday",
+      "n": 7155,
+      "overall_mae": 31.207800839994366,
+      "peak_mae": 41.720845381150646
+    },
+    {
+      "model_id": "lgbm_no_holiday_weight_2",
+      "n": 7155,
+      "overall_mae": 31.18034934296078,
+      "peak_mae": 39.62462752892701
+    },
+    {
+      "model_id": "lgbm_no_holiday_weight_4",
+      "n": 7155,
+      "overall_mae": 30.20116504644085,
+      "peak_mae": 38.29987137409986
+    },
+    {
+      "model_id": "lgbm_weight_2",
+      "n": 7155,
+      "overall_mae": 31.308365478346893,
+      "peak_mae": 38.720882835938035
+    },
+    {
+      "model_id": "lgbm_weight_4",
+      "n": 7155,
+      "overall_mae": 30.016530583165025,
+      "peak_mae": 37.11425595882076
+    }
+  ],
+  "paired_peak_mae_gain_over_original": {
+    "A_weekly_slot": {
+      "estimate": 21.80351520653567,
+      "ci95": [
+        11.269201327970366,
+        30.487877098720453
+      ],
+      "n": 369
+    },
+    "B_four_features": {
+      "estimate": 11.199605197257151,
+      "ci95": [
+        4.325158842143447,
+        17.67445636452173
+      ],
+      "n": 369
+    }
+  },
+  "repaired_masking_checked": true,
+  "learning_curve_metric": "LightGBM stop-window validation L1, one value per boosting iteration",
+  "sources_sha256": {
+    "development_oof": "4bffcf1e86a38ca4518a3568afba63f56c111c02b16c0c124396634cb5f8e366",
+    "development_selection": "0a6a1b7ff1bb229468426df9b81ef4d6d0e127d6d462746b85e37c3a0fa46c38"
+  },
+  "products_sha256": {
+    "fold_grid": "966f643b007828e9a6b64c70d426f1bade2c07ff6744455b0852557b724b7a00",
+    "feature_missing": "434e6627d8310e14a265a62121c2eb96585dc2356c2975baa3be0560ecb09490",
+    "audit_20": "272190d280f28056c4b91f316722a6fa79ec945fc865b44343533e9e19bba21a",
+    "existing_candidates": "c71fbf875ead3504d952a7ae5d7c14b41e6e8560abe524489d130af69772008d",
+    "model_compare": "dda9e98063b46601be4b41979e11535cff749bad4c0e96e7e5ea2bf348d6ab95",
+    "learning_curve": "b5b4ed8122138348258a0e6650685b5697f00141bd51aad54db47ec4e260f92d",
+    "early_stopping_metrics": "98370e00f225d284ce07064f6465796382823b2ad02320d1f2eb0d58c4f4f385"
+  },
+  "interpretation": "No fold-grid, feature-timestamp, repaired-mask, target-alignment, or saved-model reproduction bug found. The weekly slot and four-feature controls both improve paired h96 peak MAE over the original full LightGBM on the same score rows; this is evidence of a generalization/complexity problem, not proof of its cause. The preregistered original selection is unchanged.",
+  "early_stopping_first_metric_only": false,
+  "learning_curve_scope": "L1 validation curve only; L2 also monitored for early stopping"
+}
