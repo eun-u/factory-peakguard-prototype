@@ -1,0 +1,5 @@
+scope,peak_only,baseline_minus_oracle_mae,ci95_low,ci95_high,n_paired,improvement_established,reference_only,selection_used,scenario_label
+all,False,-0.29234749252574266,-0.5890688540038624,-0.04824363824923373,7549,False,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+all,True,-2.2895537072400955,-3.5225798789937297,-0.8030316434043939,423,False,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+evening_16_24,False,-0.25851861019473577,-0.5901985463362882,0.044627429726717294,2560,False,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+evening_16_24,True,-4.413346533871712,-6.152902051909905,-2.6436008450378226,59,False,True,False,사후 관측 생산량 기반 사후 가정 시나리오

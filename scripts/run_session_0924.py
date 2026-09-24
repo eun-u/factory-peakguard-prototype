@@ -203,9 +203,14 @@ def task_b(root, output):
     return result
 
 
+def task_c(root, output):
+    from scripts.evening_oracle_0924 import run
+    return run(root, output=output)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--task", choices=["2", "3", "4", "5", "A", "B"], required=True)
+    parser.add_argument("--task", choices=["2", "3", "4", "5", "A", "B", "C"], required=True)
     parser.add_argument("--output", type=Path, default=ROOT / "outputs")
     args = parser.parse_args()
     output = args.output.resolve()
@@ -214,7 +219,8 @@ def main():
     for name in ("tables", "logs"):
         (output / name).mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
-    result = {"2": task2, "3": task3, "4": task4, "5": task5, "A": task_a, "B": task_b}[args.task](ROOT, output)
+    result = {"2": task2, "3": task3, "4": task4, "5": task5,
+              "A": task_a, "B": task_b, "C": task_c}[args.task](ROOT, output)
     print(json.dumps({**result, "elapsed_seconds": time.perf_counter() - started}, ensure_ascii=False), flush=True)
 
 

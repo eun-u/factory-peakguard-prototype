@@ -1,0 +1,3 @@
+status,episodes,production_change_4h_median,production_change_4h_mean,temperature_mean_4h_median,temperature_mean_4h_mean,power_trend_4h_median,reference_only,selection_used,analysis_role
+FN,7,1016.0,707.4285714285714,27.975,28.182142857142857,10.0,True,False,retrospective_descriptive
+TP,11,-256.0,592.0,29.03125,27.375,-23.0,True,False,retrospective_descriptive

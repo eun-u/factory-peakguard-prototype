@@ -1,0 +1,4 @@
+fold,tau,fit_original,stop_original,cal_original,score_original,fit_common,stop_common,cal_common,score_common,fit_production_missing,stop_production_missing,cal_production_missing,score_production_missing,reference_only,selection_used,scenario_label,score_production_missing_peak_positions
+0,176.5,5612,1404,1480,2746,5612,1404,1480,2746,0,0,0,0,True,False,사후 관측 생산량 기반 사후 가정 시나리오,0
+1,177.0,8996,2250,1480,2746,8996,2250,1480,2746,0,0,0,0,True,False,사후 관측 생산량 기반 사후 가정 시나리오,0
+2,175.0,12380,3096,1110,2059,12380,3096,1110,2057,0,0,0,2,True,False,사후 관측 생산량 기반 사후 가정 시나리오,2
