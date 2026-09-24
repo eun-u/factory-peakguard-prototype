@@ -1,0 +1,21 @@
+{
+  "files": {
+    "analysis_p2/M1_baseline_exclusion.csv": "4d8cc9fcbeed85afc0fc61eb965dc539e64b45e407800ee59d0cfcef62ce357e",
+    "analysis_p2/M1_comparisons.csv": "68158727df51ccc3ec20048b11ae67c9d2e4e413d82dcc6d959aba97566c0ed8",
+    "analysis_p2/M1_fit_metadata.csv": "323790ff943b742a62dcad86aa767078d6aa80a6a49d309a34b8a64fd267f368",
+    "analysis_p2/M1_fold_comparison.csv": "3fe013b7edce5dc9e68c28f30f3e005c4853952e3769e61d3c03319b5f00bda7",
+    "analysis_p2/M4_audit.csv": "899c72362e16d2ba82fe4f210c3b1fe53eb1a5ec0ae4a42651609e27c8dbc77d",
+    "analysis_p2/M4_hypotheses.csv": "a546bf2f9834b884a62a0782c55304516ee9efe2e8c797927001c1b517ca31d3",
+    "analysis_p2/M4_metrics.csv": "605e4598d4c699218c99a7bac60fde1a9d91d3f7c759f9f11021b93b208c9948",
+    "P2_candidate_selection.json": "2e7854054477836edfcafd912b3c1c0f7241c08a5b20a906769af66dd6662234",
+    "predictions/p2_adaptive_oof.csv": "3b39de24cd6a47c85f5208f330072f698aaf07e14e12cc41a1eb84c2fff80d39",
+    "predictions/p2_residual_oof.csv": "1c7a643a9157e3894ae0bf944818614cefcf8518e555dd1bc4c67a689f33de3e"
+  },
+  "recorded_at_utc": "2026-09-24T07:10:39.762586+00:00",
+  "timing_note": "Pinned after P3 original-CV start but before P3 research candidate regeneration",
+  "original_cv_progress_at_pin": "[development] h=96 fold=2/3 fitting",
+  "original_P2_candidate_files_match_live": {
+    "p2_residual_oof.csv": true,
+    "p2_adaptive_oof.csv": true
+  }
+}
