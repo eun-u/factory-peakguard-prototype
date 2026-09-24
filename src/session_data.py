@@ -188,6 +188,12 @@ def load_development_history(root: str | Path) -> pd.DataFrame:
 def load_development_oof(root: str | Path) -> pd.DataFrame:
     """Verify OOF timestamps before decoding any prediction or target column."""
     path = Path(root).resolve() / "outputs/predictions/development_oof.csv"
+    return read_development_oof(path)
+
+
+def read_development_oof(path: str | Path) -> pd.DataFrame:
+    """Metadata-first reader also used by isolated diagnostic fixtures."""
+    path = Path(path)
     verified_stamps: set[bytes] = set()
 
     def verify_stamp(value: bytes) -> None:

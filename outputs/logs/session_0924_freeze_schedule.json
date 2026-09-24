@@ -1,0 +1,10 @@
+﻿{
+    "task_name":  "FactoryPeakguard-Task05-Freeze-20261001",
+    "before_state":  "Ready",
+    "after_state":  "Disabled",
+    "checked_at_kst":  "2026-09-24T11:21:52.3483822+09:00",
+    "action_scope":  "this_checkout_only",
+    "freeze_executed":  false,
+    "reason":  "Latest unattended instruction leaves 10/1 human freeze approval incomplete. Disable previous automatic reservation without changing scientific config or protocol.",
+    "reenable_requires":  "Explicit human freeze approval and refreshed integrity review"
+}

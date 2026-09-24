@@ -54,16 +54,18 @@ def _assert_development_frame(df: pd.DataFrame, boundary: pd.Timestamp) -> None:
 
 
 def _read_oof(path: Path, boundary: pd.Timestamp) -> pd.DataFrame:
-    # Inspect timestamps without target values first. Do not deserialize the
-    # full prediction table unless every stored origin and target is pre-test.
-    stamps = pd.read_csv(path, usecols=["origin", "target_time"], parse_dates=["origin", "target_time"])
-    if stamps.empty or (stamps.origin >= boundary).any() or (stamps.target_time >= boundary).any():
-        raise AssertionError("Development OOF contains a frozen-test timestamp")
+    from src.session_data import SEALED_BOUNDARY, read_development_oof
+    if boundary != SEALED_BOUNDARY:
+        raise ValueError("Diagnostic boundary differs from the sealed cutoff")
+    # Even malformed holdout bodies must not be decoded by CSV usecols parsing.
+    try:
+        oof = read_development_oof(path)
+    except ValueError as exc:
+        if "sealed development boundary" in str(exc):
+            raise AssertionError("Development OOF contains a frozen-test timestamp") from exc
+        raise
     columns = ["origin", "target_time", "horizon", "fold", "model", "y", "pred", "tau", "alert"]
-    oof = pd.read_csv(path, usecols=columns, parse_dates=["origin", "target_time"], low_memory=False)
-    if (oof.origin >= boundary).any() or (oof.target_time >= boundary).any():
-        raise AssertionError("OOF changed between timestamp preflight and data read")
-    return oof
+    return oof.loc[:, columns]
 
 
 def _reconstruct(df: pd.DataFrame, origins: pd.DatetimeIndex, horizon: int,

@@ -18,8 +18,8 @@ BOUNDARY = pd.Timestamp("2021-08-09 09:45:00")
 
 def test_oof_preflight_rejects_a_frozen_timestamp(tmp_path):
     path = tmp_path / "development_oof.csv"
-    path.write_text("origin,target_time,y\n"
-                    "2021-08-09 09:30:00,2021-08-09 09:45:00,999\n", encoding="utf-8")
+    path.write_bytes(b"origin,target_time,y\n"
+                     b"2021-08-09 09:30:00,2021-08-09 09:45:00,\xff\xfe\n")
     with pytest.raises(AssertionError, match="frozen-test timestamp"):
         _read_oof(path, BOUNDARY)
 
