@@ -184,6 +184,11 @@ def task5(root, output):
     return {"task": 5, **result.summary}
 
 
+def task_a(root, output):
+    from scripts.peak_sensitivity_0924 import run
+    return run(root, output=output)
+
+
 def task_b(root, output):
     from src.session_data import load_development_history
     from src.analysis.operational_sensitivity_0924 import management_target_sensitivity
@@ -192,6 +197,7 @@ def task_b(root, output):
     table.to_csv(output / "tables/operational_target_sensitivity_0924.csv", index=False)
     result = {"task": "B", "selection_changed": False, "rows": len(table),
               "target_quantile": .975, "event_quantile": .95,
+              "fold_thresholds": table.attrs["fold_thresholds"],
               "default_rule": table.loc[table.rule.eq("1/1")].to_dict("records")}
     save_json(output / "logs/session_0924_taskB.json", result)
     return result
@@ -199,7 +205,7 @@ def task_b(root, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--task", choices=["2", "3", "4", "5", "B"], required=True)
+    parser.add_argument("--task", choices=["2", "3", "4", "5", "A", "B"], required=True)
     parser.add_argument("--output", type=Path, default=ROOT / "outputs")
     args = parser.parse_args()
     output = args.output.resolve()
@@ -208,7 +214,7 @@ def main():
     for name in ("tables", "logs"):
         (output / name).mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
-    result = {"2": task2, "3": task3, "4": task4, "5": task5, "B": task_b}[args.task](ROOT, output)
+    result = {"2": task2, "3": task3, "4": task4, "5": task5, "A": task_a, "B": task_b}[args.task](ROOT, output)
     print(json.dumps({**result, "elapsed_seconds": time.perf_counter() - started}, ensure_ascii=False), flush=True)
 
 
