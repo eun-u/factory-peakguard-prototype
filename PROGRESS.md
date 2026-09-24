@@ -50,3 +50,8 @@
 - 최근 실행: `completed_development`; 실행 단계: data, development, final, analysis, report, package.
 - 최종 테스트 미평가 · 날짜/예약 잠금 유지.
 - [최신 실행 기록](outputs/logs/run_status.json) · [전체 실행 기록](outputs/logs/full_run_status.json).
+
+## 2026-09-24 task 0 — 무인 개발 세션
+- 사전 판정 규칙과 선택 작업 A/B/C 규칙을 결과 조회 전에 cc8a113으로 고정했다.
+- 개발 OOF만 사용하며 테스트 경계 이후 목표 접근과 final_test.csv 생성을 금지한다.
+- 보고서·슬라이드·제출물은 보존하고, 사람 항목은 미완료로 유지한다.
