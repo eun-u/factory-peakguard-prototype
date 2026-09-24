@@ -94,16 +94,48 @@ def verify_protected(root: Path) -> dict:
             "original_snapshot_sha256": original_artifacts}
 
 
-def verify_p2_snapshot(root: Path) -> dict[str, str]:
+def verify_p2_snapshot(root: Path) -> dict:
     folder = root / P2_SNAPSHOT
     files = {path.relative_to(folder).as_posix(): _sha256(path)
              for path in sorted(folder.rglob("*")) if path.is_file()}
     required = {"P2_candidate_selection.json", "predictions/p2_residual_oof.csv",
                 "predictions/p2_adaptive_oof.csv", "analysis_p2/M1_comparisons.csv",
-                "analysis_p2/M4_hypotheses.csv"}
-    if not required <= set(files):
-        raise AssertionError(f"P2 independent snapshot files missing: {sorted(required-set(files))}")
-    return files
+                "analysis_p2/M1_baseline_exclusion.csv", "analysis_p2/M1_fit_metadata.csv",
+                "analysis_p2/M1_fold_comparison.csv", "analysis_p2/M4_hypotheses.csv",
+                "analysis_p2/M4_metrics.csv", "analysis_p2/M4_audit.csv"}
+    if set(files) != required:
+        raise AssertionError(f"P2 independent snapshot file set changed: {sorted(set(files)^required)}")
+    manifest_relative = "outputs/logs/P2_snapshot_manifest.json"
+    manifest_path = root / manifest_relative
+    commits = _git(root, "rev-list", "--reverse", "HEAD", "--", manifest_relative).decode("ascii").splitlines()
+    if len(commits) != 1 or not manifest_path.is_file():
+        raise AssertionError("P2 snapshot manifest must have one immutable registration commit")
+    frozen = _git(root, "show", f"{commits[0]}:{manifest_relative}").replace(b"\r\n", b"\n")
+    current = manifest_path.read_bytes().replace(b"\r\n", b"\n")
+    if frozen != current:
+        raise AssertionError("P2 snapshot manifest changed after its registration commit")
+    manifest = json.loads(current)
+    if (not isinstance(manifest.get("recorded_at_utc"), str)
+            or not isinstance(manifest.get("files"), dict)
+            or manifest["files"] != files):
+        raise AssertionError("P2 snapshot files differ from pre-CV pinned SHA256 manifest")
+    parity_path = root / "outputs/analysis_p2/M1_parity.json"
+    if (_git(root, "show", "HEAD:outputs/analysis_p2/M1_parity.json").replace(b"\r\n", b"\n")
+            != parity_path.read_bytes().replace(b"\r\n", b"\n")):
+        raise AssertionError("P2 M1 parity proof changed after commit")
+    parity = json.loads(parity_path.read_text(encoding="utf-8"))
+    if (parity.get("status") != "passed"
+            or parity.get("candidate_oof_sha256") != files["predictions/p2_residual_oof.csv"]):
+        raise AssertionError("P2 M1 snapshot differs from its earlier parity proof")
+    selection_path = root / "outputs/logs/P2_candidate_selection.json"
+    if not selection_path.is_file() or _sha256(selection_path) != files["P2_candidate_selection.json"]:
+        raise AssertionError("P2 selection snapshot differs from the committed selection")
+    if (_git(root, "show", "HEAD:outputs/logs/P2_candidate_selection.json").replace(b"\r\n", b"\n")
+            != selection_path.read_bytes().replace(b"\r\n", b"\n")):
+        raise AssertionError("P2 selected candidate record changed after commit")
+    return {"manifest_sha256": _sha256(manifest_path), "manifest_commit": commits[0],
+            "files": files, "m1_parity_sha256": _sha256(parity_path),
+            "selection_sha256": _sha256(selection_path)}
 
 
 def compare_nested(reference, actual, label: str, path: str = "$", *, tol: float = TOL) -> float:
@@ -151,6 +183,8 @@ def verify_preregistrations(root: Path) -> dict:
         commits = _git(root, "rev-list", "--reverse", "HEAD", "--", relative).decode("ascii").splitlines()
         if not commits:
             raise AssertionError(f"{phase} preregistration was never committed")
+        if len(commits) != 1:
+            raise AssertionError(f"{phase} preregistration has post-registration change commits")
         first = commits[0]
         subject = _git(root, "show", "-s", "--format=%s", first).decode("utf-8").strip()
         if f"[{phase}-REG]" not in subject:
@@ -406,8 +440,17 @@ def verify_p1_reproduction(root: Path, pinned: dict) -> dict:
         "_validation/session_0925_original/logs/development_selection.json":
             pinned["original_artifacts"]["logs/development_selection.json"],
     }
-    if report.get("original_input_sha256") != original_files:
+    input_hashes = report.get("original_input_sha256", {})
+    if (not isinstance(input_hashes, dict) or len(input_hashes) != 40
+            or any(input_hashes.get(name) != digest for name, digest in original_files.items())):
         raise AssertionError("Independent P1 replay did not use preflight-pinned original inputs")
+    for relative, digest in input_hashes.items():
+        input_path = (root / relative).resolve()
+        if (not input_path.is_relative_to(root)
+                or not (input_path.is_relative_to((root / "outputs/analysis_p1").resolve())
+                        or input_path in [(root / name).resolve() for name in original_files])
+                or not input_path.is_file() or _sha256(input_path) != digest):
+            raise AssertionError(f"Independent P1 input artifact changed: {relative}")
     if (report.get("A1", {}).get("peak_starts", {}).get("rows") != 148
             or report.get("A2", {}).get("fixed_hypotheses") != 16
             or report["A2"].get("eligible_hypotheses") != 0
@@ -427,6 +470,9 @@ def verify_p1_reproduction(root: Path, pinned: dict) -> dict:
                     or not source.is_file()
                     or float(item.get("max_abs_numeric_difference", float("inf"))) > TOL):
                 raise AssertionError(f"Independent P1 {phase}.{name} table proof is missing")
+            frozen = _git(root, "show", f"HEAD:{relative}").replace(b"\r\n", b"\n")
+            if frozen != source.read_bytes().replace(b"\r\n", b"\n"):
+                raise AssertionError(f"Independent P1 {phase}.{name} source changed after commit")
             table = pd.read_csv(source)
             if table.shape != (item.get("rows"), item.get("columns")):
                 raise AssertionError(f"Independent P1 {phase}.{name} table shape changed")
@@ -444,6 +490,7 @@ def verify_p1_reproduction(root: Path, pinned: dict) -> dict:
             if abs(float(effect[key]) - float(row[key])) > TOL:
                 raise AssertionError(f"Independent P1 A4 {key} changed")
     return {"status": "pass", "report_sha256": _sha256(path),
+            "input_artifacts_verified": len(input_hashes),
             "tables": checked_tables, "a1_peak_starts": 148,
             "a2_eligible_hypotheses": 0,
             "a4_effects": report["A4"]["effects"]}

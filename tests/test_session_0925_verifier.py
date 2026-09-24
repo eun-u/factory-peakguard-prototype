@@ -10,7 +10,8 @@ import pytest
 
 from scripts.verify_session_0925 import (_assert_no_final, _safe_oof,
                                          _sha256, compare_nested, compare_prediction_rows,
-                                         verify_preregistrations, verify_protected)
+                                         verify_p2_snapshot, verify_preregistrations,
+                                         verify_protected)
 from src.session_data import SEALED_BOUNDARY
 
 
@@ -122,3 +123,59 @@ def test_preregistration_first_commit_is_immutable(tmp_path: Path):
     (folder / "preregistration_0925_P2.md").write_text("changed after seeing results\n", encoding="utf-8")
     with pytest.raises(AssertionError, match="changed after first commit"):
         verify_preregistrations(tmp_path)
+    git("add", "outputs/logs/preregistration_0925_P2.md")
+    git("commit", "-qm", "temporary edit")
+    (folder / "preregistration_0925_P2.md").write_text("P2 fixed rule\n", encoding="utf-8")
+    git("add", "outputs/logs/preregistration_0925_P2.md")
+    git("commit", "-qm", "revert edit")
+    with pytest.raises(AssertionError, match="post-registration change commits"):
+        verify_preregistrations(tmp_path)
+
+
+def test_p2_snapshot_manifest_requires_pinned_files_and_immutable_commit(tmp_path: Path):
+    def git(*args):
+        subprocess.run(["git", *args], cwd=tmp_path, check=True,
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    git("init", "-q")
+    git("config", "user.name", "Verifier Test")
+    git("config", "user.email", "verifier@example.invalid")
+    folder = tmp_path / "_validation/session_0925_P2"
+    relatives = ("P2_candidate_selection.json", "predictions/p2_residual_oof.csv",
+                 "predictions/p2_adaptive_oof.csv", "analysis_p2/M1_comparisons.csv",
+                 "analysis_p2/M1_baseline_exclusion.csv", "analysis_p2/M1_fit_metadata.csv",
+                 "analysis_p2/M1_fold_comparison.csv", "analysis_p2/M4_hypotheses.csv",
+                 "analysis_p2/M4_metrics.csv", "analysis_p2/M4_audit.csv")
+    files = {}
+    for relative in relatives:
+        path = folder / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(relative, encoding="utf-8")
+        files[relative] = _sha256(path)
+    manifest = tmp_path / "outputs/logs/P2_snapshot_manifest.json"
+    manifest.parent.mkdir(parents=True)
+    manifest.write_text(json.dumps({"recorded_at_utc": "2026-09-24T00:00:00Z",
+                                    "files": files}), encoding="utf-8")
+    git("add", "outputs/logs/P2_snapshot_manifest.json")
+    git("commit", "-qm", "[P3-PIN] P2 snapshot")
+    parity = tmp_path / "outputs/analysis_p2/M1_parity.json"
+    parity.parent.mkdir(parents=True)
+    parity.write_text(json.dumps({"status": "passed",
+                                  "candidate_oof_sha256": files["predictions/p2_residual_oof.csv"]}),
+                      encoding="utf-8")
+    selection = tmp_path / "outputs/logs/P2_candidate_selection.json"
+    selection.write_bytes((folder / "P2_candidate_selection.json").read_bytes())
+    git("add", "outputs/analysis_p2/M1_parity.json", "outputs/logs/P2_candidate_selection.json")
+    git("commit", "-qm", "P2 locked evidence")
+    assert len(verify_p2_snapshot(tmp_path)["files"]) == 10
+    (folder / "analysis_p2/M4_metrics.csv").write_text("modified", encoding="utf-8")
+    with pytest.raises(AssertionError, match="pinned SHA256"):
+        verify_p2_snapshot(tmp_path)
+    (folder / "analysis_p2/M4_metrics.csv").write_text("analysis_p2/M4_metrics.csv", encoding="utf-8")
+    manifest.write_text(manifest.read_text(encoding="utf-8") + " ", encoding="utf-8")
+    git("add", "outputs/logs/P2_snapshot_manifest.json")
+    git("commit", "-qm", "temporary edit")
+    manifest.write_text(manifest.read_text(encoding="utf-8").rstrip(), encoding="utf-8")
+    git("add", "outputs/logs/P2_snapshot_manifest.json")
+    git("commit", "-qm", "revert edit")
+    with pytest.raises(AssertionError, match="one immutable registration commit"):
+        verify_p2_snapshot(tmp_path)
