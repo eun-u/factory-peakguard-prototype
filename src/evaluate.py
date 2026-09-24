@@ -68,6 +68,25 @@ def _safe_mean(x):
     return float(np.mean(finite)) if len(finite) else float("nan")
 
 
+def symmetric_peak_metrics(y, predicted, tau):
+    """Auxiliary, selection-unused errors; predicted peak means pred > tau.
+
+    Empty conditional populations return NaN. These measures deliberately
+    do not use the separately calibrated operational/episode alert threshold.
+    """
+    y, predicted, tau = np.broadcast_arrays(np.asarray(y, dtype=float),
+                                           np.asarray(predicted, dtype=float),
+                                           np.asarray(tau, dtype=float))
+    valid = np.isfinite(y) & np.isfinite(predicted) & np.isfinite(tau)
+    y, predicted, tau = y[valid], predicted[valid], tau[valid]
+    actual_peak, predicted_peak = y > tau, predicted > tau
+    return {
+        "peak_mae_union": _safe_mean(np.abs(predicted - y)[actual_peak | predicted_peak]),
+        "peak_bias": _safe_mean((predicted - y)[actual_peak]),
+        "overpredict_rate": _safe_mean(predicted_peak[~actual_peak]),
+    }
+
+
 def score_predictions(frame, threshold=None):
     """Score one model/horizon/fold without reselecting its alert threshold."""
     frame = frame.sort_values("target_time")
@@ -101,6 +120,8 @@ def score_predictions(frame, threshold=None):
         "timing_mae_minutes": _safe_mean(np.abs(episodes.get("timing_errors_minutes", []))),
         "magnitude_mae": _safe_mean(np.abs(episodes.get("magnitude_errors", []))),
     }
+    # Auxiliary only: the selection implementation consumes its original keys.
+    result.update(symmetric_peak_metrics(y, p, tau))
     if "p_exceed" in frame and frame.p_exceed.notna().any():
         prob = frame.p_exceed.to_numpy(dtype=float)
         ok = np.isfinite(prob)

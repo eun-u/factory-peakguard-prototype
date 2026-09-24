@@ -1,0 +1,15 @@
+{
+  "task": 2,
+  "rows": 84,
+  "horizons": [
+    1,
+    4,
+    16,
+    96
+  ],
+  "reference_rows": 12,
+  "selection_used": false,
+  "bootstrap_n": 1000,
+  "episode_ci_method": "Original fold matching; TP/FN anchored to actual start date, FP to alert start date. Dates are resampled without joining episodes.",
+  "point_fp_definition": "Existing calibrated alert; auxiliary union/overpredict use pred > tau."
+}
