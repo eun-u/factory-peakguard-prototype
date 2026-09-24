@@ -45,3 +45,23 @@ def test_report_edit_does_not_unlock_or_invalidate_scientific_freeze(tmp_path):
     assert model_code_digest(tmp_path) == original
     (tmp_path/"features.py").write_text("past_only = False")
     assert model_code_digest(tmp_path) != original
+
+
+def test_new_scientific_module_invalidates_development_fingerprint(tmp_path):
+    from src.workflow import fingerprint
+    (tmp_path/"src/analysis").mkdir(parents=True)
+    module = tmp_path/"src/analysis/early_warning.py"
+    module.write_text("threshold = 0.5", encoding="utf-8")
+    before = fingerprint(tmp_path, development_only=True)
+    module.write_text("threshold = 0.7", encoding="utf-8")
+    assert fingerprint(tmp_path, development_only=True) != before
+
+
+def test_run_evidence_keeps_history_after_auto_marker(tmp_path):
+    from src.workflow import record_run_evidence
+    progress = tmp_path/"PROGRESS.md"
+    history = "# 기록\n<!-- AUTO_EXECUTION_STATUS -->\n이전 상태\n## 수동 추가\n보존할 결정"
+    progress.write_text(history, encoding="utf-8")
+    record_run_evidence(tmp_path, tmp_path/"outputs", {"status": "completed_development", "steps": {}})
+    assert progress.read_text(encoding="utf-8").startswith(history)
+    assert progress.read_text(encoding="utf-8").count("보존할 결정") == 1

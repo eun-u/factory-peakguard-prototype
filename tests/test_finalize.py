@@ -5,8 +5,10 @@ import json
 
 import pandas as pd
 import pytest
+import yaml
 
 from src import finalize
+from src.workflow import development_artifacts, fingerprint, freeze_readiness, json_write
 
 
 def _sha(path):
@@ -25,11 +27,29 @@ def freeze_workspace(tmp_path, monkeypatch):
     output = tmp_path / "outputs"
     manifest = output / "logs/development_selection.json"
     manifest.parent.mkdir(parents=True)
-    manifest.write_text('{"selection": {}}', encoding="utf-8")
+    manifest.write_text('{"selection": {"by_horizon": {}}, "folds": [{"fold": 1}]}', encoding="utf-8")
     cfg = {"source": "data/raw/synthetic.csv",
-           "freeze": {"not_before": "2020-01-01T00:00:00+09:00"},
-           "split": {"test_start_origin": "2021-01-01 01:00:00"},
+           "freeze": {"not_before": "2020-01-01T00:00:00+09:00",
+                      "human_approval_required": False},
+           "split": {"test_start_origin": "2021-08-09 09:45:00"},
            "horizons": [4]}
+    (tmp_path/"configs").mkdir()
+    (tmp_path/"configs/default.yaml").write_text(yaml.safe_dump(cfg), encoding="utf-8")
+    for name in ("predictions/development_oof.csv", "tables/development_cv.csv",
+                 "predictions/t2_development_oof.csv", "tables/t2_development_cv.csv",
+                 "models/development_h4.joblib"):
+        path = output/name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"synthetic development")
+    json_write(output/"logs/development_cache.json",
+               {"fingerprint": fingerprint(tmp_path, development_only=True),
+                "artifacts": development_artifacts(output)})
+    ready = freeze_readiness(tmp_path, cfg, output)
+    json_write(output/"logs/human_freeze_approval.json", {
+        "decision": "approve_freeze", "approved_by": "synthetic-test-person",
+        "approved_at_kst": "2020-01-01T00:00:00+09:00",
+        **{key: ready[key] for key in ("development_cache_sha256", "selection_sha256",
+                                       "config_sha256", "source_sha256", "fingerprint_sha256")}})
     return output, cfg, manifest
 
 
@@ -62,6 +82,31 @@ def test_date_refusal_precedes_manifest_and_holdout_access(tmp_path, monkeypatch
     with pytest.raises(RuntimeError, match="Holdout is sealed"):
         finalize.freeze_and_evaluate(object(), cfg, tmp_path / "outputs")
     assert not (tmp_path / "outputs").exists()
+
+
+def test_human_approval_is_mandatory_even_when_legacy_flag_is_false(freeze_workspace):
+    output, cfg, _ = freeze_workspace
+    (output/"logs/human_freeze_approval.json").unlink()
+    with pytest.raises(RuntimeError, match="Explicit human freeze approval"):
+        finalize.freeze_and_evaluate(object(), cfg, output)
+    assert not (output/"logs/freeze_record.json").exists()
+    assert not (output/"tables/final_test.csv").exists()
+
+
+def test_stale_approval_and_changed_config_stop_before_reservation(freeze_workspace):
+    output, cfg, _ = freeze_workspace
+    path = output/"logs/human_freeze_approval.json"
+    approval = json.loads(path.read_text(encoding="utf-8"))
+    approval["selection_sha256"] = "0" * 64
+    path.write_text(json.dumps(approval), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="Freeze approval is stale"):
+        finalize.freeze_and_evaluate(object(), cfg, output)
+    assert not (output/"logs/freeze_record.json").exists()
+
+    changed = {**cfg, "horizons": [4, 16]}
+    with pytest.raises(RuntimeError, match="configuration differs"):
+        finalize.freeze_and_evaluate(object(), changed, output)
+    assert not (output/"tables/final_test.csv").exists()
 
 
 def test_completed_freeze_reuses_matching_files_without_training(freeze_workspace, monkeypatch):
@@ -101,7 +146,7 @@ def test_completed_freeze_rejects_tampered_artifact_without_scoring(
 def test_reservation_and_model_hash_precede_holdout_then_interruption_locks_retry(
         freeze_workspace, monkeypatch):
     output, cfg, _ = freeze_workspace
-    index = pd.date_range("2021-01-01 00:00", periods=16, freq="15min")
+    index = pd.date_range("2021-08-09 08:45", periods=16, freq="15min")
     frame = pd.DataFrame({"power": range(len(index))}, index=index)
     boundary = pd.Timestamp(cfg["split"]["test_start_origin"])
     lock = output / "logs/freeze_record.json"

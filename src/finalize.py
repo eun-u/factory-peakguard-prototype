@@ -174,6 +174,10 @@ def freeze_and_evaluate(df, cfg, output_dir="outputs"):
     if now < deadline:
         raise RuntimeError(f"Holdout is sealed until {deadline}; current time is {now}")
     out = Path(output_dir)
+    from .workflow import require_freeze_approval
+    # The old YAML switch is historical configuration, never an approval.
+    # This check precedes all holdout artifact reads and model fitting.
+    require_freeze_approval(Path.cwd(), cfg, out)
     for folder in ("logs", "tables", "predictions", "models"):
         (out / folder).mkdir(parents=True, exist_ok=True)
     manifest_path = out / "logs" / "development_selection.json"

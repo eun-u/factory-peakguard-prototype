@@ -147,3 +147,10 @@
 - 원본 OOF·선정 JSON·보호75개 파일은 전후 해시/목록이 일치했다. h1=p1_latest, h4=lgbm_no_holiday_weight_2, h16/h96=c3_holiday_hybrid를 유지한다. addendum·원 채택 기준·평가 프로토콜·훈련 코드는 바꾸지 않았다.
 - 부분 재현은 보존된 개발 OOF·원 모델·입력 및 비교표를 사용한 검증이며 전체 후보 파이프라인의 빈 환경 실행이 아니다. 선택 A/B/C는 이번 두 번째 cold 실행에 포함하지 않았고 실제 실험 및 별도 회귀/원본 예측 일치 확인 범위를 인계서에 명시했다.
 - 최종 테스트는 열지 않았고 final_test.csv는 없다. 사람 입력은 전부 미완료로 남기며 기존 자동 동결 예약은 명시적 승인 전까지 Disabled이다. 상세 증거는 outputs/logs/session_0924_repro.json 및 session_0924_summary.md에 기록했다.
+
+## 2026-09-24 P1 기반 안전 결정
+
+- 최신 마스터 지시가 이전 문서 갱신 요청보다 우선한다. report/slides/submission/roadmap/verification/prototype는 보존하며 테스트 목표는 2021-08-09 09:45 이전만 허용한다. P1 확증23개 가설은 2138770에서 결과 전에 고정했다.
+- 원래 run_all 개발 단계는 전체 CSV를 읽은 뒤 자르므로 현재의 비접근 조건에 맞지 않았다. 기본 명령과 개발 전용 명령을 metadata-first prefix 입력으로 전환했다. 다른 전체 데이터 단계는 날짜 및 이름/시각/현재 해시에 결합된 사람 승인 검사 뒤에만 진입한다. 설정의 과거 human_approval_required:false는 승인으로 인정하지 않는다.
+- dry-run은 원자료의 불투명 해시, 개발 캐시/설정/선정/코드 지문만 검사하고 테스트를 파싱하지 않는다. 새 과학 모듈이 캐시를 무효화하도록 fingerprint 범위를 확장했다. 실제 개발 재학습과 재봉인은 P3 사전 고정 후에만 수행한다.
+- 자동 실행 기록이 PROGRESS의 이전 marker 뒤 수동 기록을 삭제하던 동작은 append-only로 고쳤다. 같은 Phase의 누락/표본 부족 가설도 Holm 가족에서 제외하지 않고 p=1로 유지한다.

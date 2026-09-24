@@ -7,6 +7,8 @@ import csv
 from datetime import datetime, timezone
 from pathlib import Path
 
+import yaml
+
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -16,8 +18,7 @@ def model_code_digest(src):
     """Freeze forecasting/scoring code, allowing later report-only maintenance."""
     src = Path(src)
     report_only = {"reporting.py", "model_reporting.py", "packaging.py", "viz.py"}
-    paths = [p for p in sorted(src.glob("*.py")) if p.name not in report_only]
-    paths += sorted((src/"models").glob("*.py"))
+    paths = [p for p in sorted(src.rglob("*.py")) if p.name not in report_only]
     result = hashlib.sha256()
     for path in paths:
         result.update(path.relative_to(src).as_posix().encode("utf-8"))
@@ -74,8 +75,11 @@ def fingerprint(root, *, development_only=False):
     files = [root/"requirements.txt", root/"eval_protocol.md",
              root/"outputs/logs/adoption_criteria.md"]
     if development_only:
-        files += [root/"src"/name for name in ["data.py", "features.py", "holidays.py", "targets.py", "split.py", "training.py", "evaluate.py", "bootstrap.py"]]
-        files += sorted((root/"src/models").glob("*.py"))
+        # New scientific modules must invalidate the old OOF cache too.  The
+        # previous hand-maintained list omitted session_data and Phase 2 code.
+        report_only = {"reporting.py", "model_reporting.py", "packaging.py", "viz.py"}
+        files += [root/"run_all.py"] + [p for p in sorted((root/"src").rglob("*.py"))
+                                        if p.name not in report_only]
         files += [root/"configs/default.yaml"]
     else:
         files += [root/"run_all.py"] + sorted((root/"src").rglob("*.py")) + sorted((root/"configs").glob("*.yaml"))
@@ -119,6 +123,73 @@ def verify_development_cache(outdir, expected_fingerprint):
         return False
 
 
+def freeze_readiness(root, cfg, outdir, expected_fingerprint=None, *, allow_completed=False):
+    """Verify development provenance without parsing any test observation."""
+    from .session_data import SEALED_BOUNDARY
+
+    root, out = Path(root).resolve(), Path(outdir)
+    config_path = root/"configs/default.yaml"
+    stored_cfg = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    if cfg != stored_cfg:
+        raise RuntimeError("Freeze configuration differs from the pinned default YAML")
+    if pd_timestamp(cfg["split"]["test_start_origin"]) != SEALED_BOUNDARY:
+        raise RuntimeError("The configured test origin differs from the sealed boundary")
+    source_path = root/cfg["source"]
+    if not source_path.is_file():
+        raise FileNotFoundError("Pinned freeze source is missing")
+    expected = expected_fingerprint or fingerprint(root, development_only=True)
+    if not verify_development_cache(out, expected):
+        raise RuntimeError("Development cache is missing, stale, or incomplete")
+    selection = out/"logs/development_selection.json"
+    cache = out/"logs/development_cache.json"
+    manifest = json.loads(selection.read_text(encoding="utf-8"))
+    if not isinstance(manifest.get("selection"), dict) or not manifest.get("folds"):
+        raise RuntimeError("Development selection manifest is incomplete")
+    lock = out/"logs/freeze_record.json"
+    completed = False
+    if lock.exists():
+        record = json.loads(lock.read_text(encoding="utf-8"))
+        completed = allow_completed and record.get("status") == "completed"
+        if not completed:
+            raise RuntimeError("Freeze reservation already exists")
+    final_names = ("tables/final_test.csv", "predictions/final_test_predictions.csv",
+                   "tables/t2_final_test.csv", "predictions/t2_final_test_predictions.csv")
+    if not completed and any((out/name).exists() for name in final_names):
+        raise RuntimeError("Holdout artifacts exist without a completed freeze")
+    return {"status": "completed" if completed else "ready_for_human_approval", "holdout_read": False,
+            "development_cache_sha256": digest(cache),
+            "selection_sha256": digest(selection),
+            "config_sha256": digest(config_path),
+            "source_sha256": digest(source_path),
+            "fingerprint_sha256": hashlib.sha256(json.dumps(expected, sort_keys=True).encode("utf-8")).hexdigest(),
+            "test_start_origin": str(SEALED_BOUNDARY)}
+
+
+def pd_timestamp(value):
+    """Local import keeps the ordinary hash helpers free of pandas startup."""
+    import pandas as pd
+    return pd.Timestamp(value)
+
+
+def require_freeze_approval(root, cfg, outdir, expected_fingerprint=None):
+    """Require a named, hash-bound human decision before any holdout loader."""
+    readiness = freeze_readiness(root, cfg, outdir, expected_fingerprint, allow_completed=True)
+    path = Path(outdir)/"logs/human_freeze_approval.json"
+    if not path.is_file():
+        raise RuntimeError("Explicit human freeze approval is required")
+    decision = json.loads(path.read_text(encoding="utf-8"))
+    if decision.get("decision") != "approve_freeze" or not str(decision.get("approved_by", "")).strip():
+        raise RuntimeError("A named human freeze approval is required")
+    approved_at = datetime.fromisoformat(str(decision.get("approved_at_kst", "")))
+    if approved_at.tzinfo is None or approved_at > datetime.now(timezone.utc):
+        raise RuntimeError("Freeze approval timestamp must be timezone-aware and not future-dated")
+    for name in ("development_cache_sha256", "selection_sha256", "config_sha256",
+                 "source_sha256", "fingerprint_sha256"):
+        if decision.get(name) != readiness[name]:
+            raise RuntimeError(f"Freeze approval is stale: {name}")
+    return readiness
+
+
 def record_run_evidence(root, outdir, status):
     """Keep dated machine status separate from the written historical progress log."""
     root, out = Path(root), Path(outdir)
@@ -134,7 +205,8 @@ def record_run_evidence(root, outdir, status):
     progress = root/"PROGRESS.md"
     body = progress.read_text(encoding="utf-8") if progress.exists() else "# 진행 기록\n"
     marker = "<!-- AUTO_EXECUTION_STATUS -->"
-    body = body.split(marker, 1)[0].rstrip()
+    # Append only. Earlier session entries can follow the first auto marker.
+    body = body.rstrip()
     freeze = out/"logs/freeze_record.json"
     frozen = json.loads(freeze.read_text(encoding="utf-8")) if freeze.exists() else {}
     current = "동결 평가 완료 · 파일 해시 검증 기록 참조" if frozen.get("status") == "completed" else "최종 테스트 미평가 · 날짜/예약 잠금 유지"

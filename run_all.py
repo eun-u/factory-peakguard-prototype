@@ -12,20 +12,33 @@ import pandas as pd
 import yaml
 
 from src.workflow import (check_evidence, fingerprint, final_gate, json_write, audit_historical_predictions,
-                          development_artifacts, verify_development_cache)
+                          development_artifacts, verify_development_cache, freeze_readiness,
+                          require_freeze_approval)
 
 ROOT = Path(__file__).resolve().parent
 STEPS = ["data", "development", "final", "analysis", "report", "package"]
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="configs/default.yaml")
     parser.add_argument("--only", choices=STEPS)
     parser.add_argument("--from", dest="from_step", choices=STEPS)
     parser.add_argument("--rebuild-dev", action="store_true", help="Rebuild development only; never reevaluate completed test")
-    args = parser.parse_args()
+    parser.add_argument("--development-only", action="store_true",
+                        help="Rebuild/verify development from the sealed source prefix only")
+    parser.add_argument("--dry-run-freeze", action="store_true",
+                        help="Verify development cache and fingerprints without opening test data")
+    args = parser.parse_args(argv)
+    if args.development_only and args.dry_run_freeze:
+        parser.error("Choose one of --development-only and --dry-run-freeze")
+    if (args.development_only or args.dry_run_freeze) and (args.only or args.from_step):
+        parser.error("The sealed development modes cannot be combined with --only/--from")
     os.chdir(ROOT)
+    if (args.development_only or args.dry_run_freeze or args.only == "development"
+            or (not args.only and not args.from_step)):
+        if Path(args.config).resolve() != (ROOT/"configs/default.yaml").resolve():
+            parser.error("Sealed development requires configs/default.yaml")
     cfg = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
     out = Path(cfg.get("output_dir", "outputs"))
     for directory in ("logs", "tables", "predictions", "figures", "models"):
@@ -33,7 +46,27 @@ def main():
     evidence = check_evidence(ROOT)
     run_fingerprint = fingerprint(ROOT)
     dev_fingerprint = fingerprint(ROOT, development_only=True)
-    steps = [args.only] if args.only else STEPS[STEPS.index(args.from_step):] if args.from_step else STEPS
+    if args.dry_run_freeze:
+        readiness = freeze_readiness(ROOT, cfg, out, dev_fingerprint)
+        readiness["date_gate_open"] = final_gate(cfg)
+        try:
+            require_freeze_approval(ROOT, cfg, out, dev_fingerprint)
+        except (RuntimeError, ValueError, FileNotFoundError) as exc:
+            readiness["human_approval"] = "pending_or_invalid"
+            readiness["approval_reason"] = str(exc)
+        else:
+            readiness["human_approval"] = "verified"
+        json_write(out/"logs/freeze_dry_run.json", readiness)
+        print(json.dumps(readiness, ensure_ascii=False), flush=True)
+        return readiness
+    steps = (["development"] if args.development_only or (not args.only and not args.from_step)
+             else [args.only] if args.only else STEPS[STEPS.index(args.from_step):])
+    # Explicit full-data steps are reserved for the approved one-time freeze.
+    # This check precedes every code path that could decode a holdout value.
+    if any(step != "development" for step in steps):
+        if not final_gate(cfg):
+            raise RuntimeError("Holdout is date-locked; use --development-only")
+        require_freeze_approval(ROOT, cfg, out, dev_fingerprint)
     status = {"status": "running", "steps": {}, "holdout": "locked", "fingerprint": run_fingerprint}
     started = time.perf_counter()
     data_path = Path("data/processed/power_15min.parquet")
@@ -50,7 +83,7 @@ def main():
         nonlocal df
         if df is None:
             from src.data import load_power_data
-            # The raw source is pinned; a stale or modified Parquet cannot change training.
+            # This helper is reachable only after the explicit approval gate.
             df, _ = load_power_data(cfg["source"])
         return df
 
@@ -60,7 +93,8 @@ def main():
             if not verify_development_cache(out, dev_fingerprint):
                 raise RuntimeError("Development cache is missing/stale; run python run_all.py")
             selection = json.loads((out/"logs/development_selection.json").read_text(encoding="utf-8"))
-            development = {"predictions": pd.read_csv(out/"predictions/development_oof.csv", parse_dates=["origin", "target_time"]),
+            from src.session_data import read_development_oof
+            development = {"predictions": read_development_oof(out/"predictions/development_oof.csv"),
                            "metrics": pd.read_csv(out/"tables/development_cv.csv"), **selection}
         return development
 
@@ -88,7 +122,10 @@ def main():
                         raise RuntimeError("Development reselection after completed freeze is forbidden; restore the verified development cache")
                     from src.training import run_development, run_t2_development
                     # Never pass holdout observations into development training, including h96 labels.
-                    df_dev = data().loc[data().index < pd.Timestamp(cfg["split"]["test_start_origin"])].copy()
+                    from src.session_data import load_development_history, SEALED_BOUNDARY
+                    df_dev = load_development_history(ROOT)
+                    if df_dev.index.max() >= SEALED_BOUNDARY:
+                        raise AssertionError("Development loader crossed the sealed boundary")
                     development = run_development(df_dev, cfg, out)
                     run_t2_development(df_dev, cfg, out)
                     if fingerprint(ROOT, development_only=True) != dev_fingerprint:
