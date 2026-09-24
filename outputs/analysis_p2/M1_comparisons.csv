@@ -1,4 +1,4 @@
 analysis_id,hypothesis_id,horizon,incumbent_model,candidate_model,estimate,ci_low,ci_high,p_raw,n_positive_folds,eligible,null_value,n_paired_all,n_paired_peak,last_fold_peak_mae_ratio,last_fold_stability_pass,reference_only,selection_used,bootstrap_valid_draws,bootstrap_undefined_draws
-M1,M1_h4,4,lgbm_no_holiday_weight_2,lgbm_residual_cbl,-5.309090319677944,-7.752897007695972,-2.3521577595148484,1.0,1,True,0.0,7551,425,1.6248839816000817,False,True,False,1000,0
-M1,M1_h16,16,c3_holiday_hybrid,lgbm_residual_cbl,-4.492441608661224,-12.072682890844595,0.40655709822263664,0.8941058941058941,2,True,0.0,7498,425,0.9077910392645984,True,False,False,1000,0
-M1,M1_h96,96,c3_holiday_hybrid,lgbm_residual_cbl,-6.4609257443392005,-11.003541158125673,-2.6518723945346028,0.996003996003996,0,True,0.0,7155,369,1.5041101786008904,False,False,False,1000,0
+M1,M1_h4,4,lgbm_no_holiday_weight_2,lgbm_residual_cbl,-5.309090319677945,-7.752897007695972,-2.3521577595148484,1.0,1,True,0.0,7551,425,1.6248839816000815,False,True,False,1000,0
+M1,M1_h16,16,c3_holiday_hybrid,lgbm_residual_cbl,-4.492441608661227,-12.072682890844595,0.40655709822263325,0.8941058941058941,2,True,0.0,7498,425,0.9077910392645989,True,False,False,1000,0
+M1,M1_h96,96,c3_holiday_hybrid,lgbm_residual_cbl,-6.460925744339204,-11.003541158125678,-2.6518723945346068,0.996003996003996,0,True,0.0,7155,369,1.5041101786008912,False,False,False,1000,0

@@ -56,7 +56,7 @@
     ]
   },
   "P2": {
-    "status": "completed_before_integration_rerun",
+    "status": "completed",
     "preregistration_commit": "3889a8e",
     "candidate_counts_by_horizon": {
       "4": 1,
@@ -65,19 +65,58 @@
     },
     "total_candidates_planned": 11,
     "candidates_executed": 11,
-    "candidate_ids": ["lgbm_residual_cbl", "q95_rolling_672", "q95_aci_005", "q95_aci_010", "q95_aci_050"],
+    "candidate_ids": [
+      "lgbm_residual_cbl",
+      "q95_rolling_672",
+      "q95_aci_005",
+      "q95_aci_010",
+      "q95_aci_050"
+    ],
     "confirmatory_hypotheses": 27,
-    "new_feature_sets": ["existing_no_holiday_plus_fixed_cbl_baseline"],
+    "new_feature_sets": [
+      "existing_no_holiday_plus_fixed_cbl_baseline"
+    ],
     "m1_actual_model_fits": 9,
     "m4_actual_quantile_model_fits": 60,
     "m4_identical_fixed_repetitions": 2,
     "retrospective_ridge_fits": 6,
     "operational_scenarios": 16,
-    "new_candidates_adopted": [{"horizon": 16, "model": "lgbm_residual_cbl", "reason": "false_alarm_ci_after_peak_and_episode_ci_overlap"}],
+    "new_candidates_adopted": [
+      {
+        "horizon": 16,
+        "model": "lgbm_residual_cbl",
+        "reason": "false_alarm_ci_after_peak_and_episode_ci_overlap"
+      }
+    ],
     "M2_M3_ablations_placebo": "not_executed_because_P1_gate_failed"
   },
   "P3": {
-    "status": "not_started"
+    "status": "completed_development_only",
+    "preregistration_commit": "0cae04d",
+    "full_cv_runs": 1,
+    "original_horizon_fold_runs": 12,
+    "original_t2_fold_runs": 3,
+    "original_grid_evaluations": 24,
+    "original_model_horizon_pairs": 84,
+    "new_candidate_configurations": 0,
+    "new_hypotheses": 0,
+    "research_residual_model_fits": 9,
+    "research_quantile_model_fits": 30,
+    "partial_residual_model_fits": 1,
+    "partial_quantile_model_fits": 5,
+    "retrospective_ridge_fits": 6,
+    "operational_scenarios": 16,
+    "test_opened": false,
+    "full_cv_seconds": 1881.419,
+    "runtime_target_seconds": 1800,
+    "runtime_target_met": false
   },
-  "test_opened": false
+  "test_opened": false,
+  "totals": {
+    "registered_confirmatory_hypotheses": 50,
+    "new_model_horizon_candidates": 11,
+    "new_forecast_feature_sets": 1,
+    "research_related_lightgbm_fits_including_reproduction": 114,
+    "note": "P1 진단10특징집합은 별도 등록, 로지스틱 적격 적합0; 기존 모델 전체CV 재학습은 별도 P3 단계 수로 표시"
+  }
 }
