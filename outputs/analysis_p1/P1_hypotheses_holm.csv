@@ -1,0 +1,24 @@
+﻿analysis_id,hypothesis_id,horizon,feature,test_kind,estimate,ci_low,ci_high,p_raw,n_positive_folds,eligible,null_value,n_boot_valid,analysis_role,fold_direction_definition,n_score_peaks,bootstrap_draws,bootstrap_valid_draws,bootstrap_undefined_draws,ci_condition,restart_rows,nonrestart_rows,direction_preregistered,interpretation,p_holm,passed,verdict,selection_used
+A1,A1_proximity,4,restart_slot,proximity,0.0068513892043303,-0.0123639928122789,0.0297780633434374,0.3206793206793207,2,True,0.0,,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_previous_day_max,16,previous_day_max,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_previous_week_max,16,previous_week_max,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_slot_rate7,16,slot_rate7,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_slot_rate28,16,slot_rate28,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_origin_level,16,origin_level,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_origin_slope,16,origin_slope,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_previous_restart_rise,16,previous_restart_rise,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h16_multivariate,16,multivariate,auc_multi,,,,1.0,0,False,0.6,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_previous_day_max,96,previous_day_max,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_previous_week_max,96,previous_week_max,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_slot_rate7,96,slot_rate7,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_slot_rate28,96,slot_rate28,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_origin_level,96,origin_level,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_origin_slope,96,origin_slope,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_previous_restart_rise,96,previous_restart_rise,auc_single,,,,1.0,0,False,0.5,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A2,A2_h96_multivariate,96,multivariate,auc_multi,,,,1.0,0,False,0.6,0.0,,,,,,,,,,,,1.0,False,미입증,False
+A3,A3_origin_level,16,origin_level,coefficient,,,,1.0,0,False,0.0,0.0,pre_origin,sign_matches_pooled_estimate,0.0,,,,,,,,,1.0,False,미입증,False
+A3,A3_target_weekday,16,target_weekday,coefficient,,,,1.0,0,False,0.0,0.0,pre_origin,sign_matches_pooled_estimate,0.0,,,,,,,,,1.0,False,미입증,False
+A3,A3_observed_production,16,observed_production,coefficient,,,,1.0,0,False,0.0,0.0,retrospective_only,sign_matches_pooled_estimate,0.0,,,,,,,,,1.0,False,미입증,False
+A3,A3_temperature,16,temperature,coefficient,,,,1.0,0,False,0.0,0.0,retrospective_only,sign_matches_pooled_estimate,0.0,,,,,,,,,1.0,False,미입증,False
+A4,A4_h16,16,,,-11.301007177918432,-32.66317524727376,8.245464986012905,0.8751248751248751,1,True,0.0,,,,,1000.0,1000.0,0.0,defined_resamples_only; undefined draws conservatively nonrejecting,9.0,7489.0,positive,"retrospective error concentration, not feature approval",1.0,False,미입증,False
+A4,A4_h96,96,,,-16.267100241145286,-37.16343679639954,2.3187619150975607,0.936063936063936,0,True,0.0,,,,,1000.0,999.0,1.0,defined_resamples_only; undefined draws conservatively nonrejecting,7.0,7148.0,positive,"retrospective error concentration, not feature approval",1.0,False,미입증,False

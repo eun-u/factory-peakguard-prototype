@@ -1,0 +1,17 @@
+﻿analysis,horizon,alarm_source,prep_minutes,scenario,cohort_scope,n_target_rows,n_actual_peak_positions,n_actual_peak_unique_source_hours,n_alert_positions,n_time_eligible_alert_positions,n_applied_unique_source_hours,n_applied_actual_peak_source_hours,applied_per_alert_position,tau_min,tau_max
+A5,16,original_operational,30,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1444,1444,411,172,0.28462603878116344,175.0,177.0
+A5,16,original_operational,30,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1444,1444,462,174,0.31994459833795014,175.0,177.0
+A5,16,original_operational,60,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1444,1444,411,172,0.28462603878116344,175.0,177.0
+A5,16,original_operational,60,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1444,1444,462,174,0.31994459833795014,175.0,177.0
+A5,16,perfect_information_reference,30,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,423,178,178,0.4188235294117647,175.0,177.0
+A5,16,perfect_information_reference,30,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,423,182,182,0.42823529411764705,175.0,177.0
+A5,16,perfect_information_reference,60,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,423,178,178,0.4188235294117647,175.0,177.0
+A5,16,perfect_information_reference,60,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,423,182,182,0.42823529411764705,175.0,177.0
+A5,4,original_operational,30,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1288,575,329,166,0.2554347826086957,175.0,177.0
+A5,4,original_operational,30,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1288,575,342,167,0.265527950310559,175.0,177.0
+A5,4,original_operational,60,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1288,0,0,0,0.0,175.0,177.0
+A5,4,original_operational,60,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,1288,0,0,0,0.0,175.0,177.0
+A5,4,perfect_information_reference,30,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,170,115,115,0.27058823529411763,175.0,177.0
+A5,4,perfect_information_reference,30,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,170,118,118,0.2776470588235294,175.0,177.0
+A5,4,perfect_information_reference,60,D,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,0,0,0,0.0,175.0,177.0
+A5,4,perfect_information_reference,60,C,same_target_time_h4_h16_intersection; full_oof_simulation_action_subset,7403,425,183,425,0,0,0,0.0,175.0,177.0

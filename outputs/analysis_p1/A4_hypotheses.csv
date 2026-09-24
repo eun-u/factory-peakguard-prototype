@@ -1,0 +1,3 @@
+﻿analysis_id,hypothesis_id,horizon,estimate,ci_low,ci_high,p_raw,n_positive_folds,eligible,null_value,bootstrap_draws,bootstrap_valid_draws,bootstrap_undefined_draws,ci_condition,restart_rows,nonrestart_rows,direction_preregistered,interpretation
+A4,A4_h16,16,-11.301007177918432,-32.66317524727376,8.245464986012905,0.8751248751248751,1,True,0.0,1000,1000,0,defined_resamples_only; undefined draws conservatively nonrejecting,9,7489,positive,"retrospective error concentration, not feature approval"
+A4,A4_h96,96,-16.267100241145286,-37.163436796399544,2.3187619150975607,0.936063936063936,0,True,0.0,1000,999,1,defined_resamples_only; undefined draws conservatively nonrejecting,7,7148,positive,"retrospective error concentration, not feature approval"

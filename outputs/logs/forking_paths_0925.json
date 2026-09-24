@@ -1,0 +1,72 @@
+{
+  "session": "0925",
+  "seed": 42,
+  "candidate_limit_per_horizon": 6,
+  "P1": {
+    "preregistration_commit": "2138770",
+    "confirmatory_hypotheses_registered": 23,
+    "confirmatory_hypotheses_attempted": [
+      "A1_proximity",
+      "A2_h16_previous_day_max",
+      "A2_h16_previous_week_max",
+      "A2_h16_slot_rate7",
+      "A2_h16_slot_rate28",
+      "A2_h16_origin_level",
+      "A2_h16_origin_slope",
+      "A2_h16_previous_restart_rise",
+      "A2_h16_multivariate",
+      "A2_h96_previous_day_max",
+      "A2_h96_previous_week_max",
+      "A2_h96_slot_rate7",
+      "A2_h96_slot_rate28",
+      "A2_h96_origin_level",
+      "A2_h96_origin_slope",
+      "A2_h96_previous_restart_rise",
+      "A2_h96_multivariate",
+      "A3_origin_level",
+      "A3_target_weekday",
+      "A3_observed_production",
+      "A3_temperature",
+      "A4_h16",
+      "A4_h96"
+    ],
+    "evaluable_hypotheses": 3,
+    "unevaluable_hypotheses": 20,
+    "restart_definition_variants": 5,
+    "registered_unique_diagnostic_feature_sets": [
+      "previous_day_max",
+      "previous_week_max",
+      "slot_rate7",
+      "slot_rate28",
+      "origin_level",
+      "origin_slope",
+      "previous_restart_rise",
+      "all7_plus_exceed_calendar",
+      "OLS_pre_origin",
+      "OLS_post_observed"
+    ],
+    "registered_logistic_configurations": 16,
+    "eligible_logistic_model_fits": 0,
+    "retrospective_ridge_fits": 6,
+    "operational_scenarios": 16,
+    "new_forecast_candidates": 0,
+    "M2_M3_gate": "not_permitted",
+    "exploratory_outputs": [
+      "A2_episode_origin_coverage: availability only, no adoption use"
+    ]
+  },
+  "P2": {
+    "status": "awaiting_preregistration_commit",
+    "candidate_counts_by_horizon": {
+      "4": 1,
+      "16": 5,
+      "96": 5
+    },
+    "total_candidates_planned": 11,
+    "candidates_executed": 0
+  },
+  "P3": {
+    "status": "not_started"
+  },
+  "test_opened": false
+}
