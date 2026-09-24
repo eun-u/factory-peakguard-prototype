@@ -1,9 +1,11 @@
 ﻿{
     "task_name":  "FactoryPeakguard-Task05-Freeze-20261001",
-    "state":  "Ready",
+    "state":  "Disabled",
     "scheduled_kst":  "2026-10-01T18:00:00.0000000+09:00",
     "interactive_logon_required":  true,
     "start_when_available":  true,
     "execution_completed":  false,
-    "note":  "PC must be available. If interactive_logon_required is true, this Windows user must be logged on. Python date and one-time lock remain authoritative."
+    "note":  "Disabled until explicit named human freeze approval and manual reactivation; no final evaluation in session 0925.",
+    "verified_at_kst":  "2026-09-24T15:56:24.6822047+09:00",
+    "human_approval_pending":  true
 }

@@ -1,0 +1,175 @@
+{
+  "status": "pass",
+  "scope": "sealed_original_development_oof_only",
+  "sealed_boundary_exclusive": "2021-08-09 09:45:00",
+  "absolute_tolerance": 1e-10,
+  "original_input_sha256": {
+    "_validation/session_0925_original/predictions/development_oof.csv": "4bffcf1e86a38ca4518a3568afba63f56c111c02b16c0c124396634cb5f8e366",
+    "_validation/session_0925_original/logs/development_selection.json": "0a6a1b7ff1bb229468426df9b81ef4d6d0e127d6d462746b85e37c3a0fa46c38",
+    "outputs/analysis_p1/A1_A3_hypotheses.csv": "3ef419ec09f61d7be8eb223439bb9410d7bb60435b744fb79123b4bc02e5a70a",
+    "outputs/analysis_p1/A1_A3_summary.json": "a1442c8a0e52c387f6d338584749f77b22e41b8290ffe64c9b73ebbeed46dc75",
+    "outputs/analysis_p1/A1_fold_slot_drift.csv": "6356639b1bf4831fc4052479e4074d94a0a5dc3de05d833e48d05aa27ed96851",
+    "outputs/analysis_p1/A1_peak_slot_distribution.png": "2f5a6a91fd307f93fb956c9684a4aa9814dd04c57613e56a5abb9262aa958aa5",
+    "outputs/analysis_p1/A1_peak_starts.csv": "919cacc4cbddc94cb9e7a01ca98b08af62a1d16f69c36297e619f606875eac73",
+    "outputs/analysis_p1/A1_proximity.csv": "498cefcadc963cabebac1f217ce7caf1299c912e3200c3ec5b9fe83b0119685e",
+    "outputs/analysis_p1/A1_restart_events.csv": "a4bd2db54ee37efae26eed2d5447fc7039266be213f866fb1eadfa9b820b9007",
+    "outputs/analysis_p1/A1_restart_slots.csv": "2c8c772ee55db01667e1a3fd576db52e84599f4d717633aca2834338cd1b73da",
+    "outputs/analysis_p1/A1_sensitivity.csv": "0abf6513d0a9e361395636ca3a7ae001b19d24afe288d41b69d1d00e336bf862",
+    "outputs/analysis_p1/A1_slot_peak_days.csv": "8ee386a5960636257a31df448e591e3933a024fe7aa050b70445901d3cd2948d",
+    "outputs/analysis_p1/A1_week_slot_rates.csv": "a4e1d6d685e68293074f5430e724cc84205a1a11b2b047129710ead97a6e456f",
+    "outputs/analysis_p1/A1_weekly_schedules.csv": "3c2229f355330b1ae214a0f7104a3a29e012c7763374fed832c13f5e81fae779",
+    "outputs/analysis_p1/A2_auc_by_horizon.png": "71a08763fe57065405709f4fa34eab241df6ba7de284303d4b688daccd087572",
+    "outputs/analysis_p1/A2_episode_origin_coverage.csv": "bdafa329fab2de7b88bfdc78e76f123c69071c1cccd134909d29286103b6e71d",
+    "outputs/analysis_p1/A2_feature_provenance.csv": "f98f249466c7169ea9ea40966e9b3b28b3dd412a397feb1866aa4214ac3b209e",
+    "outputs/analysis_p1/A2_fold_auc.csv": "63629f0ce643f43f32ed4b334305932a3fcb1400c8ed4a6a9ecf9ab5ff0bbccd",
+    "outputs/analysis_p1/A2_fold_cohorts.csv": "6c75d7e3fea88a70f08c2e7d0155829aebb7aa69c4f4c028e5c974eb187f1dcc",
+    "outputs/analysis_p1/A2_predictions.csv": "6440deea4af380b794abfee4be2407b53aee5c81b17ff7a79fe00d4842b955a4",
+    "outputs/analysis_p1/A2_restart_slots.csv": "26004f75bf3d4b6f76cfa66998a29c8a86b3dbcd8a43d56ee9879a8bec6ab980",
+    "outputs/analysis_p1/A2_score_cohort.csv": "ae6cfbce3886f6aca73421ca6c8fd00eb52db6aeef76c85aa467186ff62c9ed4",
+    "outputs/analysis_p1/A3_coefficients.csv": "9943eb00bd9f9f1d20d76d62245948e42907fa7805da1f46d59d3a75b69d708e",
+    "outputs/analysis_p1/A3_peak_excess_coefficients.png": "9ca8ad4a1ef1722b6af1ad705724250cb43d37de57ab662c38db54de66dc216c",
+    "outputs/analysis_p1/A3_score_peak_cohort.csv": "71a5b520b3e17b993d1a3839343ac7ff2600823f18eab43fb1717df9d514642c",
+    "outputs/analysis_p1/A3_strata.csv": "7cb2a11de4ccbb1af943eb8ce3a892fce0aeea6b904b72623a05dfa5f1525aa3",
+    "outputs/analysis_p1/A3_train_peak_cohort.csv": "71a5b520b3e17b993d1a3839343ac7ff2600823f18eab43fb1717df9d514642c",
+    "outputs/analysis_p1/A4_A5_summary.json": "c9949f3ea8bb82fc8577fa5e60259d7f621aa6003415892386ae0fc6d984dc4c",
+    "outputs/analysis_p1/A4_breakdown.csv": "9f65acf235ba155d41fda8ca909ea8c10baecfbe8e732f368606c6c8621ea333",
+    "outputs/analysis_p1/A4_error_concentration.png": "61216227043a104b09c9f95d577d8a1e11ae2b384b54f5ede10fdfc71289474f",
+    "outputs/analysis_p1/A4_folds.csv": "4ae402fb2abf4fd9f78456aa0d512c6a106cc25beaea357957439fddf1bfda9f",
+    "outputs/analysis_p1/A4_hypotheses.csv": "373d733d48604ff2dbc94269fda77097ecff2c6999986509237827208bcf8f29",
+    "outputs/analysis_p1/A4_paired.csv": "e6188565ac5d067ff9ab80e51110b5cdb370a0bfa2a6fe5052e21f77469b74dc",
+    "outputs/analysis_p1/A5_actionable_peak_source_hours.png": "b1dcd0bc02cc9ced2f24b5526534e0bd9803a26a48b6ae74d6e442357c264087",
+    "outputs/analysis_p1/A5_actions.csv": "58cda1908eee076a1fc74d8cf9b69061a356c275c7814aaef2e5999ca2f67c26",
+    "outputs/analysis_p1/A5_alert_audit.csv": "a92efba073fc59a4a5733bde36c4c058655755e6c4b4f4eddd9c905b26bc822e",
+    "outputs/analysis_p1/A5_matched_h4_h16.csv": "8deb01f5e8cbf998dcd483ba5906c004be4e4708339243391a1fa7916f4069ec",
+    "outputs/analysis_p1/A5_monthly.csv": "ad8b6033df9e38d38f1df35fece9398da44167acf9b828e460bc3cad5e0a4af6",
+    "outputs/analysis_p1/A5_summary.csv": "eb566bce44a2cb3ee3075757e18986d4f67dd9d53cdbad5e9ba29e86b93c8152",
+    "outputs/analysis_p1/P1_hypotheses_holm.csv": "8098af0bbd8655bb922de8b94d2f331ef6a41ea7b086f91c7a1ecb706f9b00b9"
+  },
+  "isolated_output_dir": "_validation/session_0925_p1_repro",
+  "safe_prefix": {
+    "observations": 21158,
+    "last_ts_end": "2021-08-09 09:30:00",
+    "original_oof_rows": 625128
+  },
+  "A1": {
+    "summary": {
+      "fields": [
+        "n_peak_starts",
+        "n_selected_slot_starts",
+        "observed_proximity",
+        "null_mean_proximity"
+      ],
+      "max_abs_numeric_difference": 0.0
+    },
+    "hypothesis": {
+      "fields": [
+        "estimate",
+        "ci_low",
+        "ci_high",
+        "p_raw",
+        "n_positive_folds",
+        "eligible"
+      ],
+      "max_abs_numeric_difference": 0.0
+    },
+    "restart_slots": {
+      "rows": 288,
+      "columns": 6,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A1_restart_slots.csv"
+    },
+    "peak_starts": {
+      "rows": 148,
+      "columns": 8,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A1_peak_starts.csv"
+    },
+    "proximity": {
+      "rows": 148,
+      "columns": 8,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A1_proximity.csv"
+    }
+  },
+  "A2": {
+    "cohorts": {
+      "rows": 6,
+      "columns": 10,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A2_fold_cohorts.csv"
+    },
+    "restart_slots": {
+      "rows": 576,
+      "columns": 7,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A2_restart_slots.csv"
+    },
+    "score_cohort": {
+      "rows": 22,
+      "columns": 25,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A2_score_cohort.csv"
+    },
+    "fixed_hypotheses": 16,
+    "eligible_hypotheses": 0,
+    "selected_score_peaks": 0,
+    "h16_score_cohort": 14,
+    "h96_score_cohort": 8
+  },
+  "A4": {
+    "hypotheses": {
+      "rows": 2,
+      "columns": 18,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A4_hypotheses.csv"
+    },
+    "folds": {
+      "rows": 6,
+      "columns": 7,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A4_folds.csv"
+    },
+    "breakdown": {
+      "rows": 1166,
+      "columns": 11,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A4_breakdown.csv"
+    },
+    "paired_rows": {
+      "rows": 14653,
+      "columns": 15,
+      "max_abs_numeric_difference": 0.0,
+      "source": "outputs/analysis_p1/A4_paired.csv"
+    },
+    "effects": [
+      {
+        "horizon": 16,
+        "estimate": -11.301007177918432,
+        "ci_low": -32.66317524727376,
+        "ci_high": 8.245464986012905,
+        "restart_rows": 9,
+        "nonrestart_rows": 7489
+      },
+      {
+        "horizon": 96,
+        "estimate": -16.267100241145286,
+        "ci_low": -37.163436796399544,
+        "ci_high": 2.3187619150975607,
+        "restart_rows": 7,
+        "nonrestart_rows": 7148
+      }
+    ],
+    "preserved_effects": [
+      {
+        "horizon": 16,
+        "estimate": -11.301007177918432
+      },
+      {
+        "horizon": 96,
+        "estimate": -16.267100241145286
+      }
+    ]
+  },
+  "original_inputs_unchanged": true,
+  "elapsed_seconds": 24.886
+}
