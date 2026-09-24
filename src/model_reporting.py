@@ -10,6 +10,21 @@ from .viz import configure, plt, save
 from .bootstrap import day_mean_ci
 
 
+def split_fva_table(fva, outdir):
+    """Export separate point and uncertainty comparisons; keep legacy intact."""
+    out = Path(outdir) / "tables"
+    out.mkdir(parents=True, exist_ok=True)
+    paths = {}
+    for domain, name in (("point", "T2-1a_fva_point.csv"),
+                         ("uncertainty", "T2-1b_fva_uncertainty.csv")):
+        table = fva.loc[fva.metric_domain.eq(domain)].copy()
+        # Empty metrics from the other domain obscure what is being compared.
+        table = table.dropna(axis=1, how="all")
+        table.to_csv(out / name, index=False)
+        paths[domain] = str(out / name)
+    return paths
+
+
 def _report_score(frame):
     """Use raw quantiles when the pooled prediction schema has empty cal columns."""
     empty_cal = [col for col in ("q90_cal", "q95_cal", "q975_cal")
@@ -132,6 +147,7 @@ def build_model_report(predictions, selection, cfg, outdir):
         rows.append(rec)
     fva = pd.DataFrame(rows)
     fva.to_csv(out/"tables/T2-1_fva.csv", index=False)
+    split_fva_table(fva, out)
     adoption = pd.DataFrame([{"criterion": key, **value} for key,value in adopted.items()])
     adoption.to_csv(out/"tables/T5-1_adoption.csv", index=False)
     pooled = pd.DataFrame([{"model": name, **_report_score(g)} for name,g in pred.groupby("model")])

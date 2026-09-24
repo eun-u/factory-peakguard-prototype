@@ -1,0 +1,24 @@
+{
+  "task": 3,
+  "cbl_aliases_identical_all_horizons": true,
+  "canonical_id": "c3_holiday_hybrid",
+  "selection_changed": false,
+  "saved_selection_reproduced": true,
+  "source_oof_preserved": true,
+  "saved_selection_comparison": {
+    "equal": true,
+    "max_abs_difference": 1.0658141036401503e-14,
+    "mismatches": []
+  },
+  "legacy_fva_sha256": "15ed260be1a2e782dfbb26390cd2c0ab43593353b2702dea7e40a97ad913b0af",
+  "replacement_tables": {
+    "point": "C:\\Users\\User\\orca\\workspaces\\factory-peakguard-prototype\\05_experiments\\outputs\\tables\\T2-1a_fva_point.csv",
+    "uncertainty": "C:\\Users\\User\\orca\\workspaces\\factory-peakguard-prototype\\05_experiments\\outputs\\tables\\T2-1b_fva_uncertainty.csv"
+  },
+  "selected": {
+    "1": "p1_latest",
+    "4": "lgbm_no_holiday_weight_2",
+    "16": "c3_holiday_hybrid",
+    "96": "c3_holiday_hybrid"
+  }
+}

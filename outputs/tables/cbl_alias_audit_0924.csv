@@ -1,0 +1,5 @@
+horizon,left,right,rows,same_keys,same_predictions_and_missing,same_alert,identical
+1,c3_holiday_hybrid,c3_holiday_mid_4_6,7564,True,True,True,True
+4,c3_holiday_hybrid,c3_holiday_mid_4_6,7551,True,True,True,True
+16,c3_holiday_hybrid,c3_holiday_mid_4_6,7498,True,True,True,True
+96,c3_holiday_hybrid,c3_holiday_mid_4_6,7155,True,True,True,True
