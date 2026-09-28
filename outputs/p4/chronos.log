@@ -1,0 +1,17 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 7418.06it/s]
+[chronos] 32/11638 5.9s
+[chronos] 832/11638 188.4s
+[chronos] 1632/11638 348.2s
+[chronos] 2432/11638 491.7s
+[chronos] 3232/11638 641.1s
+[chronos] 4032/11638 786.9s
+[chronos] 4832/11638 929.2s
+[chronos] 5632/11638 1075.9s
+[chronos] 6432/11638 1222.6s
+[chronos] 7232/11638 1369.8s
+[chronos] 8032/11638 1514.7s
+[chronos] 8832/11638 1661.8s
+[chronos] 9632/11638 1804.5s
+[chronos] 10432/11638 1947.6s
+[chronos] 11232/11638 2090.9s

@@ -1,0 +1,8 @@
+{
+  "model": "amazon/chronos-2",
+  "context": 2048,
+  "chronos_version": "2.3.2",
+  "torch": "2.14.0+cpu",
+  "origins": 11638,
+  "seconds": 2177.4
+}

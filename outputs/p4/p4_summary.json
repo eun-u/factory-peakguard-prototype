@@ -1,0 +1,16 @@
+{
+  "point_selection": {
+    "1": "p4_mstl_daily",
+    "4": "p4_blend3",
+    "16": "lgbm_residual_cbl",
+    "96": "c3_holiday_hybrid"
+  },
+  "risk_selection": {
+    "1": "p4_quantile_dense",
+    "4": "lgbm_quantile_b",
+    "16": "lgbm_quantile_b",
+    "96": "lgbm_quantile_b"
+  },
+  "holm_family": 28,
+  "preregistration": "outputs/logs/preregistration_0928_P4.md"
+}
