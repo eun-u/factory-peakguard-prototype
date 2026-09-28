@@ -8,6 +8,7 @@
 | 판단 근거 | [DECISIONS](../DECISIONS.md) | 설계 모순 해소·분석 한계·채택 정책 |
 | 사전 평가 계획 | [eval_protocol](../eval_protocol.md), [채택 기준](../outputs/logs/adoption_criteria.md) | 개발 결과 전에 고정한 기준 |
 | 현재 완료 증거 | [PROGRESS](../PROGRESS.md), [실행 기록](../outputs/logs/run_status.json) | 계획일과 실제 수행을 구분 |
+| 서비스·도메인 중간 검토 | [2026-09-28 문서](reviews/2026-09-28/service_review.md), [시각화](../outputs/reviews/2026-09-28/service_domain_map.html) | 피지컬 AI 참고 지식과 대조한 현황·수정 제안. 구현·연구·미구현 구분 |
 | 시각적 로드맵 | [roadmap.html](roadmap.html) | 보고서 단계에서 자동 생성 |
 | 본문 초안 | [REPORT_DRAFT](../report/REPORT_DRAFT.md) | 1~6장 통합; 장별 파일도 제공 |
 | 발표 초안 | [14장 HTML](../slides/development_deck.html), [PDF](../slides/development_deck.pdf), [발표자 메모](../slides/speaker_notes.md) | 개발 결과. PPTX 미생성 |
