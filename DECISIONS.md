@@ -225,3 +225,12 @@
 - 사전 고정: outputs/logs/preregistration_0929_P5.md (SHA-256 3bc0de8eb1f8f5d7d451c9b19b0818452d7a5f9bcb74faeea748de1b251f2fab), 채점 전 작성·커밋.
 - CLAUDE.md 4.4: 사전 규칙 통과 시 학습 없는 사전학습 모델 후보 허용, 딥러닝 학습 금지는 유지.
 - 통합 기한 10/1 15:00 KST, 미달 시 P4 선정 → 기존 선정 순으로 되돌림. 동결 일시·사람 승인은 불변.
+
+## 2026-09-29 P5 결과와 P4 채택 후보 통합
+
+- P5 채점(outputs/p4/p5_point_comparisons.csv): 통과 후보 없음. Chronos-2 단독은 1시간 피크 MAE 12.58->10.80(+1.78 [-0.44, 3.99], Holm p=.384)으로 CI가 0을 포함하고 오경보 635->875(+38%)로 FP 문턱 미달. 4모델 결합도 미통과. Chronos-2는 참고 결과로 보고하고 통합하지 않는다.
+- 통합: h1 점예측 p4_mstl_daily, h1 위험 p4_quantile_dense, h4 점예측 p4_blend3를 src/research_p4_integration.py·src/models/seasonal.py·finalize.py에 반영하고 개발 CV를 재실행·재봉인했다(1676.8초, 2026-09-29 01:05 KST).
+- 재현: 통합 경로 OOF가 research_p4 산출물과 최대차 0, 기존 705,944행(원 모델 전부)도 최대차 0·경보 불일치 0. 모의 동결(2021-07-10 이후 개발 구간을 가짜 보류로 사용)에서 준비→예측→동결 후 분석→보고서 생성 경로 통과, 미래 교란 시 예측 변화 0.
+- 환경 변경(중요): statsforecast 2.1.1이 pandas<3을 요구하여 pandas 3.0.6 -> 2.3.3으로 변경하고 statsforecast·numba를 requirements에 추가, 잠금 파일 갱신. P4/P5 실험도 설치 과정에서 pandas 2.3.3으로 실행되었음을 사후 확인했다(의도하지 않은 버전 변경, outputs/p4/p4_environment_freeze.txt). 기존 결과가 두 버전에서 완전히 동일하므로 수치 영향은 없다.
+- 동결 승인 도구: scripts/write_freeze_approval.py(사람이 이름을 넣어 직접 실행, holdout 미열람). 동결 일시와 승인 절차는 불변.
+- 최종 평가 산출에는 h4 구성요소(lgbm_no_holiday_weight_2, p4_dshw)와 기존 위험 모델(lgbm_quantile_b)을 reference_only 비교 행으로 함께 남긴다. 선정에는 쓰지 않는다.

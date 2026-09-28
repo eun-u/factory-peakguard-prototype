@@ -38,3 +38,8 @@ research_0925:
   preregistration: outputs/logs/preregistration_0925_P2.md
   feature_gate: outputs/logs/feature_spec_P2.json
   candidate_limit_per_horizon: 6
+research_0928_p4:
+  enabled: true
+  preregistration: outputs/logs/preregistration_0928_P4.md
+  p5_addendum: outputs/logs/preregistration_0929_P5.md
+  adopted: {h1_point: p4_mstl_daily, h4_point: p4_blend3, h1_risk: p4_quantile_dense}

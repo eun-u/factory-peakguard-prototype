@@ -507,6 +507,12 @@ def run_development(df: pd.DataFrame, cfg: dict, output_dir="outputs") -> dict:
                                            research["selection"])
         original_selection = research["original_selection"]
         research_summary = research["integration"]
+    if cfg.get("research_0928_p4", {}).get("enabled") is True:
+        if not research_enabled:
+            raise ValueError("P4 integration builds on the sealed P2 research selection")
+        from .research_p4_integration import run_p4_integration
+        p4 = run_p4_integration(df, cfg, predictions, metrics, selection, manifests, output_dir)
+        predictions, metrics, selection = p4["predictions"], p4["metrics"], p4["selection"]
     paths = {"predictions": output_dir / "predictions" / "development_oof.csv",
              "metrics": output_dir / "tables" / "development_cv.csv",
              "selection": output_dir / "logs" / "development_selection.json"}

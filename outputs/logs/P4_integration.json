@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "h1_mstl": [
+      {
+        "fold": 0,
+        "phi": 0.9767645542841314,
+        "days": 183
+      },
+      {
+        "fold": 1,
+        "phi": 0.9765521708330426,
+        "days": 183
+      },
+      {
+        "fold": 2,
+        "phi": 0.974542853381024,
+        "days": 183
+      }
+    ],
+    "h4_blend3": [
+      {
+        "fold": 0,
+        "weights": [
+          0.9,
+          0.1,
+          0.0
+        ],
+        "dshw_params": [
+          0.00022203283033733284,
+          0.0,
+          0.4315412254437081,
+          0.9680971505659671
+        ]
+      },
+      {
+        "fold": 1,
+        "weights": [
+          0.6,
+          0.0,
+          0.4
+        ],
+        "dshw_params": [
+          0.0001041582985323942,
+          0.0,
+          0.3875928658814344,
+          0.970221496911734
+        ]
+      },
+      {
+        "fold": 2,
+        "weights": [
+          0.6,
+          0.0,
+          0.4
+        ],
+        "dshw_params": [
+          0.0001134096295959082,
+          0.0,
+          0.3390817511922975,
+          0.9698361857732128
+        ]
+      }
+    ],
+    "h1_dense": [
+      {
+        "fold": 0,
+        "cutoff": 0.19471592202997964
+      },
+      {
+        "fold": 1,
+        "cutoff": 0.10952203330678612
+      },
+      {
+        "fold": 2,
+        "cutoff": 0.04023635296913689
+      }
+    ]
+  },
+  "evidence_sha256": {
+    "outputs/logs/preregistration_0928_P4.md": "577dab9ccae4a18c68b5c82ed4bb1c6ed62f309ce44895b85580f25d4ee45f1a",
+    "outputs/logs/preregistration_0929_P5.md": "3bc0de8eb1f8f5d7d451c9b19b0818452d7a5f9bcb74faeea748de1b251f2fab",
+    "outputs/p4/p4_point_comparisons.csv": "4e8aa12634e92b73de7ee6e95cb5e55a4e62eff3eb207a713231099804e914bc",
+    "outputs/p4/p4_risk_comparisons.csv": "0fad57ad9adb9cfc5bea803450c2503d05136b0964fa5fa19d569481842d5954",
+    "outputs/p4/p4_summary.json": "bf127a35db4372f7c68d3c2f0a041f2609b52294723f5784cea94436b83efc35",
+    "outputs/p4/p5_point_comparisons.csv": "672f88dacd1c3ff93db0781ef04f972d22d93d2860be88557321562aebd6dc8e",
+    "outputs/p4/p5_summary.json": "1f4297ef96021b0bead313250d31bc592ddd0413fdabf3b1cc42f2048c48ea0b"
+  },
+  "parity": {
+    "p4_mstl_daily": {
+      "max_abs_diff": {
+        "pred": 0.0
+      },
+      "alert_mismatch": 0,
+      "rows": 7564
+    },
+    "p4_blend3": {
+      "max_abs_diff": {
+        "pred": 0.0
+      },
+      "alert_mismatch": 0,
+      "rows": 7551
+    },
+    "p4_quantile_dense": {
+      "max_abs_diff": {
+        "pred": 0.0,
+        "p_exceed": 0.0,
+        "q95_cal": 0.0
+      },
+      "alert_mismatch": 0,
+      "rows": 7564
+    }
+  },
+  "before": {
+    "1": {
+      "point_model": "p1_latest",
+      "risk_model": "lgbm_quantile_b"
+    },
+    "4": {
+      "point_model": "lgbm_no_holiday_weight_2",
+      "risk_model": "lgbm_quantile_b"
+    },
+    "16": {
+      "point_model": "lgbm_residual_cbl",
+      "risk_model": "lgbm_quantile_b"
+    },
+    "96": {
+      "point_model": "c3_holiday_hybrid",
+      "risk_model": "lgbm_quantile_b"
+    }
+  },
+  "chronos2": "P5 promoted, no candidate passed; not integrated"
+}

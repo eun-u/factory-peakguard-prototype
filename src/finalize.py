@@ -22,6 +22,8 @@ from .models.expected_exceedance import fit_exceedance, predict_exceedance
 from .models.lgbm_point import fit_point
 from .models.lgbm_quantile import fit_quantiles, predict_quantiles
 from .models.peak_prob import exceedance_from_quantiles
+from .models.seasonal import (DSHW, mstl_day_paths, mstl_forecast, mstl_phi, origin_days,
+                              safe_grid, simplex_weights)
 from .targets import next_day_max_targets, point_targets, training_peak_threshold
 from .training import _as_index, _cutoff, _ordered_quantiles, _row, _valid_mask
 
@@ -100,6 +102,48 @@ def _predict_selected_point(point, x, baselines):
     return prediction
 
 
+def _prepare_p4_point(df_dev, x, y, fit, stop, cal, target, tau, cfg, params, selected, horizon, bcal, choice):
+    """Freeze a P4-adopted point model using fit/stop/calibration rows only."""
+    series = safe_grid(df_dev)
+    y_cal = y.loc[cal].to_numpy(dtype=float)
+    cal_times = target.loc[cal, "target_time"]
+    if selected == "p4_mstl_daily":
+        days = sorted(set(origin_days(fit)) | set(origin_days(cal)))
+        paths = mstl_day_paths(series, days)
+        phi = mstl_phi(series, paths, fit)
+        prediction = mstl_forecast(series, paths, cal, horizon, phi)
+        ok = np.isfinite(prediction)
+        cutoff = _cutoff(y_cal[ok], prediction[ok], tau, cal_times[ok])
+        return {"name": selected, "kind": "mstl", "phi": phi, "cutoff": cutoff}
+    lgbm = _fit_selected_point(x, y, fit, stop, cal, target, tau, cfg, params, "lgbm_no_holiday_weight_2")
+    dshw = DSHW().fit(series, fit.max())
+    cbl_name = choice["cbl"]
+    components = [lgbm["model"].predict(x.loc[cal, lgbm["features"]]), bcal.loc[cal, cbl_name].to_numpy(dtype=float),
+                  dshw.predict(series, cal, horizon)]
+    weights = simplex_weights(components, y_cal)
+    blend = sum(w * c for w, c in zip(weights, components))
+    ok = np.isfinite(blend)
+    cutoff = _cutoff(y_cal[ok], blend[ok], tau, cal_times[ok])
+    dshw_ok = np.isfinite(components[2])
+    dshw_cutoff = _cutoff(y_cal[dshw_ok], components[2][dshw_ok], tau, cal_times[dshw_ok])
+    return {"name": selected, "kind": "blend3", "lgbm": lgbm, "dshw": dshw, "dshw_cutoff": dshw_cutoff,
+            "cbl": cbl_name, "weights": weights, "cutoff": cutoff}
+
+
+def _predict_p4_point(point, df, x, good, horizon, btest):
+    """Causal test-time prediction for P4 point models; returns (prediction, comparator rows)."""
+    series = safe_grid(df)
+    if point["kind"] == "mstl":
+        paths = mstl_day_paths(series, sorted(set(origin_days(good))))
+        return mstl_forecast(series, paths, good, horizon, point["phi"]), {}
+    lgbm = point["lgbm"]["model"].predict(x.loc[good, point["lgbm"]["features"]])
+    dshw = point["dshw"].predict(series, good, horizon)
+    cbl = btest.loc[good, point["cbl"]].to_numpy(dtype=float)
+    blend = sum(w * c for w, c in zip(point["weights"], (lgbm, cbl, dshw)))
+    return blend, {"lgbm_no_holiday_weight_2": (lgbm, point["lgbm"]["cutoff"]),
+                   "p4_dshw": (dshw, point["dshw_cutoff"])}
+
+
 def _prepare_horizon(df_dev, boundary, horizon, cfg, development):
     delta = pd.Timedelta(minutes=15 * horizon)
     origins = df_dev.index[df_dev.index + delta < boundary]
@@ -161,6 +205,9 @@ def _prepare_horizon(df_dev, boundary, horizon, cfg, development):
                 residual_b["c1_mid_6_10"])
         point = _fit_selected_point(x, y, fit, stop, cal, target, tau, cfg, params,
                                      selected, residual_b, choice.get("cbl"))
+    elif selected in ("p4_blend3", "p4_mstl_daily"):
+        point = _prepare_p4_point(df_dev, x, y, fit, stop, cal, target, tau, cfg, params,
+                                  selected, horizon, bcal, choice)
     qcols = [col for col in x.columns if col not in HOLIDAY_COLUMNS]
     qmodels = fit_quantiles(x.loc[fit, qcols], y.loc[fit], x.loc[stop, qcols], y.loc[stop], cfg,
                             params=params)
@@ -182,13 +229,21 @@ def _prepare_horizon(df_dev, boundary, horizon, cfg, development):
     pcal = exceedance_from_quantiles(qct, tau)
     probability_cutoff = _cutoff(y.loc[cal].to_numpy()[cutoff_start:], pcal[cutoff_start:],
                                   tau, target.loc[cal[cutoff_start:], "target_time"])
+    dense = None
+    if choice.get("risk_model") == "p4_quantile_dense":
+        from .research_p4_integration import dense_quantile_bundle
+        dense = dense_quantile_bundle(x.loc[fit, qcols], y.loc[fit], x.loc[stop, qcols], y.loc[stop],
+                                      x.loc[cal, qcols], y.loc[cal].to_numpy(), cfg, params, horizon, tau,
+                                      target.loc[cal, "target_time"])
+    elif choice.get("risk_model") not in (None, f"lgbm_quantile_{method}"):
+        raise ValueError(f"Unsupported frozen risk model {choice.get('risk_model')}")
     expected = None
     if development["selection"]["adoption"].get(f"h{horizon}_expected_exceedance", {}).get("adopted", False):
         expected = fit_exceedance(x.loc[fit, qcols], y.loc[fit], tau, cfg)
     return {"horizon": horizon, "tau": tau, "baseline_cutoffs": baseline_cutoffs,
             "point": point, "quantile_models": qmodels, "quantile_features": qcols,
             "conformal": method, "mondrian_edges": edges, "corrections": corrections,
-            "probability_cutoff": probability_cutoff, "expected_model": expected,
+            "probability_cutoff": probability_cutoff, "expected_model": expected, "dense_risk": dense,
             "fit_end": str(fit.max()), "cal_end": str(cal.max())}
 
 
@@ -217,6 +272,61 @@ def _known_day_max(df, origins):
                       and not repaired.any() else np.nan)
     return np.asarray(result)
 
+
+def _predict_horizon(df, all_test, horizon, bundle, cfg):
+    """Score one frozen horizon on the given origins; used once on the holdout."""
+    predictions = []
+    delta = pd.Timedelta(minutes=15 * horizon)
+    origins = all_test[all_test + delta <= df.index.max()]
+    target = point_targets(df, origins, horizon)
+    x, latest = build_features(df, origins, horizon, {**cfg, "_tau": bundle["tau"]})
+    good = origins[_valid_mask(x, latest, origins, target, df)]
+    x = x.loc[good]
+    tau = bundle["tau"]
+    btest = pd.concat([baseline_predictions(df, good, horizon),
+                       cbl_all_predictions(df, good, horizon)], axis=1)
+    btest["c3_holiday_hybrid"] = btest["c3_holiday_mid_4_6"].combine_first(btest["c1_mid_6_10"])
+    for name, cutoff in bundle["baseline_cutoffs"].items():
+        predictions.append(_row(good, horizon, -1, name, target, tau,
+                                btest[name].to_numpy(dtype=float), cutoff))
+    point = bundle["point"]
+    if point is not None and point.get("kind") in ("mstl", "blend3"):
+        value, comparators = _predict_p4_point(point, df, x, good, horizon, btest)
+        predictions.append(_row(good, horizon, -1, point["name"], target, tau, value, point["cutoff"]))
+        for name, (comp_value, comp_cutoff) in comparators.items():
+            predictions.append(_row(good, horizon, -1, name, target, tau, comp_value, comp_cutoff,
+                                    reference_only=True))
+    elif point is not None:
+        predictions.append(_row(good, horizon, -1, point["name"], target, tau,
+                                _predict_selected_point(point, x, btest), point["cutoff"]))
+    if bundle.get("dense_risk") is not None:
+        from .research_p4_integration import dense_quantile_predict
+        q50, p_dense, dense_extras = dense_quantile_predict(bundle["dense_risk"], x[bundle["quantile_features"]], tau)
+        dense_row = _row(good, horizon, -1, "p4_quantile_dense", target, tau, q50, float("inf"), **dense_extras)
+        dense_row["alert"] = p_dense > bundle["dense_risk"]["cutoff"]
+        dense_row["alert_cutoff"] = bundle["dense_risk"]["cutoff"]
+        predictions.append(dense_row)
+    qt = predict_quantiles(bundle["quantile_models"], x[bundle["quantile_features"]])
+    bt = (assign_mondrian_bins(qt[.5], bundle["mondrian_edges"])
+          if bundle["conformal"] == "b" else None)
+    corrected = dict(qt)
+    for alpha in (.9, .95, .975):
+        corrected[alpha] = apply_conformal(qt[alpha], bundle["corrections"][str(alpha)], bt)
+    corrected = _ordered_quantiles(corrected)
+    p = exceedance_from_quantiles(corrected, tau)
+    extras = {f"q{int(alpha*1000) if alpha == .975 else int(alpha*100)}": qt[alpha] for alpha in sorted(qt)}
+    extras.update(q90_cal=corrected[.9], q95_cal=corrected[.95], q975_cal=corrected[.975],
+                  p_exceed=p, q50_top_edge=float(bundle["mondrian_edges"][-1]),
+                  conformal_method=bundle["conformal"])
+    if bundle["expected_model"] is not None:
+        extras["exp_exceed"] = predict_exceedance(bundle["expected_model"],
+                                                   x[bundle["quantile_features"]], p)
+    row = _row(good, horizon, -1, f"lgbm_quantile_{bundle['conformal']}", target, tau,
+               qt[.5], float("inf"), **extras)
+    row["alert"] = p > bundle["probability_cutoff"]
+    row["alert_cutoff"] = bundle["probability_cutoff"]
+    predictions.append(row)
+    return predictions
 
 def freeze_and_evaluate(df, cfg, output_dir="outputs"):
     deadline = pd.Timestamp(cfg["freeze"]["not_before"])
@@ -284,43 +394,7 @@ def freeze_and_evaluate(df, cfg, output_dir="outputs"):
     for horizon, bundle in prepared.items():
         if horizon == "T2":
             continue
-        delta = pd.Timedelta(minutes=15 * horizon)
-        origins = all_test[all_test + delta <= df.index.max()]
-        target = point_targets(df, origins, horizon)
-        x, latest = build_features(df, origins, horizon, {**cfg, "_tau": bundle["tau"]})
-        good = origins[_valid_mask(x, latest, origins, target, df)]
-        x = x.loc[good]
-        tau = bundle["tau"]
-        btest = pd.concat([baseline_predictions(df, good, horizon),
-                           cbl_all_predictions(df, good, horizon)], axis=1)
-        btest["c3_holiday_hybrid"] = btest["c3_holiday_mid_4_6"].combine_first(btest["c1_mid_6_10"])
-        for name, cutoff in bundle["baseline_cutoffs"].items():
-            predictions.append(_row(good, horizon, -1, name, target, tau,
-                                    btest[name].to_numpy(dtype=float), cutoff))
-        point = bundle["point"]
-        if point is not None:
-            predictions.append(_row(good, horizon, -1, point["name"], target, tau,
-                                    _predict_selected_point(point, x, btest), point["cutoff"]))
-        qt = predict_quantiles(bundle["quantile_models"], x[bundle["quantile_features"]])
-        bt = (assign_mondrian_bins(qt[.5], bundle["mondrian_edges"])
-              if bundle["conformal"] == "b" else None)
-        corrected = dict(qt)
-        for alpha in (.9, .95, .975):
-            corrected[alpha] = apply_conformal(qt[alpha], bundle["corrections"][str(alpha)], bt)
-        corrected = _ordered_quantiles(corrected)
-        p = exceedance_from_quantiles(corrected, tau)
-        extras = {f"q{int(alpha*1000) if alpha == .975 else int(alpha*100)}": qt[alpha] for alpha in sorted(qt)}
-        extras.update(q90_cal=corrected[.9], q95_cal=corrected[.95], q975_cal=corrected[.975],
-                      p_exceed=p, q50_top_edge=float(bundle["mondrian_edges"][-1]),
-                      conformal_method=bundle["conformal"])
-        if bundle["expected_model"] is not None:
-            extras["exp_exceed"] = predict_exceedance(bundle["expected_model"],
-                                                       x[bundle["quantile_features"]], p)
-        row = _row(good, horizon, -1, f"lgbm_quantile_{bundle['conformal']}", target, tau,
-                   qt[.5], float("inf"), **extras)
-        row["alert"] = p > bundle["probability_cutoff"]
-        row["alert_cutoff"] = bundle["probability_cutoff"]
-        predictions.append(row)
+        predictions.extend(_predict_horizon(df, all_test, horizon, bundle, cfg))
     final_pred = pd.concat(predictions, ignore_index=True)
     final_metrics = evaluate_all(final_pred, cfg=cfg)
 

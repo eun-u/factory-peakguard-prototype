@@ -191,3 +191,24 @@
 - Chronos-2를 동결 시 테스트 참고 비교로 함께 평가할지(선정에는 미사용) 사전 부록 필요.
 다음 세션 할 일: 사람 결정에 따라 통합 또는 기존 선정 유지 기록, 보고서 2장에 P4 결과 추가.
 결과 파일: outputs/p4/p4_point_comparisons.csv, p4_risk_comparisons.csv, p4_summary.json; 코드 research_p4/.
+
+<!-- AUTO_EXECUTION_STATUS -->
+## 자동 실행 상태
+
+갱신: 2026-09-29T01:05:58+09:00
+
+- 최근 실행: `completed_development`; 실행 단계: development.
+- 최종 테스트 미평가 · 날짜/예약 잠금 유지.
+- [최신 실행 기록](outputs/logs/run_status.json) · [전체 실행 기록](outputs/logs/full_run_status.json).
+
+## 2026-09-29 P5·P4 통합 (Phase 2-6 동결 준비)
+
+[Phase 2 / 2026-09-29]
+완료: P5 사전 부록 커밋 후 채점(통과 없음). P4 채택 3개 후보 src 통합, 개발 CV 재봉인, 동결 dry-run ready, 모의 동결 전 경로 통과, pytest 146개 통과.
+핵심 수치(개발 CV, 피크 위치 MAE): h1 11.25->7.94, h4 14.44->12.58(CBL 대비 +5.68 [1.25, 11.23]). Chronos-2 참고 h4 10.80(선정 모델 대비 CI 0 포함, 오경보 +38%).
+완료 기준 충족 여부: 통합·재현 기준(1e-6) 충족(실측 최대차 0). 사전 고정 기한 10/1 15:00 이전 완료.
+막힌 점 / 사람 확인 필요:
+- Windows .venv 재설치 필요: `.\.venv\Scripts\python.exe -m pip install -r requirements.txt` (pandas 2.3.3, statsforecast, numba).
+- 설치 후 `python run_all.py --dry-run-freeze`로 캐시 검증 확인, 이어서 `python scripts/write_freeze_approval.py --approved-by "이름"`으로 승인, 예약 작업 활성화.
+- 동결 실행 시간 증가: h1 MSTL 일간 적합으로 약 10분 추가(모의 동결 기준 준비 약 12분).
+다음 세션 할 일: 동결 후 결과 확인, 보고서 2장에 P4·P5 절 추가(사후 승격 공개 포함).
