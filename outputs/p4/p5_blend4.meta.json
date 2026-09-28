@@ -1,0 +1,136 @@
+{
+  "folds": [
+    {
+      "horizon": 1,
+      "fold": 0,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.2,
+        0.0,
+        0.0,
+        0.8
+      ],
+      "seconds": 2.2
+    },
+    {
+      "horizon": 1,
+      "fold": 1,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.3,
+        0.0,
+        0.1,
+        0.6
+      ],
+      "seconds": 2.2
+    },
+    {
+      "horizon": 1,
+      "fold": 2,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.6,
+        0.0,
+        0.1,
+        0.3
+      ],
+      "seconds": 1.7
+    },
+    {
+      "horizon": 4,
+      "fold": 0,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.2,
+        0.0,
+        0.0,
+        0.8
+      ],
+      "seconds": 2.4
+    },
+    {
+      "horizon": 4,
+      "fold": 1,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "seconds": 2.4
+    },
+    {
+      "horizon": 4,
+      "fold": 2,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "seconds": 1.7
+    },
+    {
+      "horizon": 16,
+      "fold": 0,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.3,
+        0.0,
+        0.0,
+        0.7
+      ],
+      "seconds": 2.3
+    },
+    {
+      "horizon": 16,
+      "fold": 1,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "seconds": 2.4
+    },
+    {
+      "horizon": 16,
+      "fold": 2,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.0,
+        0.0,
+        0.1,
+        0.9
+      ],
+      "seconds": 1.7
+    },
+    {
+      "horizon": 96,
+      "fold": 0,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.1,
+        0.9,
+        0.0,
+        0.0
+      ],
+      "seconds": 2.2
+    },
+    {
+      "horizon": 96,
+      "fold": 1,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.0,
+        0.3,
+        0.0,
+        0.7
+      ],
+      "seconds": 2.2
+    },
+    {
+      "horizon": 96,
+      "fold": 2,
+      "weights_lgbm_cbl_dshw_chronos": [
+        0.0,
+        0.0,
+        0.2,
+        0.8
+      ],
+      "seconds": 1.8
+    }
+  ]
+}
