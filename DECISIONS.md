@@ -216,3 +216,12 @@
 - 사전 고정: outputs/logs/preregistration_0928_P4.md (SHA-256 577dab9ccae4a18c68b5c82ed4bb1c6ed62f309ce44895b85580f25d4ee45f1a). 채점 전 작성. 채택 문턱은 기존보다 엄격(Holm 28개 가족, 모든 폴드 1.5배 상한 추가).
 - 실행 환경: 로컬 VM 사양 부족으로 클라우드 작업공간(Python 3.13, requirements-pipeline.lock.txt 동일 버전)에서 실행하고 결과만 반영한다. 추가 패키지 statsforecast·optuna·chronos-forecasting·torch(CPU)는 P4 실험 전용이며 제출 기본 실행 requirements에는 넣지 않는다.
 - src/, configs/default.yaml, 기존 사전등록·채택 기준·평가 프로토콜은 수정하지 않는다.
+
+## 2026-09-29 P5 사전학습 모델 승격 검토 (사후 승격 공개)
+
+- 사람 결정: P4에서 참고 전용이던 Chronos-2를 개발 CV 결과를 본 뒤 후보로 승격해 검토한다. 사후 승격임을 보고서·발표에 공개한다.
+- 이유: 성능이 목표이고 사전 고정은 선택 편향을 막는 수단이다. Chronos-2는 단일 사전 등록 비교군이며 격차가 크다. 테스트 잠금과 1회 평가가 최종 안전장치다.
+- 후보: P5-A Chronos-2 단독, P5-B {LGBM, CBL, DSHW, Chronos-2} 결합. P4와 같은 채택 문턱, Holm 가족 8개. 위험 출력은 유지.
+- 사전 고정: outputs/logs/preregistration_0929_P5.md (SHA-256 3bc0de8eb1f8f5d7d451c9b19b0818452d7a5f9bcb74faeea748de1b251f2fab), 채점 전 작성·커밋.
+- CLAUDE.md 4.4: 사전 규칙 통과 시 학습 없는 사전학습 모델 후보 허용, 딥러닝 학습 금지는 유지.
+- 통합 기한 10/1 15:00 KST, 미달 시 P4 선정 → 기존 선정 순으로 되돌림. 동결 일시·사람 승인은 불변.
