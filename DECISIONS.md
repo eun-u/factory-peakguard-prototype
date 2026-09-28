@@ -208,3 +208,11 @@
 - 운영16시나리오를 통합 OOF로 별도 재계산(Ridge6fits)하고 보조지표/Holm 포함7표 최대차1.42e-14를 확인했다. P1 핵심 통계 최대차0 및 보호75파일/사전등록3개 불변도 확인했다.
 - dry-run은 캐시·지문·설정 검사 통과, holdout_read=false, 날짜 잠금·사람 승인 대기다. 실제 예약 Disabled를 유지하고 final_test.csv를 생성하지 않았다. 보고서/로드맵/슬라이드/제출물은 보호했다.
 - 최근 두 기록의 PowerShell 파이프 문자 인코딩 손실을 복구했다. 사전등록·분석 결과는 영향을 받지 않았다. 최종 인계는 session_0925_summary.md와 재현 JSON을 기준으로 한다.
+
+## 2026-09-28 P4 모델 보강 실험 승인과 규칙 변경
+
+- 사람 승인: 동결 전 오픈소스 기준 비교 실험(E1 통계 모델, E2 LightGBM 심화, E3 예측 결합, E4 조밀 분위수, E5 사전학습 모델 참고)을 진행한다.
+- CLAUDE.md 4.4 변경: 딥러닝 모델 학습은 계속 금지. 사전학습 시계열 모델은 학습 없이 참고 비교군으로만 허용하고 최종 후보에서 제외한다. 이유: 9/22 의사결정 기록의 원 계획(Chronos·TimesFM 계열 선택 비교)을 복원하고, 금지 문구에는 근거 기록이 없었으며 생략 사유는 일정·실행시간이었다.
+- 사전 고정: outputs/logs/preregistration_0928_P4.md (SHA-256 577dab9ccae4a18c68b5c82ed4bb1c6ed62f309ce44895b85580f25d4ee45f1a). 채점 전 작성. 채택 문턱은 기존보다 엄격(Holm 28개 가족, 모든 폴드 1.5배 상한 추가).
+- 실행 환경: 로컬 VM 사양 부족으로 클라우드 작업공간(Python 3.13, requirements-pipeline.lock.txt 동일 버전)에서 실행하고 결과만 반영한다. 추가 패키지 statsforecast·optuna·chronos-forecasting·torch(CPU)는 P4 실험 전용이며 제출 기본 실행 requirements에는 넣지 않는다.
+- src/, configs/default.yaml, 기존 사전등록·채택 기준·평가 프로토콜은 수정하지 않는다.

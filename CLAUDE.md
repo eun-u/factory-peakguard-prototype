@@ -103,7 +103,7 @@
 - 모든 비교는 같은 분할, 같은 임계값 결정 규칙(검증 구간 F1 최대)에서 수행
 
 ### 4.4 코드 규칙
-- Python + pandas, numpy, scikit-learn, lightgbm, matplotlib, pyyaml. 딥러닝은 사용하지 않는다
+- Python + pandas, numpy, scikit-learn, lightgbm, matplotlib, pyyaml. 딥러닝 모델을 학습하지 않는다. 사전학습 시계열 모델(예: Chronos-2)은 학습 없이 참고 비교군으로만 쓰고 최종 모델 후보에서 제외한다(2026-09-28 사람 승인, DECISIONS.md)
 - seed 42 고정. 설정값은 `configs/default.yaml`에서만 읽는다
 - 모든 그림과 표는 스크립트로 생성해 `outputs/`에 저장. 손으로 만든 결과물 금지
 - 그림 텍스트는 한국어, 한글 폰트 설정을 `viz.py`에 한 번만 정의
