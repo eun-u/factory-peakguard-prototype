@@ -1,0 +1,68 @@
+{
+  "1": {
+    "fp_alert_episodes": 51,
+    "point_model": "p4_mstl_daily",
+    "risk_model": "p4_quantile_dense",
+    "actual_episodes": 144,
+    "by_category": {
+      "hit": 97,
+      "decision_miss": 41,
+      "late_hit": 3,
+      "forecast_miss": 3
+    },
+    "by_block_category": {
+      "08-16": {
+        "decision_miss": 36,
+        "forecast_miss": 3,
+        "hit": 84,
+        "late_hit": 3
+      },
+      "16-24": {
+        "decision_miss": 5,
+        "forecast_miss": 0,
+        "hit": 13,
+        "late_hit": 0
+      }
+    },
+    "excess_by_category_mean": {
+      "decision_miss": 10.51,
+      "forecast_miss": 3.67,
+      "hit": 12.56,
+      "late_hit": 5.67
+    },
+    "point_model_catches_risk_misses": 27
+  },
+  "4": {
+    "fp_alert_episodes": 60,
+    "point_model": "p4_blend3",
+    "risk_model": "lgbm_quantile_b",
+    "actual_episodes": 148,
+    "by_category": {
+      "hit": 88,
+      "decision_miss": 51,
+      "late_hit": 6,
+      "forecast_miss": 3
+    },
+    "by_block_category": {
+      "08-16": {
+        "decision_miss": 44,
+        "forecast_miss": 3,
+        "hit": 77,
+        "late_hit": 6
+      },
+      "16-24": {
+        "decision_miss": 7,
+        "forecast_miss": 0,
+        "hit": 11,
+        "late_hit": 0
+      }
+    },
+    "excess_by_category_mean": {
+      "decision_miss": 9.68,
+      "forecast_miss": 4.5,
+      "hit": 12.3,
+      "late_hit": 16.5
+    },
+    "point_model_catches_risk_misses": 52
+  }
+}
