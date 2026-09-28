@@ -1,0 +1,26 @@
+[
+  {
+    "target_horizon": 1,
+    "delay_intervals": 1,
+    "model_horizon": 2,
+    "seconds": 68.6
+  },
+  {
+    "target_horizon": 1,
+    "delay_intervals": 2,
+    "model_horizon": 3,
+    "seconds": 65.9
+  },
+  {
+    "target_horizon": 4,
+    "delay_intervals": 1,
+    "model_horizon": 5,
+    "seconds": 58.9
+  },
+  {
+    "target_horizon": 4,
+    "delay_intervals": 2,
+    "model_horizon": 6,
+    "seconds": 60.3
+  }
+]
