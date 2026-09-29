@@ -93,7 +93,11 @@ def run(only=None):
     levels = list(pipe.quantiles)
     out = out_dir("e4_chronos")
     oof = read_development_oof(ROOT / "outputs/predictions/development_oof.csv")
+    table_path = out / "chronos_variants_table.csv"
     table = []
+    if only and table_path.exists():
+        # keep other variants' rows when a single variant is (re)run
+        table = [r for r in pd.read_csv(table_path).to_dict("records") if r["variant"] != only]
     for name, spec in VARIANTS.items():
         if only and name != only:
             continue
