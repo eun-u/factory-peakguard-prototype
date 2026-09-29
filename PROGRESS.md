@@ -225,3 +225,26 @@
 - E4(참고): Chronos-2 문맥 4096 + 확률 경보, h4 경보 F1 0.664·오경보 298(선정 0.623·383). 채택 불가.
 막힌 점 / 사람 확인 필요: 클라우드 작업공간이 밤사이 중단되어 E4 R3를 재시작(결과 영향 없음). 동결 준비(패키지 재설치·dry-run·승인·예약 활성화·푸시)는 여전히 사람 작업.
 다음 세션 할 일: 보고서 2~5장에 P4~P6 결과 반영, 동결 후 테스트 결과 확인.
+
+## 2026-09-29 논문형 연구 관리·구조 리팩토링
+
+사용자 결정: 논문형 연구 관리로 전환하고 main에 반영한다. 출발점은 05_experiments의 94fb41b이며 master의 이력을 포함한다. 작업 시작 시 main은 없어 이 이력에서 새 main을 만든다.
+
+완료:
+- research/charter.json에 Background~Contribution 12항목과 RQ1~4, claims.json에 주장·근거·실험·집필 절을 연결했다.
+- experiments/registry.json에 기존 실험 4묶음과 후속 계획 R2-EX01~06을 등록했다. 신규 후보·예산·판정 수치는 실행 전에 확정할 항목이며 사전등록 완료로 표현하지 않는다.
+- paper/sections, generated/results.md, manuscript.md로 집필을 구성했다. 표준 라이브러리 CLI의 build/check로 기존 증거에서 상태·수치·본문을 생성하고 최신성을 검사한다.
+- 새 AGENTS.md와 진입 문서를 정리했다. 이전 CLAUDE/PROJECT_DESIGN/README는 바이트 그대로 docs/archive/pre_paper_20260929에 보존했다.
+- 소스 패키지에 연구 문서·계획·등록된 근거를 포함하고, 오래된 생성물은 거부한다. GitHub Actions에 관리 검사를 추가했다.
+
+검증:
+- `python -m research build` / `python -m research check` 통과.
+- `python -m unittest discover -s research/tests -v`: 관리 계층 12개 통과.
+- `python -m pytest tests/test_packaging.py tests/test_workflow.py tests/test_development_entry.py tests/test_training_guard.py tests/test_finalize.py research/tests -q`: 합계 37개 통과. 패키지 압축 해제 후 `python -S -m research check` 재검증 포함.
+- 이번 검증 환경은 별도 Python 3.12 환경이다. 초기에 numba 누락으로 테스트 수집이 중단되었고 의존성 설치 후 위 범위가 통과했다. 기존 Python 3.13 잠금 환경의 전체 학습 재현을 수행한 것은 아니다.
+- 현재 안내·논문·계획 Markdown 24개에서 로컬 링크 깨짐 0건, `git diff --check` 통과.
+- 기존 outputs/verification/configs/research_p4, run_all.py, 평가 프로토콜과 요구사항 불변. src 변경은 기존 모델 지문 제외 대상인 packaging.py에 한정한다. 새 학습·선정·최종 평가·승인 생성·예약 활성화는 수행하지 않았다.
+
+리뷰 발견 사항: h4 위험 모델은 기존 conformal:b와 P4 요약으로 교차 확인한다. P6 공통 τ의 원 JSON 177과 과거 요약 176의 차이는 숨기거나 수정하지 않고 확인 과제로 남겼다. 점예측 경보가 존재한 미탐 52개를 새 결합 정책의 개선량으로 해석하지 않는다.
+
+다음 작업: R2-EX01의 성능 개선 후보·예산·평가 경계를 구체화하고, R2-EX02에 필요한 보정 예측·기존 cutoff·OOF의 가용성을 확인한다. 기존 동결 계획은 별도 승인 조건을 유지하며 이 리팩토링으로 실행하지 않는다.

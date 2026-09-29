@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "evidence": [
+    {
+      "id": "EV-P4-H4",
+      "path": "outputs/p4/p4_point_comparisons.csv",
+      "format": "csv",
+      "scope": "development",
+      "role": "h4 결합 대 기존 LGBM",
+      "selector": {
+        "horizon": "4",
+        "candidate": "p4_blend3",
+        "incumbent": "lgbm_no_holiday_weight_2"
+      },
+      "numeric_fields": [
+        "incumbent_peak_mae",
+        "candidate_peak_mae",
+        "peak_mae_gain",
+        "ci_low",
+        "ci_high",
+        "p_holm",
+        "incumbent_episode_f1",
+        "candidate_episode_f1",
+        "incumbent_fp",
+        "candidate_fp"
+      ]
+    },
+    {
+      "id": "EV-P5-H4",
+      "path": "outputs/p4/p5_point_comparisons.csv",
+      "format": "csv",
+      "scope": "development",
+      "role": "Chronos 사후 후보 승격 후 미채택 비교",
+      "selector": {
+        "horizon": "4",
+        "candidate": "p5_chronos2",
+        "incumbent": "p4_blend3"
+      },
+      "numeric_fields": [
+        "incumbent_peak_mae",
+        "candidate_peak_mae",
+        "ci_low",
+        "ci_high"
+      ],
+      "required_fields": [
+        "decision"
+      ]
+    },
+    {
+      "id": "EV-FN-H4",
+      "path": "outputs/p6/e5_fn/summary.json",
+      "format": "json",
+      "scope": "exploratory",
+      "role": "h4 미탐 관찰, 결합 가설 동기",
+      "pointer": "/4",
+      "required_fields": [
+        "actual_episodes",
+        "by_category",
+        "point_model_catches_risk_misses"
+      ]
+    },
+    {
+      "id": "EV-WALK",
+      "path": "outputs/p6/e2_walkforward/summary.json",
+      "format": "json",
+      "scope": "exploratory",
+      "role": "고정·주기 갱신 탐색",
+      "required_fields": [
+        "pooled",
+        "tau_common"
+      ]
+    },
+    {
+      "id": "EV-P6-SUMMARY",
+      "path": "outputs/p6/P6_summary.md",
+      "format": "markdown",
+      "scope": "exploratory",
+      "role": "분할·지연·민감도 한계 설명"
+    },
+    {
+      "id": "EV-CHRONOS-RISK",
+      "path": "outputs/p6/e4_chronos/chronos_variants_table.csv",
+      "format": "csv",
+      "scope": "exploratory",
+      "role": "Chronos R2 확률 경보 후보",
+      "selector": {
+        "variant": "R2_ctx4096",
+        "role": "risk_alert_vs_selected_risk",
+        "horizon": "4"
+      },
+      "numeric_fields": [
+        "episode_f1_a",
+        "episode_f1_b",
+        "fp_a",
+        "fp_b"
+      ]
+    },
+    {
+      "id": "EV-SHIFT",
+      "path": "outputs/analysis_p1/A4_A5_summary.json",
+      "format": "json",
+      "scope": "simulation",
+      "role": "사후 가정 기반 운영 분석"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C01",
+      "rq": "RQ1",
+      "status": "supported_development",
+      "statement": "기존 개발 비교에서 h4 결합의 피크 MAE가 기존 LGBM보다 개선됐다.",
+      "limitation": "분할 강건성은 부분적이며 다른 기간·현장 일반화를 확정하지 않는다.",
+      "evidence": [
+        "EV-P4-H4"
+      ],
+      "experiments": [
+        "H-P4",
+        "R2-EX01"
+      ],
+      "paper_sections": [
+        "paper/sections/03_method.md",
+        "paper/sections/08_conclusion.md"
+      ]
+    },
+    {
+      "id": "C02",
+      "rq": "RQ2",
+      "status": "hypothesis",
+      "statement": "점예측·확률 경보 결합이 오경보 부담 아래 유효 탐지를 높일 수 있다.",
+      "limitation": "미탐 52개 관찰은 동기다. 새로운 결합 성능이나 준비시간 확보를 뜻하지 않는다.",
+      "evidence": [
+        "EV-FN-H4"
+      ],
+      "experiments": [
+        "H-P6",
+        "R2-EX02"
+      ],
+      "paper_sections": [
+        "paper/sections/04_experimental_design.md"
+      ]
+    },
+    {
+      "id": "C03",
+      "rq": "RQ3",
+      "status": "exploratory",
+      "statement": "갱신·지연·평가 기간에 따라 오차와 보정 품질의 효과가 달라진다.",
+      "limitation": "P6 탐색의 명목 CI와 조건별 표본 수를 명시한다.",
+      "evidence": [
+        "EV-WALK",
+        "EV-P6-SUMMARY"
+      ],
+      "experiments": [
+        "H-P6",
+        "R2-EX04"
+      ],
+      "paper_sections": [
+        "paper/sections/06_discussion.md",
+        "paper/sections/07_threats.md"
+      ]
+    },
+    {
+      "id": "C04",
+      "rq": "RQ4",
+      "status": "simulation_only",
+      "statement": "부하 이동 시나리오의 적용 조건과 가정 아래 결과를 비교한다.",
+      "limitation": "사후 관측 생산량 기반이며 실제 조치·절감·인과 효과가 아니다.",
+      "evidence": [
+        "EV-SHIFT"
+      ],
+      "experiments": [
+        "H-OPS",
+        "R2-EX06"
+      ],
+      "paper_sections": [
+        "paper/sections/06_discussion.md"
+      ]
+    },
+    {
+      "id": "C05",
+      "rq": "RQ4",
+      "status": "design_only",
+      "statement": "판단의 수치·출처·제약을 추적 가능한 근거로 연결한다.",
+      "limitation": "연구 자료 연결은 구현하지만 운영 설명 품질과 사용성은 별도 실험이 필요하다.",
+      "evidence": [],
+      "experiments": [
+        "R2-EX05",
+        "R2-EX06"
+      ],
+      "paper_sections": [
+        "paper/sections/06_discussion.md"
+      ]
+    },
+    {
+      "id": "C06",
+      "rq": "RQ1",
+      "status": "exploratory",
+      "statement": "Chronos의 확률 출력은 후속 성능·경보 비교 후보로 볼 근거가 있다.",
+      "limitation": "P5 미채택과 P6 사후 탐색을 구분한다. 현재 선정 불변.",
+      "evidence": [
+        "EV-P5-H4",
+        "EV-CHRONOS-RISK"
+      ],
+      "experiments": [
+        "H-P5",
+        "H-P6",
+        "R2-EX01"
+      ],
+      "paper_sections": [
+        "paper/sections/04_experimental_design.md",
+        "paper/sections/06_discussion.md"
+      ]
+    }
+  ]
+}

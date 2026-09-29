@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "experiments": [
+    {
+      "id": "H-P4",
+      "status": "completed",
+      "kind": "historical",
+      "questions": [
+        "RQ1",
+        "RQ2"
+      ],
+      "claims": [
+        "C01"
+      ],
+      "evidence": [
+        "EV-P4-H4"
+      ],
+      "plan": "outputs/logs/preregistration_0928_P4.md",
+      "implementation": [
+        "research_p4/evaluate_p4.py",
+        "src/research_p4_integration.py"
+      ],
+      "hypothesis": "기존 계획 원문 참조; 이번 리팩토링에서 소급 재작성하지 않는다.",
+      "comparison": "기존 사전 계획 및 결과의 비교군",
+      "metrics": "기존 결과의 단위·분모·범위 유지",
+      "decision_rule": "기존 채택/기각 결정 유지",
+      "next_action": "기존 채택 근거를 재사용하고 변경을 추적한다."
+    },
+    {
+      "id": "H-P5",
+      "status": "completed",
+      "kind": "historical",
+      "questions": [
+        "RQ1"
+      ],
+      "claims": [
+        "C06"
+      ],
+      "evidence": [
+        "EV-P5-H4"
+      ],
+      "plan": "outputs/logs/preregistration_0929_P5.md",
+      "implementation": [
+        "research_p4/p5.py"
+      ],
+      "hypothesis": "기존 계획 원문 참조; 이번 리팩토링에서 소급 재작성하지 않는다.",
+      "comparison": "기존 사전 계획 및 결과의 비교군",
+      "metrics": "기존 결과의 단위·분모·범위 유지",
+      "decision_rule": "기존 채택/기각 결정 유지",
+      "next_action": "사후 후보 승격·기각 이력을 보존한다."
+    },
+    {
+      "id": "H-P6",
+      "status": "completed",
+      "kind": "historical",
+      "questions": [
+        "RQ1",
+        "RQ2",
+        "RQ3"
+      ],
+      "claims": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "evidence": [
+        "EV-FN-H4",
+        "EV-WALK",
+        "EV-P6-SUMMARY",
+        "EV-CHRONOS-RISK"
+      ],
+      "plan": "outputs/logs/preregistration_0929_P6.md",
+      "implementation": [
+        "research_p4/p6_e5_fn.py",
+        "research_p4/p6_e2_walkforward.py"
+      ],
+      "hypothesis": "기존 계획 원문 참조; 이번 리팩토링에서 소급 재작성하지 않는다.",
+      "comparison": "기존 사전 계획 및 결과의 비교군",
+      "metrics": "기존 결과의 단위·분모·범위 유지",
+      "decision_rule": "기존 채택/기각 결정 유지",
+      "next_action": "탐색 가설과 후속 확인 실험을 구분한다."
+    },
+    {
+      "id": "H-OPS",
+      "status": "completed",
+      "kind": "historical",
+      "questions": [
+        "RQ4"
+      ],
+      "claims": [
+        "C04"
+      ],
+      "evidence": [
+        "EV-SHIFT"
+      ],
+      "plan": "outputs/logs/preregistration_0925_P1.md",
+      "implementation": [
+        "src/analysis/shift_v2.py",
+        "src/analysis/decision.py"
+      ],
+      "hypothesis": "기존 계획 원문 참조; 이번 리팩토링에서 소급 재작성하지 않는다.",
+      "comparison": "기존 사전 계획 및 결과의 비교군",
+      "metrics": "기존 결과의 단위·분모·범위 유지",
+      "decision_rule": "기존 채택/기각 결정 유지",
+      "next_action": "사후 시나리오의 가정과 제약을 명시한다."
+    },
+    {
+      "id": "R2-EX01",
+      "status": "planned",
+      "kind": "prospective_design_after_exploration",
+      "questions": [
+        "RQ1"
+      ],
+      "claims": [
+        "C01",
+        "C06"
+      ],
+      "evidence": [],
+      "plan": "experiments/plans/R2-EX01.md",
+      "implementation": [],
+      "hypothesis": "현행 결합 대비 개선 후보가 피크 오차를 줄인다.",
+      "comparison": "CBL·계절 기준선·기존 LGBM·선정 결합·Chronos 후보",
+      "metrics": "h4 피크 MAE, 전체 MAE, 큰 오차 분위수, 기간별 CI, 추론 자원",
+      "decision_rule": "후보·예산·검정군을 실행 전 고정. 오차/경보 상충과 미충족 기준을 함께 공개.",
+      "next_action": "새 비교 후보와 튜닝 예산, 보정/평가 데이터를 확정한다."
+    },
+    {
+      "id": "R2-EX02",
+      "status": "planned",
+      "kind": "prospective_design_after_exploration",
+      "questions": [
+        "RQ2"
+      ],
+      "claims": [
+        "C02"
+      ],
+      "evidence": [],
+      "plan": "experiments/plans/R2-EX02.md",
+      "implementation": [],
+      "hypothesis": "같은 보정 FP 예산에서 유효한 사건 탐지가 늘어난다.",
+      "comparison": "확률 단독·기존 p 또는 q95·점예측 단독·점/확률 결합",
+      "metrics": "사건 재현율, FP 사건/평가일, 준비시간 적중, 실제 평가 FP",
+      "decision_rule": "평가 FP가 늘면 동일 부담 우월성을 주장하지 않는다. 보정에서만 임계 선택.",
+      "next_action": "보정 구간 예측·평가 OOF·기존 cutoff 확보 여부를 확인한다."
+    },
+    {
+      "id": "R2-EX03",
+      "status": "planned",
+      "kind": "prospective_design_after_exploration",
+      "questions": [
+        "RQ1",
+        "RQ2"
+      ],
+      "claims": [
+        "C01",
+        "C02"
+      ],
+      "evidence": [],
+      "plan": "experiments/plans/R2-EX03.md",
+      "implementation": [],
+      "hypothesis": "맥락·보정·결합 요소는 각각 추가 가치를 갖는다.",
+      "comparison": "생산/달력 맥락 제외, 보정 A/B, 결합 구성요소 제거",
+      "metrics": "동일 행의 오차·보정·경보 변화와 CI",
+      "decision_rule": "한 요소씩 비교하며 부정적 효과도 기록. 기존 유효 비교는 재사용.",
+      "next_action": "기존 제거 실험을 대응시키고 빠진 비교만 지정한다."
+    },
+    {
+      "id": "R2-EX04",
+      "status": "planned",
+      "kind": "prospective_design_after_exploration",
+      "questions": [
+        "RQ3"
+      ],
+      "claims": [
+        "C03"
+      ],
+      "evidence": [],
+      "plan": "experiments/plans/R2-EX04.md",
+      "implementation": [],
+      "hypothesis": "입력 지연·결측·갱신 방식에 따라 유효 범위가 달라진다.",
+      "comparison": "지연 0/15/30분, 결측, 고정/보정 갱신/모델 갱신",
+      "metrics": "조건별 오차·커버리지·FP, 대체/검토 비율",
+      "decision_rule": "같은 정답과 원점을 사용하며 입력만 교란. 합성 부하는 별도 라벨.",
+      "next_action": "P6 결과를 재사용하고 보정 전용 갱신·결측 검증을 설계한다."
+    },
+    {
+      "id": "R2-EX05",
+      "status": "planned",
+      "kind": "prospective_design_after_exploration",
+      "questions": [
+        "RQ4"
+      ],
+      "claims": [
+        "C05"
+      ],
+      "evidence": [],
+      "plan": "experiments/plans/R2-EX05.md",
+      "implementation": [],
+      "hypothesis": "근거 구조화가 수치·출처·제약의 설명 정확성을 높인다.",
+      "comparison": "정형 템플릿, 선택적으로 LLM·문서 검색·그래프 검색",
+      "metrics": "수치 일치·출처 적합성·근거 없는 주장·조건 누락·비용·지연",
+      "decision_rule": "동일 정보량과 고정 평가 문제로 비교. 독립 평가 기준 사용.",
+      "next_action": "설명 질문·정답 근거·평가 기준부터 작성한다. LLM/KG 필수 아님."
+    },
+    {
+      "id": "R2-EX06",
+      "status": "planned",
+      "kind": "prospective_design_after_exploration",
+      "questions": [
+        "RQ4",
+        "RQ3"
+      ],
+      "claims": [
+        "C04",
+        "C05"
+      ],
+      "evidence": [],
+      "plan": "experiments/plans/R2-EX06.md",
+      "implementation": [],
+      "hypothesis": "당시 가용 정보 아래 판단·제약·기록이 일관된다.",
+      "comparison": "정상/피크/정보 부족/만료/지연, 조건 확보 후 대응 시나리오",
+      "metrics": "시간 일관성·근거 추적·제약 위반·준비시간·시나리오 영향",
+      "decision_rule": "승인·실행·실제 효과 구분. h4 한 점으로 미래 시간창 전체를 추정하지 않음.",
+      "next_action": "목표 구간 시작·발행 지연·준비시간 계약과 시험 사건을 확정한다."
+    }
+  ]
+}

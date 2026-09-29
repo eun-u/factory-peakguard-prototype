@@ -1,10 +1,34 @@
 """Archive integrity checks that must hold before publishing a frozen bundle."""
 import json
 from pathlib import PureWindowsPath
+import subprocess
+import sys
+import zipfile
 
 import pytest
 
 from src import packaging
+
+
+def test_research_archive_contains_sources_and_checks_after_extraction(tmp_path):
+    from research.tests.test_project import copy_project
+    from research.project import load_project, snapshot
+
+    source = tmp_path / 'source'
+    source.mkdir()
+    copy_project(source)
+    info = packaging.build_package(source, {'freeze': {'not_before': '2026-10-01T09:00:00+00:00'}})
+    extracted = tmp_path / 'extracted'
+    with zipfile.ZipFile(source / info['path']) as archive:
+        names = set(archive.namelist())
+        assert set(snapshot(load_project(source))['sources']) <= names
+        assert 'paper/manuscript.md' in names
+        assert 'experiments/plans/R2-EX02.md' in names
+        assert not any(name.startswith('data/raw/') for name in names)
+        archive.extractall(extracted)
+    result = subprocess.run([sys.executable, '-S', '-m', 'research', 'check'],
+                            cwd=extracted, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
 
 
 def test_frozen_archive_rejects_unverified_development_cache(tmp_path, monkeypatch):

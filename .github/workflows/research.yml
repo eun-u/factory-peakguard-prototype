@@ -1,0 +1,22 @@
+name: Research evidence and manuscript
+
+on:
+  push:
+    branches: [main, master, 05_experiments]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate evidence and generated manuscript
+        run: python -m research check
+      - name: Test research management without scientific dependencies
+        run: python -m unittest discover -s research/tests -v

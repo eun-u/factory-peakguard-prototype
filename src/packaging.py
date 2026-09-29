@@ -56,18 +56,25 @@ def _freeze(root: Path, cfg: dict) -> dict | None:
 
 def _gather(root: Path, frozen: bool) -> list[Path]:
     paths = []
-    for name in ("README.md", "CLAUDE.md", "PROJECT_DESIGN.md", "PROGRESS.md",
+    for name in ("README.md", "AGENTS.md", "CLAUDE.md", "PROJECT_DESIGN.md", "PROGRESS.md",
                  "DECISIONS.md", "eval_protocol.md", "requirements.txt",
                  "requirements-pipeline.lock.txt", "requirements-artifacts.txt", "run_all.py"):
         path = root / name
         if path.is_file():
             paths.append(path)
-    for folder in ("src", "tests", "configs", "report", "slides", "scripts"):
+    for folder in ("src", "tests", "configs", "report", "slides", "scripts",
+                   "research", "experiments", "paper", "research_p4", "docs"):
         paths.extend(p for p in (root / folder).rglob("*") if p.is_file()
                      and "__pycache__" not in p.parts
-                     and (p.suffix in {".py", ".md", ".json", ".yaml"}
+                     and (p.suffix in {".py", ".md", ".json", ".yaml", ".bib"}
                           or (folder == "slides" and p.suffix in {".html", ".pdf"})
                           or (folder == "scripts" and p.suffix == ".ps1")))
+    if (root / "research/charter.json").is_file():
+        # A paper without its cited evidence cannot be reproduced from the ZIP.
+        # Read archived sources only; never execute experiments or regenerate data.
+        from research.project import build, snapshot, source_path
+        project = build(root, check=True)
+        paths.extend(source_path(root, name) for name in snapshot(project)["sources"])
     paths.extend((root / "data/raw/task05_power").glob("*.csv"))
     paths.extend((root / "data/raw/task05_power").glob("*.zip"))
     for name in ("docs/roadmap.html", "docs/INDEX.md", "docs/DELIVERABLES.md", "docs/SOURCES.md", "docs/tariff_sources.md",
