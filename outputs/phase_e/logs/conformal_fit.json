@@ -1,0 +1,38 @@
+{
+  "method": "standardized_one_sided_split_conformal",
+  "fit_partition": "cal",
+  "score_labels_used_in_fit": false,
+  "finite_sample_rule": "min(n, ceil((n + 1) * 0.95))",
+  "fits": [
+    {
+      "fold": 0,
+      "method": "standardized_one_sided_split_conformal",
+      "nominal": 0.95,
+      "n_cal": 1479,
+      "rank_1_based": 1406,
+      "q_star": 2.0445487109206106,
+      "cal_target_start": "2021-03-30 08:00:00",
+      "cal_target_end": "2021-04-14 17:30:00"
+    },
+    {
+      "fold": 1,
+      "method": "standardized_one_sided_split_conformal",
+      "nominal": 0.95,
+      "n_cal": 1479,
+      "rank_1_based": 1406,
+      "q_star": 1.060607554598922,
+      "cal_target_start": "2021-05-13 08:30:00",
+      "cal_target_end": "2021-05-28 18:00:00"
+    },
+    {
+      "fold": 2,
+      "method": "standardized_one_sided_split_conformal",
+      "nominal": 0.95,
+      "n_cal": 1272,
+      "rank_1_based": 1210,
+      "q_star": 0.5455231077039517,
+      "cal_target_start": "2021-06-26 09:00:00",
+      "cal_target_end": "2021-07-09 14:45:00"
+    }
+  ]
+}

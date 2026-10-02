@@ -1,0 +1,61 @@
+{
+  "method": "two_parameter_monotone_platt",
+  "fit_partition": "cal",
+  "score_labels_used_in_fit": false,
+  "fits": [
+    {
+      "optimizer": "L-BFGS-B",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective_nll": 214.9523847038675,
+      "a": -2.350919687679348,
+      "b": 0.2772294846522198,
+      "b_nonnegative": true,
+      "clip_lower": 1e-06,
+      "clip_upper": 0.999999,
+      "fold": 0,
+      "n_cal": 1479,
+      "event_n_cal": 54,
+      "cal_target_start": "2021-03-30 08:00:00",
+      "cal_target_end": "2021-04-14 17:30:00",
+      "score_target_start": "2021-04-14 21:45:00",
+      "score_target_end": "2021-05-13 08:15:00"
+    },
+    {
+      "optimizer": "L-BFGS-B",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "objective_nll": 44.634485703220875,
+      "a": -3.4939344116098536,
+      "b": 0.7773921031994444,
+      "b_nonnegative": true,
+      "clip_lower": 1e-06,
+      "clip_upper": 0.999999,
+      "fold": 1,
+      "n_cal": 1479,
+      "event_n_cal": 9,
+      "cal_target_start": "2021-05-13 08:30:00",
+      "cal_target_end": "2021-05-28 18:00:00",
+      "score_target_start": "2021-05-28 22:15:00",
+      "score_target_end": "2021-06-26 08:45:00"
+    },
+    {
+      "optimizer": "L-BFGS-B",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "objective_nll": 244.79445463315415,
+      "a": -0.3507083368435228,
+      "b": 1.5421569321236235,
+      "b_nonnegative": true,
+      "clip_lower": 1e-06,
+      "clip_upper": 0.999999,
+      "fold": 2,
+      "n_cal": 1272,
+      "event_n_cal": 139,
+      "cal_target_start": "2021-06-26 09:00:00",
+      "cal_target_end": "2021-07-09 14:45:00",
+      "score_target_start": "2021-07-09 19:00:00",
+      "score_target_end": "2021-08-09 09:30:00"
+    }
+  ]
+}

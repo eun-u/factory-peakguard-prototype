@@ -1,0 +1,23 @@
+{
+  "started_at": "2026-10-02T09:36:26.697837+00:00",
+  "branch": "Phase3_experiments",
+  "head": "5d15ff0b44c41b7b4978cd318dfc7e14bfe6ce19",
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\.venv-phase-c\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "25.0.1",
+    "matplotlib": "3.11.2",
+    "pytest": "9.1.1",
+    "joblib": "1.6.0"
+  },
+  "development_only": true,
+  "phase_d_artifact_present": false,
+  "horizon_authority": "explicit user-locked Phase E instruction",
+  "new_files_scope": "outputs/phase_e",
+  "original_HEAD_preserved": true
+}

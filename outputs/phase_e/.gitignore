@@ -1,0 +1,7 @@
+# Preserve private row-level evidence and runtime caches locally.
+predictions/
+logs/matplotlib/
+logs/pytest_cache/
+logs/tmp/
+__pycache__/
+*.log

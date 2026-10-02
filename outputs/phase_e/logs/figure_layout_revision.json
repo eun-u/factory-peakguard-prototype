@@ -1,0 +1,20 @@
+{
+  "reason": "Visual QA: overlapping threshold annotations; separate D1/D2 and use symbol key. Show peak conditional coverage and discrete direct lead counts clearly. No numeric table changed.",
+  "figures": [
+    {
+      "file": "upper_coverage_raw_vs_conformal.png",
+      "before": "64d1f8c41011ac2317f3497de66de8b4a31a771bec85ca9bc95dfa20a27db5b3",
+      "after": "90fb7fccf6a29283f936a896324b4017a118867f0911480a8efc7197c7db13c9"
+    },
+    {
+      "file": "episode_tradeoff.png",
+      "before": "8674afc99f14d15539b04fe072dbf5cc6d694553882378a0254476aa70eb7175",
+      "after": "e5011d8857bd834cfd8b20100367da4ddc4d8086314fd6c894f04523b39dbe0b"
+    },
+    {
+      "file": "lead_time_distribution.png",
+      "before": "7a38152db0a881c991f62b3b2c528b9b535c3bf1bc6c3d6c1fe368425fc9dbb7",
+      "after": "3181ed1e3bd7b07c03444c4ab5ecf37a151cf9d312d36ac36131e37af92cbc1b"
+    }
+  ]
+}
