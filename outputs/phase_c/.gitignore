@@ -1,0 +1,5 @@
+# Keep large local evidence on disk, matching the repository's model/prediction policy.
+models/
+predictions/
+logs/synthetic_*/
+logs/*.log

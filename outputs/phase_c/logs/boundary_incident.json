@@ -1,0 +1,25 @@
+{
+  "development_only": true,
+  "incident_date": "2026-10-01",
+  "status": "disclosed_to_user_before_model_training",
+  "actor": "audit_data_contract subagent",
+  "file": "verification/results/05_summary.json",
+  "action": "Get-Content -Raw; tool output included historical test metrics and was truncated",
+  "intended_scope": "structural quality metadata audit",
+  "historical_final_artifact_read": true,
+  "raw_holdout_observations_parsed": false,
+  "new_final_evaluation_executed": false,
+  "historical_test_numbers_transmitted_to_main_agent": false,
+  "subagent_attestation": "No numerical historical test values used in recommendations or downstream reasoning",
+  "containment": "Stopped historical artifact content reads; main agent will not use numerical historical final evidence; record incident in leakage audit and final report",
+  "limitation": "Cannot claim that no historical final artifact was read during this task",
+  "additional_source_search_incident": {
+    "actor": "implement_statistical subagent",
+    "command": "rg -n 'horizons|horizon|cal|score|fit' phase_c_workspace -g '*.py'",
+    "visible_verification_match": "verification/t5_power.py",
+    "scope_limitation": "Output was truncated; other matching filenames cannot be certified from displayed output",
+    "observed_content": "Source code and metric function names, not numerical historical test metrics",
+    "used_for_implementation": false,
+    "containment": "Subsequent reads restricted to explicit assigned source paths"
+  }
+}

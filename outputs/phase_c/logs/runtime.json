@@ -1,0 +1,36 @@
+{
+  "development_only": true,
+  "first_job_started_at": "2026-10-01T11:37:10.740408+00:00",
+  "stages": [
+    {
+      "name": "download_reference",
+      "started_at": "2026-10-01T11:37:10.740416+00:00",
+      "status": "completed",
+      "completed_at": "2026-10-01T11:37:19.187683+00:00",
+      "seconds": 8.447330000111833
+    },
+    {
+      "name": "prepare",
+      "started_at": "2026-10-01T11:42:14.141891+00:00",
+      "status": "completed",
+      "completed_at": "2026-10-01T11:42:23.844150+00:00",
+      "seconds": 9.706612200010568
+    },
+    {
+      "name": "all",
+      "started_at": "2026-10-01T11:42:35.431358+00:00",
+      "status": "completed",
+      "completed_at": "2026-10-01T12:09:48.567237+00:00",
+      "seconds": 1633.1410810000962
+    }
+  ],
+  "actual_job_seconds": 1651.2950232002186,
+  "last_updated_at": "2026-10-01T12:09:48.567254+00:00",
+  "completion_validation": {
+    "verified_at": "2026-10-01T12:24:49.155214+00:00",
+    "elapsed_wall_seconds_since_first_job": 2858.414806,
+    "definition": "Elapsed time from first model download job through final validation, including between-stage preparation, audit diagnosis and documentation; separate from actual_job_seconds",
+    "artifact_integrity": "passed",
+    "metric_recomputation": "passed"
+  }
+}

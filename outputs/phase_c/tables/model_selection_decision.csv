@@ -1,0 +1,11 @@
+model,AUC_MAE,AUC_PeakMAE,strongest_baseline,peak_difference_vs_baseline,peak_ci_low,peak_ci_high,peak_ci_status,peak_ci_reason,peak_valid_draw_count,peak_safeguard_excluded,C1_rejection_reasons,eligible,complexity_rank,development_only,primary_min_auc_model,statistical_tie_with_primary,selected_M_star,selection_status
+B0,20.97051359263789,53.70769230769231,B1,34.211306765523645,26.24612234824,42.68021614737309,available,,1000,True,,False,1,True,M1,False,False,selected
+B1,19.196394603241643,19.49638554216867,B1,0.0,0.0,0.0,available,,1000,False,,True,2,True,M1,False,False,selected
+B2,21.0572527311057,23.80279322417876,B1,4.306407682010089,-3.3697119333658643,12.226527681230793,available,,1000,False,,True,3,True,M1,False,False,selected
+B3,113.73120084316942,50.86843086148026,B1,31.372045319311592,16.997315530389734,54.184510852414064,available,,1000,True,,False,6,True,M1,False,False,selected
+B4,17.38677297975607,33.86667848201462,B1,14.37029293984595,8.998942954584075,20.101196640866355,available,,1000,True,,False,4,True,M1,False,False,selected
+B5,13.036669630683535,18.481252627815643,B1,-1.0151329143530283,-3.327903305749573,1.3787587371119319,available,,1000,False,,True,5,True,M1,True,True,selected
+M1,12.757334826932347,20.225566046562484,B1,0.7291805043938204,-4.202368194434456,4.647352203716471,available,,1000,False,,True,7,True,M1,True,False,selected
+M1-W,12.87344559539235,18.561171322038607,B1,-0.9352142201300637,-6.164165722380298,3.0865043304447317,available,,1000,False,,True,8,True,M1,True,False,selected
+M2,10.050901407981577,31.128641424978102,B1,11.632255882809424,2.596730557555539,21.21261254488966,available,,1000,True,,False,10,True,M1,False,False,selected
+C1,13.410552456779799,19.393601782341232,B1,-0.10278375982743881,-4.716851653095123,3.4162665485326182,available,,1000,False,no_clear_auc_mae_gain_vs_M1;fewer_than_two_positive_folds;D2_worse_than_M1,False,9,True,M1,False,False,selected

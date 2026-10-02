@@ -1,0 +1,19 @@
+{
+  "cbl_by_horizon": {
+    "4": "c1a_mid_6_10_adjusted",
+    "5": "c1a_mid_6_10_adjusted",
+    "6": "c1a_mid_6_10_adjusted",
+    "7": "c1a_mid_6_10_adjusted",
+    "8": "c1a_mid_6_10_adjusted",
+    "9": "c1a_mid_6_10_adjusted",
+    "10": "c1a_mid_6_10_adjusted",
+    "11": "c1a_mid_6_10_adjusted",
+    "12": "c1a_mid_6_10_adjusted",
+    "13": "c1a_mid_6_10_adjusted",
+    "14": "c1a_mid_6_10_adjusted",
+    "15": "c1a_mid_6_10_adjusted",
+    "16": "c1a_mid_6_10_adjusted"
+  },
+  "baseline_status": "prepared",
+  "development_only": true
+}

@@ -1,0 +1,59 @@
+{
+  "development_only": true,
+  "model": "B2",
+  "diagnosis": "Structural unavailability of the locked same-day-adjusted CBL estimate when a selected reference day's trailing 12-interval mean includes time-repaired, masked power observations.",
+  "locked_candidate": "c1a_mid_6_10_adjusted",
+  "locked_candidate_horizons": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+  "nan_prediction_rows": 1862,
+  "nan_rows_by_fold": {"0": 0, "1": 0, "2": 1862},
+  "nan_rows_by_horizon": {"4": 143, "5": 143, "6": 143, "7": 143, "8": 143, "9": 143, "10": 143, "11": 143, "12": 143, "13": 143, "14": 144, "15": 144, "16": 144},
+  "affected_origin_range": {"first": "2021-07-17 00:00:00", "last": "2021-07-30 02:45:00"},
+  "nan_rows_by_origin_date": {
+    "2021-07-17": 156,
+    "2021-07-18": 156,
+    "2021-07-19": 156,
+    "2021-07-21": 156,
+    "2021-07-23": 156,
+    "2021-07-24": 156,
+    "2021-07-25": 156,
+    "2021-07-26": 156,
+    "2021-07-27": 156,
+    "2021-07-28": 156,
+    "2021-07-29": 156,
+    "2021-07-30": 146
+  },
+  "affected_origin_clock_range": {"first": "00:00", "last": "02:45", "interval_minutes": 15},
+  "reason_counts": {
+    "selected_reference_adjustment_window_missing": 1862,
+    "insufficient_finite_reference_target_values": 0,
+    "current_adjustment_window_missing": 0,
+    "unexplained": 0
+  },
+  "finite_base_reference_available_rows": 1862,
+  "invalid_selected_reference_window_end": {
+    "dates": ["2021-07-14", "2021-07-16"],
+    "clock_range": {"first": "00:00", "last": "02:45", "interval_minutes": 15},
+    "distinct_timestamps": 24,
+    "explanation": "Each 12-interval trailing window crossing midnight includes masked observations from the preceding repaired day, respectively July 13 or July 15."
+  },
+  "reference_rule": "For mid_6_10, scan backward over eligible nonholiday weekdays fully before each origin, collect the latest 10 finite values at the target clock slot, discard the two lowest and two highest, then average the remaining six. Same-day adjustment additionally requires finite trailing 12-interval means at the origin and at the same clock time on all six selected reference days.",
+  "comparison_handling": "Preserve the locked B2 method without a score-time fallback. Exclude these 1862 keys from every main-model comparison using the preregistered common finite intersection, and report the removal count.",
+  "score_time_fallback_needed": false,
+  "source_functions": [
+    "src/models/cbl.py::_eligible_ref_day",
+    "src/models/cbl.py::_reference_values",
+    "src/models/cbl.py::_context",
+    "src/models/cbl.py::cbl_predict",
+    "src/models/cbl.py::cbl_all_predictions",
+    "phase_c/training.py::prepare_baselines",
+    "phase_c/training.py::_score_baseline",
+    "phase_c/data.py::_prepare_history"
+  ],
+  "audit_inputs": [
+    "outputs/phase_c/models/development_contexts.joblib",
+    "outputs/phase_c/models/B2_*.joblib",
+    "outputs/phase_c/predictions/main_predictions.parquet",
+    "outputs/phase_c/logs/model_config_lock.json"
+  ],
+  "raw_truth_values_included": false
+}

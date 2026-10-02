@@ -1,0 +1,7 @@
+# Preserve the exact bytes of sealed Phase C source and evidence.
+/configs/phase_c.json -text
+/phase_c/** -text
+/scripts/phase_b_reference/** -text
+/scripts/*phase_c*.py -text
+/tests/test_phase_c_*.py -text
+/outputs/phase_c/** -text

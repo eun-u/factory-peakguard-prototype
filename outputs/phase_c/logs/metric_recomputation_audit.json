@@ -1,0 +1,13 @@
+{
+  "development_only": true,
+  "status": "passed",
+  "checked_at": "2026-10-01T12:24:08.619043+00:00",
+  "fit_tau_checks": 39,
+  "raw_main_rows": 1018720,
+  "paired_keys_per_model": 100010,
+  "cohort_policy": "Preregistered shared MAIN10 finite keys; structural CBL invalidity independently verified before this audit",
+  "model_horizon_fold_metrics_rows_checked": 858,
+  "model_horizon_pooled_metrics_rows_checked": 286,
+  "auc_rows_checked": 22,
+  "bootstrap_validation": "Synthetic evaluator tests and independent source review; this audit recomputes point estimates, not CI draws."
+}
