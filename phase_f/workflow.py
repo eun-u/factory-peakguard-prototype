@@ -265,20 +265,15 @@ def _stage3(prepared, retry):
 
 
 def _expansion_specs(prepared, number):
-    from phase_f.experiment_plan import best, child, completed
+    from phase_f.experiment_plan import child, completed, foundation_training_expansion
 
     result = []
-    for adapter in ("neural", "foundation"):
-        parents = completed(prepared.root, adapter=adapter)
-        if not parents:
-            continue
+    parents = completed(prepared.root, adapter="neural")
+    if parents:
         parent = json.loads(parents[0]["config_json"])
-        if adapter == "neural":
-            result.append(child(parent, f"F5-expansion-{number}-{parent['kind']}", tier=3,
-                                loss=("huber" if number % 2 == 0 else "peak_weighted_mae")))
-        else:
-            result.append(child(parent, f"F6-expansion-{number}-{parent['kind']}", tier=3,
-                                point=(.55 if number % 2 == 0 else .6)))
+        result.append(child(parent, f"F5-expansion-{number}-{parent['kind']}", tier=3,
+                            loss=("huber" if number % 2 == 0 else "peak_weighted_mae")))
+    result.extend(foundation_training_expansion(prepared.root, number))
     if not result:
         raise RuntimeError("No completed neural or foundation parent for expansion ablation")
     return result
@@ -297,7 +292,7 @@ def _expansion(prepared, retry):
             locked = _read(round_path)
         else:
             locked = {"round": number, "before": eligible_best(prepared.root),
-                      "hypothesis": "Finite 100-trial GBDT plus neural/foundation ablation after all families",
+                      "hypothesis": "Finite 100-trial GBDT plus neural and foundation training-budget ablations after all families",
                       "selection_arm": "EXPLORE", "holdout_read": False,
                       "historical_final_artifact_read": False}
             write_json(round_path, locked, exclusive=True)
@@ -319,6 +314,7 @@ def _expansion(prepared, retry):
 
 def _search_manifest(prepared):
     from phase_f.selection import complete_metric_manifests
+    from phase_f.selection import foundation_training_coverage
     from phase_f.selection import verify_search_complete
 
     path = prepared.out / "logs" / "search_complete.json"
@@ -339,11 +335,13 @@ def _search_manifest(prepared):
               for p in sorted((prepared.out / "logs" / "tuning").glob("*.json"))}
     if not waves or not tuning:
         raise RuntimeError("Required wave and TPE state evidence is absent")
+    locked_ids = set()
     for relative in waves:
         wave = _read(prepared.out / relative)
         if wave.get("config_sha256") != config_hash(wave.get("specs")):
             raise ValueError(f"Changed wave specifications: {relative}")
         for item in wave["specs"]:
+            locked_ids.add(item["id"])
             row = by_id.get(item["id"])
             if row is None or row["config_hash"] != config_hash(item) or row["status"] not in TERMINAL:
                 raise RuntimeError(f"Unresolved locked wave experiment: {item['id']}")
@@ -352,6 +350,10 @@ def _search_manifest(prepared):
         if {"kind", "group", "minimum"} <= set(state) and state.get("complete") is not True:
             raise RuntimeError(f"Incomplete TPE search: {relative}")
     expansion = _read(prepared.out / "logs" / "workflow" / "expansion_rounds.json")["rounds"]
+    fine_coverage = foundation_training_coverage(prepared)
+    if any(item["exp_id"] not in locked_ids for evidence in fine_coverage.values()
+           for item in evidence["experiments"]):
+        raise ValueError("F6 training evidence is outside the locked waves")
     coverage = {}
     for family in FAMILIES[:-1]:
         matched = [r for r in rows if r["exp_id"].split("-")[0] == family or r["family"] == family]
@@ -363,6 +365,7 @@ def _search_manifest(prepared):
                             "failed": sum(r["status"] != "completed" and r["status"] != "diagnostic_passed" for r in matched)}
     record = {"version": 1, "created_at": now(), "waves": waves, "tuningfiles": tuning,
               "experiment_ids": [r["exp_id"] for r in rows], "required_family_coverage": coverage,
+              "foundation_training_coverage": fine_coverage,
               "expansion_rounds": expansion, "all_waves_complete": True,
               "historical_final_artifact_read": False, "holdout_read": False}
     write_json(path, record, exclusive=True)

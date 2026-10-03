@@ -1,0 +1,806 @@
+{
+  "name": "stage1_catalog",
+  "hypothesis": "Complete F1 feature and F5/F6 tier-one grids",
+  "specs": [
+    {
+      "id": "F1-1-lag1-4-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "lag_1_4"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-1-lag1-4-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "lag_1_4"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-1-lag1-8-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "lag_1_8"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-1-lag1-8-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "lag_1_8"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-1-lag1-16-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "lag_1_16"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-1-lag1-16-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "lag_1_16"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-2-daily-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-2-daily-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-2-weekly-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "slot_7_28d"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-2-weekly-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "slot_7_28d"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-2w-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "same_slot_2w"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-2w-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "same_slot_2w"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-3w-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "same_slot_3w"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-3w-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "same_slot_3w"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-4w-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "same_slot_4w"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-4w-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "same_slot_4w"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-five-workdays-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "same_slot_5work"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-3-five-workdays-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "same_slot_5work"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-4-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "profile"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-4-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "profile"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-5-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "rolling"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-5-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "rolling"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-6-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "trend"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-6-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "trend"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-7-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "peak"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-7-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "peak"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-8-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "calendar"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-8-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "calendar"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-9-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [
+        "legacy"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-9-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [
+        "legacy"
+      ],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-core-ridge",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "ridge",
+      "groups": [],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F1-core-lightgbm",
+      "family": "F1",
+      "tier": 1,
+      "adapter": "regression",
+      "kind": "lightgbm",
+      "groups": [],
+      "target": "direct",
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F6-1-c512-median",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 512,
+      "point": "median",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c512-native_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 512,
+      "point": "native_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c512-integrated_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 512,
+      "point": "integrated_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c1024-median",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 1024,
+      "point": "median",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c1024-native_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 1024,
+      "point": "native_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c1024-integrated_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 1024,
+      "point": "integrated_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c2048-median",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": "median",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c2048-native_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": "native_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c2048-integrated_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": "integrated_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c4096-median",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 4096,
+      "point": "median",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c4096-native_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 4096,
+      "point": "native_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c4096-integrated_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 4096,
+      "point": "integrated_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c8192-median",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 8192,
+      "point": "median",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c8192-native_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 8192,
+      "point": "native_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-1-c8192-integrated_mean",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 8192,
+      "point": "integrated_mean",
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-2-c512-calendar",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 512,
+      "point": "median",
+      "covariates": true,
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-2-c2048-calendar",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": "median",
+      "covariates": true,
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-2-c4096-calendar",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 4096,
+      "point": "median",
+      "covariates": true,
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-3-c2048-q0.55",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": 0.55,
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-3-c2048-q0.6",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": 0.6,
+      "adapter": "foundation"
+    },
+    {
+      "id": "F6-3-c2048-q0.65",
+      "family": "F6",
+      "tier": 1,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": 0.65,
+      "adapter": "foundation"
+    },
+    {
+      "id": "F5-2-dlinear-c96",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 96,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c96",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 96,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-dlinear-c192",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 192,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c192",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 192,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-dlinear-c336",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 336,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c336",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 336,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-dlinear-c672",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 672,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c672",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 672,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-dlinear-c1344",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 1344,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c1344",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 1344,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-dlinear-c2016",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 2016,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c2016",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 2016,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-dlinear-c2688",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "dlinear",
+      "context_length": 2688,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F5-2-nlinear-c2688",
+      "family": "F5",
+      "tier": 1,
+      "adapter": "neural",
+      "kind": "nlinear",
+      "context_length": 2688,
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "nonfinite_policy": "weekly_anchor"
+    }
+  ],
+  "config_sha256": "65efee6e7fa9f97f068dcac781da5db2919d989f605317883fbb86043395bb58",
+  "selection_arm": "EXPLORE",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

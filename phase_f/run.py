@@ -347,6 +347,43 @@ def stage_summary(prepared,stage,registry):
     (prepared.out/f'STAGE_{stage}_summary.md').write_text(text,encoding='utf-8')
 
 
+def dispatch_stage(prepared, stage, *, retry=False):
+    from phase_f.workflow import run_all,run_stage
+    requested = 'all' if stage == 'all' else int(stage or 0)
+    if requested != 'all' and requested not in range(5):
+        raise ValueError('Phase F stage must be 0..4 or all')
+    stages = range(5) if requested == 'all' else (requested,)
+    def done(number):
+        path = prepared.out/'logs/workflow'/f'stage_{number}.json'
+        return path.exists() and json.loads(path.read_text(encoding='utf-8')).get('status') == 'completed'
+    pending = any(not done(number) for number in stages)
+    status_path = prepared.out/'logs/driver_status.json'
+    if pending:
+        write_json(status_path,{'status':'running','stage':requested,'pid':os.getpid(),
+            'started_at':now(),'full_phase_complete':False,
+            'stage_details':'logs/workflow/stage_*.json',
+            'historical_final_artifact_read':False,'holdout_read':False})
+    try:
+        result = run_all(prepared,retry=retry) if requested == 'all' else run_stage(prepared,requested,retry=retry)
+    except Exception as exc:
+        write_json(status_path,{'status':'failed','stage':requested,'at':now(),
+            'error_type':type(exc).__name__,'full_phase_complete':False,
+            'historical_final_artifact_read':False,'holdout_read':False})
+        raise
+    if pending and requested not in ('all',4):
+        write_json(status_path,{'status':'completed','stage':requested,'at':now(),
+            'full_phase_complete':False,'historical_final_artifact_read':False,'holdout_read':False})
+    elif not pending and requested in ('all',4):
+        prior = json.loads(status_path.read_text(encoding='utf-8')) if status_path.exists() else {}
+        if prior.get('status') != 'completed' or prior.get('full_phase_complete') is not True:
+            # Dispatch has verified the finished stage and final report. Recover
+            # an interruption between the stage checkpoint and driver marker.
+            write_json(status_path,{'status':'completed','stage':'all','at':now(),
+                'full_phase_complete':True,'recovered_from_completed_checkpoints':True,
+                'historical_final_artifact_read':False,'holdout_read':False})
+    return result
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--stage')
@@ -361,9 +398,7 @@ def main():
         raise RuntimeError('Approved Phase F contract is required')
     prepared=Prepared(root);registry=Registry(root)
     if not args.exp:
-        from phase_f.workflow import run_all,run_stage
-        if args.stage=='all':return run_all(prepared,retry=args.retry)
-        return run_stage(prepared,int(args.stage or 0),retry=args.retry)
+        return dispatch_stage(prepared,args.stage,retry=args.retry)
     prior=registry.read(args.exp)
     if prior is not None:
         cfg=json.loads(prior['config_json'])

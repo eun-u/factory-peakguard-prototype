@@ -1,0 +1,16 @@
+{
+  "exp_id": "F1-5-lightgbm",
+  "family": "F1",
+  "tier": 1,
+  "parent_exp": "",
+  "config_json": "{\"adapter\":\"regression\",\"family\":\"F1\",\"groups\":[\"rolling\"],\"id\":\"F1-5-lightgbm\",\"kind\":\"lightgbm\",\"nonfinite_policy\":\"weekly_anchor\",\"target\":\"direct\",\"tier\":1}",
+  "config_hash": "8741b5a5a2eeb75e62a7c1e23025b8c2e8d143865556502bbde019f26bd13fec",
+  "code_commit": "098779326536979286bfbf52f8421ee19fd4b265",
+  "source_digest": "2793d8a25edffdd62d5e8953ee8a62a60a0b0926c4f6fe060075b4f0e030734e",
+  "status": "planned",
+  "created_at": "2026-10-03T11:04:01.236011+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": ""
+}

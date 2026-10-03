@@ -92,6 +92,9 @@ def test_search_manifest_requires_resolved_family_evidence(tmp_path, monkeypatch
     prepared = _prepared(tmp_path)
     from phase_f import selection
     monkeypatch.setattr(selection, "complete_metric_manifests", lambda p: None)
+    # Isolate F0-F10 wave resolution; real fine-budget proof has its own test.
+    monkeypatch.setattr(selection, "foundation_training_coverage", lambda p: {
+        "full": {"experiments": []}, "lora": {"experiments": []}})
     registry_dir = prepared.out / "logs" / "experiments"
     registry_dir.mkdir(parents=True)
     for n in range(11):
@@ -113,7 +116,22 @@ def test_search_manifest_requires_resolved_family_evidence(tmp_path, monkeypatch
     assert set(record["experiment_ids"]) == {f"F{n}-evidence" for n in range(11)}
     assert record["waves"]["logs/waves/required.json"] == sha256(wave)
     assert record["tuningfiles"]["logs/tuning/gbdt_lightgbm.json"] == sha256(tuning)
+    assert set(record["foundation_training_coverage"]) == {"full", "lora"}
     assert record["holdout_read"] is False
+
+
+def test_expansion_specs_includes_full_and_lora_training_budgets(tmp_path, monkeypatch):
+    prepared = _prepared(tmp_path)
+    from phase_f import experiment_plan as plan
+    calls = []
+    monkeypatch.setattr(plan, "completed", lambda root, *, adapter=None: [])
+    monkeypatch.setattr(plan, "foundation_training_expansion",
+                        lambda root, number: calls.append(number) or [
+                            {"id": "F6-full-budget", "finetune": "full"},
+                            {"id": "F6-lora-budget", "finetune": "lora"}])
+    specs = workflow._expansion_specs(prepared, 2)
+    assert calls == [2]
+    assert [spec["id"] for spec in specs] == ["F6-full-budget", "F6-lora-budget"]
 
 
 def test_two_finite_nonimproving_extension_rounds(tmp_path, monkeypatch):

@@ -14,6 +14,80 @@ from phase_f.experiment_plan import completed,spec
 from phase_f.metrics import evaluate,paired_ci
 
 
+def foundation_training_coverage(prepared):
+    """Prove two distinct completed Chronos fit budgets per full/LoRA mode.
+
+    Only forecast key metadata is read from the prediction parquet. Neither
+    SCORE labels/predictions nor CONFIRM metrics enter this prelock check.
+    """
+    out=prepared.out
+    expected_cells={(h,f) for h in range(4,17) for f in range(3)}
+    candidates={'full':{},'lora':{}}
+    for row in completed(prepared.root,adapter='foundation'):
+        cfg=spec(row);mode=cfg.get('finetune')
+        if mode not in candidates:continue
+        exp_id=row['exp_id']
+        if (cfg.get('id')!=exp_id or cfg.get('kind')!='chronos2' or
+                cfg.get('family')!='F6' or row.get('config_hash')!=config_hash(cfg) or
+                row.get('holdout_read') is not False or
+                row.get('historical_final_artifact_read') is not False):
+            raise ValueError(f'Invalid completed fine-tune registry identity: {exp_id}')
+        if not np.isfinite(float(row['explore_AUC_MAE'])) or int(row.get('explore_queries',0))<1:
+            raise ValueError(f'Fine-tune lacks completed EXPLORE evaluation: {exp_id}')
+        steps=cfg.get('num_steps')
+        if isinstance(steps,bool) or not isinstance(steps,int) or steps<1:
+            raise ValueError(f'Fine-tune has invalid training steps: {exp_id}')
+        candidates[mode].setdefault(steps,[]).append(row)
+
+    proof={}
+    for mode,by_steps in candidates.items():
+        if len(by_steps)<2:
+            raise ValueError(f'F6 {mode} needs two distinct completed num_steps values')
+        experiments=[]
+        # A single deterministic representative for each of the first two
+        # budgets keeps repeated pre/post-CONFIRM verification bounded.
+        for steps in sorted(by_steps)[:2]:
+            row=min(by_steps[steps],key=lambda item:item['exp_id'])
+            exp_id=row['exp_id']
+            if not exp_id or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.+'
+                                 for c in exp_id):
+                raise ValueError('Unsafe fine-tune experiment ID')
+            pred=out/'predictions'/f'{exp_id}.parquet'
+            audit_path=out/'logs'/f'{exp_id}_audit.json'
+            if not pred.is_file() or not audit_path.is_file():
+                raise ValueError(f'Fine-tune prediction/audit is missing: {exp_id}')
+            pred_hash=sha256(pred)
+            audit=json.loads(audit_path.read_text(encoding='utf-8'))
+            fit_cells=audit.get('fit_cells')
+            if (audit.get('config_hash')!=row['config_hash'] or
+                    audit.get('prediction_sha256')!=pred_hash or
+                    audit.get('leakage_test')!='passed' or
+                    audit.get('holdout_read') is not False or
+                    audit.get('historical_final_artifact_read') is not False or
+                    not isinstance(fit_cells,list) or
+                    {cell.get('fold') for cell in fit_cells} != {0,1,2} or
+                    len(fit_cells)!=3 or
+                    any(not isinstance(cell.get('checkpoint_files'),dict) or
+                        not cell['checkpoint_files'] for cell in fit_cells)):
+                raise ValueError(f'Fine-tune fit/audit identity is incomplete: {exp_id}')
+            metadata=pd.read_parquet(pred,columns=['model','role','horizon','fold','origin','target_time'])
+            score=metadata.loc[metadata.role.eq('score')]
+            keys=['horizon','fold','origin','target_time']
+            cells=set(map(tuple,score[['horizon','fold']].drop_duplicates().to_numpy()))
+            if (not metadata.model.eq(exp_id).all() or cells!=expected_cells or
+                    score.duplicated(keys).any() or
+                    not pd.MultiIndex.from_frame(score[keys].sort_values(keys)).equals(
+                        pd.MultiIndex.from_frame(prepared.keys[keys].sort_values(keys)))):
+                raise ValueError(f'Fine-tune lacks the complete 39-cell score cohort: {exp_id}')
+            metric_hash=verify_explore_metrics(prepared.root,row)
+            experiments.append({'exp_id':exp_id,'num_steps':steps,'config_hash':row['config_hash'],
+                'score_cells':39,'score_key_count':len(score),'prediction_sha256':pred_hash,
+                'audit_sha256':sha256(audit_path),'explore_manifest_sha256':metric_hash})
+        proof[mode]={'status':'completed','distinct_num_steps':sorted(by_steps)[:2],
+                     'experiments':experiments}
+    return proof
+
+
 def verify_search_complete(prepared):
     path=prepared.out/'logs/search_complete.json'
     if not path.exists():raise RuntimeError('Search completion evidence is required before CONFIRM')
@@ -40,6 +114,19 @@ def verify_search_complete(prepared):
         row=registry.read(key)
         if not row or row['status'] not in ('completed','failed','unsupported','rejected','diagnostic_passed'):
             raise ValueError(f'Unresolved experiment: {key}')
+    fine_proof=foundation_training_coverage(prepared)
+    if record.get('foundation_training_coverage')!=fine_proof:
+        raise ValueError('F6 full/LoRA training-budget completion evidence changed')
+    locked_ids=set()
+    for relative in record['waves']:
+        wave=json.loads((prepared.out/relative).read_text(encoding='utf-8'))
+        if wave.get('config_sha256')!=config_hash(wave.get('specs')):
+            raise ValueError(f'Changed wave specifications: {relative}')
+        locked_ids.update(item['id'] for item in wave['specs'])
+    for evidence in fine_proof.values():
+        for item in evidence['experiments']:
+            if item['exp_id'] not in record['experiment_ids'] or item['exp_id'] not in locked_ids:
+                raise ValueError('F6 training evidence is outside the locked search')
     done=completed(prepared.root)
     for prefix in ('F3-1-gbdt_lightgbm-t','F3-4-gbdt_xgboost-t','F3-4-gbdt_catboost-t'):
         trials=[row for row in done if row['exp_id'].startswith(prefix) and row.get('stop_cells')==39]

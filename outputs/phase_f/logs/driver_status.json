@@ -1,9 +1,8 @@
 {
-  "status": "requested_stage_completed",
-  "stage": "1",
-  "exp": "F6-1-c2048-median",
-  "at": "2026-10-03T10:09:46.028499+00:00",
-  "historical_final_artifact_read": false,
+  "status": "ready_to_resume",
+  "stage": "all",
+  "at": "2026-10-03T11:18:15.288074+00:00",
+  "full_phase_complete": false,
   "holdout_read": false,
-  "full_phase_complete": false
+  "historical_final_artifact_read": false
 }

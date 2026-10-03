@@ -1,0 +1,32 @@
+{
+  "prediction_sha256": "bfaeed89877e83c733c169cdf718859f25a50bece53d14fcb6d4de543403330e",
+  "tables": {
+    "explore_auc.csv": "f6433181baeb7204549aeb8abaa7a4079d8797167f0588e2df36ddac570c0113",
+    "explore_daily.csv": "595de7b4b7433aab61ff48ba14ca8a2941e6501fe3bf862836049461e831c327",
+    "explore_daily_summary.csv": "0698bbea01072a10b7ee11cbd71a7a50504416e42a4213bd69b475a61355e68f",
+    "explore_fold.csv": "9290f0a08299e9b35cba4727d79c2b3eebd836499eba5541fd2141cea4ae3257",
+    "explore_pairwise_ci.csv": "1739b9fcb9147d044d68cf8ba2c361ec6dd298c60e26afb3311731a279104743",
+    "explore_pairwise_week_ci.csv": "ad64935cc09af51066db68e341f244317b138162bf67648ba47b7321ff4a1d25",
+    "explore_pooled.csv": "cc9a4110935856c19bc88542abc36916d5fd189e2f1bb7333ae9055e887ef309"
+  },
+  "registry_metrics": {
+    "explore_AUC_MAE": 11.729417420993839,
+    "explore_AUC_PeakMAE": 21.969275831902873,
+    "D2_explore_AUC_MAE": 13.391403417696777,
+    "D2_explore_AUC_PeakMAE": 22.157684149085657,
+    "explore_h16_MAE": 13.082139671264853,
+    "explore_h16_Peak": 24.502290350416796,
+    "explore_PredPeakMAE": 16.97914192227325,
+    "fold0_MAE": 15.811636117603708,
+    "fold1_MAE": 7.222047970283016,
+    "fold2_MAE": 12.360776508025676
+  },
+  "metrics_source_sha256": "68d888b2cb5769d8a4029520556b36617ce2e8abce55ef67fc2de1766fa98112",
+  "split_sha256": "0d68bc2921e518111aa6918c5bbdfb3fe543f21855c0e941f09cdeabba7d202f",
+  "baseline_prediction_sha256": {
+    "outputs/phase_c/predictions/main_predictions.parquet": "112797099f8e1584f718470ff468baa251aeb5e4166cff02d4347e3f6c9bc466",
+    "outputs/phase_c/predictions/reference_predictions.parquet": "dedbeda9d060a21e7424c21cb1f7ed5faa580a9d366421ca32679ade120d9675"
+  },
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

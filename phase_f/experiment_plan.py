@@ -6,6 +6,7 @@ locked before execution by the orchestrator; no CONFIRM result is an input.
 from __future__ import annotations
 import itertools
 import json
+import math
 from pathlib import Path
 from phase_f.registry import config_hash,write_json
 
@@ -175,13 +176,91 @@ def neural_extensions(root):
 
 def foundation_fine(stage):
     from phase_f.models.foundation import configurations
+    # Retain the original 12 full/LoRA, context and learning-rate records
+    # byte-for-byte as experiment configurations. New budgets have new IDs.
     base=[{**s,'adapter':'foundation'} for s in configurations() if s['tier']==2]
-    if stage==2:return base
+    if stage==2:
+        result=list(base)
+        by_key={(s['finetune'],s['context_length'],s['learning_rate']):s for s in base}
+        for mode in ('full','lora'):
+            for length in (512,2048,8192):
+                for lr in (1e-6,1e-5,3e-6):
+                    source=by_key[(mode,length,lr if lr!=3e-6 else 1e-6)]
+                    budgets=(100,250,1000) if lr!=3e-6 else (100,250,500,1000)
+                    for steps in budgets:
+                        exp_id=f'F6-4-{mode}-c{length}-lr{lr:g}-s{steps}'
+                        result.append(child(source,exp_id,tier=2,learning_rate=lr,num_steps=steps))
+        return result
     result=[]
+    # The established stage-three calendar/point followups use only the
+    # original parents, not the enlarged 72-cell training grid.
     for s in base:
         for q in (.5,.6,.65):
             result.append(child(s,s['id'].replace('F6-4','F6-6')+f'-calendar-q{q}',tier=3,covariates=True,point=q))
     return result
+
+
+def foundation_training_expansion(root, number):
+    """Finite new training settings near each mode's best EXPLORE fine-tune.
+
+    The round number increases the radius if the same parent remains best.
+    This avoids replaying an already tried physical configuration while
+    allowing the orchestrator's two-non-improving-wave rule to decide when
+    exploration ends. Structural context-window support is checked by
+    ``validate_support`` at execution against the locked fold cohort.
+    """
+    if not isinstance(number,int) or number<0:
+        raise ValueError('Expansion round must be a nonnegative integer')
+    old=rows(root)
+    seen=set()
+    for row in old:
+        cfg=spec(row)
+        if cfg.get('adapter')=='foundation' and cfg.get('finetune') in ('full','lora'):
+            seen.add(_foundation_training_key(cfg))
+    result=[]
+    radius=number+1
+    contexts=(512,1024,2048,4096,8192)
+    for mode in ('full','lora'):
+        candidates=[row for row in completed(root,adapter='foundation')
+                    if spec(row).get('finetune')==mode and
+                    math.isfinite(float(row['explore_AUC_MAE']))]
+        if not candidates:
+            raise RuntimeError(f'No completed EXPLORE {mode} fine-tune parent for training expansion')
+        parent=spec(candidates[0])
+        length=int(parent['context_length'])
+        if length not in contexts:
+            raise ValueError(f'Unsupported fine-tune parent context: {length}')
+        lr=float(parent['learning_rate']);steps=int(parent['num_steps'])
+        if not math.isfinite(lr) or lr<=0 or steps<1:
+            raise ValueError('Invalid fine-tune parent learning rate or steps')
+        factor=2**radius
+        proposals=[('lrhalf',length,lr/factor,steps),
+                   ('lrdouble',length,lr*factor,steps),
+                   ('stepshalf',length,lr,max(1,steps//factor)),
+                   ('stepsdouble',length,lr,steps*factor)]
+        pos=contexts.index(length)
+        for neighbor in (pos-radius,pos+radius):
+            if 0<=neighbor<len(contexts) and contexts[neighbor] in (512,1024,2048,4096):
+                proposals.append(('context',contexts[neighbor],lr,steps))
+        for axis,context,new_lr,new_steps in proposals:
+            if new_lr<=0 or not math.isfinite(new_lr) or new_steps<1:
+                continue
+            key=(mode,context,float(new_lr),int(new_steps),
+                 bool(parent.get('covariates',False)))
+            if key in seen:
+                continue
+            seen.add(key)
+            exp_id=(f'F6-expansion-{number}-{mode}-{axis}-c{context}'
+                    f'-lr{new_lr:g}-s{new_steps}')
+            result.append(child(parent,exp_id,tier=3,context_length=context,
+                                learning_rate=new_lr,num_steps=new_steps))
+    return result
+
+
+def _foundation_training_key(cfg):
+    return (cfg.get('finetune'),int(cfg.get('context_length',2048)),
+            float(cfg.get('learning_rate',1e-6)),int(cfg.get('num_steps',500)),
+            bool(cfg.get('covariates',False)))
 
 
 def tabular_cross(root):

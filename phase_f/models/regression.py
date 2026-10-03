@@ -233,8 +233,18 @@ def _weights(context: Mapping, origins: pd.DatetimeIndex, y: np.ndarray,
         weights *= np.exp2(-np.asarray(age_weeks, dtype=float) / half_life)
     weights *= np.where(y > tau, float(cfg.get("peak_weight", 1.)), 1.)
     alpha = float(cfg.get("continuous_peak_alpha", 0.))
-    scale = max(float(np.std(y)), 1e-8)
-    weights *= 1 + alpha * np.maximum(y - tau, 0) / scale
+    if not np.isfinite(alpha) or alpha < 0:
+        raise ValueError("continuous_peak_alpha must be finite and nonnegative")
+    if alpha > 0:
+        # y contains only selected fit labels, on the original demand scale.
+        q80 = float(np.quantile(y, .8))
+        scale = float(tau) - q80
+        if not np.isfinite(scale) or scale <= 0:
+            from phase_f.support import UnsupportedConfiguration
+            raise UnsupportedConfiguration("Continuous peak weights require fit tau > fit q80",
+                                           {"fit_q80": q80, "fit_tau": float(tau),
+                                            "continuous_peak_alpha": alpha})
+        weights *= 1 + alpha * np.maximum(y - q80, 0) / scale
     if not np.isfinite(weights).all() or np.any(weights < 0) or not np.any(weights > 0):
         raise ValueError("No positive finite training weights")
     return weights

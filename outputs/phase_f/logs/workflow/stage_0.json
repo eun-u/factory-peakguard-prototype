@@ -1,9 +1,10 @@
 {
   "stage": 0,
   "started_at": "2026-10-03T11:03:55.323010+00:00",
-  "status": "running",
+  "status": "completed",
   "full_phase_complete": false,
-  "updated_at": "2026-10-03T11:03:55.323018+00:00",
+  "updated_at": "2026-10-03T11:03:59.678414+00:00",
   "historical_final_artifact_read": false,
-  "holdout_read": false
+  "holdout_read": false,
+  "result": null
 }

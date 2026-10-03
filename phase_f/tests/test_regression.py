@@ -131,6 +131,35 @@ def test_window_and_exact_completed_profile_dedup():
     assert weighted.sum() == pytest.approx(96)
 
 
+def test_continuous_peak_weights_match_q80_formula_and_disabled_path():
+    y = np.arange(101, dtype=float)
+    origins = pd.date_range('2021-01-01', periods=len(y), freq='15min')
+    # q80=80 and tau=95: the weight at tau must be exactly 1+alpha.
+    weights = reg._weights({}, origins, y, 95., 4, {'continuous_peak_alpha': 2.}, 'keep')
+    np.testing.assert_allclose(weights, 1 + 2 * np.maximum(y - 80, 0) / 15)
+    assert weights[95] == 3.
+    np.testing.assert_array_equal(reg._weights({}, origins, y, 0., 4, {}, 'keep'), np.ones(101))
+    from phase_f.support import UnsupportedConfiguration
+    with pytest.raises(UnsupportedConfiguration, match='tau > fit q80'):
+        reg._weights({}, origins, y, 80., 4, {'continuous_peak_alpha': 1.}, 'keep')
+    for alpha in (-1., np.nan, np.inf):
+        with pytest.raises(ValueError, match='continuous_peak_alpha'):
+            reg._weights({}, origins, y, 95., 4, {'continuous_peak_alpha': alpha}, 'keep')
+
+
+def test_continuous_weight_fit_ignores_nonfit_labels_on_transformed_target():
+    history, context = _data()
+    context['tau'] = float(context['y'].loc[context['fit']].quantile(.95))
+    cfg = {'target': 'delta', 'continuous_peak_alpha': 1., 'model_params': {'alpha': 10.}}
+    fitted = reg.fit_model('ridge', history, context, cfg)
+    changed = dict(context)
+    changed['y'] = context['y'].copy()
+    for role in ('stop', 'cal', 'score'):
+        changed['y'].loc[context[role]] = 1e9
+    other = reg.fit_model('ridge', history, changed, cfg)
+    np.testing.assert_array_equal(fitted['model'].coef_, other['model'].coef_)
+
+
 def test_b5_residual_labels_are_forward_block_out_of_fit(monkeypatch):
     history, context = _data()
     train_ends = []
