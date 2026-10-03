@@ -1,0 +1,11 @@
+predictions/
+models/
+cache/
+env/
+optional_envs/
+*.log
+logs/*.log
+logs/*.sqlite*
+tests_tmp/
+test_scratch/
+__pycache__/
