@@ -69,11 +69,12 @@
     "F5-2-dlinear-c2688",
     "F5-2-nlinear-c2688"
   ],
-  "last_id": "F1-3-4w-lightgbm",
-  "resolved": 37,
+  "last_id": "F5-2-nlinear-c2688",
+  "resolved": 67,
   "total": 67,
-  "status": "running",
-  "updated_at": "2026-10-03T11:08:33.569587+00:00",
+  "status": "completed",
+  "updated_at": "2026-10-03T14:39:43.313521+00:00",
   "historical_final_artifact_read": false,
-  "holdout_read": false
+  "holdout_read": false,
+  "completed_at": "2026-10-03T14:39:43.314496+00:00"
 }

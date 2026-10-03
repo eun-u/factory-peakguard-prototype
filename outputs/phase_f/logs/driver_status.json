@@ -1,8 +1,10 @@
 {
-  "status": "ready_to_resume",
+  "status": "running",
   "stage": "all",
-  "at": "2026-10-03T11:18:15.288074+00:00",
+  "pid": 56304,
+  "started_at": "2026-10-03T11:18:34.010336+00:00",
   "full_phase_complete": false,
-  "holdout_read": false,
-  "historical_final_artifact_read": false
+  "stage_details": "logs/workflow/stage_*.json",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
 }

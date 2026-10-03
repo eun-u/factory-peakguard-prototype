@@ -1,0 +1,17 @@
+{
+  "name": "stage1_feature_finish",
+  "spec_ids": [
+    "F1-10-production-once",
+    "F1-11-top10",
+    "F1-11-top20",
+    "F1-11-top40"
+  ],
+  "last_id": "F1-11-top40",
+  "resolved": 4,
+  "total": 4,
+  "status": "completed",
+  "updated_at": "2026-10-03T15:30:46.846182+00:00",
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "completed_at": "2026-10-03T15:30:46.847068+00:00"
+}

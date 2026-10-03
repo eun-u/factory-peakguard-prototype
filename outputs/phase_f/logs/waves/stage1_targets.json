@@ -1,0 +1,36 @@
+{
+  "name": "stage1_targets",
+  "hypothesis": "Weekly and B5 residual target hypotheses",
+  "specs": [
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-3",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "weekly",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-5",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "b5_residual",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm"
+    }
+  ],
+  "config_sha256": "2040ae82d679a2077877cfeb48104cb30750190e8257da3a473f2e616d1bc019",
+  "selection_arm": "EXPLORE",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}
