@@ -342,7 +342,9 @@ def run(prepared, spec):
                 anchor_fallback += fallback
                 frames.append(make_frame(context, origins, h, fold, pred, spec["id"], role,
                                          train_seconds=bundle["fit_seconds"],
-                                         inference_seconds=elapsed))
+                                         train_seconds_run_id=f"{spec['id']}_fit_f{fold}",
+                                         inference_seconds=elapsed,
+                                         inference_seconds_run_id=f"{spec['id']}_infer_h{h}_f{fold}_{role}"))
         fold_audits.append({"fold": fold, "cache_reused": reused,
                             "n_fit": bundle["n_fit"], "n_stop": bundle["n_stop"],
                             "train_seconds": bundle["fit_seconds"],

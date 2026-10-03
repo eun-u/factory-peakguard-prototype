@@ -1,0 +1,9 @@
+{
+  "status": "requested_stage_completed",
+  "stage": "1",
+  "exp": "F6-1-c2048-median",
+  "at": "2026-10-03T10:09:46.028499+00:00",
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "full_phase_complete": false
+}

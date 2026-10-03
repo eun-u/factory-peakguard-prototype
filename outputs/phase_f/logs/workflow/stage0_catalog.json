@@ -1,0 +1,28 @@
+{
+  "name": "stage0_catalog",
+  "spec_ids": [
+    "F0-1-B1",
+    "F0-1-B5",
+    "F0-1-M1",
+    "F0-1-M1-W",
+    "F0-1-M2",
+    "F0-1-R1",
+    "F0-3-CBL",
+    "F0-3-k2-mean",
+    "F0-3-k2-median",
+    "F0-3-k3-mean",
+    "F0-3-k3-median",
+    "F0-3-k4-mean",
+    "F0-3-k4-median",
+    "F0-3-daytype",
+    "F0-2-fixed"
+  ],
+  "last_id": "F0-2-fixed",
+  "resolved": 15,
+  "total": 15,
+  "status": "completed",
+  "updated_at": "2026-10-03T11:03:55.384568+00:00",
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "completed_at": "2026-10-03T11:03:55.385275+00:00"
+}

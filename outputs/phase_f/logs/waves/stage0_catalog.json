@@ -1,0 +1,152 @@
+{
+  "name": "stage0_catalog",
+  "hypothesis": "Replay fixed baselines and corrected statistical comparators",
+  "specs": [
+    {
+      "id": "F0-1-B1",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "B1"
+    },
+    {
+      "id": "F0-1-B5",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "B5"
+    },
+    {
+      "id": "F0-1-M1",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "M1"
+    },
+    {
+      "id": "F0-1-M1-W",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "M1-W"
+    },
+    {
+      "id": "F0-1-M2",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "M2"
+    },
+    {
+      "id": "F0-1-R1",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "R1"
+    },
+    {
+      "id": "F0-3-CBL",
+      "family": "F0",
+      "tier": 0,
+      "adapter": "baseline",
+      "baseline": "B2"
+    },
+    {
+      "id": "F0-3-k2-mean",
+      "family": "F0-3",
+      "kind": "seasonal_kweek",
+      "params": {
+        "weeks": 2,
+        "statistic": "mean"
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-3-k2-median",
+      "family": "F0-3",
+      "kind": "seasonal_kweek",
+      "params": {
+        "weeks": 2,
+        "statistic": "median"
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-3-k3-mean",
+      "family": "F0-3",
+      "kind": "seasonal_kweek",
+      "params": {
+        "weeks": 3,
+        "statistic": "mean"
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-3-k3-median",
+      "family": "F0-3",
+      "kind": "seasonal_kweek",
+      "params": {
+        "weeks": 3,
+        "statistic": "median"
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-3-k4-mean",
+      "family": "F0-3",
+      "kind": "seasonal_kweek",
+      "params": {
+        "weeks": 4,
+        "statistic": "mean"
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-3-k4-median",
+      "family": "F0-3",
+      "kind": "seasonal_kweek",
+      "params": {
+        "weeks": 4,
+        "statistic": "median"
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-3-daytype",
+      "family": "F0-3",
+      "kind": "daytype_profile",
+      "params": {
+        "statistic": "median",
+        "level_span": 96
+      },
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    },
+    {
+      "id": "F0-2-fixed",
+      "family": "F0-2",
+      "kind": "mstl_stationary",
+      "params": {},
+      "adapter": "statistical",
+      "tier": 0,
+      "nonfinite_policy": "weekly_anchor"
+    }
+  ],
+  "config_sha256": "a41e1dc3c2fe98b59194d6d5fae2bdaf00e354a4bff0f73d05a2603ba784b834",
+  "selection_arm": "EXPLORE",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

@@ -1,0 +1,3 @@
+dataset,model,n_horizons,n_available_horizons,AUC_MAE,AUC_PeakMAE,AUC_PredPeakMAE,auc_definition
+D1,F6-1-c512-integrated_mean,13,13,11.79634312123137,22.238025969926188,10.190814880625085,mean of 13 pooled horizon metrics
+D2,F6-1-c512-integrated_mean,13,13,12.252825863797465,19.9842278164738,9.951921695289737,mean of 13 pooled horizon metrics

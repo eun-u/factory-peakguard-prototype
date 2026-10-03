@@ -1,0 +1,11 @@
+{
+  "repo": "google/timesfm-2.5-200m-pytorch",
+  "revision": "1d952420fba87f3c6dee4f240de0f1a0fbc790e3",
+  "spec_hash": "0f683dccaf621ef5b5bef8555bd047a2abdb1f785bb43573e90c71c6bb348b56",
+  "license": "apache-2.0",
+  "commercially_eligible": true,
+  "source": "https://github.com/google-research/timesfm/blob/master/timesfm-forecasting/references/api_reference.md",
+  "training_on_local_data": false,
+  "development_only": true,
+  "holdout_read": false
+}

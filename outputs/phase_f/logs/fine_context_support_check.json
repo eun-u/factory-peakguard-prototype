@@ -1,0 +1,17 @@
+{
+  "status": "unsupported",
+  "reason": "Complete requested-context training windows are unavailable in the fixed three-fold cohort",
+  "evidence": {
+    "context_length": 8192,
+    "prediction_length": 16,
+    "complete_window_counts": {
+      "fold0_fit": 0,
+      "fold0_stop": 256,
+      "fold1_fit": 2062,
+      "fold1_stop": 2389,
+      "fold2_fit": 5443,
+      "fold2_stop": 3234
+    },
+    "policy": "No fold removal, silent context truncation, or future training labels"
+  }
+}

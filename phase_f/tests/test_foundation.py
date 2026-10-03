@@ -1,6 +1,15 @@
 import numpy as np
 import pandas as pd
 from phase_f.models.foundation import causal_input,point_from_quantiles,QUANTILES,training_windows
+from phase_f.models.foundation import recover_finetune_timing
+
+
+def test_interrupted_finetune_cannot_report_zero_training_cost():
+    recovered=recover_finetune_timing({'train_seconds':0.,'paths':{}})
+    assert np.isnan(recovered['train_seconds'])
+    assert recovered['training_timing_status']=='unavailable_after_interrupted_fit_transaction'
+    measured={'fit_completed':True,'train_seconds':12.5,'training_timing_status':'measured'}
+    assert recover_finetune_timing(measured)['train_seconds']==12.5
 
 
 def test_causal_inputs_and_known_calendar():

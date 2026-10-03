@@ -62,7 +62,7 @@ def _frames(inputs: Mapping[str, pd.DataFrame] | Sequence[pd.DataFrame]) -> dict
     prepared = {}
     reference = None
     for name, frame in items:
-        if not isinstance(name, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", name):
+        if not isinstance(name, str) or not re.fullmatch(r"[A-Za-z0-9_.+-]+", name):
             raise ValueError("candidate model IDs must be safe and nonempty")
         if not isinstance(frame, pd.DataFrame) or frame.empty:
             raise ValueError(f"{name} must have a nonempty prediction frame")
@@ -174,7 +174,7 @@ def combine_predictions(inputs: Mapping[str, pd.DataFrame] | Sequence[pd.DataFra
     """
     frames = _frames(inputs)
     names = list(frames)
-    if not isinstance(model_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", model_id):
+    if not isinstance(model_id, str) or not re.fullmatch(r"[A-Za-z0-9_.+-]+", model_id):
         raise ValueError("model_id must be a safe nonempty ID")
     if model_id in frames:
         raise ValueError("combined model_id must differ from source models")
@@ -185,6 +185,7 @@ def combine_predictions(inputs: Mapping[str, pd.DataFrame] | Sequence[pd.DataFra
     out.insert(0, "model", model_id)
     out["pred"] = np.nan
     out["development_only"] = True
+    out['cal_provenance']='not_cal'
     audits = []
     base_id = str(config.get("base_id", names[0]))
     risk_id = str(config.get("risk_source", base_id))
@@ -194,11 +195,31 @@ def combine_predictions(inputs: Mapping[str, pd.DataFrame] | Sequence[pd.DataFra
     for (horizon, fold), group in reference.groupby(["horizon", "fold"], sort=True):
         ix = group.index.to_numpy(dtype=int)
         cal = group.role.eq("cal").to_numpy(dtype=bool)
+        learned=method in {'inverse_cal_mae','nnls','ridge_positive','regime_gate','peak_gate','bias_hour_daytype'}
+        fraction=config.get('cal_fit_fraction')
+        if learned and fraction is not None:
+            if not 0<float(fraction)<1:
+                raise ValueError('cal_fit_fraction must be strictly between zero and one')
+            all_cal=group.loc[cal].sort_values('origin')
+            cut=all_cal.origin.iloc[int(len(all_cal)*float(fraction))]
+            training=cal & (group.target_time<cut).to_numpy()
+            later=cal & (group.origin>=cut).to_numpy()
+            if training.sum()<30 or later.sum()<30:
+                raise ValueError('Insufficient purged calibration partitions')
+            # Numeric weights are fitted only on early cal; the later cal is
+            # honest input to downstream calibration. Score uses the same weights.
+            out.loc[ix[cal],'cal_provenance']='excluded'
+            out.loc[ix[training],'cal_provenance']='in_sample'
+            out.loc[ix[later],'cal_provenance']='chronological_oof'
+            cal=training
+        else:
+            out.loc[ix[cal],'cal_provenance']='in_sample' if learned else 'chronological_oof'
         cal_ix = ix[cal]
         y = reference.loc[cal_ix, "y"].to_numpy(dtype=float)
         x = matrix[cal_ix]
         all_x = matrix[ix]
         decision = {"horizon": int(horizon), "fold": int(fold), "cal_n": int(len(cal_ix)),
+                    "cal_fit_fraction":fraction,"cal_holdout_n":int((out.loc[ix,'cal_provenance']=='chronological_oof').sum()),
                     "cal_first_origin": str(reference.loc[cal_ix, "origin"].min()),
                     "cal_last_origin": str(reference.loc[cal_ix, "origin"].max()),
                     "cal_last_target": str(reference.loc[cal_ix, "target_time"].max()),

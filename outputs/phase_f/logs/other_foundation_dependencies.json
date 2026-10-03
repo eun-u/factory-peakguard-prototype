@@ -1,0 +1,77 @@
+{
+  "scope": "Phase F F6-5 public zero-shot research comparison",
+  "python": "3.13.14",
+  "shared_runtime_read_only": {
+    "torch": "2.11.0+cu128",
+    "numpy": "2.5.3",
+    "chronos-forecasting": "2.3.2"
+  },
+  "optional_site_packages": {
+    "timesfm": {"timesfm": "2.0.2"},
+    "moirai": {
+      "uni2ts": "2.0.0",
+      "lightning": "2.6.0",
+      "gluonts": "0.14.4",
+      "jaxtyping": "0.2.24",
+      "toolz": "0.12.1",
+      "typeguard": "2.13.3"
+    },
+    "tirex": {"tirex-ts": "1.4.2"}
+  },
+  "models": {
+    "chronos_bolt": {
+      "repository": "amazon/chronos-bolt-small",
+      "revision": "772f3d25d38aec6d914c8949dab4462e2d46f5d8",
+      "license": "apache-2.0",
+      "files_sha256": {
+        "config.json": "9ca0ebbe049ccebacb0546361e8aa728f0cf104cd18d1838d78d296aa317bd21",
+        "model.safetensors": "06a6a19bbe74bc10a9cd193bd4bf2bf638ae07f7e0d51653ae7ab8ea968a21dd"
+      },
+      "synthetic_cpu_smoke": "512 observed values to 16-step finite q10..q90, passed"
+    },
+    "timesfm2p5": {
+      "repository": "google/timesfm-2.5-200m-pytorch",
+      "revision": "1d952420fba87f3c6dee4f240de0f1a0fbc790e3",
+      "license": "apache-2.0",
+      "files_sha256": {
+        "config.json": "cd3315b760d5cc7e278d7afdf41b897031ced888fc6c115bd9b3ac0ea2c47408",
+        "model.safetensors": "2f776efe6245e42b24bc4153ffdf61810140210e4bd3b01fb21f7aa779ab6ce8"
+      },
+      "synthetic_cpu_smoke": "512 observed values to 16-step finite q10..q90, passed"
+    },
+    "moirai2": {
+      "repository": "Salesforce/moirai-2.0-R-small",
+      "revision": "30f43ff08c8494f4943ae1521e9d4e94a0fbb389",
+      "license": "cc-by-nc-4.0",
+      "commercial_status": "Research comparison only; noncommercial model weights",
+      "published_dependency_constraints": "uni2ts 2.0.0 metadata requests torch<2.5, numpy~=1.26.0 and gluonts 0.14 requests pandas<2.2; this isolated minimal import/CPU smoke works with shared newer versions but full cohort remains to verify",
+      "files_sha256": {
+        "config.json": "6b74b03c8ec199fabc352c0203465958142ca468183da68549652734836f853d",
+        "model.safetensors": "fb5652a3db8ea572606221b7cb1e77bb8962b168e4d4cc752cf31ceb04074669"
+      },
+      "synthetic_cpu_smoke": "512 observed values to 16-step finite q10..q90, passed"
+    },
+    "tirex": {
+      "repository": "NX-AI/TiRex",
+      "revision": "63c740922493f5fbe60b277609ec62babfba2762",
+      "license": "NXAI Community License",
+      "commercial_status": "Review required: distribution attribution and large-enterprise commercial license conditions",
+      "files_sha256": {
+        "model.ckpt": "b8c3f5a036c63272ce4b91c00187e26922a394cb6cb49d4e16db070ad0422314"
+      },
+      "synthetic_cpu_smoke": "512 observed values to 16-step finite q10..q90, passed; Windows not an officially tested platform"
+    }
+  },
+  "worker_checkpoint_smoke": {
+    "input": "Two generated 512-point sine/cosine windows per model",
+    "forecast_path": "16 steps and nine native quantiles q10..q90",
+    "chronos_bolt": "pass",
+    "timesfm2p5": "pass",
+    "moirai2": "pass",
+    "tirex": "pass",
+    "future_perturbation_max_abs_difference": 0,
+    "same_cache_id_second_execution": "pass; one complete chunk, no duplicate inference"
+  },
+  "inference_scope": "All synthetic CPU smokes used generated sine/cosine input. No private history or final holdout was used.",
+  "unverified": "Full fixed-cohort GPU/CPU runtime, error metrics and deployment license checks"
+}

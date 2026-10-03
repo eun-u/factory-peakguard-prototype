@@ -9,6 +9,7 @@ import pandas as pd
 import pytest
 
 from phase_f.models import regression as reg
+from phase_c.statistical import predict_kalman as sealed_predict_kalman
 
 
 def _data(horizon: int = 4) -> tuple[pd.DataFrame, dict]:
@@ -36,6 +37,9 @@ def test_ridge_fit_reads_only_fit_targets_and_prediction_is_future_invariant():
     other = reg.fit_model("ridge", history, changed, cfg)
     assert fitted["n_fit_labels"] == len(context["fit"])
     assert fitted["stop_used"] is False
+    stop_pred = reg.predict_model(fitted, history, context["stop"], 4)
+    assert fitted["stop_mae"] == pytest.approx(np.mean(np.abs(stop_pred - context["y"].loc[context["stop"]])))
+    assert fitted["stop_n"] == len(context["stop"])
     np.testing.assert_allclose(fitted["model"].coef_, other["model"].coef_)
     origin = pd.DatetimeIndex([history.index[2600]])
     forecast = reg.predict_model(fitted, history, origin, 4)
@@ -169,6 +173,51 @@ def test_b5_residual_end_to_end_excludes_warmup_fit_rows(monkeypatch):
     assert np.isfinite(reg.predict_model(fitted, history, pd.DatetimeIndex([history.index[2600]]), 4)).all()
 
 
+@pytest.mark.parametrize("target", ["weekly", "delta"])
+def test_kalman_state_features_use_forward_oof_fit_and_frozen_causal_score(monkeypatch, target):
+    history, context = _data()
+    fit_calls = []
+
+    def fake_fit(power, selected):
+        fit_calls.append(selected.max())
+        return {"fit_end": selected.max(), "phi": .7, "q": .2, "r": .5}
+
+    def fake_predict(bundle, power, origins, horizon):
+        assert bundle["fit_end"] < origins.min()
+        return 75 + .1 * power.reindex(origins).to_numpy(float)
+
+    monkeypatch.setattr(reg, "fit_kalman", fake_fit)
+    monkeypatch.setattr(reg, "predict_kalman", fake_predict)
+    config = {"target": target, "kalman_features": True, "b5_oof_blocks": 3,
+              "model_params": {"alpha": 30.}}
+    fitted = reg.fit_model("ridge", history, context, config)
+    assert fitted["kalman_features"]
+    assert {"b5_forecast", "state_deviation", "state_variance"} <= set(fitted["preprocessor"]["columns"])
+    assert fitted["n_fit_labels"] < len(context["fit"])
+    assert fitted["target"] == target
+    assert fitted["stop_mae"] >= 0
+    calls_after_first = len(fit_calls)
+    again = reg.fit_model("ridge", history, context, config)
+    assert len(fit_calls) == calls_after_first  # fit-only B5 cache reused
+    assert again["stop_mae"] == pytest.approx(fitted["stop_mae"])
+    origin = pd.DatetimeIndex([history.index[2600]])
+    expected = reg.predict_model(fitted, history, origin, 4)
+    changed = history.copy()
+    changed.loc[changed.index > origin[0], "power"] = -1e6
+    np.testing.assert_allclose(reg.predict_model(fitted, changed, origin, 4), expected, rtol=0, atol=0)
+
+
+def test_kalman_state_deviation_reconstructs_sealed_b5_forecast():
+    history, _ = _data(horizon=16)
+    bundle = {"phi": .7, "q": .2, "r": .5}
+    origins = pd.DatetimeIndex([history.index[1200], history.index[1400], history.index[1800]])
+    state, variance = reg._kalman_state(bundle, history.power, origins)
+    forecast = sealed_predict_kalman(bundle, history.power, origins, 16)
+    anchor = history.power.reindex(origins + timedelta(hours=4) - timedelta(days=7)).to_numpy(float)
+    np.testing.assert_allclose(forecast, anchor + .7**16 * state, rtol=0, atol=1e-10)
+    assert np.all(variance > 0)
+
+
 def test_configurations_and_search_space_are_finite():
     rows = reg.configurations()
     assert len(rows) == len({row["id"] for row in rows})
@@ -185,4 +234,9 @@ def test_configurations_and_search_space_are_finite():
         def suggest_categorical(self, name, options):
             return options[0]
 
-    assert reg.suggest_parameters(Trial(), "lightgbm")["n_estimators"] >= 300
+    lgb = reg.suggest_parameters(Trial(), "lightgbm")
+    assert lgb["n_estimators"] >= 300
+    assert lgb["num_leaves"] == 15
+    assert lgb["min_child_samples"] == 10
+    assert lgb["learning_rate"] == .01
+    assert {"max_bin", "reg_alpha", "reg_lambda"} <= lgb.keys()

@@ -1,0 +1,17 @@
+{
+  "kind": "autoets",
+  "synthetic_only": true,
+  "python": "3.13.14",
+  "numpy": "2.5.3",
+  "numba": "0.68.0",
+  "llvmlite": "0.50.0",
+  "statsforecast": "2.1.1",
+  "status": "passed",
+  "fit_seconds": 5.08,
+  "prediction": 71.98116063198268,
+  "prediction_finite": true,
+  "future_perturbation_equal": true,
+  "fit_end": "2021-01-16 02:15:00",
+  "state_update": "native_forward",
+  "total_seconds": 5.081
+}

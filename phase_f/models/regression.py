@@ -9,7 +9,10 @@ context.stop for early stopping. Calibration and score labels are untouched.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from collections import OrderedDict
 from datetime import timedelta
+import hashlib
+import copy
 
 import numpy as np
 import pandas as pd
@@ -22,6 +25,9 @@ from phase_f.features_ext import available_group_configs, build_features
 KINDS = frozenset({"ridge", "lightgbm", "xgboost", "catboost", "two_stage"})
 TARGETS = frozenset({"direct", "delta", "weekly", "profile", "b5_residual", "log1p"})
 BOUNDARY = pd.Timestamp("2021-08-09 09:45:00")
+_FEATURE_CACHE = OrderedDict()
+_FEATURE_CACHE_BYTES = 0
+_B5_CACHE = OrderedDict()
 
 
 def configurations() -> list[dict]:
@@ -35,6 +41,8 @@ def configurations() -> list[dict]:
     rows += [{"id": f"F3-{kind}", "kind": kind, "target": "direct",
               "groups": ("slot_1_7d", "rolling", "trend")}
              for kind in ("ridge", "lightgbm", "xgboost", "catboost")]
+    rows.append({"id": "F4-3-kalman-features", "kind": "lightgbm", "target": "weekly",
+                 "groups": ("slot_1_7d", "rolling"), "kalman_features": True})
     rows += [{"id": f"F3-lightgbm-{loss}", "kind": "lightgbm", "target": "direct",
               "groups": ("slot_1_7d", "rolling", "trend"),
               "model_params": {"objective": loss, **({"alpha": .5} if loss == "quantile" else {})}}
@@ -63,27 +71,32 @@ def suggest_parameters(trial, kind: str) -> dict:
     """A broad, bounded Optuna space; the runner controls trial count."""
     if kind == "lightgbm":
         return {"n_estimators": trial.suggest_int("n_estimators", 300, 2400),
-                "learning_rate": trial.suggest_float("learning_rate", .005, .15, log=True),
-                "num_leaves": trial.suggest_int("num_leaves", 8, 255, log=True),
+                "learning_rate": trial.suggest_float("learning_rate", .01, .1, log=True),
+                "num_leaves": trial.suggest_int("num_leaves", 15, 255, log=True),
                 "max_depth": trial.suggest_categorical("max_depth", [-1, 4, 6, 8, 12]),
-                "min_child_samples": trial.suggest_int("min_child_samples", 10, 150),
+                "min_child_samples": trial.suggest_int("min_child_samples", 10, 200),
+                "max_bin": trial.suggest_int("max_bin", 63, 511),
                 "colsample_bytree": trial.suggest_float("colsample_bytree", .5, 1.),
                 "subsample": trial.suggest_float("subsample", .5, 1.),
                 "subsample_freq": 1,
-                "reg_lambda": trial.suggest_float("reg_lambda", 1e-4, 100., log=True),
+                "reg_alpha": trial.suggest_float("reg_alpha", 1e-5, 100., log=True),
+                "reg_lambda": trial.suggest_float("reg_lambda", 1e-5, 100., log=True),
                 "objective": trial.suggest_categorical("objective", ["regression", "regression_l1", "huber"])}
     if kind == "xgboost":
         return {"n_estimators": trial.suggest_int("n_estimators", 300, 2000),
                 "max_depth": trial.suggest_int("max_depth", 2, 12),
-                "learning_rate": trial.suggest_float("learning_rate", .005, .15, log=True),
+                "learning_rate": trial.suggest_float("learning_rate", .01, .1, log=True),
                 "subsample": trial.suggest_float("subsample", .5, 1.),
                 "colsample_bytree": trial.suggest_float("colsample_bytree", .5, 1.),
-                "reg_lambda": trial.suggest_float("reg_lambda", 1e-4, 100., log=True)}
+                "min_child_weight": trial.suggest_float("min_child_weight", 1., 100., log=True),
+                "max_bin": trial.suggest_int("max_bin", 64, 512),
+                "reg_alpha": trial.suggest_float("reg_alpha", 1e-5, 100., log=True),
+                "reg_lambda": trial.suggest_float("reg_lambda", 1e-5, 100., log=True)}
     if kind == "catboost":
         return {"iterations": trial.suggest_int("iterations", 300, 2000),
                 "depth": trial.suggest_int("depth", 3, 10),
-                "learning_rate": trial.suggest_float("learning_rate", .005, .15, log=True),
-                "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 1e-3, 100., log=True)}
+                "learning_rate": trial.suggest_float("learning_rate", .01, .1, log=True),
+                "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 1e-5, 100., log=True)}
     if kind == "ridge":
         return {"alpha": trial.suggest_float("alpha", 1e-3, 1e4, log=True)}
     raise ValueError(f"Unsupported parameter-search kind: {kind}")
@@ -229,13 +242,27 @@ def _weights(context: Mapping, origins: pd.DatetimeIndex, y: np.ndarray,
 
 def _features(history: pd.DataFrame, origins: pd.DatetimeIndex, horizon: int,
               tau: float, groups: tuple[str, ...]) -> pd.DataFrame:
+    global _FEATURE_CACHE_BYTES
     if origins.empty:
         return pd.DataFrame(index=origins)
-    x, provenance = build_features(history.loc[:origins.max()], origins, horizon, tau, groups)
+    past = history.loc[:origins.max()]
+    # Hash observed rows only. A changed or mutated history cannot reuse stale features.
+    key=(hashlib.sha256(pd.util.hash_pandas_object(past,index=True).to_numpy().tobytes()).digest(),
+         hashlib.sha256(origins.asi8.tobytes()).digest(),horizon,float(tau),tuple(groups))
+    if key in _FEATURE_CACHE:
+        _FEATURE_CACHE.move_to_end(key)
+        return _FEATURE_CACHE[key].copy()
+    x, provenance = build_features(past, origins, horizon, tau, groups)
     if any((used > origins).fillna(False).any() for used in provenance.values()):
         raise AssertionError("Noncausal feature provenance")
     if x.columns.duplicated().any():
         raise ValueError("Duplicate feature columns")
+    size=int(x.memory_usage(deep=True).sum())
+    while _FEATURE_CACHE and _FEATURE_CACHE_BYTES+size>1_500_000_000:
+        _,removed=_FEATURE_CACHE.popitem(last=False)
+        _FEATURE_CACHE_BYTES-=int(removed.memory_usage(deep=True).sum())
+    _FEATURE_CACHE[key]=x.copy()
+    _FEATURE_CACHE_BYTES+=size
     return x
 
 
@@ -273,6 +300,15 @@ def _fit_estimator(kind: str, x: np.ndarray, y: np.ndarray, weight: np.ndarray,
         model.fit(x, y, sample_weight=weight)
         return model
     if kind == "lightgbm":
+        if params.get('objective') in ('tweedie','gamma','poisson'):
+            fit_negative=int(np.count_nonzero(y<0))
+            stop_negative=int(np.count_nonzero(stop[1]<0)) if stop is not None else 0
+            if fit_negative or stop_negative:
+                from phase_f.support import UnsupportedConfiguration
+                raise UnsupportedConfiguration('Nonnegative objective is incompatible with negative transformed labels',
+                    {'objective':params['objective'],'fit_negative_labels':fit_negative,
+                     'stop_negative_labels':stop_negative,'fit_target_min':float(np.min(y)),
+                     'policy':'Do not clip or silently change the locked target transform'})
         try:
             import lightgbm as lgb
         except ImportError as exc:
@@ -338,15 +374,58 @@ def _anchor(target: str, x: pd.DataFrame, b5: np.ndarray | None = None, profile_
     raise ValueError(f"Unknown target: {target}")
 
 
+def _kalman_state(bundle: Mapping, power: pd.Series,
+                  origins: pd.DatetimeIndex) -> tuple[np.ndarray, np.ndarray]:
+    """Causal B5 posterior deviation mean/variance through each origin."""
+    phi, q, r = (float(bundle[name]) for name in ("phi", "q", "r"))
+    if not np.isfinite([phi, q, r]).all() or not -0.99 <= phi <= 0.99 or q <= 0 or r <= 0:
+        raise ValueError("Invalid fit-only B5 state parameters")
+    if origins.empty:
+        return np.empty(0), np.empty(0)
+    observed = pd.to_numeric(power.loc[:origins.max()], errors="coerce").to_numpy(float)
+    positions = power.index.get_indexer(origins)
+    if (positions < 0).any():
+        raise ValueError("B5 state origin missing from power history")
+    state = 0.
+    variance = q / (1 - phi * phi)
+    means = np.empty(len(origins), dtype=float)
+    variances = np.empty(len(origins), dtype=float)
+    lookup = {int(position): row for row, position in enumerate(positions)}
+    for position in range(int(positions.max()) + 1):
+        if position:
+            state *= phi
+            variance = phi * phi * variance + q
+        deviation = observed[position] - observed[position - 672] if position >= 672 else np.nan
+        if np.isfinite(deviation):
+            gain = variance / (variance + r)
+            state += gain * (deviation - state)
+            variance *= 1 - gain
+        row = lookup.get(position)
+        if row is not None:
+            means[row] = state
+            variances[row] = variance
+    return means, variances
+
+
 def _prequential_b5(history: pd.DataFrame, fit: pd.DatetimeIndex, horizon: int,
-                    blocks: int) -> tuple[np.ndarray, np.ndarray, dict]:
-    """Forward-block out-of-fit B5 labels; no full-fit in-sample residuals."""
+                    blocks: int, include_state: bool = False) -> tuple[np.ndarray, np.ndarray, dict]:
+    """Forward-block out-of-fit B5 labels and optional states, cached per fit."""
     warmup = max(672 + 32, int(np.ceil(len(fit) * .4)))
     if warmup >= len(fit) - 30:
         raise ValueError("B5 residual target needs >734 eligible chronological fit rows")
     blocks = max(2, int(blocks))
+    observed_fit_prefix = history.power.loc[:fit.max()]
+    key = (hashlib.sha256(pd.util.hash_pandas_object(observed_fit_prefix, index=True).to_numpy().tobytes()).digest(),
+           hashlib.sha256(fit.asi8.tobytes()).digest(), horizon, blocks, include_state,
+           id(fit_kalman), id(predict_kalman))
+    if key in _B5_CACHE:
+        _B5_CACHE.move_to_end(key)
+        oof, valid, content = _B5_CACHE[key]
+        return oof.copy(), valid.copy(), copy.deepcopy(content)
     edges = np.linspace(warmup, len(fit), blocks + 1, dtype=int)
     oof = np.full(len(fit), np.nan)
+    state_mean = np.full(len(fit), np.nan) if include_state else None
+    state_variance = np.full(len(fit), np.nan) if include_state else None
     power = pd.to_numeric(history.power, errors="coerce")
     cutoffs = []
     for start, end in zip(edges[:-1], edges[1:]):
@@ -354,13 +433,37 @@ def _prequential_b5(history: pd.DataFrame, fit: pd.DatetimeIndex, horizon: int,
             continue
         fitted = fit_kalman(power, fit[:start])
         oof[start:end] = predict_kalman(fitted, power, fit[start:end], horizon)
+        if include_state:
+            state_mean[start:end], state_variance[start:end] = _kalman_state(fitted, power, fit[start:end])
         cutoffs.append({"fit_end": str(fit[start - 1]), "oof_first": str(fit[start]),
                         "oof_last": str(fit[end - 1])})
     valid = np.isfinite(oof)
     if valid.sum() < 30:
         raise ValueError("Too few finite forward B5 residual labels")
+    if include_state:
+        valid &= np.isfinite(state_mean) & np.isfinite(state_variance) & (state_variance > 0)
+        if valid.sum() < 30:
+            raise ValueError("Too few finite forward B5 state features")
     full = fit_kalman(power, fit)
-    return oof, valid, {"final": full, "cutoffs": cutoffs, "warmup_excluded": int((~valid).sum())}
+    content = {"final": full, "cutoffs": cutoffs, "warmup_excluded": int((~valid).sum())}
+    if include_state:
+        content["oof_state_deviation"] = state_mean
+        content["oof_state_variance"] = state_variance
+    _B5_CACHE[key] = (oof.copy(), valid.copy(), copy.deepcopy(content))
+    while len(_B5_CACHE) > 16:
+        _B5_CACHE.popitem(last=False)
+    return oof, valid, content
+
+
+def _add_kalman_features(x: pd.DataFrame, prediction: np.ndarray,
+                         deviation: np.ndarray, variance: np.ndarray) -> pd.DataFrame:
+    result = x.copy()
+    if len(prediction) != len(result) or len(deviation) != len(result) or len(variance) != len(result):
+        raise ValueError("Kalman feature arrays do not match origins")
+    result["b5_forecast"] = prediction
+    result["state_deviation"] = deviation
+    result["state_variance"] = variance
+    return result
 
 
 def _daytypes(x: pd.DataFrame) -> np.ndarray:
@@ -434,12 +537,21 @@ def fit_model(kind: str, history: pd.DataFrame, context: Mapping,
     y_stop = _truth(context, stop) if len(stop) else None
     b5 = None
     fit_keep = np.ones(len(fit), dtype=bool)
-    if target == "b5_residual":
-        b5_oof, fit_keep, b5 = _prequential_b5(history, fit, horizon, int(cfg.get("b5_oof_blocks", 4)))
+    kalman_features = bool(cfg.get("kalman_features", False))
+    if target == "b5_residual" or kalman_features:
+        b5_oof, b5_valid, b5 = _prequential_b5(
+            history, fit, horizon, int(cfg.get("b5_oof_blocks", 4)), include_state=kalman_features)
+        fit_keep &= b5_valid
         if x_stop is not None:
             stop_b5 = predict_kalman(b5["final"], history.power, stop, horizon)
         else:
             stop_b5 = None
+        if kalman_features:
+            x = _add_kalman_features(x, b5_oof, b5["oof_state_deviation"], b5["oof_state_variance"])
+            if x_stop is not None:
+                stop_state, stop_variance = _kalman_state(b5["final"], history.power, stop)
+                x_stop = _add_kalman_features(x_stop, stop_b5, stop_state, stop_variance)
+    if target == "b5_residual":
         anchor_fit = _anchor(target, x, b5_oof)
         anchor_stop = _anchor(target, x_stop, stop_b5) if x_stop is not None else None
     else:
@@ -537,15 +649,25 @@ def fit_model(kind: str, history: pd.DataFrame, context: Mapping,
             inner = _fit_estimator(base_kind, inner_train, z[train_ix], weights[train_ix],
                                    params, seed, None, patience)
             bias = float(np.mean(y[valid_ix] - np.expm1(inner.predict(inner_valid))))
-    return {"kind": kind, "base_kind": base_kind, "target": target, "horizon": horizon,
+    bundle = {"kind": kind, "base_kind": base_kind, "target": target, "horizon": horizon,
             "tau": tau, "groups": groups, "config": cfg, "preprocessor": pre,
             "model": model, "bias": bias, "b5": b5, "feature_rank": rank,
+            "kalman_features": kalman_features,
+            "b5_oof_cutoffs": b5["cutoffs"] if b5 is not None else [],
             "fit_first": fit_used.min(), "fit_end": fit_used.max(),
             "n_fit_labels": len(y), "n_original_fit": len(fit_all),
-            "stop_used": bool(stop_data is not None and base_kind != "ridge" and kind != "two_stage"),
+            "stop_used": bool(stop_data is not None and (base_kind != "ridge" or kind == "two_stage")),
             "daytype": bool(cfg.get("daytype", False)),
             "daytype_trained": sorted(model["by_daytype"]) if cfg.get("daytype") else [],
             "development_only": True, "fit_parameters_only": True}
+    if len(stop):
+        stop_prediction = predict_model(bundle, history, stop, horizon)
+        bundle["stop_mae"] = float(np.mean(np.abs(stop_prediction - y_stop)))
+        bundle["stop_n"] = len(stop)
+    else:
+        bundle["stop_mae"] = np.nan
+        bundle["stop_n"] = 0
+    return bundle
 
 
 def predict_model(bundle: Mapping, history: pd.DataFrame, origins: pd.DatetimeIndex,
@@ -561,6 +683,11 @@ def predict_model(bundle: Mapping, history: pd.DataFrame, origins: pd.DatetimeIn
         empty = np.empty(0, dtype=float)
         return {"pred": empty, "p_peak": empty} if return_details else empty
     x = _features(history, origins, horizon, float(bundle["tau"]), tuple(bundle["groups"]))
+    b5_prediction = None
+    if bundle.get("kalman_features"):
+        b5_prediction = predict_kalman(bundle["b5"]["final"], history.power, origins, horizon)
+        state, variance = _kalman_state(bundle["b5"]["final"], history.power, origins)
+        x = _add_kalman_features(x, b5_prediction, state, variance)
     classes = _daytypes(x) if bundle.get("daytype") else None
     anchor_features = x
     x = x.loc[:, bundle["preprocessor"]["columns"]]
@@ -585,8 +712,8 @@ def predict_model(bundle: Mapping, history: pd.DataFrame, origins: pd.DatetimeIn
         if target == "log1p":
             prediction = np.expm1(estimate) + float(bundle["bias"])
         else:
-            b5 = (predict_kalman(bundle["b5"]["final"], history.power, origins, horizon)
-                  if target == "b5_residual" else None)
+            b5 = (b5_prediction if b5_prediction is not None else
+                  predict_kalman(bundle["b5"]["final"], history.power, origins, horizon)) if target == "b5_residual" else None
             prediction = _anchor(target, anchor_features, b5, int(bundle['config'].get('profile_weeks',4))) + estimate
         p = np.full(len(origins), np.nan)
     prediction = np.asarray(prediction, dtype=float)

@@ -1,0 +1,105 @@
+{
+  "started_at": "2026-10-03T10:53:28.538393+00:00",
+  "device": "NVIDIA GeForce RTX 4070 SUPER",
+  "torch": "2.11.0+cu128",
+  "synthetic_only": true,
+  "counts_as_search_trials": false,
+  "checks": [
+    {
+      "kind": "chronos_bolt",
+      "status": "passed",
+      "shape": [
+        2,
+        16,
+        9
+      ],
+      "inference_seconds": 0.014126099995337427,
+      "model_device": "cuda:0",
+      "quantile_levels": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9
+      ],
+      "model_revision": "772f3d25d38aec6d914c8949dab4462e2d46f5d8"
+    },
+    {
+      "kind": "timesfm2p5",
+      "status": "passed",
+      "shape": [
+        2,
+        16,
+        9
+      ],
+      "inference_seconds": 0.0764827000675723,
+      "model_device": "cuda:0",
+      "quantile_levels": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9
+      ],
+      "model_revision": "1d952420fba87f3c6dee4f240de0f1a0fbc790e3"
+    },
+    {
+      "kind": "moirai2",
+      "status": "passed",
+      "shape": [
+        2,
+        16,
+        9
+      ],
+      "inference_seconds": 0.011719200061634183,
+      "model_device": "cuda:0",
+      "quantile_levels": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9
+      ],
+      "model_revision": "30f43ff08c8494f4943ae1521e9d4e94a0fbb389"
+    },
+    {
+      "kind": "tirex",
+      "status": "passed",
+      "shape": [
+        2,
+        16,
+        9
+      ],
+      "inference_seconds": 0.3189934000838548,
+      "model_device": "cuda:0",
+      "quantile_levels": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9
+      ],
+      "model_revision": "63c740922493f5fbe60b277609ec62babfba2762"
+    }
+  ],
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "completed_at": "2026-10-03T10:53:49.223454+00:00",
+  "passed": true
+}

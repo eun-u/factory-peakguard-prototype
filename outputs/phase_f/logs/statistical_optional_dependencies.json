@@ -1,0 +1,38 @@
+{
+  "scope": "Phase F synthetic CPU dependency and API smoke only; no plant or final holdout data",
+  "python": "3.13.14",
+  "phase_f_environment": "outputs/phase_f/env",
+  "optional_site": "outputs/phase_f/optional_envs/numba/site",
+  "optional_cache": "outputs/phase_f/optional_envs/numba/cache",
+  "installed_optional_packages": {
+    "numba": "0.68.0",
+    "llvmlite": "0.50.0"
+  },
+  "preexisting_packages_used": {
+    "numpy": "2.5.3",
+    "statsforecast": "2.1.1"
+  },
+  "compatibility_source": "https://numba.readthedocs.io/en/stable/user/installing.html",
+  "install_command": "outputs/phase_f/env/Scripts/python.exe -m pip install --no-deps --target outputs/phase_f/optional_envs/numba/site numba==0.68.0 llvmlite==0.50.0",
+  "activation": {
+    "PYTHONPATH": "<workspace root>;<workspace root>/outputs/phase_f/optional_envs/numba/site",
+    "NUMBA_CACHE_DIR": "<workspace root>/outputs/phase_f/optional_envs/numba/cache",
+    "note": "The target is not imported automatically by the Phase F interpreter; activate this site before the driver or native DSHW import fails."
+  },
+  "smoke": {
+    "script": "outputs/phase_f/optional_envs/numba/smoke_statistical.py",
+    "synthetic_length": 1600,
+    "fit_length": 1450,
+    "origin_position": 1500,
+    "horizon": 16,
+    "models": {
+      "dshw": "outputs/phase_f/logs/statistical_dep_dshw.json",
+      "autoets": "outputs/phase_f/logs/statistical_dep_autoets.json",
+      "tbats": "outputs/phase_f/logs/statistical_dep_tbats.json",
+      "autoarima_fourier": "outputs/phase_f/logs/statistical_dep_autoarima_fourier.json",
+      "autotheta": "outputs/phase_f/logs/statistical_dep_autotheta.json"
+    },
+    "result": "5/5 passed: finite prediction and exact invariance to perturbing values after forecast origin"
+  },
+  "limits": "Single synthetic fit and origin per model. No real-data accuracy, resource scaling or multiple-origin runtime claim."
+}

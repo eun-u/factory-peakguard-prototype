@@ -8,12 +8,17 @@ Each bundle predicts one horizon and stores CPU weights for reproducible replay.
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import json
 import os
 import random
 import re
+import sys
+import threading
 import time
+import warnings
 from collections.abc import Mapping
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -32,10 +37,137 @@ NATIVE_KINDS = ("dlinear", "nlinear", "tcn", "lstm", "gru")
 OPTIONAL_NIXTLA_KINDS = (
     "nhits", "nbeats", "patchtst", "tide", "tsmixer", "timesnet", "itransformer",
 )
+OPTIONAL_XLSTM_KINDS = ("xlstm",)
+_XLSTM_IMPORT_LOCK = threading.Lock()
 CONTEXT_GRID = (96, 192, 336, 672, 1344, 2016, 2688)
 DEFAULT_SEEDS = (42, 43, 44, 45, 46)
 QUANTILES = (0.1, 0.5, 0.9, 0.95)
 _CALENDAR_NAMES = ("slot_sin", "slot_cos", "dow_sin", "dow_cos", "holiday")
+_ARCHITECTURE_KEYS = {
+    "nhits": {"stack_types", "n_blocks", "mlp_units", "n_pool_kernel_size",
+              "n_freq_downsample", "pooling_mode", "interpolation_mode",
+              "dropout_prob_theta", "activation"},
+    "nbeats": {"n_harmonics", "n_polynomials", "n_basis", "basis", "stack_types",
+               "n_blocks", "mlp_units", "dropout_prob_theta", "activation", "shared_weights"},
+    "patchtst": {"encoder_layers", "n_heads", "hidden_size", "linear_hidden_size",
+                 "dropout", "fc_dropout", "head_dropout", "attn_dropout", "patch_len",
+                 "stride", "revin", "revin_affine", "revin_subtract_last", "activation",
+                 "res_attention", "batch_normalization", "learn_pos_embed"},
+    "tide": {"hidden_size", "decoder_output_dim", "temporal_decoder_dim", "dropout",
+             "layernorm", "num_encoder_layers", "num_decoder_layers", "temporal_width"},
+    "tsmixer": {"n_block", "ff_dim", "dropout", "revin"},
+    "timesnet": {"hidden_size", "dropout", "conv_hidden_size", "top_k", "num_kernels",
+                 "encoder_layers"},
+    "itransformer": {"hidden_size", "n_heads", "e_layers", "d_layers", "d_ff",
+                     "factor", "dropout", "use_norm"},
+}
+
+
+def _effective_architecture(kind: str, cfg: Mapping[str, Any]) -> dict[str, Any]:
+    architecture = dict(cfg["architecture_kwargs"])
+    unknown = set(architecture) - _ARCHITECTURE_KEYS[kind]
+    if unknown:
+        raise ValueError(f"{kind} architecture_kwargs contain non-architecture/ignored keys: {sorted(unknown)}")
+    # Older trial plans supplied generic top-level hidden_size/dropout. Map
+    # them to actual constructor parameters rather than silently ignore them.
+    aliases = {}
+    if "hidden_size" in cfg:
+        width = int(cfg["hidden_size"])
+        if kind in ("nhits", "nbeats"):
+            aliases["mlp_units"] = [[width, width]] * len(architecture.get("n_blocks", [1, 1, 1]))
+        elif kind == "tsmixer":
+            aliases["ff_dim"] = width
+        else:
+            aliases["hidden_size"] = width
+    if "dropout" in cfg:
+        aliases["dropout_prob_theta" if kind in ("nhits", "nbeats") else "dropout"] = float(cfg["dropout"])
+    for name, value in aliases.items():
+        if name in architecture and architecture[name] != value:
+            raise ValueError(f"Conflicting {kind} {name} settings")
+        architecture[name] = value
+    return architecture
+
+
+def suggest_parameters(trial: Any, kind: str) -> dict[str, Any]:
+    """Optuna choices whose every sampled value reaches training or a model.
+
+    The caller records the returned mapping in an experiment ID before fitting.
+    No generic hidden/dropout trial is proposed for linear models.
+    """
+    kind = kind.lower()
+    if kind not in (*NATIVE_KINDS, *OPTIONAL_NIXTLA_KINDS, *OPTIONAL_XLSTM_KINDS):
+        raise ValueError(f"Unknown neural kind: {kind}")
+    params: dict[str, Any] = {
+        "learning_rate": trial.suggest_float("learning_rate", 1e-5, 1e-2, log=True),
+        "batch_size": trial.suggest_categorical("batch_size", [32, 64, 128]),
+        "context_length": trial.suggest_categorical("context_length", list(CONTEXT_GRID)),
+        "loss": trial.suggest_categorical("loss", ["mae", "huber", "peak_weighted_mae"]),
+        "max_epochs": trial.suggest_categorical("max_epochs", [60, 100, 160]),
+    }
+    if params["loss"] == "huber":
+        params["huber_delta"] = trial.suggest_float("huber_delta", .25, 2.0)
+    elif params["loss"] == "peak_weighted_mae":
+        params["peak_weight"] = trial.suggest_float("peak_weight", 1.5, 5.0)
+    if kind == "tcn":
+        params.update(channels=trial.suggest_categorical("channels", [16, 32, 64]),
+                      depth=trial.suggest_int("depth", 3, 6),
+                      kernel_size=trial.suggest_categorical("kernel_size", [2, 3, 5]),
+                      dropout=trial.suggest_float("dropout", 0., .4))
+    elif kind == "dlinear":
+        params["moving_average"] = trial.suggest_categorical("moving_average", [13, 25, 49])
+    elif kind in ("lstm", "gru"):
+        layers = trial.suggest_int("num_layers", 1, 3)
+        params.update(num_layers=layers,
+                      hidden_size=trial.suggest_categorical("hidden_size", [32, 64, 128]),
+                      dropout=trial.suggest_float("dropout", 0., .4) if layers > 1 else 0.)
+    elif kind == "xlstm":
+        params.update(xlstm_embedding_dim=trial.suggest_categorical("xlstm_embedding_dim", [32, 64, 128]),
+                      xlstm_num_blocks=trial.suggest_int("xlstm_num_blocks", 1, 3),
+                      xlstm_num_heads=trial.suggest_categorical("xlstm_num_heads", [2, 4, 8]))
+    elif kind in OPTIONAL_NIXTLA_KINDS:
+        architecture: dict[str, Any] = {}
+        if kind in ("nhits", "nbeats"):
+            blocks = trial.suggest_int("stack_blocks", 1, 2)
+            width = trial.suggest_categorical("mlp_width", [64, 128, 256])
+            architecture.update(n_blocks=[blocks] * 3, mlp_units=[[width, width]] * 3,
+                                dropout_prob_theta=trial.suggest_float("dropout_prob_theta", 0., .4))
+        elif kind == "patchtst":
+            width = trial.suggest_categorical("hidden_size", [64, 128, 256])
+            patch = trial.suggest_categorical("patch_len", [16, 32, 64])
+            architecture.update(hidden_size=width,
+                                linear_hidden_size=trial.suggest_categorical("linear_hidden_size", [128, 256, 512]),
+                                encoder_layers=trial.suggest_int("encoder_layers", 1, 4),
+                                n_heads=trial.suggest_categorical("n_heads", [4, 8]),
+                                patch_len=patch, stride=patch // 2,
+                                dropout=trial.suggest_float("dropout", 0., .4))
+        elif kind == "tide":
+            architecture.update(hidden_size=trial.suggest_categorical("hidden_size", [64, 128, 256]),
+                                decoder_output_dim=trial.suggest_categorical("decoder_output_dim", [8, 16, 32]),
+                                temporal_decoder_dim=trial.suggest_categorical("temporal_decoder_dim", [32, 64, 128]),
+                                num_encoder_layers=trial.suggest_int("num_encoder_layers", 1, 3),
+                                num_decoder_layers=trial.suggest_int("num_decoder_layers", 1, 3),
+                                dropout=trial.suggest_float("dropout", 0., .4))
+        elif kind == "tsmixer":
+            architecture.update(n_block=trial.suggest_int("n_block", 1, 4),
+                                ff_dim=trial.suggest_categorical("ff_dim", [32, 64, 128]),
+                                dropout=trial.suggest_float("dropout", 0., .4))
+        elif kind == "timesnet":
+            architecture.update(hidden_size=trial.suggest_categorical("hidden_size", [32, 64, 128]),
+                                conv_hidden_size=trial.suggest_categorical("conv_hidden_size", [32, 64, 128]),
+                                top_k=trial.suggest_int("top_k", 2, 5),
+                                num_kernels=trial.suggest_int("num_kernels", 1, 6),
+                                encoder_layers=trial.suggest_int("encoder_layers", 1, 3),
+                                dropout=trial.suggest_float("dropout", 0., .4))
+        else:  # iTransformer
+            width = trial.suggest_categorical("hidden_size", [64, 128, 256])
+            architecture.update(hidden_size=width,
+                                n_heads=trial.suggest_categorical("n_heads", [4, 8]),
+                                e_layers=trial.suggest_int("e_layers", 1, 4),
+                                d_layers=trial.suggest_int("d_layers", 1, 2),
+                                d_ff=trial.suggest_categorical("d_ff", [128, 256, 512]),
+                                dropout=trial.suggest_float("dropout", 0., .4))
+        params["architecture_kwargs"] = architecture
+    return params
 
 
 def configurations() -> list[dict[str, Any]]:
@@ -55,6 +187,9 @@ def configurations() -> list[dict[str, Any]]:
         for context in CONTEXT_GRID:
             plans.append({"exp_id": exp_id, "kind": kind, "context_length": context,
                           "status": "supported_optional_neuralforecast"})
+    for context in CONTEXT_GRID:
+        plans.append({"exp_id": "F5-7", "kind": "xlstm", "context_length": context,
+                      "status": "supported_optional_xlstm"})
     return plans
 
 
@@ -147,6 +282,111 @@ class _Recurrent(nn.Module):
         return self.head(torch.cat((states[:, -1, :], exog), dim=1))
 
 
+class _OriginHead(nn.Module):
+    """Jointly fit an origin-only additive head around a genuine Nixtla model.
+
+    The native model remains unchanged when no origin features or PatchTST
+    calendar are requested. For PatchTST only, target-slot calendar values
+    enter this head because its native forward does not use future exogenous
+    tensors in our direct-window adapter.
+    """
+
+    def __init__(self, base: nn.Module, input_dim: int, output_dim: int,
+                 head_kind: str, hidden: int):
+        super().__init__()
+        self.base = base
+        if head_kind == "linear":
+            self.origin_head = nn.Linear(input_dim, output_dim, bias=False)
+            nn.init.zeros_(self.origin_head.weight)
+        elif head_kind == "mlp":
+            self.origin_head = nn.Sequential(nn.Linear(input_dim, hidden), nn.GELU(),
+                                             nn.Linear(hidden, output_dim, bias=False))
+            nn.init.zeros_(self.origin_head[-1].weight)
+        else:
+            raise ValueError("exog_head must be linear or mlp")
+
+    def forward(self, windows: dict[str, torch.Tensor | None],
+                origin_exog: torch.Tensor, future_calendar: torch.Tensor | None) -> torch.Tensor:
+        features = [origin_exog]
+        if future_calendar is not None and windows["futr_exog"] is None:
+            features.append(future_calendar[:, -1, :])
+        residual = self.origin_head(torch.cat(features, dim=1))
+        return self.base(windows) + residual[:, None, :]
+
+
+def _xlstm_vanilla_symbols():
+    """Import official xLSTM without requiring a toolkit for vanilla sLSTM.
+
+    xLSTM 2.0.6 checks CUDA include paths at *import time* whenever PyTorch
+    sees a GPU, even when the model later selects its pure-PyTorch backend.
+    Point that import-only check at PyTorch's bundled headers and libraries,
+    then restore extension configuration. No CUDA extension is built or loaded.
+    """
+    site = Path(__file__).resolve().parents[2] / "outputs/phase_f/optional_envs/xlstm/site"
+    if not site.is_dir():
+        raise ImportError("xLSTM requires the official xlstm==2.0.6 package in outputs/phase_f/optional_envs/xlstm/site")
+    with _XLSTM_IMPORT_LOCK:
+        if str(site) not in sys.path:
+            sys.path.insert(0, str(site))
+        if "xlstm" not in sys.modules:
+            import torch.utils.cpp_extension as cpp_extension
+
+            needs_import_shim = cpp_extension.CUDA_HOME is None and torch.cuda.is_available()
+            if needs_import_shim:
+                torch_root = Path(torch.__file__).resolve().parent
+                if not (torch_root / "include").is_dir() or not (torch_root / "lib").is_dir():
+                    raise ImportError("Vanilla xLSTM import needs the installed PyTorch headers and libraries")
+                previous_cuda_home = cpp_extension.CUDA_HOME
+                previous_cuda_lib = os.environ.get("CUDA_LIB")
+                cpp_extension.CUDA_HOME = str(torch_root)
+            try:
+                import xlstm
+            finally:
+                if needs_import_shim:
+                    cpp_extension.CUDA_HOME = previous_cuda_home
+                    if previous_cuda_lib is None:
+                        os.environ.pop("CUDA_LIB", None)
+                    else:
+                        os.environ["CUDA_LIB"] = previous_cuda_lib
+        else:
+            import xlstm
+    return (xlstm.xLSTMBlockStack, xlstm.xLSTMBlockStackConfig,
+            xlstm.mLSTMBlockConfig, xlstm.mLSTMLayerConfig,
+            xlstm.sLSTMBlockConfig, xlstm.sLSTMLayerConfig, xlstm.FeedForwardConfig)
+
+
+class _XLSTM(nn.Module):
+    """Official xLSTM block stack with native PyTorch sLSTM cells."""
+
+    def __init__(self, output_dim: int, exog_dim: int, length: int,
+                 embedding_dim: int, num_blocks: int, num_heads: int):
+        super().__init__()
+        (xLSTMBlockStack, xLSTMBlockStackConfig,
+         mLSTMBlockConfig, mLSTMLayerConfig,
+         sLSTMBlockConfig, sLSTMLayerConfig,
+         FeedForwardConfig) = _xlstm_vanilla_symbols()
+        if embedding_dim < 16 or embedding_dim % num_heads or embedding_dim % 4:
+            raise ValueError("xLSTM embedding_dim must be divisible by num_heads and four")
+        if num_blocks < 1:
+            raise ValueError("xLSTM num_blocks must be positive")
+        cfg = xLSTMBlockStackConfig(
+            mlstm_block=mLSTMBlockConfig(mlstm=mLSTMLayerConfig(
+                conv1d_kernel_size=4, qkv_proj_blocksize=4, num_heads=num_heads)),
+            slstm_block=sLSTMBlockConfig(slstm=sLSTMLayerConfig(
+                backend="vanilla", num_heads=num_heads, conv1d_kernel_size=4,
+                bias_init="powerlaw_blockdependent"),
+                feedforward=FeedForwardConfig(proj_factor=1.3, act_fn="gelu")),
+            context_length=length, num_blocks=num_blocks, embedding_dim=embedding_dim,
+            slstm_at=[num_blocks - 1])
+        self.input_projection = nn.Linear(2, embedding_dim)
+        self.encoder = xLSTMBlockStack(cfg)
+        self.head = nn.Linear(embedding_dim + exog_dim, output_dim)
+
+    def forward(self, seq: torch.Tensor, mask: torch.Tensor, exog: torch.Tensor) -> torch.Tensor:
+        encoded = self.encoder(self.input_projection(torch.stack((seq, mask), dim=2)))
+        return self.head(torch.cat((encoded[:, -1, :], exog), dim=1))
+
+
 def _model(kind: str, config: Mapping[str, Any], output_dim: int, exog_dim: int) -> nn.Module:
     length = int(config["context_length"])
     if kind == "dlinear":
@@ -163,6 +403,11 @@ def _model(kind: str, config: Mapping[str, Any], output_dim: int, exog_dim: int)
     if kind in ("lstm", "gru"):
         return _Recurrent(kind, output_dim, exog_dim, int(config.get("hidden_size", 64)),
                           int(config.get("num_layers", 1)), float(config.get("dropout", 0.1)))
+    if kind == "xlstm":
+        return _XLSTM(output_dim, exog_dim, length,
+                      int(config.get("xlstm_embedding_dim", 64)),
+                      int(config.get("xlstm_num_blocks", 2)),
+                      int(config.get("xlstm_num_heads", 4)))
     if kind in OPTIONAL_NIXTLA_KINDS:
         try:
             from neuralforecast import models as nixtla_models
@@ -172,7 +417,7 @@ def _model(kind: str, config: Mapping[str, Any], output_dim: int, exog_dim: int)
         class_name = {"nhits": "NHITS", "nbeats": "NBEATS", "patchtst": "PatchTST",
                       "tide": "TiDE", "tsmixer": "TSMixer", "timesnet": "TimesNet",
                       "itransformer": "iTransformer"}[kind]
-        kwargs = dict(config.get("architecture_kwargs", {}))
+        kwargs = _effective_architecture(kind, config)
         kwargs.update({"h": int(config["horizon"]), "input_size": length,
                        "random_seed": int(config.get("model_seed", 42)),
                        "loss": MQLoss(quantiles=config["quantiles"])
@@ -180,15 +425,21 @@ def _model(kind: str, config: Mapping[str, Any], output_dim: int, exog_dim: int)
                        "max_steps": 1, "scaler_type": "identity"})
         if kind in ("tsmixer", "itransformer"):
             kwargs["n_series"] = 1
-        if config.get("use_calendar_exog", False):
+        if config.get("use_calendar_exog", False) and kind != "patchtst":
             kwargs["futr_exog_list"] = list(_CALENDAR_NAMES)
-        return getattr(nixtla_models, class_name)(**kwargs)
+        base = getattr(nixtla_models, class_name)(**kwargs)
+        calendar_dim = 5 if kind == "patchtst" and config.get("use_calendar_exog", False) else 0
+        if exog_dim or calendar_dim:
+            return _OriginHead(base, exog_dim + calendar_dim, output_dim,
+                               str(config.get("exog_head", "linear")),
+                               int(config.get("exog_head_hidden", 32)))
+        return base
     raise ValueError(f"Unsupported native kind: {kind}")
 
 
 def _config(kind: str, config: Mapping[str, Any] | None) -> dict[str, Any]:
     cfg = dict(config or {})
-    if kind not in (*NATIVE_KINDS, *OPTIONAL_NIXTLA_KINDS):
+    if kind not in (*NATIVE_KINDS, *OPTIONAL_NIXTLA_KINDS, *OPTIONAL_XLSTM_KINDS):
         raise ValueError(f"Unknown neural kind: {kind}")
     cfg.setdefault("context_length", 96)
     cfg.setdefault("seeds", list(DEFAULT_SEEDS))
@@ -202,6 +453,9 @@ def _config(kind: str, config: Mapping[str, Any] | None) -> dict[str, Any]:
     cfg.setdefault("learning_rate", 1e-3)
     cfg.setdefault("weight_decay", 1e-4)
     cfg.setdefault("device", "cpu")
+    cfg.setdefault('determinism_mode','strict')
+    if cfg['determinism_mode'] not in ('strict','warn_only'):
+        raise ValueError('determinism_mode must be strict or warn_only')
     cfg.setdefault("quantiles", list(QUANTILES))
     cfg.setdefault("point_quantile", 0.5)
     cfg.setdefault("architecture_kwargs", {})
@@ -227,12 +481,12 @@ def _config(kind: str, config: Mapping[str, Any] | None) -> dict[str, Any]:
         raise ValueError("target_baseline must be direct or weekly")
     if kind == "nlinear" and cfg["target_baseline"] != "direct":
         raise ValueError("NLinear's last-value skip requires a direct power target")
-    if kind in OPTIONAL_NIXTLA_KINDS and cfg["exog_columns"]:
-        raise ValueError("Nixtla models use known-future calendar exog; origin feature columns are unsupported")
     if kind in OPTIONAL_NIXTLA_KINDS and cfg["target_baseline"] != "direct":
         raise ValueError("Nixtla adapter currently supports direct power targets only")
-    if kind in ("nbeats", "patchtst", "tsmixer", "itransformer") and cfg["use_calendar_exog"]:
+    if kind in ("nbeats", "tsmixer", "itransformer") and cfg["use_calendar_exog"]:
         raise ValueError(f"{kind} forward does not consume a calendar exogenous tensor")
+    if kind in (*NATIVE_KINDS, *OPTIONAL_XLSTM_KINDS) and cfg["use_calendar_exog"]:
+        raise ValueError(f"{kind} does not consume use_calendar_exog; select explicit origin features")
     if cfg["loss"] == "peak_weighted_mae" and float(cfg.get("peak_weight", 2)) <= 1:
         raise ValueError("peak_weighted_mae requires peak_weight > 1")
     if cfg["loss"] == "quantile":
@@ -246,6 +500,20 @@ def _config(kind: str, config: Mapping[str, Any] | None) -> dict[str, Any]:
         raise ValueError("exog_columns and exog_groups must be sequences")
     cfg["exog_columns"] = list(cfg["exog_columns"])
     cfg["exog_groups"] = list(cfg["exog_groups"])
+    if kind in OPTIONAL_NIXTLA_KINDS:
+        cfg["architecture_kwargs"] = _effective_architecture(kind, cfg)
+        head_requested = bool(cfg["exog_columns"]) or (kind == "patchtst" and cfg["use_calendar_exog"])
+        if not head_requested and any(name in cfg for name in ("exog_head", "exog_head_hidden")):
+            raise ValueError("exog_head parameters need origin features or PatchTST calendar")
+        if head_requested:
+            if cfg.get("exog_head", "linear") not in ("linear", "mlp"):
+                raise ValueError("exog_head must be linear or mlp")
+            if int(cfg.get("exog_head_hidden", 32)) < 1:
+                raise ValueError("exog_head_hidden must be positive")
+    elif cfg["architecture_kwargs"]:
+        raise ValueError(f"{kind} does not consume architecture_kwargs")
+    if kind == "xlstm" and not 1 <= int(cfg.get("xlstm_num_blocks", 2)) <= 8:
+        raise ValueError("xLSTM num_blocks must be in 1..8")
     cfg["kind"] = kind
     if kind in OPTIONAL_NIXTLA_KINDS and "horizon" not in cfg:
         raise ValueError("Nixtla candidates require config.horizon to construct the output head")
@@ -255,17 +523,39 @@ def _config(kind: str, config: Mapping[str, Any] | None) -> dict[str, Any]:
     return cfg
 
 
+@contextmanager
+def _backend_policy(device: torch.device, mode: str):
+    """Apply identical train/predict arithmetic without leaking backend policy."""
+    enabled=torch.are_deterministic_algorithms_enabled()
+    warning=torch.is_deterministic_algorithms_warn_only_enabled()
+    cudnn=(torch.backends.cudnn.deterministic,torch.backends.cudnn.benchmark)
+    modern=hasattr(torch.backends.cuda.matmul,'fp32_precision')
+    precision=(torch.backends.cuda.matmul.fp32_precision if modern
+               else torch.backends.cuda.matmul.allow_tf32)
+    try:
+        torch.use_deterministic_algorithms(True,warn_only=mode=='warn_only')
+        if device.type=='cuda':
+            torch.backends.cudnn.deterministic=True
+            torch.backends.cudnn.benchmark=False
+            if modern:torch.backends.cuda.matmul.fp32_precision='ieee'
+            else:torch.backends.cuda.matmul.allow_tf32=False
+        yield
+    finally:
+        torch.use_deterministic_algorithms(enabled,warn_only=warning)
+        torch.backends.cudnn.deterministic,torch.backends.cudnn.benchmark=cudnn
+        if modern:torch.backends.cuda.matmul.fp32_precision=precision
+        else:torch.backends.cuda.matmul.allow_tf32=precision
+
+
 def _seed(seed: int, device: torch.device) -> None:
+    # This environment choice is process-wide and must precede the first cuBLAS
+    # handle. Model numerical backend flags themselves are scoped above.
     os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if device.type == "cuda":
         torch.cuda.manual_seed_all(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
-        torch.backends.cuda.matmul.allow_tf32 = False
-    torch.use_deterministic_algorithms(True)
 
 
 def _device(name: str) -> torch.device:
@@ -364,11 +654,14 @@ def _calendar_covariates(origins: pd.DatetimeIndex, context_length: int,
 def _forward(model: nn.Module, kind: str, seq: torch.Tensor, mask: torch.Tensor,
              exog: torch.Tensor, future_calendar: torch.Tensor | None,
              horizon: int) -> torch.Tensor:
-    if kind in NATIVE_KINDS:
+    if kind in (*NATIVE_KINDS, *OPTIONAL_XLSTM_KINDS):
         return model(seq, mask, exog)
     windows = {"insample_y": seq[:, :, None], "insample_mask": mask[:, :, None],
-               "hist_exog": None, "futr_exog": future_calendar, "stat_exog": None}
-    output = model(windows)
+               "hist_exog": None,
+               "futr_exog": None if kind == "patchtst" else future_calendar,
+               "stat_exog": None}
+    output = (model(windows, exog, future_calendar)
+              if isinstance(model, _OriginHead) else model(windows))
     if output.ndim != 3 or output.shape[1] != horizon:
         raise ValueError(f"{kind} returned an incompatible native forecast shape {tuple(output.shape)}")
     return output[:, horizon - 1, :]
@@ -460,10 +753,27 @@ def _checkpoint(cfg: Mapping[str, Any], seed: int) -> Path | None:
 
 def _fingerprint(fit: pd.DatetimeIndex, stop: pd.DatetimeIndex,
                  fit_arrays: tuple[np.ndarray, ...], stop_arrays: tuple[np.ndarray, ...],
-                 cfg: Mapping[str, Any], horizon: int) -> str:
+                 cfg: Mapping[str, Any], horizon: int, tau: float) -> str:
     digest = hashlib.sha256()
     stable_cfg = {k: v for k, v in cfg.items() if k not in ("checkpoint_dir", "run_id")}
-    digest.update(json.dumps({"config": stable_cfg, "horizon": horizon}, sort_keys=True, default=str).encode())
+    if not np.isfinite(tau):raise ValueError('Fingerprint needs a finite fit-only tau')
+    digest.update(json.dumps({"config": stable_cfg, "horizon": horizon,'fit_tau':float(tau)}, sort_keys=True, default=str).encode())
+    # A prior checkpoint cannot be replayed after feature, calendar or model
+    # implementation changes even when its origin keys and options match.
+    for source in (Path(__file__), Path(build_features.__code__.co_filename),
+                   Path(__file__).resolve().parents[2] / "src/holidays.py"):
+        digest.update(source.read_bytes())
+    kind = str(cfg["kind"])
+    if kind in OPTIONAL_NIXTLA_KINDS:
+        digest.update(importlib.metadata.version("neuralforecast").encode())
+    elif kind == "xlstm":
+        site = Path(__file__).resolve().parents[2] / "outputs/phase_f/optional_envs/xlstm/site"
+        package = next((d for d in importlib.metadata.distributions(path=[str(site)])
+                        if d.metadata["Name"].lower() == "xlstm"), None)
+        if package is None or package.version != "2.0.6":
+            raise RuntimeError("Expected isolated official xlstm==2.0.6 package")
+        digest.update(package.version.encode())
+        digest.update((site / "xlstm/__init__.py").read_bytes())
     for index in (fit, stop):
         digest.update(index.asi8.astype("<i8").tobytes())
     for array in (*fit_arrays, *stop_arrays):
@@ -580,7 +890,7 @@ def fit_model(kind: str, history: pd.DataFrame, context: Mapping[str, Any],
         stop_calendar = _calendar_covariates(stop[stop_valid], int(cfg["context_length"]), horizon)
     fingerprint = _fingerprint(fit[fit_valid], stop[stop_valid],
                                (fit_seq, fit_mask, fit_exog, fit_raw, fit_base),
-                               (stop_seq, stop_mask, stop_exog, stop_raw, stop_base), cfg, horizon)
+                               (stop_seq, stop_mask, stop_exog, stop_raw, stop_base), cfg, horizon,tau)
     results = []
     for seed in cfg["seeds"]:
         path = _checkpoint(cfg, seed)
@@ -590,9 +900,15 @@ def fit_model(kind: str, history: pd.DataFrame, context: Mapping[str, Any],
                 raise ValueError(f"Stale or conflicting neural checkpoint: {path}")
             results.append(result["result"])
             continue
-        result = _train_seed(seed, kind, cfg, norm, fit_x, stop_x,
-                             fit_calendar, stop_calendar, fit_target,
-                             stop_target, fit_raw, stop_base, tau)
+        with warnings.catch_warnings(record=True) as training_warnings:
+            warnings.filterwarnings('always',message='.*deterministic.*')
+            with _backend_policy(_device(str(cfg['device'])),cfg['determinism_mode']):
+                result = _train_seed(seed, kind, cfg, norm, fit_x, stop_x,
+                                     fit_calendar, stop_calendar, fit_target,
+                                     stop_target, fit_raw, stop_base, tau)
+        result['determinism_mode']=cfg['determinism_mode']
+        result['nondeterministic_operations']=sorted(set(str(w.message) for w in training_warnings
+                                                        if 'deterministic' in str(w.message)))
         if path is not None:
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary = path.with_name(path.name + ".tmp")
@@ -605,12 +921,29 @@ def fit_model(kind: str, history: pd.DataFrame, context: Mapping[str, Any],
             "stop_first": str(stop[stop_valid].min()), "fingerprint": fingerprint,
             "fit_observed_context_min": int(fit_mask.sum(axis=1).min()),
             "fit_observed_context_max": int(fit_mask.sum(axis=1).max()),
-            "development_only": True, "fit_parameters_only": True}
+            "development_only": True, "fit_parameters_only": True,
+            "model_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            'determinism_mode':cfg['determinism_mode'],
+            'nondeterministic_operations':sorted(set(message for result in results
+                for message in result.get('nondeterministic_operations',[]))),
+            "origin_exog_head": (cfg.get("exog_head", "linear")
+                                 if kind in OPTIONAL_NIXTLA_KINDS and
+                                 (cfg["exog_columns"] or (kind == "patchtst" and cfg["use_calendar_exog"]))
+                                 else None)}
 
 
 def predict_model(bundle: Mapping[str, Any], history: pd.DataFrame,
                   origins: pd.DatetimeIndex, horizon: int,
                   *, return_quantiles: bool = False) -> np.ndarray | tuple[np.ndarray, dict[str, np.ndarray]]:
+    """Predict with the same numerical backend policy as the fitted model."""
+    cfg=bundle['config']
+    with _backend_policy(_device(str(cfg['device'])),cfg.get('determinism_mode','strict')):
+        return _predict_model(bundle,history,origins,horizon,return_quantiles=return_quantiles)
+
+
+def _predict_model(bundle: Mapping[str, Any], history: pd.DataFrame,
+                   origins: pd.DatetimeIndex, horizon: int,
+                   *, return_quantiles: bool = False) -> np.ndarray | tuple[np.ndarray, dict[str, np.ndarray]]:
     """Predict without labels; output keys and order match supplied origins."""
     if bundle.get("development_only") is not True or int(bundle["horizon"]) != horizon:
         raise ValueError("Bundle is not a development fit for this horizon")

@@ -14,6 +14,14 @@ from phase_f.registry import config_hash, sha256, write_json
 QUANTILES = [.01,.05,.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6,.65,.7,.75,.8,.85,.9,.95,.99]
 
 
+def recover_finetune_timing(state):
+    """A checkpoint may survive a crash before its timing transaction did."""
+    if not state.get('fit_completed'):
+        state['train_seconds']=float('nan')
+        state['training_timing_status']='unavailable_after_interrupted_fit_transaction'
+    return state
+
+
 def require_finetune_mode(mode):
     if mode not in (None,'full','lora'):
         raise ValueError('Unknown finetuning mode')
@@ -147,6 +155,12 @@ def run(prepared,spec):
         state=joblib.load(cache) if cache.exists() else {'cache_id':cache_id,'paths':{},'origin_seconds':{},'seconds':0.0,'train_seconds':0.0}
         if state['cache_id']!=cache_id:
             raise RuntimeError('Inference cache identity mismatch')
+        fit_dir=work/f'finetune_f{fold_group}'
+        checkpoint=fit_dir/'finetuned-ckpt'
+        if fit_mode and state.get('checkpoint_files'):
+            current={p.relative_to(checkpoint).as_posix():sha256(p) for p in sorted(checkpoint.rglob('*')) if p.is_file()}
+            if state['checkpoint_files']!=current:
+                raise RuntimeError('Fine-tuned checkpoint bytes changed')
         todo=[o for o in origins if o not in state['paths']]
         if todo:
             pipe=Chronos2Pipeline.from_pretrained(str(local_model),device_map=device,torch_dtype=torch.float32)
@@ -154,10 +168,13 @@ def run(prepared,spec):
                 raise ValueError('Requested context exceeds model supported context; no silent truncation')
             if fit_mode:
                 c=contexts[(16,fold_group)]
-                fit_dir=work/f'finetune_f{fold_group}'
-                checkpoint=fit_dir/'finetuned-ckpt'
                 if checkpoint.is_dir():
+                    current={p.relative_to(checkpoint).as_posix():sha256(p) for p in sorted(checkpoint.rglob('*')) if p.is_file()}
+                    if state.get('checkpoint_files') and state['checkpoint_files']!=current:
+                        raise RuntimeError('Fine-tuned checkpoint bytes changed')
                     pipe=Chronos2Pipeline.from_pretrained(str(checkpoint),device_map=device,torch_dtype=torch.float32)
+                    recover_finetune_timing(state)
+                    state['checkpoint_files']=current
                 else:
                     train=training_windows(history,c,'fit',length,16,cov)
                     valid=training_windows(history,c,'stop',length,16,cov)
@@ -173,7 +190,13 @@ def run(prepared,spec):
                         save_total_limit=2,report_to='none',dataloader_num_workers=0,
                         seed=int(spec.get('seed',42)),disable_tqdm=True)
                     state['train_seconds']=perf_counter()-tick
+                    state['fit_completed']=True
+                    state['training_timing_status']='measured'
+                    state['checkpoint_files']={p.relative_to(checkpoint).as_posix():sha256(p)
+                        for p in sorted(checkpoint.rglob('*')) if p.is_file()}
                     del train,valid
+                temp=cache.with_suffix('.tmp')
+                joblib.dump(state,temp);temp.replace(cache)
             batch_size=int(spec.get('batch_size',16 if cov or length>2048 else 32))
             # Mandatory family-level future perturbation using the identical pipeline.
             check_origin=todo[0]
@@ -213,6 +236,8 @@ def run(prepared,spec):
             del pipe
             if device=='cuda':torch.cuda.empty_cache()
         audit['fit_cells'].append({'fold':fold_group,'train_seconds':state['train_seconds'],
+            'training_timing_status':state.get('training_timing_status','not_fitted'),
+            'checkpoint_files':state.get('checkpoint_files'),
             'inference_seconds':state['seconds'],'origins':len(origins),
             'future_perturbation_max_abs_difference':state.get('future_perturbation_max_abs_difference')})
         for (h,f),c in contexts.items():

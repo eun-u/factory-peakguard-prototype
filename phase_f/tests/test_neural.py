@@ -4,8 +4,9 @@ import numpy as np
 import pandas as pd
 import pytest
 import torch
+from pathlib import Path
 
-from phase_f.models.neural import configurations, fit_model, predict_model
+from phase_f.models.neural import configurations, fit_model, predict_model, suggest_parameters
 
 
 @pytest.fixture(scope="module")
@@ -84,8 +85,10 @@ def test_optional_models_are_named_honestly_and_split_violation_fails(case):
         "dlinear", "nlinear", "tcn", "lstm", "gru"
     }
     assert any(row["kind"] == "nhits" and row["status"] == "supported_optional_neuralforecast" for row in plans)
+    assert any(row["kind"] == "xlstm" and row["status"] == "supported_optional_xlstm"
+               for row in plans)
     with pytest.raises(ValueError, match="forward does not consume"):
-        fit_model("patchtst", history, context, {"use_calendar_exog": True})
+        fit_model("nbeats", history, context, {"use_calendar_exog": True})
     invalid = dict(context)
     invalid["stop"] = context["fit"][-3:]
     with pytest.raises(ValueError, match="chronological"):
@@ -111,7 +114,7 @@ def test_nixtla_native_architecture_trains_one_cpu_epoch_and_is_causal(case, kin
     history, context, origins = case
     cfg = {"context_length": 16, "horizon": 4, "seeds": [42],
            "max_epochs": 1, "patience": 1, "batch_size": 8,
-           "architecture_kwargs": architecture, "device": "cpu"}
+           "architecture_kwargs": architecture, "use_calendar_exog": False, "device": "cpu"}
     bundle = fit_model(kind, history, context, cfg)
     predicted = predict_model(bundle, history, origins, 4)
     changed = history.copy()
@@ -133,3 +136,76 @@ def test_nixtla_quantile_head_is_native_and_ordered(case):
     assert np.isfinite(point).all()
     np.testing.assert_array_equal(point, quantiles["0.5"])
     assert (quantiles["0.1"] <= quantiles["0.5"]).all()
+
+
+def test_optional_origin_head_and_patchtst_calendar_are_jointly_fitted_and_causal(case):
+    pytest.importorskip("neuralforecast")
+    history, context, origins = case
+    cfg = {"context_length": 16, "horizon": 4, "seeds": [42],
+           "max_epochs": 1, "patience": 1, "batch_size": 8,
+           "exog_columns": ["hour_sin"], "exog_head": "mlp", "exog_head_hidden": 8,
+           "architecture_kwargs": {"encoder_layers": 1, "n_heads": 2,
+                                   "hidden_size": 16, "linear_hidden_size": 32,
+                                   "patch_len": 4, "stride": 2},
+           "use_calendar_exog": True, "device": "cpu"}
+    fitted = fit_model("patchtst", history, context, cfg)
+    state = fitted["seeds"][0]["state_dict"]
+    assert any("origin_head" in name and value.abs().sum() > 0
+               for name, value in state.items())
+    assert fitted["origin_exog_head"] == "mlp"
+    original = predict_model(fitted, history, origins, 4)
+    altered = history.copy()
+    altered.loc[altered.index > origins.max(), "power"] += 100_000
+    np.testing.assert_array_equal(original, predict_model(fitted, altered, origins, 4))
+    assert np.isfinite(original).all()
+
+
+def test_xlstm_official_vanilla_cpu_stack_fits_and_is_causal(case):
+    site = Path(__file__).resolve().parents[2] / "outputs/phase_f/optional_envs/xlstm/site"
+    if not site.is_dir():
+        pytest.skip("Official xlstm==2.0.6 optional site is unavailable")
+    history, context, origins = case
+    cfg = {"context_length": 16, "horizon": 4, "seeds": [42],
+           "max_epochs": 1, "patience": 1, "batch_size": 8,
+           "xlstm_embedding_dim": 32, "xlstm_num_blocks": 2,
+           "xlstm_num_heads": 4, "exog_columns": ["hour_sin"], "device": "cpu"}
+    fitted = fit_model("xlstm", history, context, cfg)
+    assert any("encoder.blocks" in name for name in fitted["seeds"][0]["state_dict"])
+    before = predict_model(fitted, history, origins, 4)
+    altered = history.copy()
+    altered.loc[altered.index > origins.max(), "power"] *= 100
+    np.testing.assert_array_equal(before, predict_model(fitted, altered, origins, 4))
+    assert np.isfinite(before).all()
+
+
+class _FirstTrial:
+    def suggest_float(self, name, low, high, **kwargs):
+        return low
+
+    def suggest_int(self, name, low, high, **kwargs):
+        return low
+
+    def suggest_categorical(self, name, values):
+        return values[0]
+
+
+@pytest.mark.parametrize("kind", ["dlinear", "nlinear", "tcn", "lstm", "gru",
+                                   "nhits", "nbeats", "patchtst", "tide", "tsmixer",
+                                   "timesnet", "itransformer", "xlstm"])
+def test_tuning_exposes_only_consumed_kind_parameters(kind):
+    params = suggest_parameters(_FirstTrial(), kind)
+    assert params["context_length"] in (96, 192, 336, 672, 1344, 2016, 2688)
+    if kind in ("dlinear", "nlinear"):
+        assert "hidden_size" not in params and "dropout" not in params
+    if kind in ("nhits", "nbeats", "patchtst", "tide", "tsmixer", "timesnet", "itransformer"):
+        assert params["architecture_kwargs"]
+        assert "hidden_size" not in params and "dropout" not in params
+    if kind == "xlstm":
+        assert params["xlstm_num_blocks"] >= 1
+
+
+def test_optional_architecture_rejects_silent_trainer_kwargs(case):
+    history, context, _ = case
+    with pytest.raises(ValueError, match="ignored keys"):
+        fit_model("patchtst", history, context, {"context_length": 16,
+                  "architecture_kwargs": {"unknown_architecture": 17}})
