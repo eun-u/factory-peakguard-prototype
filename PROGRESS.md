@@ -298,3 +298,18 @@
 - v2 Chronos 경로 249246행 완료(2026-10-06 20:36:36 KST), content SHA256 476b02d1bb8f49e249ba36d204bbac0461e7f1fbde6f3094e82ba2287b38cc60. 실제 미래 교란 검사 통과, 원점 이후 입력 접근 없음.
 - 기존 전체 탐색 재개: 20:37:32 KST PID3420/session20143, outputs/phase_f/logs/revised_full_resume3_20261006.log. 목표 보정 탐색: 20:38:17 KST PID22100/session48852, outputs/phase_f/logs/goal_r1_search_v2_20261006.log. 두 PID의 실제 명령 확인. 첫 core-l1 seed42/123의 각8 주차 fit 및 예측 저장 완료; 2024 진행 중. 아직 전체5시드 평균 평가 결과가 없다.
 - 첫 core-l1의 실제5시드 평균 EXPLORE 결과: AUC_MAE7.443291, AUC_PeakMAE17.098625, h4_MAE5.942396, h16_MAE8.971350, mean_nMAE7.925455%. 기존R1의7.332248/14.306291보다 악화했고 절대 목표를 통과하지 못했다. 채택·개선 주장 없음. 다음 expanded/weight/recency/loss 설정 계속 실행 중.
+
+## 2026-10-06 목표 실험 추가 분석
+
+- 직전 goal turn은 code/실제학습/첫후보평가를 만든 progress였다. 이번 turn PID22100(목표CPU탐색) 및3420(전체PhaseF GPU탐색)의 실제 소유 명령과 메모리 확인; 이전 observation timeout으로 재시작하지 않았다.
+- 완료3/10 후보 모두 목표 미통과. initial specs/원점·horizon/5seed/기존 전체 검색 요구는 바꾸지 않았다. 현재 피크 가중치 후속 설정 진행 중.
+- phase_f/goal_diagnostics.py 실제 실행으로 동일64779 score행의 관측 원점 상태별 오차와 보정 방향을 저장했다. horizon별 정확한 row수 차이를 보존하고 임의 시간 맞추기/drop을 하지 않는다. 새로운 진단은 결과를 보고 만든 분석이다.
+- 신규 tail-guard 코드를 별도 goal_r1_guard_v1 wave로 준비하며 부모10설정 완료 전 평가를 거부하도록 구현한다. 기존 실행 소스와 cache를 수정하지 않는다. 독립 CONFIRM/pc3 및 holdout은 미평가.
+
+## 2026-10-06 목표 후속 실행 및 실제 LoRA smoke
+
+- 부모 잔차 설정9개/10개가 실제5시드 평균으로 완료됐으며 모두 절대 목표 미통과다. peak2-recent30의PeakMAE13.606907은 R1의14.306291보다 낮지만 전체MAE7.455370은 악화했고 paired peak degradation CI[-3.068222,0.502397]가0을 포함한다. 개선 채택 근거로 쓰지 않는다.
+- 기존 CPU 드라이버22100의 세션과 실제 프로세스가 모두 없어졌고 상태파일만running이었다. 중단 원인은UNKNOWN으로 남기고 동결된 같은goal_r1_v2를 재개했다. 기존 완료 시드/모델을 보존한다. 뒤이어 부모10개 전체 완료를 전제로30개 guard 설정을 실행하도록 연결했다.
+- GPU 할당 안전 검사가 기존3420 종료 직후 CIM에 남은 항목을 보고 첫 시도를 중단했다. 실제 프로세스/세션 부재 및 GPU 해제를 다시 확인해 별도 recovery 기록으로 이어갔다. 첫 실패 기록을 덮어쓰지 않았다. 기존M2 완료194개 fit의 물리 SHA/메타데이터 쌍을 검증·보존했고 불완전 파일은0개다.
+- Chronos LoRA c512(batch16)/c2048(batch8), lr1e-5/100steps: 첫 EXPLORE fold1·seed42에서 각각13442행 예측, 실제 training22.332525/30.261475초, fitted-pipeline future perturbation0.0으로 smoke 통과했다. 후보점수/mean/목표달성으로 집계하지 않는다.
+- 별도 goal_r1_ft_v1의 두 설정 전체8주·13h·실제5시드 탐색이 시작됐다. 원래 전체PhaseF는 이 GPU wave 성공/실패 뒤 finally에서 재개하며 예산/단계 요구를 유지한다. 새 코드·기존 foundation 검증15개 통과 및 독립 재검토 반영. 소스·baseline·snapshot을 장시간 학습 후에도 다시 검증하고 복구 학습 시간은UNKNOWN을 보존한다.

@@ -1,0 +1,146 @@
+{
+  "contract": {
+    "protocol": "goal_r1_ft_v1",
+    "targets": {
+      "AUC_MAE": 4.5,
+      "AUC_PeakMAE": 9.0,
+      "h4_MAE": 3.5,
+      "h16_MAE": 5.5,
+      "AUC_nMAE": 0.05
+    },
+    "target_authorization": "User accepted competitive point-forecast targets and requested execution",
+    "primary_geometry": "walkforward_v2 EXPLORE; 13 horizons h4..h16; eight even ISO weeks",
+    "ranking": "metric of five-seed mean forecast; individual seed mean and SD disclosed",
+    "training": "Chronos-2 LoRA; FIT-only training windows, STOP-only validation and best-checkpoint selection",
+    "selection_arm": "EXPLORE",
+    "confirmation": "Independent locked WF CONFIRM and pc3 auxiliary before achievement",
+    "holdout_read": false,
+    "commercial_qualification": "Requires independent site/season field validation",
+    "contract_sha256": "eda4de0233bba02e05c3cc702f436958d9fa12d56e911e3cb53319795c8ace30"
+  },
+  "specs": [
+    {
+      "id": "FG-R2-lora-c512-s100",
+      "family": "F6",
+      "tier": 2,
+      "kind": "chronos2",
+      "context_length": 512,
+      "point": "median",
+      "finetune": "lora",
+      "learning_rate": 1e-05,
+      "num_steps": 100,
+      "adapter": "foundation",
+      "parent": "F6-4-lora-c512-lr1e-05",
+      "fit_batch_size": 16,
+      "seeds": [
+        42,
+        123,
+        2024,
+        3407,
+        777
+      ]
+    },
+    {
+      "id": "FG-R2-lora-c2048-s100",
+      "family": "F6",
+      "tier": 2,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": "median",
+      "finetune": "lora",
+      "learning_rate": 1e-05,
+      "num_steps": 100,
+      "adapter": "foundation",
+      "parent": "F6-4-lora-c2048-lr1e-05",
+      "fit_batch_size": 8,
+      "seeds": [
+        42,
+        123,
+        2024,
+        3407,
+        777
+      ]
+    }
+  ],
+  "seeds": [
+    42,
+    123,
+    2024,
+    3407,
+    777
+  ],
+  "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8",
+  "seal_sha256": "8ee073bf5a5ec49dcaca7bbc6e71f5c21c7339402485b981ad1afeef7c489db8",
+  "baseline_prediction_sha256": {
+    "F0-1-B5": "f26ae698e1e63cce402ed8683ab6eba1bde4fd77aa33acc58939347f2ccb0bf4",
+    "F0-1-M1": "98695282309a934f0c7b511cb1758eb1ea74fccdd7740d3e791ad65c4dd4b382",
+    "F0-1-R1": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf"
+  },
+  "source_sha256": {
+    "phase_f/goal_foundation.py": "137baa5e1e233891f14df4d1a2d0c869455e480c473b873008aa72435fd8be6f",
+    "phase_f/goal_r1.py": "0345aa562f9ff6f8165bda3d39deb896303a002be49e9d56898dc3e257219553",
+    "phase_f/goal_protocol.py": "6f746d3737251b53d4c530845c02db1ba0544ae5ea6cd922fe17ba30258ccd1c",
+    "phase_f/goal_r1_paths.py": "e1450959cd6e2ef1138270efdc011ff6256bc3c0c880a59269e4c5409160b836",
+    "phase_f/wf_models.py": "cb4a5c03f754f1412ebcb1381927dc2bc4a6463689a42a344f8c534ecb4dac11",
+    "phase_f/wf_harness.py": "177dab7c5bf39862ff2f77d69d347f96550fe14df155611b1f35af08b26dcefd",
+    "phase_f/wf_run.py": "f85fe5457c873ec38edb3d2a458f64fe2f4b4cd20b1c69c1dc32a1fb8d9907de",
+    "phase_f/wf_metrics.py": "4e09ad06b93c66be85b0821c50f6f0c45b5da623183ba545e62bdfbc7128d6f2",
+    "phase_f/wf_plan.py": "676b55cfe20bfa40f5f7f5599c43e6940f07178253413b2ce70dc77d27e9b0ce",
+    "phase_f/support.py": "8aad24c4334de8475d3fb391b3e1d748c169ef6d322724a6df04378173112e44",
+    "phase_f/registry.py": "590a115219adfd429992f287c7c748c0b6dfb39b308f488da7482fed42ec955d",
+    "phase_f/wf_evaluation.py": "7df05e26ad8430725234837ad31a21a4af16d727aae4e2db188696369aaed2a1",
+    "phase_f/models/foundation.py": "8943eb422b32891c575b06f89169d9c5d9013acb618f6dd4e68210cde412232c",
+    "phase_f/runtime.py": "0471197ef18d1f13e4058b3891eed7fa214663a5ef7fca331c91251c188777ae",
+    "phase_f/harness.py": "a716c1bf9f57f293519d9dd579677746f9101ee8e3cc385d8891af919a9d774d",
+    "phase_c/data.py": "fee8922ed85bec860d9870f85d5eeeeeb29dc61fb74ee692e3aabab5ca9600fb",
+    "src/targets.py": "11f19a971c0f1ee06bbbc01e17847d98ccde170838da3c957746d1d5912758e1"
+  },
+  "execution": {
+    "pinned_model": {
+      "metadata_sha256": "d96dbb8e043a1fa7f9cfaa273eb0f867384802c5e1a7c09a3691a6dbd70a2d89",
+      "model_id": "amazon/chronos-2",
+      "revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+      "snapshot_files": {
+        "config.json": "ef1143bfdc9c0376d9a056eefca46cb4b1ec3d0ffacd541ff56feb40fb708031",
+        "model.safetensors": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42"
+      }
+    },
+    "runtime": {
+      "device": "cuda",
+      "chronos_version": "2.3.2",
+      "chronos_source_sha256": {
+        "__about__.py": "2780919e9477bfbd8518e329f20a92b9afd7599a407d7baa8155a240507e8136",
+        "__init__.py": "f4602aa57fbe3bd3f328414a591d0594ed62099ef7621736ff9733420295bbf0",
+        "base.py": "8938c48de071534c3fecd4e2762a5f99b86d592e8de26aeaa21ce81a08f99c31",
+        "boto_utils.py": "f84a7bca1e69838359309f58bd66f41d9c6da6619b803e88fb87af59d8012e0b",
+        "chronos.py": "52a8ad41894195b1c244784e35e238c57e572d54fd980816b579c9c5fab78e3b",
+        "chronos2/__init__.py": "128856d0b4660e586b74a4971a19dfaaca666e350ebbfb50297b667c1d949995",
+        "chronos2/config.py": "d4ffa61c796ee87b340540e7f8131008aedcf7b1c580321053dec51d609d3101",
+        "chronos2/dataset.py": "90b34b05af99069972a33aa780019ab2fca7514e907b68921a2d5c9205584e0a",
+        "chronos2/layers.py": "73493f306ecfaa21fa57636ff46321ccb5d50ded02a382598cf759dbfc9dd60f",
+        "chronos2/model.py": "2aaab2f90cc9bb486d69483cb1f0d11b593643ce54c97f4902958a7776905782",
+        "chronos2/pipeline.py": "9fad1e4fb7251471463a40408a32d25d31b23b7afb88069911f095071b9b0599",
+        "chronos2/preprocess.py": "a6da6192bc3e51a24d7adee4398c7436ce56f532fbdcf8dcef4c0c366ee02246",
+        "chronos2/trainer.py": "3868aaefd2477eb0d6a68b2b0c7309ad0f00d1d3b02fb8deb4f8f211afecbd88",
+        "chronos_bolt.py": "93b3af9e4521ea981c4228b1acaa252321f7a190512f956088394426182c8b8c",
+        "df_utils.py": "df452a311b406948e0dac1f36b0685e1b7eb6c245eb4b88fd0595037221fec38",
+        "utils.py": "0299e91f6ca902ff18c99e1260cfe81655744eae1ca82e541bda24eb395680ad"
+      },
+      "torch_version": "2.11.0+cu128",
+      "torch_cuda_version": "12.8",
+      "peft_version": "0.21.2",
+      "transformers_version": "5.18.0",
+      "gpu": {
+        "name": "NVIDIA GeForce RTX 4070 SUPER",
+        "total_memory": 12878086144,
+        "capability": [
+          8,
+          9
+        ]
+      }
+    }
+  },
+  "arm": "EXPLORE",
+  "holdout_read": false,
+  "plan_sha256": "7c57e19fa5705e1feb639d3e7cd70873e99055acbe518eb082f69fdf50b30b60"
+}

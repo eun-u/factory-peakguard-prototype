@@ -1,0 +1,108 @@
+{
+  "status": "smoke_passed",
+  "spec": {
+    "id": "FG-R2-lora-c2048-s100",
+    "family": "F6",
+    "tier": 2,
+    "kind": "chronos2",
+    "context_length": 2048,
+    "point": "median",
+    "finetune": "lora",
+    "learning_rate": 1e-05,
+    "num_steps": 100,
+    "adapter": "foundation",
+    "parent": "F6-4-lora-c2048-lr1e-05",
+    "fit_batch_size": 8,
+    "seeds": [
+      42,
+      123,
+      2024,
+      3407,
+      777
+    ]
+  },
+  "plan_sha256": "7c57e19fa5705e1feb639d3e7cd70873e99055acbe518eb082f69fdf50b30b60",
+  "fold": 1,
+  "seed": 42,
+  "horizons": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "rows": 13442,
+  "prediction_sha256": "b0f4e9569cb44c7248c2610c9a09f281a7402bbce7f1cc00372d8333927e90e7",
+  "audit": {
+    "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+    "cache_id": "d9d916b689c225056f78",
+    "input_spec": {
+      "kind": "chronos2",
+      "context_length": 2048,
+      "finetune": "lora",
+      "learning_rate": 1e-05,
+      "num_steps": 100,
+      "adapter": "foundation",
+      "fit_batch_size": 8,
+      "seed": 42,
+      "arm": "EXPLORE",
+      "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+      "quantiles": [
+        0.01,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "source_sha256": "8943eb422b32891c575b06f89169d9c5d9013acb618f6dd4e68210cde412232c",
+      "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8"
+    },
+    "native_mean_is_median": true,
+    "integrated_mean_tail_policy": "flat tails outside q.01..q.99",
+    "fit_cells": [
+      {
+        "fold": 1,
+        "train_seconds": 30.261474900000053,
+        "training_timing_status": "measured",
+        "checkpoint_files": {
+          "adapter_config.json": "0f01634923000f9d41028de6515066e5ed03fdec6e033b144cdaeec2179f6283",
+          "adapter_model.safetensors": "8bbe2d2a5bf4d6b8289b0911d1351e66289c74be31448a9aeafa79a9d17178d2",
+          "README.md": "d74be36248f04d7f25b0015ed43856a21ff0e8f262ec07c43609715985dc6e47"
+        },
+        "inference_seconds": 1.5628240000000915,
+        "origins": 1062,
+        "future_perturbation_max_abs_difference": 0.0
+      }
+    ],
+    "historical_final_artifact_read": false,
+    "holdout_read": false
+  },
+  "candidate_scored": false,
+  "mean_forecast_published": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}
