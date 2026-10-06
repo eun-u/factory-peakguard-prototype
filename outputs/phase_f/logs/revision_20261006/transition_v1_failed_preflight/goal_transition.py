@@ -22,7 +22,7 @@ from phase_f.wf_evaluation import BASELINES, load_predictions, prediction_path
 from phase_f.wf_models import FRAME_KEY, _mean_frames, _validate_frame, _arm_view
 
 
-NAMESPACE = "goal_r1_transition_v2"
+NAMESPACE = "goal_r1_transition_v1"
 PARENT = "goal_r1_v2"
 GUARD = "goal_r1_guard_v1"
 BEST_GUARD = "FG-R1-core-l1__guard-q95-suppress"
@@ -33,7 +33,7 @@ SPECS = (
     {"id": "FG-R3-transition-production", "adapter": "transition_expert",
      "family": "R1-transition-expert", "arm": "EXPLORE", "groups": [*CORE_GROUPS, "production"]},
 )
-CONTRACT = {"protocol": NAMESPACE, "arm": "EXPLORE",
+CONTRACT = {"protocol": "goal_r1_transition_v1", "arm": "EXPLORE",
             "past_result_used_for_design": "signed post-observation EXPLORE transition diagnosis",
             "threshold_data_units": 30, "classes": ["fall", "neutral", "rise"],
             "training": "FIT only; pooled all13; max-h16 embargo",
@@ -161,20 +161,6 @@ def _guard_evidence(original, prepared, parent_evidence: dict) -> dict:
             "guard_namespace": GUARD}
 
 
-def _verify_path_cohort(paths: pd.DataFrame, required: pd.DataFrame,
-                        manifest: dict, parent_plan: dict) -> None:
-    # Canonical stored paths use int16 horizons; the required role union uses
-    # int64. Compare exact ordered keys as the signed parent producer does.
-    keys = pd.MultiIndex.from_frame(paths.loc[:, ["origin", "horizon"]])
-    required_keys = pd.MultiIndex.from_frame(required)
-    if (len(paths) != len(required) or len(paths) != manifest["path_rows"]
-            or paths.duplicated(["origin", "horizon"]).any()
-            or goal_r1_paths._hash_frame(paths) != manifest["paths_sha256"]
-            or manifest["paths_sha256"] != parent_plan["rolling_paths_sha256"]
-            or not keys.equals(required_keys)):
-        raise ValueError("Reconstructed R1 rolling paths differ from signed required cohort")
-
-
 def _rolling_paths(original, prepared, parent_evidence: dict) -> tuple[pd.DataFrame, dict]:
     root = Path(prepared.root)
     parent_dir = root / "outputs/phase_f" / PARENT
@@ -212,7 +198,12 @@ def _rolling_paths(original, prepared, parent_evidence: dict) -> tuple[pd.DataFr
         frozen_parts.append({"file": filename, "sha256": entry["sha256"],
                              "content_sha256": entry["content_sha256"]})
     paths = goal_r1_paths._sort_paths(pd.concat([anchors, *parts], ignore_index=True))
-    _verify_path_cohort(paths, required, manifest, parent_plan)
+    if (len(paths) != len(required) or len(paths) != manifest["path_rows"]
+            or paths.duplicated(["origin", "horizon"]).any()
+            or goal_r1_paths._hash_frame(paths) != manifest["paths_sha256"]
+            or manifest["paths_sha256"] != parent_plan["rolling_paths_sha256"]
+            or not paths[["origin", "horizon"]].equals(required)):
+        raise ValueError("Reconstructed R1 rolling paths differ from signed required cohort")
     _, _, digest, anchor_rows = goal_guard._producer_lock(parent_dir, parent_plan)
     if digest != parent_evidence["rolling_audit_sha256"] or anchor_rows != len(anchors):
         raise ValueError("R1 producer causal audit changed")

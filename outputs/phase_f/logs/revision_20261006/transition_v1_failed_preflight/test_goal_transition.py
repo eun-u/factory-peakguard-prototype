@@ -11,7 +11,7 @@ import pandas as pd
 import pytest
 import joblib
 
-from phase_f import goal_r1, goal_r1_paths, goal_transition
+from phase_f import goal_r1, goal_transition
 from phase_f.models import transition_expert as model
 from phase_f.models.regression import _preprocessor
 from phase_f.registry import sha256
@@ -30,39 +30,6 @@ class _Magnitude:
 
     def predict(self, x):
         return np.full(len(x), self.value)
-
-
-@pytest.mark.parametrize("change", [None, "origin", "horizon", "order", "duplicate", "value"])
-def test_signed_rolling_cohort_compares_keys_across_integer_dtypes(change):
-    paths = goal_r1_paths._sort_paths(pd.DataFrame({
-        "origin": pd.date_range("2021-01-01", periods=2, freq="15min"),
-        "horizon": [4, 16], "r1": [100., 101.], "q10": [90., 91.],
-        "q50": [100., 101.], "q90": [110., 111.], "q95": [115., 116.]}))
-    required = paths.loc[:, ["origin", "horizon"]].copy()
-    required["horizon"] = required.horizon.astype("int64")
-    assert paths.horizon.dtype == np.dtype("int16")
-    assert not paths.loc[:, ["origin", "horizon"]].equals(required)
-    digest = goal_r1_paths._hash_frame(paths)
-    manifest = {"path_rows": 2, "paths_sha256": digest}
-    parent = {"rolling_paths_sha256": digest}
-    if change is None:
-        goal_transition._verify_path_cohort(paths, required, manifest, parent)
-        return
-    if change == "origin":
-        required.loc[0, "origin"] += pd.Timedelta(minutes=15)
-    elif change == "horizon":
-        required.loc[0, "horizon"] = 5
-    elif change == "order":
-        required = required.iloc[::-1].reset_index(drop=True)
-    elif change == "duplicate":
-        paths = pd.concat([paths.iloc[[0]], paths.iloc[[0]]], ignore_index=True)
-        required = paths.loc[:, ["origin", "horizon"]].copy()
-        digest = goal_r1_paths._hash_frame(paths)
-        manifest["paths_sha256"] = parent["rolling_paths_sha256"] = digest
-    elif change == "value":
-        paths.loc[0, "r1"] += 1.
-    with pytest.raises(ValueError, match="signed required cohort"):
-        goal_transition._verify_path_cohort(paths, required, manifest, parent)
 
 
 def test_class_boundaries_and_supported_mixture():

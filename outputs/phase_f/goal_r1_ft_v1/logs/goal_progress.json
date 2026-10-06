@@ -1,0 +1,122 @@
+{
+  "contract": {
+    "protocol": "goal_r1_ft_v1",
+    "targets": {
+      "AUC_MAE": 4.5,
+      "AUC_PeakMAE": 9.0,
+      "h4_MAE": 3.5,
+      "h16_MAE": 5.5,
+      "AUC_nMAE": 0.05
+    },
+    "target_authorization": "User accepted competitive point-forecast targets and requested execution",
+    "primary_geometry": "walkforward_v2 EXPLORE; 13 horizons h4..h16; eight even ISO weeks",
+    "ranking": "metric of five-seed mean forecast; individual seed mean and SD disclosed",
+    "training": "Chronos-2 LoRA; FIT-only training windows, STOP-only validation and best-checkpoint selection",
+    "selection_arm": "EXPLORE",
+    "confirmation": "Independent locked WF CONFIRM and pc3 auxiliary before achievement",
+    "holdout_read": false,
+    "commercial_qualification": "Requires independent site/season field validation",
+    "contract_sha256": "eda4de0233bba02e05c3cc702f436958d9fa12d56e911e3cb53319795c8ace30"
+  },
+  "plan_sha256": "7c57e19fa5705e1feb639d3e7cd70873e99055acbe518eb082f69fdf50b30b60",
+  "completed_candidates": 2,
+  "best": {
+    "status": "completed_explore",
+    "spec": {
+      "id": "FG-R2-lora-c2048-s100",
+      "family": "F6",
+      "tier": 2,
+      "kind": "chronos2",
+      "context_length": 2048,
+      "point": "median",
+      "finetune": "lora",
+      "learning_rate": 1e-05,
+      "num_steps": 100,
+      "adapter": "foundation",
+      "parent": "F6-4-lora-c2048-lr1e-05",
+      "fit_batch_size": 8,
+      "seeds": [
+        42,
+        123,
+        2024,
+        3407,
+        777
+      ]
+    },
+    "plan_sha256": "7c57e19fa5705e1feb639d3e7cd70873e99055acbe518eb082f69fdf50b30b60",
+    "result": {
+      "at": "2026-10-06T13:31:03.621446+00:00",
+      "candidate": "FG-R2-lora-c2048-s100",
+      "arm": "EXPLORE",
+      "fields": {
+        "AUC_MAE": 7.323731286100026,
+        "AUC_PeakMAE": 14.356269874304513,
+        "AUC_nMAE": 0.07798150355243111,
+        "h4_MAE": 5.804228542600851,
+        "h16_MAE": 8.786281672763806,
+        "h4_PeakMAE": 11.43809167750985,
+        "h16_PeakMAE": 16.411711194574668
+      },
+      "targets_met": false,
+      "individual": {
+        "AUC_MAE": false,
+        "AUC_PeakMAE": false,
+        "h4_MAE": false,
+        "h16_MAE": false,
+        "AUC_nMAE": false
+      },
+      "seed_uncertainty": {
+        "AUC_MAE": {
+          "individual_mean": 7.325235111108782,
+          "individual_sd": 0.00592800468217869
+        },
+        "AUC_PeakMAE": {
+          "individual_mean": 14.357396013904884,
+          "individual_sd": 0.044628444106885275
+        },
+        "AUC_nMAE": {
+          "individual_mean": 0.07799751598505286,
+          "individual_sd": 6.311990755289391e-05
+        },
+        "h4_MAE": {
+          "individual_mean": 5.805958053090334,
+          "individual_sd": 0.0063708775764915685
+        },
+        "h16_MAE": {
+          "individual_mean": 8.788513665700355,
+          "individual_sd": 0.008917885161013068
+        },
+        "h4_PeakMAE": {
+          "individual_mean": 11.438495523975826,
+          "individual_sd": 0.05245451852151592
+        },
+        "h16_PeakMAE": {
+          "individual_mean": 16.41227812833073,
+          "individual_sd": 0.05394568613011675
+        }
+      },
+      "n_seeds": 5,
+      "ranking_basis": "metrics of mean forecasts",
+      "independent_confirmation": "pending",
+      "goal_achieved": false,
+      "holdout_read": false,
+      "leakage_test": "passed",
+      "prediction_sha256": "56b67b656df948eb1b0834d20ff906b74dbded638cb582ac8938578285b1794d",
+      "artifacts": {
+        "auc.csv": "1e54a90d4614ebb0a138f08714aced9348953cd3583fc860522477008a9c1397",
+        "daily.csv": "39e94889c669d4d7d6cae4470a4be6bd8302845a2c0e715cdb8b0b6fa4a90e76",
+        "daily_summary.csv": "ea19aecf815044108a7b8ef318a5fc95d8ee80e815b7a18206e398ae7a726a55",
+        "fold.csv": "a2a4042ed0bc44efb302a01be61a2b664cecb63b5df82123317810f568c1041e",
+        "paired_ci.csv": "d78669d204f336190b41e9bd8d09ef0fd296a52c9918f7748c71056028b68f5b",
+        "pooled.csv": "86f12ce3fd5ea22da21d0c6ec4d98a12888824059ee0524699509c8a7d6f41a7",
+        "seed_metrics.csv": "05361f9cb8d00919891badf968bbacd4b9880c63e8314eb37459894b4751aec6"
+      }
+    },
+    "goal_achieved": false,
+    "holdout_read": false
+  },
+  "explore_targets_met": false,
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false
+}

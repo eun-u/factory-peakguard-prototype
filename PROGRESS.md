@@ -333,3 +333,12 @@
 - 관리문서build/check통과다. 연구회귀검사는workspace임시경로에서10개통과, 파일symlink생성2개는Windows권한WinError1314로실행불가이며12개전체통과로주장하지않는다. 관련기록은transition_preimplementation_state.json이다.
 - LoRA c2048/s100이8주·13h·5개실제seed전체완료했다. MAE7.323731/Peak14.356270/h4 5.804229/h16 8.786282/nMAE7.79815%로목표미달이다. R1대비전체개선0.008516 CI[-0.006607,0.024380]는0을포함하고, peak악화0.049979 CI[0.019998,0.092546]는명목상0미포함이다. 이고정100step설정은채택하지않지만fine-tuning전체불가능으로일반화하지않는다. 전력평균최선guard7.244040/13.868104는유지된다.
 - LoRA전체wave종료후원래phase_f.run --stage all --retry의실제launcher27880/worker27432를확인했다. 기존부모19436/session52644의자동재개다. 상태파일만으로실행을판단하지않았고누락된예상resume4로그를종료증거로쓰지않는다. 실제전체실험은계속진행하며Stage4통합pending진입장벽은유지한다.
+
+
+## 2026-10-06 FG-R3 사전 검증 오류 수정과 v2 재개 준비
+
+- 직전 질문 응답은 성능 목표 제안이며 실행 목표를 변경하지 않았다. 이번 goal turn은 실제 실행 확인과 중단 원인 수정으로 진행한다. 원래 Phase F worker27432/session52644를 CIM과 세션으로 확인했고, M2 seed42 104개와 seed123 97개 checkpoint 파일을 관찰했다. seed123 파일 개수는 완료된 5seed 모델 성능의 증거가 아니다. sandbox Get-Process의 PID 부재와 CIM 접근 제한을 실제 종료로 취급하지 않는다.
+- FG-R3 v1 smoke는 13:36:34UTC에 실행 계획·모델 학습 전 실패했다. 독립 debugger가 249246 경로/102427 anchors/146819 inferred/37parts의 길이·중복 없음·content SHA476b02d1bb8f49e249ba36d204bbac0461e7f1fbde6f3094e82ba2287b38cc60 일치를 실제 sealed EXPLORE에서 재현했다. 실패한 조건은 horizon int16과 int64 사이 DataFrame.equals뿐이며, 원래 producer와 같은 MultiIndex.equals는 정확히 동일한 키로 판정했다.
+- root는 자료형 저장 폭에 무관한 정확한 순서별 origin/horizon 비교로 수정했다. 경로 길이·중복·전체 content hash·signed parent hash 검사는 유지한다. 기존 모델/features/hyperparameter/2설정/5seed/목표수치는 변경하지 않았다. focused 검사18개 통과(1.78초), 독립 reviewer의 코드 지적0개; 새 계획의 출력 경로 v1/v2 문구 불일치를 v2 동결 전 수정했다.
+- 실패한 v1 runner/model/tests/status/log/script 원본을 physical SHA와 함께 transition_v1_failed_preflight/manifest.json에 보존했다. 별도 goal_r1_transition_v2 namespace와 D 모델 디렉터리·새 로그를 사용하며, 진단4파일은 v1에서 바이트 일치 복사하고 새 독립 증거로 주장하지 않는다. 새 run_transition_v2.ps1은 smoke 비정상 종료 시 search를 실행하지 않는다. 기록 시점 v2 실제 학습은 아직 시작 전이다.
+- read-only final integration 탐색으로 residual/guard/transition의 현재 EXPLORE 전용 API가 최종 CONFIRM용이 아님을 재확인했다. 별도 cache/source/runtime/10seed/rolling producer identity와 WF/pc3 adapter가 필요하며 wf_final의 동일≤7 union·단일reservation에만 연결한다. 현 signed integration_pending barrier는 유지한다. 원래128/GBDT각500/상위20+3/실제final10/PhaseE 불가 보존/holdout 미열람 범위를 줄이지 않는다.

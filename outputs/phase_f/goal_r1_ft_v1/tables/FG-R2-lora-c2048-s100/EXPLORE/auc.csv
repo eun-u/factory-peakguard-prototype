@@ -1,0 +1,3 @@
+dataset,model,n_horizons,n_available_horizons,AUC_MAE,AUC_PeakMAE,AUC_PredPeakMAE,auc_definition
+D1,FG-R2-lora-c2048-s100,13,13,7.323731286100026,14.356269874304513,8.547290412689524,mean of 13 pooled horizon metrics
+D2,FG-R2-lora-c2048-s100,13,13,7.56254645159452,14.77013084134485,8.047268054599197,mean of 13 pooled horizon metrics

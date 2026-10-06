@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-06T13:39:54.390347+00:00",
+  "namespace": "goal_r1_transition_v1",
+  "status": "failed_before_execution_plan_and_training",
+  "error": "Reconstructed R1 rolling paths differ from signed required cohort",
+  "execution_plan_exists": false,
+  "new_model_fit_performed": false,
+  "files": [
+    {
+      "source": "phase_f/goal_transition.py",
+      "sha256": "f64e022d549190a5d9a45f3f8099386db3ac0480a4fe9f7f2c303ff316f5e8fb",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v1_failed_preflight/goal_transition.py"
+    },
+    {
+      "source": "phase_f/models/transition_expert.py",
+      "sha256": "7d93c3e29e649b82752d9194cb4a4c5c41e4dd2d93c6d4745d8e6b29d3e39e47",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v1_failed_preflight/transition_expert.py"
+    },
+    {
+      "source": "phase_f/tests/test_goal_transition.py",
+      "sha256": "9bcf8f3a3e0488ece6c2723ec6c511ae9d4d5a29216f739e6c82b6e4fc6dbb7c",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v1_failed_preflight/test_goal_transition.py"
+    },
+    {
+      "source": "outputs/phase_f/goal_r1_transition_v1/logs/driver_status.json",
+      "sha256": "8cc4527655fd0cb5814571ef19936f6ac760abeefe6422218ee95a03418aa6b4",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v1_failed_preflight/driver_status.json"
+    },
+    {
+      "source": "outputs/phase_f/logs/transition_smoke_v1_20261006.log",
+      "sha256": "bc3cbff582e7e3e1ea5ee75caa45ac40685c7135f1c85df4aa9768191a499a90",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v1_failed_preflight/transition_smoke_v1_20261006.log"
+    },
+    {
+      "source": "outputs/phase_f/logs/revision_20261006/run_transition_v1.ps1",
+      "sha256": "23ec7705333a206fff665c11555fed68e81fc9d70690763500604dcdafd270bc",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v1_failed_preflight/run_transition_v1.ps1"
+    }
+  ],
+  "holdout_read": false,
+  "goal_achieved": false
+}
