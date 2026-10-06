@@ -410,3 +410,5 @@
 - FG-R3 production도 5시드·40모델·102427행의 실제 평균재구성/해시/미래교란·평가필드가 일치한다. MAE7.381869/Peak15.219415/h4 6.209342/h16 8.642189/nMAE7.860058%로 모든 목표 미달이며 기존 bestguard보다 악화하여 불채택한다. 검증근거 SHA bcf1e4e5060a01929f82799416d837629b7deea07bd114b978ee3a6f80257541.
 
 - 연구관리 build/check는 통과했다. 연구관리 unittest는 임시폴더 권한 오류 후 실제 환경에서 재실행해 10개 통과, symlink 생성이 필요한 2개는 Windows WinError1314로 assertion 전에 실행 불가다. 보안설정은 변경하지 않았고 전체12개 통과로 표현하지 않는다. R5 관련 실제 root검사는29개 통과다.
+
+- FG-R5 실제4설정×첫fold·13h 기술 실행(session49037 exit0)과 root실제 저장파일 검증(session86052 exit0)을 마쳤다. 계획 SHA05357b02aa6c7a9714b4b8f5f64290eb99f231784935281470350ab9b9110df1; physicalcheckpoint·STOP혼합 재선정·전13h 미래값/quality 교란의 unblended/rank/reference 및 blend 불변성·실제 replay wrapper/원본 불변/별도physical D경로를 확인했다. 고정4설정의 마지막 전체 EXPLORE 평가를 session17563로 실행했고 아직 최종 점수 미집계다. 종료 후 추가 탐색 없이 pause한다.
