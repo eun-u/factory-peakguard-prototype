@@ -1,0 +1,11 @@
+{
+  "policy_sha256": "449e5bd04947c22fb8fe53e8f7a495e523e4d8b09a1b1d8871e96effea32f356",
+  "status": "verified_pending_entry_barrier",
+  "message": "Absolute-goal integration is pending. Keep Stage 4 closed until the completed goal experiments identify one locked representative within the seven-finalist cap; then implement and review a single shared CONFIRM transaction. Changing this policy to ready does not authorize CONFIRM. The holdout remains sealed.",
+  "real_project_policy_used": true,
+  "legacy_access_spies_not_called": true,
+  "final_lock_files_created": false,
+  "candidate_confirm_metric_read": false,
+  "holdout_read": false,
+  "goal_achieved": false
+}

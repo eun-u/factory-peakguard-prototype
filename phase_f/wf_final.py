@@ -286,6 +286,8 @@ def _completion_artifacts(prepared,view,pc3):
 
 
 def run_final(prepared):
+    from phase_f.goal_confirm_gate import require_stage4_entry
+    require_stage4_entry(prepared)
     from phase_f.workflow import _git_commit
     registry=WFRegistry(prepared.root)
     lockpath=prepared.out/'logs/confirm_lock.json';reservation=prepared.out/'logs/confirm_reservation.json'
