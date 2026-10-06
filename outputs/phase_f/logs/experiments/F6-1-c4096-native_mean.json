@@ -15,7 +15,7 @@
   "note": "",
   "started_at": "2026-10-03T10:24:35.414374+00:00",
   "pid": 51640,
-  "updated_at": "2026-10-03T10:51:49.207526+00:00",
+  "updated_at": "2026-10-06T10:13:23.978975+00:00",
   "explore_AUC_MAE": 7.989301107682037,
   "explore_AUC_PeakMAE": 16.477330704206565,
   "D2_explore_AUC_MAE": 8.41506344078126,
@@ -27,5 +27,8 @@
   "fold1_MAE": 6.295869277728783,
   "fold2_MAE": 7.00181498749785,
   "wall_sec": 3.8978649999480695,
-  "leakage_test": "passed"
+  "leakage_test": "passed",
+  "duplicate_of": "F6-1-c4096-median",
+  "exclude_duplicate_from_new_search": true,
+  "duplicate_reason": "chronos-forecasting 2.3.2 native mean equals q0.5; implementation and EXPLORE predictions agree exactly"
 }

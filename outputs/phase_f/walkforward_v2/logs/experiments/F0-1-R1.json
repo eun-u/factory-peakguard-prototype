@@ -1,0 +1,20 @@
+{
+  "exp_id": "F0-1-R1",
+  "family": "F0",
+  "tier": 0,
+  "parent_exp": "",
+  "config_json": "{\"adapter\":\"foundation\",\"context_length\":2048,\"family\":\"F0\",\"finetune\":false,\"id\":\"F0-1-R1\",\"point\":\"median\",\"tier\":0,\"verify_determinism\":true}",
+  "config_hash": "81c289543719d0118058607aeb6ffb6cd9293610c8a904f30203ab04f0cc8d95",
+  "code_commit": "dbbaf56bdb61c1e5f6242b3187500589f348ad14",
+  "source_digest": "9b3f2eef167bed2f57870a77a60d782c009c960d8867d89667aa4362df579fff",
+  "status": "running",
+  "created_at": "2026-10-06T10:32:09.555706+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": "",
+  "started_at": "2026-10-06T10:48:46.007812+00:00",
+  "updated_at": "2026-10-06T10:48:46.007911+00:00",
+  "error_type": "ValueError",
+  "error": "Unknown finetuning mode"
+}

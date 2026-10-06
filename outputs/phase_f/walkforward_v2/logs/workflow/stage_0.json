@@ -1,0 +1,11 @@
+{
+  "stage": 0,
+  "started_at": "2026-10-06T10:32:09.111886+00:00",
+  "status": "running",
+  "updated_at": "2026-10-06T10:48:45.562287+00:00",
+  "arm": "EXPLORE",
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "error_type": "RuntimeError",
+  "error": "Weekly baseline prediction incomplete: F0-1-R1"
+}

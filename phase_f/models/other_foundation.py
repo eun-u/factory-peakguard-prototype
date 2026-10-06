@@ -59,7 +59,8 @@ def configurations() -> list[dict]:
     return [
         {"id": f"F6-5-{kind}-c{length}", "family": "F6", "tier": 2,
          "adapter": "other_foundation", "kind": kind, "context_length": length,
-         "point": "median", "prediction_length": PREDICTION_LENGTH}
+         "point": "median", "prediction_length": PREDICTION_LENGTH,
+         "verify_determinism": True}
         for kind in MODELS for length in (512, 2048)
     ]
 

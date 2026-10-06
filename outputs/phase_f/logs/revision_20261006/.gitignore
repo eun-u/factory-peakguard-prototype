@@ -1,0 +1,3 @@
+# Preserve only Python source snapshots; model weights remain ignored elsewhere.
+!source_before_revision/models/
+!source_before_revision/models/*.py

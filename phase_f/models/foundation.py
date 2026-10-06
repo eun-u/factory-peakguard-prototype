@@ -23,7 +23,7 @@ def recover_finetune_timing(state):
 
 
 def require_finetune_mode(mode):
-    if mode not in (None,'full','lora'):
+    if mode is not None and mode is not False and mode not in ('full','lora'):
         raise ValueError('Unknown finetuning mode')
     if mode=='lora':
         if importlib.util.find_spec('peft') is None:
@@ -120,6 +120,15 @@ def configurations():
     return rows
 
 
+def _fold_groups(contexts, fit_mode):
+    if not fit_mode:
+        return (-1,)
+    groups = tuple(sorted({fold for _, fold in contexts}))
+    if not groups or any((16, fold) not in contexts for fold in groups):
+        raise ValueError('Fine-tuning requires an h16 fit/stop context for every fold')
+    return groups
+
+
 def run(prepared,spec):
     import torch
     from chronos import Chronos2Pipeline
@@ -142,7 +151,9 @@ def run(prepared,spec):
     cache_id=config_hash(cache_spec)[:20]
     work=out/'models'/f'chronos_{cache_id}'
     work.mkdir(parents=True,exist_ok=True)
-    folds=(0,1,2) if fit_mode else (-1,)
+    # Weekly walk-forward contexts use sealed week IDs, while Phase C uses
+    # folds 0..2.  Derive fine-tune groups from the supplied context keys.
+    folds=_fold_groups(prepared.contexts,fit_mode)
     frames=[]
     audit={'model_revision':info['revision'],'cache_id':cache_id,'input_spec':cache_spec,
            'native_mean_is_median':True,'integrated_mean_tail_policy':'flat tails outside q.01..q.99',

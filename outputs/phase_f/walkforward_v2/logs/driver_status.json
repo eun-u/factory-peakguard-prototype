@@ -1,0 +1,9 @@
+{
+  "status": "running",
+  "stage": "all",
+  "pid": 26204,
+  "started_at": "2026-10-06T10:48:45.555310+00:00",
+  "full_phase_complete": false,
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

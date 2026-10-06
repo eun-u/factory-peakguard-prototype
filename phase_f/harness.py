@@ -140,8 +140,10 @@ class Prepared:
 
     def origins(self,horizon,fold,role):
         c=self.contexts[(horizon,fold)]
-        if role=='cal':
-            return c['cal']
+        if role in ('fit','stop','cal'):
+            return c[role]
+        if role!='score':
+            raise ValueError('Unknown prediction role')
         return pd.DatetimeIndex(self.keys.loc[self.keys.horizon.eq(horizon)&self.keys.fold.eq(fold),'origin'])
 
     def validate_predictions(self,frame):

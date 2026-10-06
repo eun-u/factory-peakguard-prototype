@@ -385,6 +385,11 @@ def dispatch_stage(prepared, stage, *, retry=False):
 
 
 def main():
+    # The human's revised protocol replaces the default search geometry.
+    # Original functions remain callable for immutable pc3 reproduction.
+    if (Path.cwd()/'outputs/phase_f/logs/active_revision.json').is_file():
+        from phase_f.wf_run import main as weekly_main
+        return weekly_main()
     parser=argparse.ArgumentParser()
     parser.add_argument('--stage')
     parser.add_argument('--exp')

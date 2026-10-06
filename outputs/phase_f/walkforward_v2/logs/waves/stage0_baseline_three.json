@@ -1,0 +1,43 @@
+{
+  "name": "stage0_baseline_three",
+  "hypothesis": "Fit fixed B5, M1 and R1 on every weekly fold before scoring",
+  "specs": [
+    {
+      "adapter": "baseline",
+      "baseline": "B5",
+      "family": "F0",
+      "id": "F0-1-B5",
+      "tier": 0
+    },
+    {
+      "adapter": "baseline",
+      "baseline": "M1",
+      "family": "F0",
+      "id": "F0-1-M1",
+      "tier": 0
+    },
+    {
+      "adapter": "foundation",
+      "family": "F0",
+      "id": "F0-1-R1",
+      "tier": 0,
+      "context_length": 2048,
+      "point": "median",
+      "finetune": false,
+      "verify_determinism": true
+    }
+  ],
+  "config_sha256": "0fee211f8e6a8351532ec0eb618b2c003163a605305bf891bd25a58214e93092",
+  "selection_arm": "EXPLORE",
+  "original_source": {
+    "config_sha256": {
+      "F0-1-B5": "1d9277772a536d3aba4822ff30bfbaecf98292c49299b61f268938880a4bb623",
+      "F0-1-M1": "386ae4d72947c6a9129d48fb554f379b37a5c428622da81d0ec129be955d3cc4",
+      "F0-1-R1": "1b4293e1eb55d07544dfd555ed4fdba3bcf5fa0908d9df73344461fb167c618e"
+    }
+  },
+  "skipped_aliases": [],
+  "locked_at": "2026-10-06T10:32:09.177308+00:00",
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

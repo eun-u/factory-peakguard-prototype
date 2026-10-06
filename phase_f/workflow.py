@@ -129,24 +129,34 @@ def _progress(prepared, stage):
 def _git_commit(prepared, message):
     """Commit only explicit Phase F code and small evidence, never model data."""
     root = prepared.root
-    allowed = []
+    allowed = [root/name for name in ('DECISIONS.md','PROGRESS.md') if (root/name).is_file()]
     for folder, dirs, files in os.walk(root / "phase_f", topdown=True):
         dirs[:] = [name for name in dirs if name not in ("__pycache__", ".pytest_cache", "_workflow_tmp")
                  and not name.startswith(("pytest", "test_", "_tmp"))]
         allowed.extend(Path(folder) / name for name in files if Path(name).suffix in (".py", ".md")
                        and not (Path(folder) / name).is_symlink())
     out = prepared.out
+    central = root/'outputs/phase_f'
+    if out != central:
+        allowed.extend(p for p in (central/'registry.csv',central/'logs/active_revision.json',
+            central/'logs/walkforward_lock.json',out/'.gitignore') if p.is_file())
+        revision = central/'logs/revision_20261006'
+        if (revision/'.gitignore').is_file():allowed.append(revision/'.gitignore')
+        allowed.extend(p for p in revision.rglob('*') if p.is_file() and p.suffix in ('.md','.json','.csv','.py'))
+        allowed.extend(p for length in (512,1024,2048,4096,8192)
+                       if (p := central/'logs/experiments'/f'F6-1-c{length}-native_mean.json').is_file())
     blocked = {"optional_envs", "env", "cache", "models", "predictions", "tests_tmp", "test_scratch",
                ".pytest_cache", "__pycache__"}
     for folder, dirs, files in os.walk(out, topdown=True):
         relative_folder = Path(folder).relative_to(out)
         if relative_folder == Path("."):
-            dirs[:] = [name for name in dirs if name in ("logs", "tables", "figures")]
+            dirs[:] = [name for name in dirs if name in ("logs", "tables", "figures", "finalists_v2", "pc3_finalists")]
         else:
             dirs[:] = [name for name in dirs if name not in blocked and
                      not name.startswith(("pytest", "test_", "_tmp"))]
         allowed.extend(Path(folder) / name for name in files
                        if Path(name).suffix in (".md", ".csv", ".json", ".png") and
+                       name != 'score_probabilities.csv' and
                        not name.startswith(("pytest", "test_", "_tmp")) and
                        not (Path(folder) / name).is_symlink())
     if not allowed:

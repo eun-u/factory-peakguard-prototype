@@ -263,3 +263,18 @@
 - EXPLORE AUC-MAE: B5 11.767887, R1 7.800386, 수정 MSTL 15.512561. R1 피크 악화 차이 CI 상한은 +2.308541로, 엄격한 피크 보호 자격은 아직 통과하지 못한다. 이전 전체 개발 수치와 평가 날짜가 다르다.
 - 수정 회귀 합성 검사 14개 통과. 내부 특징 순위·log1p 보정에 horizon embargo 추가. 원래 환경 보존, 새 Phase F 환경에 선택 의존성 설치.
 - Stage 1 Chronos 문맥 실험 실행 중. CONFIRM 지표와 최종 holdout은 미열람. 다음은 특징/목표·모델 계열별 실험과 잠금 선정 절차의 완성이다.
+
+## 2026-10-06 Phase F 주별 재평가 전환
+
+- 기존 실행은2026-10-04 00:41 KST 다중 horizon 학습행 오류로 중단됐다. Prepared.origins의 fit/stop 반환 오류를 수정했고, 기존 결과는 보존했다.
+- R1 전체 개발 parity 및 native_mean 중복, 순수 calendar/미래값 perturbation 점검 완료. 보호803개 파일 해시 유지.
+- 주별 split 잠금 생성: EXPLORE64,779행/8주, CONFIRM76,128행/9주. 후보 CONFIRM 지표 미평가, holdout 미사용.
+- 주별 모델·5/10 seed·고정 Phase E·후보 선정 구현을 통합 검증 중이다. 새 실험 성능은 아직 산출되지 않았다. 재현 실행은 `python -m phase_f.run --stage all`이며 활성 개정판은walkforward_v2다.
+
+## 2026-10-06 Phase F 개정 구현 및 전체 실험 재개
+
+- 주별 walk-forward, stochastic 5 seed/최종 10 seed 평균 예측 평가, 완료 500회 GBDT TPE, H1 조건부 피처 전파, 고정 Phase E 및 일회 CONFIRM/최종 보고서 경로를 구현했다. 학습 완료·성능 개선·상용 적합성은 아직 판정하지 않았다.
+- 최종 통합 합성/회귀 테스트 98개 통과. 독립 검토에서 발견한 감사 해시·CONFIRM 예약·평가 불가 결과의 재개 검증을 수정했다. 보호 대상 803개 파일 해시 재검증 통과.
+- B5/M1의 104개 EXPLORE 주차·horizon 셀 예측 저장 완료. R1 최초 시도는 explicit zero-shot `finetune=False` 검증 오류로 중단됐으며 원 기록을 별도 보존했다. 검증기를 수정한 후 기존 B5/M1 해시를 확인해 재사용했다.
+- 2026-10-06 19:48:45 KST 전체 드라이버 재개(PID 26204). R1 실제 GPU 추론 진행 중; fresh cache 반복 검증 이후 Stage 1~4가 순차 실행된다. 진행 상태는 outputs/phase_f/walkforward_v2/logs/driver_status.json, 로그는 outputs/phase_f/logs/revised_full_resume_20261006.log다.
+- 후보 CONFIRM과 holdout은 현재 미평가. 후보 CONFIRM은 검색 완료 및 설정·소스·예측의 커밋 잠금 후 예약된 경로에서만 수행한다. 이번 개정안은 자동 GitHub push·배포·현장 제어를 승인하지 않는다.
