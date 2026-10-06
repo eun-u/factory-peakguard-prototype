@@ -318,3 +318,18 @@
 - 시간 표현을 source·실제EXPLORE target_time-origin으로 재검증:15분 간격이므로h4=60분,h16=240분이다. 채팅에서15~60분이라 표현한 것은 오류였으며1~4시간으로 정정했다. h4..h16과4.5/9/3.5/5.5/5% 수치·실제코드 평가범위는변경하지 않는다. 전력 물리 단위는UNKNOWN이다.
 - 기존 --stage all이 목표대표 준비 전에 provisional finalist lock을 쓸 수 있음을 독립검토로 확인했다. 모델cache ID에는포함되지않는wf_final 진입에 fail-closed gate를 넣고 signed integration_pending 정책을 실제프로젝트에서 활성화했다. 잠금4개가모두없음을확인하고 registry/search/artifact read spies로원래run_final 진입차단을검증했다. 실제CONFIRM/holdout을읽지않았고24개기존+신규Stage4테스트통과·독립검토완료다. 정책status를ready로바꾸는우회는허용하지않는다. 실제단일final통합은여전히pending이다.
 - 고정guard30개 전체완료: 목표충족0개, 최소MAE core/q95-suppress7.244040/13.868104. LoRA c512/s100은8주·13h·5개실제seed전체완료했고10.729452/19.223075로 R1대비악화해불채택이다. 전체MAE improvement CI[-5.072168,-1.918269], peak degradation CI[-0.593472,10.019987]로기록한다. c512는R1의c2048과문맥길이가달라미세조정효과만의원인분리주장은하지않는다. c2048/s100은계속실행중이다.
+
+## 2026-10-06 FG-R3 수요 전환 가설과 재현 가능한 진단
+
+- 목표계속 실행에서 기존 실제LoRA PID11328/launcher1972/부모19436와 CUDA 사용을 확인했다. 원래전체PhaseF는194개완료M2fit checkpoint를 보존한 상태이며 LoRA 후자동재개가 유지된다. 관찰시간초과를 프로세스종료로 간주하거나 재시작하지 않는다.
+- `phase_f/goal_transition_diagnostics.py`로 봉인로더·원본R1 source identity·물리forecast SHA·locked EXPLORE cohort를 검증하고 진단을 재현했다. 64,779행 중 미래변화절대값>30은29.34%의행·49.94%의절대오차다. D2 42,276행에서도26.74%의행·53.98%의오차를 차지했다. 과거1시간>30하락 뒤 미래>30상승율은49.72%(전체13.89%), D2에서는45.62%(전체12.28%)다. 미래결과는 진단label이며 입력이 아니다.
+- RQ1/C01/C06·RQ3/C03에 연결한 FG-R3 전환방향 classifier+방향별 signed L1 변화폭 모델2개설정(전력만/완료생산추가)을 신규namespace에 준비한다. 고정설계는 `outputs/phase_f/goal_r1_transition_v1/TRANSITION_PLAN.md`. FIT-only 학습·STOP-only 혼합선택·실제5seed·13h·8주·물리cache/source/producer무결성·미래교란을 요구한다. 기존미세조정sources는수정하지않는다.
+- 구현·독립검토·실제smoke·전체실험은아직완료하지않았고 신규성능수치도없다. 이전대화의MAE3.5/Peak7 등은장기경쟁력제안이며 승인된4.5/9/3.5/5.5/5% 실행목표를소급변경하지않는다. 원래128재현·각GBDT500completed·PhaseE·실제10finalseed·단일≤7CONFIRM의전체범위를유지한다. 목표미달이며goalactive다.
+
+### FG-R3 구현·독립검토와 긴 문맥 LoRA 결과
+
+- 신규adapter/runner/검사3파일구현을완료했다. root최종집중검사12개통과이며 독립review에서metadata arm/spec/seed, 정확한8fold 물리checkpoint, 경로SHA/미래교란0, 5seed평균보조확률, 보호803파일/raw/split, 필수smoke 검증의누락을수정했다. 손상JSON/NUL·모델해시·payload를원본SHA·격리경로로기록후실패하며원본을재구성하지않는다. 독립최종review의미해결사항0개다. 실제preflight/fit/성능수치는이기록시점아직없다.
+- 설계review는정확한t-4/t-16 ramp를기존t-3/t-15 trend와구분했고, 완료생산ffill의더오래된시간대대체/결측counts와게시지연0가정을명시하게했다. SCORE확률logloss/Brier·전환class별point/peakMAE를추가하되평가용이며추가선정/확률보정/PhaseE성공으로쓰지않는다.
+- 관리문서build/check통과다. 연구회귀검사는workspace임시경로에서10개통과, 파일symlink생성2개는Windows권한WinError1314로실행불가이며12개전체통과로주장하지않는다. 관련기록은transition_preimplementation_state.json이다.
+- LoRA c2048/s100이8주·13h·5개실제seed전체완료했다. MAE7.323731/Peak14.356270/h4 5.804229/h16 8.786282/nMAE7.79815%로목표미달이다. R1대비전체개선0.008516 CI[-0.006607,0.024380]는0을포함하고, peak악화0.049979 CI[0.019998,0.092546]는명목상0미포함이다. 이고정100step설정은채택하지않지만fine-tuning전체불가능으로일반화하지않는다. 전력평균최선guard7.244040/13.868104는유지된다.
+- LoRA전체wave종료후원래phase_f.run --stage all --retry의실제launcher27880/worker27432를확인했다. 기존부모19436/session52644의자동재개다. 상태파일만으로실행을판단하지않았고누락된예상resume4로그를종료증거로쓰지않는다. 실제전체실험은계속진행하며Stage4통합pending진입장벽은유지한다.

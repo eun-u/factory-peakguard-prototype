@@ -293,3 +293,11 @@
 - 100steps/50step 평가/patience3에서는 조기종료가 발생할 수 없다. STOP-only validation 및 best-checkpoint selection으로 기술한다. 단일주/seed smoke는 기술적 실행·누수 증거이고 성능 순위나5seed 완료로 쓰지 않는다.
 - 주 모델 코드는 수정하지 않고 goal_foundation.py와 별도 FT namespace/계획을 추가한다. baseline3개 물리 파일 및 arm/selfSHA, 전체 cache_spec/cache_id, 정확한 모델 checkpoint 파일 집합, 실제5개 parquet 평균과 소스/runtime/snapshot의 장시간 실행 전후 무결성을 검사한다. interrupted fit의 유효 모델은 physical 검증을 요구하고 소요시간은UNKNOWN을 보존한다.
 - RQ1/C01/C06과RQ3/C03 개발 탐색 증거이며 첫 잔차 결과를 관찰한 뒤 만든 후속 가설임을 공개한다. 원래128개 재현·GBDT 각500completed·상위20+baseline PhaseE·단일≤7final union·최종10seed·독립WF/pc3 요구를 면제하지 않는다. holdout/상용성 증명/배포/push는 별도이며 이번 실행으로 주장하지 않는다.
+
+## 2026-10-06 FG-R3 전환 예측 후속 설계
+
+- 큰수요변화가EXPLORE/D2오차의약절반을차지한다는재현진단을본뒤설계한다. 신규전환임계30은사후가설선택이며 기존사전등록이나 독립검증으로기술하지않는다. 미래전환방향은FIT/STOP label과SCORE 평가용으로만쓰고추론입력은원점가용정보만사용한다.
+- 전력전환분류3클래스와각클래스L1변화폭을결합한 FG-R3-transition-power / FG-R3-transition-production 두설정을고정한다. 후자는시간끝까지완료된생산량만추가하여제거비교한다. STOP pooledMAE+.25pooledPeakMAE로고정alpha grid를고르며공식목표의13h동일가중평균과구분한다. 결측클래스나0peak를허위0오차로대체하지않는다.
+- 기존Chronos생성경로·학습중sources·고정성공목표·확정평가경계를유지한다. 최근장기경쟁력목표제안은기존사용자승인수치의변경승인이아니다. FG-R3 기술검증과성능실험을추가하는것은사용자가허용한유망변형확장범위이며, 원래전체PhaseF예산/실험/최종독립검증요구를줄이지않는다.
+- 독립설계/구현review에서완료생산의오래된시간대대체·게시지연가정, 확률mixture품질평가, 실제8fold/5seed checkpoint와metadata/원자료/상위모델snapshot의물리무결성, 손상원본SHA기록을보완했다. 새실제실험은동결된계획과구현으로기술smoke부터수행한다. 실제모델 성능은테스트통과로주장하지않는다.
+- 긴문맥c2048/s100 LoRA는7.323731/14.356270로목표미달·R1대비명목peak악화CI양수이므로현재설정은불채택이다. c512악화를미세조정전체의실패로일반화하거나원래전체탐색예산을줄이지않는다.
