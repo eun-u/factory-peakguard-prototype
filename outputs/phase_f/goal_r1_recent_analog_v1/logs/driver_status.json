@@ -1,0 +1,11 @@
+{
+  "status": "completed_explore_stage",
+  "stage": "search",
+  "at": "2026-10-06T15:27:01.219134+00:00",
+  "candidate_count": 4,
+  "full_explore_search_complete": true,
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

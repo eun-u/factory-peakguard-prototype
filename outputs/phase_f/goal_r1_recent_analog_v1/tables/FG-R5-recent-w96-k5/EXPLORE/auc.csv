@@ -1,0 +1,3 @@
+dataset,model,n_horizons,n_available_horizons,AUC_MAE,AUC_PeakMAE,AUC_PredPeakMAE,auc_definition
+D1,FG-R5-recent-w96-k5,13,13,8.987624688580517,14.18983988393072,10.166239175976045,mean of 13 pooled horizon metrics
+D2,FG-R5-recent-w96-k5,13,13,9.417195771881453,14.568371154643872,9.87249729958614,mean of 13 pooled horizon metrics

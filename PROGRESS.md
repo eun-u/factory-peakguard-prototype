@@ -412,3 +412,10 @@
 - 연구관리 build/check는 통과했다. 연구관리 unittest는 임시폴더 권한 오류 후 실제 환경에서 재실행해 10개 통과, symlink 생성이 필요한 2개는 Windows WinError1314로 assertion 전에 실행 불가다. 보안설정은 변경하지 않았고 전체12개 통과로 표현하지 않는다. R5 관련 실제 root검사는29개 통과다.
 
 - FG-R5 실제4설정×첫fold·13h 기술 실행(session49037 exit0)과 root실제 저장파일 검증(session86052 exit0)을 마쳤다. 계획 SHA05357b02aa6c7a9714b4b8f5f64290eb99f231784935281470350ab9b9110df1; physicalcheckpoint·STOP혼합 재선정·전13h 미래값/quality 교란의 unblended/rank/reference 및 blend 불변성·실제 replay wrapper/원본 불변/별도physical D경로를 확인했다. 고정4설정의 마지막 전체 EXPLORE 평가를 session17563로 실행했고 아직 최종 점수 미집계다. 종료 후 추가 탐색 없이 pause한다.
+
+
+### 2026-10-07 FG-R5 최종 검증 및 사용자 중지
+
+- 실제 search session17563 exit0 및 root full verifier session22380 exit0. 4설정/64physical모델/각102427행 primary와 fresh exact replay 및 평가7필드 재계산, 전28개 score artifact SHA와 모든 목표판정 의미를 확인했다.
+- 네 설정 모두 다섯 목표 미달. 평균 최선 w16/k3는 MAE7.528010/Peak11.621093/h4 5.607685/h16 9.663053/nMAE8.015654%. 기존 guard대비 peak 점추정 감소/평균 악화이며 D1/D2 평균·피크 CI는 모두0포함이다. 확정적 개선·출시 승격·상용성으로 표현하지 않는다.
+- 사용자 지시대로 이후 변형/새 학습/자동재개를 중지한다. 원래 모델406/520·시드3/5를 물리SHA로 재확인해 보존했고 원래 Stage1 및 나머지 예산/최종 검증은 미완료다. 결과·중지/재개문·검증근거는 logs/revision_20261006/user_pause_20261007에 저장한다. 목표 paused 요청, goal_achieved=false, holdout/history-final 미열람.

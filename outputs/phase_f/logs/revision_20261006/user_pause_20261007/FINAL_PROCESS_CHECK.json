@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-06T15:31:00.7931193Z",
+  "method": "elevated Win32_Process CIM",
+  "repository_python_process_count": 0,
+  "processes": [],
+  "original_worker_and_launcher_exited": true,
+  "transition_exited": true,
+  "recent_search_and_verification_exited": true,
+  "automatic_resume": false,
+  "goal_status_request": "paused",
+  "goal_achieved": false,
+  "holdout_read": false
+}
