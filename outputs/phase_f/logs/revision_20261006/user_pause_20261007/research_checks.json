@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-06T15:18:03.769762+00:00",
+  "build": {
+    "exit_code": 0,
+    "holdout_read": false,
+    "training_executed": false
+  },
+  "check": {
+    "exit_code": 0,
+    "holdout_read": false,
+    "training_executed": false
+  },
+  "unit_tests": {
+    "passed": 10,
+    "environment_errors": 2,
+    "total": 12,
+    "exit_code": 1,
+    "reason": "Windows WinError1314 creating symbolic links; tests stop before assertions in two cases",
+    "sandbox_first_attempt": "temporary-directory WinError5; rerun outside sandbox",
+    "security_settings_changed": false
+  },
+  "model_focused_tests": {
+    "passed": 29,
+    "exit_code": 0,
+    "source_binding": "../recent_analog_v1_root_prelaunch_verification.json"
+  }
+}

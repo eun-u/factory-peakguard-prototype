@@ -339,3 +339,10 @@
 - 네고정FIT유사일설정을완전physicalfreshreplay/64모델/전체cohort/성능재계산으로검증했으나목표전부미달이다. 평균최선8.787123/14.200920이며최선guard7.244040/13.868104를바꾸지않는다. w96/k5의작은peak감소는평균악화이므로종합개선으로세지않는다. 실패/불리한결과를보존한다.
 - 사용자§3원점가용관측/§4(c)과거powercontext확장/§5.2-B주간fitting경계에따라, 새로운stateless causal seasonal retrieval feature를별도FG-R5로허용된범위안에서구현한다. §5.2의score학습금지는fit/alpha/tuning에적용하며추론은평가framey가아닌이미관측된rawhistory만사용한다. 기존seasonal/lag도같은원점가용관측을사용한다. 과거평가값과수치상동일한raw입력을읽을수있으므로SCORE값절대미열람으로표현하지않는다. 현재/미래target, SCORE-drivenweights/state변경, numericcandidateCONFIRM/holdout/과거finalartifact열람은금지한다.
 - FG-R5고정4설정/56일/STOP-onlyalpha/정확한미래교란불변성/독립physicalreplay/신규namespace/선택편향공개를요구한다. 그효과는미입증이며원래탐색budget/PhaseE/실제stochasticfinal10/단일≤7CONFIRM을대체하지않는다.
+
+
+## 2026-10-07 현재 검증 종료 후 사용자 중지
+
+- 사용자가 성능목표 미달이어도 검증 후 중지하도록 명시했다. FG-R5 현재 고정4recipe의 한 번 평가까지만 허용한다. 이후 탐색/추가fit/자동재개를 금지하고 실제 결과·체크포인트·미완료예산·재개문을 남겨 일시정지한다. 상용성·목표달성·최종평가 완료로 바꾸지 않는다.
+- 원래 PhaseF는 실제 소유 프로세스를 확인하여 종료했고 완료 checkpoint를 보존한다. M2 부분 시드 및 전체 Stage1/후속 예산을 완료했다고 집계하지 않는다.
+- FG-R3 production은 완전 5seed 검증에도 기존 최선보다 평균·피크가 모두 악화해 현재 고정 설정을 불채택한다. 원형전환모델 전체의 일반적 실패로 확대하지 않는다. CONFIRM/holdout 및 과거finalartifact는 이번에도 열람하지 않았다.

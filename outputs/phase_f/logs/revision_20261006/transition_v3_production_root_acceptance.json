@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-06T15:16:39.467170+00:00",
+  "independent_proof_sha256": "bcf1e4e5060a01929f82799416d837629b7deea07bd114b978ee3a6f80257541",
+  "root_current_prediction_mean_record_manifest_plan_hashes_verified": true,
+  "fields": {
+    "AUC_MAE": 7.381869021811736,
+    "AUC_PeakMAE": 15.219414633531876,
+    "AUC_nMAE": 0.078600578135145,
+    "h4_MAE": 6.209341847922477,
+    "h16_MAE": 8.64218897752454,
+    "h4_PeakMAE": 13.459995011965077,
+    "h16_PeakMAE": 16.586809546523646
+  },
+  "targets_met": false,
+  "decision": "reject current fixed production transition configuration",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

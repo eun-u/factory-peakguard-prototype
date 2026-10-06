@@ -400,3 +400,13 @@
 - w16/k3 9.108648/14.122079, w16/k5 8.787123/14.200920, w96/k3 10.184119/13.988902, w96/k5 9.828264/13.774114 (각MAE/Peak)다. 목표모두미달. 마지막설정의작은peak개선은큰평균악화를동반하며기존bestpeakguard에도미달하므로네설정모두불채택한다. 현재bestoverall7.244040/13.868104는유지한다.
 - read-only경계감사에서고정FITbank최신참조가각SCORE주보다23.7~48.2일오래됐음을확인했다. 새FG-R5는시점t에이미관측한rawpower에서t-d일(d1..56) referenceprefix/전체13suffix만조회하는stateless seasonal-inputfeature다. query이후target/evaluation-framey를입력하지않고tau/scales는FIT,혼합alpha는STOPonly, CAL/SCORE에서는fittedstate를갱신하지않는다. 이전평가기간raw값이후시점의관측입력이될수있다는점을명시한다.
 - 별도goal_r1_recent_analog_v1/RECENT_ANALOG_PLAN.md와CAUSAL_INPUT_CONTRACT.json을FG-R5fit/점수전고정했고 prefix16/96×k3/5의동일4recipe/최근56일을잠갔다. root가사용자개정prompt§3/§4(c)/§5.2-B와기존seasonal/lag코드를확인했으며독립designreview에정책상blocker없음이다. 모델/runner는각각새파일과새검사만구현중이고FG-R5실제fit/후보점수는아직없다. 기존공통source/실험/목표/원래전체예산/단일≤7최종union·integration_pending·holdout미열람은유지한다.
+
+
+### 2026-10-07 사용자 요청에 따른 현재 검증 후 중지
+
+- 사용자가 "검증 후 점수가 안나와도 멈춰"를 명시했다. 현재 FG-R5 고정 네 설정의 기술검증과 한 번의 EXPLORE 평가까지만 마무리한다. 점수 미달 또는 검증 실패라도 이후 변형·새 탐색을 시작하지 않는다. 목표 달성으로 처리하지 않으며 종료 시 goal을 paused로 기록한다.
+- FG-R5 최종 소스 29개 해시 결속, root 관련 검사 29개 통과(4.39초), 독립 구현 검토의 남은 조치 0개, STOP 원점 입력 16개 조합의 최소 청정 참조51개·top5 미달0을 확인했다. 실전 smoke를 session49037로 시작했다. 실행 결과는 아직 미집계다.
+- 기존 장기 원래 PhaseF actual worker27432의 CIM 생성시간·명령·부모를 재확인한 뒤 해당 프로세스만 종료했다. session52644의 wrapper가 exit0으로 닫혔지만 사용자 중단이며 전체 PhaseF 성공을 뜻하지 않는다. 사후 체크포인트 감사와 별도 PAUSED 근거를 보존한다. 기존 status/registry의 running 값은 역사적 마지막 쓰기이며 live 증거가 아니다.
+- FG-R3 production도 5시드·40모델·102427행의 실제 평균재구성/해시/미래교란·평가필드가 일치한다. MAE7.381869/Peak15.219415/h4 6.209342/h16 8.642189/nMAE7.860058%로 모든 목표 미달이며 기존 bestguard보다 악화하여 불채택한다. 검증근거 SHA bcf1e4e5060a01929f82799416d837629b7deea07bd114b978ee3a6f80257541.
+
+- 연구관리 build/check는 통과했다. 연구관리 unittest는 임시폴더 권한 오류 후 실제 환경에서 재실행해 10개 통과, symlink 생성이 필요한 2개는 Windows WinError1314로 assertion 전에 실행 불가다. 보안설정은 변경하지 않았고 전체12개 통과로 표현하지 않는다. R5 관련 실제 root검사는29개 통과다.
