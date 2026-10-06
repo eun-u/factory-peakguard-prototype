@@ -327,3 +327,8 @@
 
 - 기술 smoke 성공은 실제 전체 driver 인터페이스 검증을 대신하지 않는다. v1 전체 fit 이전 wrapper setter 오류를 실패 증거로 보존하고 출력 namespace만 v2로 분리한다. 실제 WeeklyPrepared source 복사 후 _arm_view EXPLORE 재구성으로 기존 primary 경로/코호트를 유지하며 distinct physical fresh replay를 검사한다.
 - 네 deterministic 과학적 설정과 승인 목표는 유지한다. root29검사/독립 interface review 통과는 실행 가능성 증거이며 새 성능 증거가 아니다. v2 새 실제 smoke·full primary/replay 확인 후에만 후보 성능을 보고한다.
+
+
+## 2026-10-06 FG-R3 power 탐색 판정
+
+- 완전5seed·40physicalcheckpoint·cohort/해시/평가재계산검증을완료했지만전체/피크오차모두기존최선보다악화했다. 현재고정전력전환설정은불채택한다. 생산추가설정이나전환모델전체의실패로일반화하지않으며목표달성·독립검증을주장하지않는다.

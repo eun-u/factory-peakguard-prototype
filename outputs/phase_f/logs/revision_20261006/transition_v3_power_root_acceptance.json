@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-06T14:40:22.450026+00:00",
+  "reviewer_proof_sha256": "5410a5548e6941b48b4eaa3b740f456dc9b2fd8337fb67b687152a0ce256ceef",
+  "physical_prediction_and_checkpoint_hashes_root_verified": true,
+  "source_runtime_plan_current_verified": true,
+  "target_fields_root_recomputed": {
+    "AUC_MAE": 7.496850602813849,
+    "AUC_PeakMAE": 15.756444435264873,
+    "AUC_nMAE": 0.07982487161118432,
+    "h4_MAE": 6.277322587679815,
+    "h16_MAE": 8.813698078598907,
+    "h4_PeakMAE": 13.598565634573564,
+    "h16_PeakMAE": 17.31471383770074
+  },
+  "seed_files_verified": 5,
+  "physical_weekly_models_verified": 40,
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false
+}

@@ -379,3 +379,9 @@
 - v1 네 설정의 첫 fold 기술 smoke와 root 물리 검증은 완료했으나 실제 전체 search는 _ArmView.out 읽기 전용 property에 값을 대입하여 전체 후보 fit/점수 집계 전에 종료했다(session40902 exit1). 기존 source/계획/로그/검증 14파일을 SHA와 함께 day_analog_v1_failed_replay_view에 보존했다. worker28540은 부재, launcher32156은 종료 후 svchost가 재사용한 PID이며 다른 프로세스를 종료하지 않았다.
 - 별도 goal_r1_day_analog_v2에서 mutable source를 복사하고 EXPLORE _ArmView를 재구성한다. 모델 source/네 과학적 설정/FIT support/평가 목표는 변경하지 않았다. 실제 wrapper 및 CONFIRM context 배제 회귀를 추가했고 root 집중검사29개 통과(6.92초), 독립 interface review의 잔여 지적0개다. 현재 v2 실제 smoke와 전체 평가가 아직 시작 전이며 목표 달성을 주장하지 않는다.
 - FG-R3 power는 5seed 결과 MAE7.496851/Peak15.756444로 기존 최선보다 나쁘며 불채택한다. root의 전체 물리 검증은 별도 진행중이다. production 설정과 original Phase F의 실제 실행을 CIM으로 확인했다. 최선7.244040/13.868104와 원래128/각500/PhaseE/final10/단일≤7CONFIRM·integration_pending·holdout미열람 경계를 유지한다.
+
+
+### FG-R3 power 전체 물리 검증 완료
+
+- 독립 탐색 agent가 plan/source/runtime/raw/split/parent/R1 producer를 전후 검증하고5개 실제seed파일/40개 실제weekly checkpoint/102427행 평균·64779행SCORE/9개평가표의identity·SHA·동일cohort·미래교란0을 확인했다. root가별도로5seed/40model의물리SHA와현재source/runtime/plan 및7개평가필드를재확인했다. 검증은 transition_v3_power_full_verification.json 및 transition_v3_power_root_acceptance.json에보존한다.
+- MAE7.4968506028/Peak15.7564444353/h4 6.2773225877/h16 8.8136980786/nMAE7.9824871611%로다섯목표전부미달이다. 최선guard대비 MAE0.252811/Peak1.888340 악화하므로 이전력전환설정은불채택이다. 생산추가설정은진행중이며파생평균결과를선행집계하지않는다.
