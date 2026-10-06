@@ -1,0 +1,84 @@
+{
+  "identity": "60f31ebae1ab0f79834f791884e7b98be7eb06786f02fb20fc4544952915cba3",
+  "config_hash": "81c289543719d0118058607aeb6ffb6cd9293610c8a904f30203ab04f0cc8d95",
+  "sha256": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf",
+  "prediction_sha256": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf",
+  "arm": "EXPLORE",
+  "audit": {
+    "arm": "EXPLORE",
+    "n_seeds": 1,
+    "seeds": [
+      {
+        "seed": 42,
+        "prediction_sha256": "04b642d82944d5bc99b06e36091e7c86dc05e35169ee3f1c3339b2cd4c4a99e2",
+        "auc_mae": 7.332247638581336,
+        "cache_reused": false,
+        "leakage_test": null,
+        "audit": {
+          "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+          "cache_id": "eccbacfe3dc0d273a321",
+          "input_spec": {
+            "adapter": "foundation",
+            "context_length": 2048,
+            "finetune": false,
+            "arm": "EXPLORE",
+            "seed": 42,
+            "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+            "quantiles": [
+              0.01,
+              0.05,
+              0.1,
+              0.15,
+              0.2,
+              0.25,
+              0.3,
+              0.35,
+              0.4,
+              0.45,
+              0.5,
+              0.55,
+              0.6,
+              0.65,
+              0.7,
+              0.75,
+              0.8,
+              0.85,
+              0.9,
+              0.95,
+              0.99
+            ],
+            "source_sha256": "8943eb422b32891c575b06f89169d9c5d9013acb618f6dd4e68210cde412232c",
+            "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8"
+          },
+          "native_mean_is_median": true,
+          "integrated_mean_tail_policy": "flat tails outside q.01..q.99",
+          "fit_cells": [
+            {
+              "fold": -1,
+              "train_seconds": 0.0,
+              "training_timing_status": "not_fitted",
+              "checkpoint_files": null,
+              "inference_seconds": 21.582851900067908,
+              "origins": 8121,
+              "future_perturbation_max_abs_difference": 0.0
+            }
+          ],
+          "historical_final_artifact_read": false,
+          "holdout_read": false
+        }
+      }
+    ],
+    "seed_auc_mae_mean": 7.332247638581336,
+    "seed_auc_mae_sd": 0.0,
+    "ranking_basis": "metric of mean prediction, not best seed",
+    "leakage_test": "requires_family_audit",
+    "fresh_determinism_check": {
+      "fresh_cache_identity": "c31e68e67607b6c7d58a548224cccb2e2927b194060478d5937f8f1ada3187a2",
+      "max_abs_prediction_difference": 0.0
+    },
+    "development_only": true,
+    "holdout_read": false
+  },
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}
