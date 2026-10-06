@@ -285,3 +285,12 @@
 - 실제 전체 horizon 입력으로 드러난 Phase E h16 필터 연결을 수정했다. Chronos의 실제 seed별 미래 교란 검사도 검증 후 누수 상태에 반영했다. 관련 추가 회귀 검사 27개 통과. 기존 R1 표는 별도 보존, 기준 예측 바이트 변화 0.
 - 8개 EXPLORE 주차 모두 후반 CAL 173행의 peak 양성 수가 0이라 Platt 보정의 두 클래스가 없고, 기준 세 모델의 Phase E는 unavailable이다. CAL 클래스 수를 cal_class_availability.json에 기록했고, 이 상태를 경보 자격 통과로 취급하지 않는다. 기존 기준·임계 또는 보정식을 변경하지 않았다. 경보까지 자격을 입증하려면 CAL 기간/분할을 별도의 개정 실험으로 검토해야 한다.
 - 수정본 로드 재개: 2026-10-06 19:54:36 KST PID 21428, Stage 1 기존 고유 설정 재평가 중. 현재 로그 outputs/phase_f/logs/revised_full_resume2_20261006.log. 전체 검색·최종 검증은 미완료다.
+
+## 2026-10-06 목표 성능 개선 실험 착수
+
+- 신규 goal_protocol/goal_r1/goal_r1_paths/r1_residual 모듈 구현. 기존 학습 핵심 소스와 보호 증거는 유지했다. 통합 관련 검사 16개 통과 및 독립 검토 수행; 실제 성능은 아직 미측정이다.
+- goal_r1_v1 baseline R1 EXPLORE 진단과 B5/M1/R1 해시 일치 사본 저장. FIT/STOP 누락 경로는 146819행이며 목표 학습에 앞서 생성해야 한다.
+- 첫 paths 실행 PID31440은 실제 Chronos의 list[tensor] 반환 처리 오류로 예측 청크 생성 전 실패했다. v1 manifest/log/status를 실패 증거로 보존한다. 반환 형식 및 교란 검사 수정 후 새 goal_r1_v2 namespace에서 재실행한다.
+- 전체 탐색 PID21428은 목표 경로 생성 동안 중단했고 M2 seed42 전체 104 fit transaction을 보존했다. 실제 재개 PID/로그는 후속 기록으로 남긴다.
+- 목표 달성 및 독립 확인은 미완료이며 현장 상용 적합성·경보 자격은 판정하지 않았다.
+- 수정본 v2 paths 실제 실행: 2026-10-06 20:35:51 KST PID32328, session55505, 로그 outputs/phase_f/logs/goal_r1_paths_v2_20261006.log. 기존 R1 첫/중간/마지막 앵커 156분위수 대조 최대 차이 0.000030517578125 <=0.0001; 동일 recipe 대조 통과. 실제 추가 11573 원점 중 첫2240 원점의 청크 생성 확인. 이 수치는 실행 진행이며 잔차 모델 성능 결과가 아니다.
