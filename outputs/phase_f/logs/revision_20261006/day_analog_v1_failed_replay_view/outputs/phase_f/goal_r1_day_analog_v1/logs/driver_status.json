@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "stage": "search",
+  "at": "2026-10-06T14:31:42.567414+00:00",
+  "error_type": "AttributeError",
+  "error": "property 'out' of '_ArmView' object has no setter",
+  "goal_achieved": false,
+  "holdout_read": false
+}

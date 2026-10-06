@@ -12,7 +12,6 @@ import pytest
 
 from phase_f import goal_day_analog as runner
 from phase_f.registry import config_hash, sha256, write_json
-from phase_f.wf_models import _arm_view, _ArmView
 
 
 def _frame(*, shift: float = 0.0) -> pd.DataFrame:
@@ -228,54 +227,6 @@ def test_support_table_reports_role_and_d2_fallback():
     d2 = result.loc[result.cohort.eq("D2")].iloc[0]
     assert d2.role == "score" and d2.analog_fallback_mean == 1.0
     assert d2.analog_support_mean == 0.0
-
-
-def test_fresh_replay_reconstructs_real_arm_view_without_changing_primary(
-        monkeypatch, tmp_path):
-    class Source:
-        def __init__(self, root, out, contexts):
-            self.root, self.out, self.contexts = root, out, contexts
-            self.history = pd.DataFrame()
-            self.split_lock = {"lock_sha256": "split"}
-            self.seal = {"raw_sha256": "raw"}
-
-        def origins(self, h, fold, role):
-            return pd.DatetimeIndex(self.contexts[(h, fold)][role])
-
-    contexts = {}
-    for h in range(4, 17):
-        for fold, origin in ((1, pd.Timestamp("2021-05-03 00:00")),
-                             (2, pd.Timestamp("2021-05-10 00:00"))):
-            contexts[(h, fold)] = {
-                "fit": pd.DatetimeIndex([origin - pd.Timedelta(days=10)]),
-                "stop": pd.DatetimeIndex([origin - pd.Timedelta(days=2)]),
-                "cal": pd.DatetimeIndex([origin - pd.Timedelta(days=1)]),
-                "score": pd.DatetimeIndex([origin]),
-                "target_time": pd.Series([origin + pd.Timedelta(minutes=15*h)],
-                                         index=pd.DatetimeIndex([origin])),
-            }
-    primary_out = tmp_path / "primary"
-    primary_out.mkdir()
-    (primary_out / "models").mkdir()
-    source = Source(tmp_path, primary_out, contexts)
-    primary = _arm_view(source, "EXPLORE")
-    assert isinstance(primary, _ArmView)
-    assert len(primary.contexts) == 13
-    assert {fold for _, fold in primary.contexts} == {1}
-
-    def local_models(link, target):
-        link.mkdir(parents=True, exist_ok=True)
-
-    monkeypatch.setattr(runner, "_junction", local_models)
-    replay = runner._replay_view(primary)
-    assert isinstance(replay, _ArmView)
-    assert replay.source is not source
-    assert primary.out == primary_out and source.out == primary_out
-    assert replay.out == primary_out / "fresh_replay"
-    assert list(replay.contexts) == list(primary.contexts)
-    assert all(replay.contexts[key] is primary.contexts[key] for key in primary.contexts)
-    assert {fold for _, fold in replay.contexts} == {1}
-    assert (replay.out / "models").resolve() != (primary.out / "models").resolve()
 
 
 def test_retry_after_scored_manifest_advances_to_next_spec_and_rejects_drift(

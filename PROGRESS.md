@@ -372,3 +372,10 @@
 - 새source/계획/검사증거를local41b3304에보존했다. FG-R4실제smoke session71106은14:24:49UTC에exit0으로완료됐으며4설정각fold1·13h·13442행·1개bank/weeklymodel을저장했다. 실제bank5377사례,STOP alpha .5/.25/.75/.75,모델선택·저장시간 .114714/.119620/.156452/.161995초이며변동시간은identity에넣지않는다. candidate전체성능점수는집계하지않았다.
 - root검증session17665는14:28:14UTC에exit0으로완료됐다. 동일29source/root28test결속·runtime/원자료/보호parent/split·249246R1paths/producerchunk와4개smoke의물리checkpoint/metadata/STOP재선택/cohort를재검증했다. 실제혼합예측과analog의미래power/quality_bad/time_repaired교란차이는모두0이다. plan_sha256=d3f3450f7097d8b2013291b92c9237274aa6f291db3a2325dad897ada681b9a5; 증거:day_analog_v1_smoke_verification.json.
 - root검증후같은동결계획의4설정×8주primary와별도physicalfreshreplay전체search를시작했다. session40902/worker28540/launcher32156을실제CIM으로확인했고driver는14:29:25UTC stagesearch running이다. 기존R3worker25236·originalfullworker27432도실제live였다. 현재새FG-R4전체성능결과는없고기존전체최선7.244040/피크13.868104로목표미달이다. 원래128/각500/PhaseE/final10stochastic/단일≤7CONFIRM/holdout미열람을유지하며goalactive다.
+
+
+### FG-R4 v1 전체 진입 오류 보존과 v2 재실행 준비
+
+- v1 네 설정의 첫 fold 기술 smoke와 root 물리 검증은 완료했으나 실제 전체 search는 _ArmView.out 읽기 전용 property에 값을 대입하여 전체 후보 fit/점수 집계 전에 종료했다(session40902 exit1). 기존 source/계획/로그/검증 14파일을 SHA와 함께 day_analog_v1_failed_replay_view에 보존했다. worker28540은 부재, launcher32156은 종료 후 svchost가 재사용한 PID이며 다른 프로세스를 종료하지 않았다.
+- 별도 goal_r1_day_analog_v2에서 mutable source를 복사하고 EXPLORE _ArmView를 재구성한다. 모델 source/네 과학적 설정/FIT support/평가 목표는 변경하지 않았다. 실제 wrapper 및 CONFIRM context 배제 회귀를 추가했고 root 집중검사29개 통과(6.92초), 독립 interface review의 잔여 지적0개다. 현재 v2 실제 smoke와 전체 평가가 아직 시작 전이며 목표 달성을 주장하지 않는다.
+- FG-R3 power는 5seed 결과 MAE7.496851/Peak15.756444로 기존 최선보다 나쁘며 불채택한다. root의 전체 물리 검증은 별도 진행중이다. production 설정과 original Phase F의 실제 실행을 CIM으로 확인했다. 최선7.244040/13.868104와 원래128/각500/PhaseE/final10/단일≤7CONFIRM·integration_pending·holdout미열람 경계를 유지한다.

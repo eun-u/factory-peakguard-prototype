@@ -321,3 +321,9 @@
 - prefix16/96관측×top3/5의4설정,최근FIT56calendar days,mean-centered L1/최근참조우선동률/inverse-distanceweightedmedian/원점levelshift/STOP-onlyalpha를수치평가전에고정한다. query까지의전력/qualityflag만입력한다. library의목표관측은모두FIT이며SCORE동안library를갱신하지않는다. 이후FITquery확장도self/futuretarget제외가필수다.
 - revisedprompt5.3-B의5/10seed는무작위모델반복이다. 이결정적검색은하나의distinctforecast로보고하고별도물리checkpoint에서전체freshreplay를검증한다. replay를독립seed또는추가통계표본으로집계하지않고stochasticSD는not_applicable로보존한다. 만일후속stochastic residual/gate를추가하면새설정·실제5seed·final10seed가필수다.
 - 통과/채택여부는원래목표와동일코호트D1/D2/주별/pairedCI로판단하며PhaseE불가를통과로바꾸지않는다. 독립CONFIRM연결에는별도deterministicfinaladapter/재현규칙이필요하고기존≤7union·singlereservation·integration_pending barrier를유지한다. 경쟁력3.5/7제안은승인실행목표변경으로간주하지않는다.
+
+
+## 2026-10-06 FG-R4 실제 wrapper 오류 회복
+
+- 기술 smoke 성공은 실제 전체 driver 인터페이스 검증을 대신하지 않는다. v1 전체 fit 이전 wrapper setter 오류를 실패 증거로 보존하고 출력 namespace만 v2로 분리한다. 실제 WeeklyPrepared source 복사 후 _arm_view EXPLORE 재구성으로 기존 primary 경로/코호트를 유지하며 distinct physical fresh replay를 검사한다.
+- 네 deterministic 과학적 설정과 승인 목표는 유지한다. root29검사/독립 interface review 통과는 실행 가능성 증거이며 새 성능 증거가 아니다. v2 새 실제 smoke·full primary/replay 확인 후에만 후보 성능을 보고한다.

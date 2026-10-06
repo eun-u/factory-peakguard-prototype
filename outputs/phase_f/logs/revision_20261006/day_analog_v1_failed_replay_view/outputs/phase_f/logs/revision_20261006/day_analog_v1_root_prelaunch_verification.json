@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-06T14:19:41.469073+00:00",
+  "root_focused_tests": {
+    "passed": 28,
+    "seconds": 6.11,
+    "exit_code": 0,
+    "command": [
+      "outputs/phase_f/env/Scripts/python.exe",
+      "-m",
+      "pytest",
+      "phase_f/tests/test_day_analog.py",
+      "phase_f/tests/test_goal_day_analog.py",
+      "-q",
+      "--basetemp",
+      "outputs/phase_f/test_scratch_day_analog_root_20261006"
+    ]
+  },
+  "independent_review": {
+    "agent": "review_frozen_analog",
+    "remaining_actionable_correctness_findings": 0,
+    "resolved": [
+      "STOP alpha and expected spec revalidation",
+      "bank audit and STOP coverage revalidation",
+      "distinct physical fresh replay and restart provenance"
+    ]
+  },
+  "source_sha256": {
+    "phase_c/data.py": "fee8922ed85bec860d9870f85d5eeeeeb29dc61fb74ee692e3aabab5ca9600fb",
+    "phase_f/features_ext.py": "0db3fbd4b23d9a26164b955df9463c02e9ceef51cb40cfca2fa7c096fab641aa",
+    "phase_f/goal_day_analog.py": "0e69fbd20df6ad64c809e492a62a0a898847610f29837ca1a950858616a0f73c",
+    "phase_f/goal_guard.py": "60c3d8c89d6bca99495488e76e6d90a4d82ea9556a68585b1a984b02c3d8ddfd",
+    "phase_f/goal_protocol.py": "6f746d3737251b53d4c530845c02db1ba0544ae5ea6cd922fe17ba30258ccd1c",
+    "phase_f/goal_r1.py": "0345aa562f9ff6f8165bda3d39deb896303a002be49e9d56898dc3e257219553",
+    "phase_f/goal_r1_paths.py": "e1450959cd6e2ef1138270efdc011ff6256bc3c0c880a59269e4c5409160b836",
+    "phase_f/goal_transition.py": "23b9dc322f235ee809fce4b360ea80025f6596cdc6135017d0b19205eac08f05",
+    "phase_f/goal_transition_diagnostics.py": "a11f81b8db8257894511b411a0505f8adf93bcd1e523166841c02b4332bd3cd8",
+    "phase_f/harness.py": "a716c1bf9f57f293519d9dd579677746f9101ee8e3cc385d8891af919a9d774d",
+    "phase_f/models/day_analog.py": "b1fd37e538cb61cc97a1bafca4f3762c9d7a9bfd6fb8e2eeba94b56b3847d795",
+    "phase_f/models/foundation.py": "8943eb422b32891c575b06f89169d9c5d9013acb618f6dd4e68210cde412232c",
+    "phase_f/models/r1_residual.py": "8dd0471de7c1bcd7b7c82286b1f3a6c2b7b0ed07aa1a17805f65d20835983ef2",
+    "phase_f/models/regression.py": "868473528a5d87e64f33bdda9b5db433b368ab13f2e8c6a50087e5f1631230c9",
+    "phase_f/models/transition_expert.py": "7d93c3e29e649b82752d9194cb4a4c5c41e4dd2d93c6d4745d8e6b29d3e39e47",
+    "phase_f/registry.py": "590a115219adfd429992f287c7c748c0b6dfb39b308f488da7482fed42ec955d",
+    "phase_f/run.py": "61f83fe944807b142f34c411f411c7449052b5fc6c38e378bee6988098fc623d",
+    "phase_f/tests/test_day_analog.py": "de3d1668b19ffa0611713c6e1a10bcb7885593998f9dcf8cbd39c9820e3b8528",
+    "phase_f/tests/test_goal_day_analog.py": "fef8f01fdf271a54a8d22bdb740a82461409bfb9abf69c913ae89a5163d1fbae",
+    "phase_f/wf_evaluation.py": "7df05e26ad8430725234837ad31a21a4af16d727aae4e2db188696369aaed2a1",
+    "phase_f/wf_final.py": "504987a2c01daacab75d2e078fc4611c928e410e9c1d1effa927d4aed503297d",
+    "phase_f/wf_harness.py": "177dab7c5bf39862ff2f77d69d347f96550fe14df155611b1f35af08b26dcefd",
+    "phase_f/wf_metrics.py": "4e09ad06b93c66be85b0821c50f6f0c45b5da623183ba545e62bdfbc7128d6f2",
+    "phase_f/wf_models.py": "cb4a5c03f754f1412ebcb1381927dc2bc4a6463689a42a344f8c534ecb4dac11",
+    "src/features.py": "fea2c9ecb6dc4b0c4ffeebc1abf26d60d1ca868a008918a038b544083416e647",
+    "src/holidays.py": "f37399c9c9c809f16f28858f9c7ad7caa86d8eff1d0e50597afb14f9096becf4",
+    "src/models/cbl.py": "66cdeb4e93b911850f945e6303f561811e287f647f21efab0b748975dddf3c0a",
+    "src/session_data.py": "abbc075063e10c3e6a8b705c042c5ed83384a5312da10ed9664c6a4336e625f8",
+    "src/targets.py": "11f19a971c0f1ee06bbbc01e17847d98ccde170838da3c957746d1d5912758e1"
+  },
+  "design_sha256": "a58864144e397f36881da20ad13885ac041b6785249f2c73b7a9131ee6b84f7b",
+  "FIT_support_preflight_sha256": "8a9d8e85a73f5fc422405a0aa1df6b417d000a92a081a8e0f9a55e65a9a94c8d",
+  "smoke_completed": false,
+  "numerical_SCORE_computed": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}

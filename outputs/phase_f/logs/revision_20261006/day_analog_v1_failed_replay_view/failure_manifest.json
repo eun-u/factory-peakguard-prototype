@@ -1,0 +1,88 @@
+{
+  "created_at": "2026-10-06T14:34:47.724247+00:00",
+  "failure": "AttributeError: property out of _ArmView object has no setter",
+  "execution_session": 40902,
+  "exit_code": 1,
+  "worker_pid": 28540,
+  "launcher_pid": 32156,
+  "worker_absent": true,
+  "launcher_pid_reused_by": "svchost.exe created 2026-10-06T23:32:41.720742+09:00",
+  "full_candidate_fit_started": false,
+  "full_score_aggregated": false,
+  "four_technical_smokes_completed": true,
+  "models_and_predictions_retained_in_v1": true,
+  "source_commit": "41b3304",
+  "evidence_commit": "3360971",
+  "files": [
+    {
+      "path": "phase_f/goal_day_analog.py",
+      "sha256": "0e69fbd20df6ad64c809e492a62a0a898847610f29837ca1a950858616a0f73c",
+      "bytes": 31083
+    },
+    {
+      "path": "phase_f/models/day_analog.py",
+      "sha256": "b1fd37e538cb61cc97a1bafca4f3762c9d7a9bfd6fb8e2eeba94b56b3847d795",
+      "bytes": 31213
+    },
+    {
+      "path": "phase_f/tests/test_goal_day_analog.py",
+      "sha256": "fef8f01fdf271a54a8d22bdb740a82461409bfb9abf69c913ae89a5163d1fbae",
+      "bytes": 15655
+    },
+    {
+      "path": "phase_f/tests/test_day_analog.py",
+      "sha256": "de3d1668b19ffa0611713c6e1a10bcb7885593998f9dcf8cbd39c9820e3b8528",
+      "bytes": 13663
+    },
+    {
+      "path": "outputs/phase_f/goal_r1_day_analog_v1/DAY_ANALOG_PLAN.md",
+      "sha256": "a58864144e397f36881da20ad13885ac041b6785249f2c73b7a9131ee6b84f7b",
+      "bytes": 7791
+    },
+    {
+      "path": "outputs/phase_f/goal_r1_day_analog_v1/logs/execution_plan.json",
+      "sha256": "12228c430aee5968d0fe14edc47b6e167f45c57a2ab14d17f361b9a9412b5df4",
+      "bytes": 53960
+    },
+    {
+      "path": "outputs/phase_f/goal_r1_day_analog_v1/logs/target_contract.json",
+      "sha256": "1f113df48e4aa130b5428dca5e61cbd6e063ebb2c88e3d324d37cebe15f3a06a",
+      "bytes": 1531
+    },
+    {
+      "path": "outputs/phase_f/goal_r1_day_analog_v1/logs/driver_status.json",
+      "sha256": "3bd9ddea8114c3a72d6b3509c0c6720b2d461984b39cb49a5f33747ce99526cd",
+      "bytes": 246
+    },
+    {
+      "path": "outputs/phase_f/logs/revision_20261006/run_day_analog_v1.ps1",
+      "sha256": "679d67e731048240a0c57bee78885391c2b529fb30478d0441670faa6b6db0bd",
+      "bytes": 1508
+    },
+    {
+      "path": "outputs/phase_f/logs/revision_20261006/day_analog_v1_root_prelaunch_verification.json",
+      "sha256": "080c7971877fa26683154aac0b8441a7e3b3426268d626007bbe1da6a46eec02",
+      "bytes": 3991
+    },
+    {
+      "path": "outputs/phase_f/logs/revision_20261006/day_analog_v1_smoke_verification.json",
+      "sha256": "7c1d5994c38a5441d165ad09c7ac9c32b98eccd72750cbbce31f253382065f5e",
+      "bytes": 4400
+    },
+    {
+      "path": "outputs/phase_f/logs/revision_20261006/day_analog_v1_actual_search_launch.json",
+      "sha256": "01075a1c9e61a7f1819d3216303e1f60f1f89ee188937ccbf42db6da17a94a98",
+      "bytes": 973
+    },
+    {
+      "path": "outputs/phase_f/logs/day_analog_smoke_v1_20261006.log",
+      "sha256": "5f5235c7ec2d05a916097e926b30054771d3beaa1aff0d92fe70272b305693cb",
+      "bytes": 160
+    },
+    {
+      "path": "outputs/phase_f/logs/day_analog_search_v1_20261006.log",
+      "sha256": "c8b17d6d1e13f7139b87ae2e85dfee7eeb75afa4c97eee3654156d2ac98e5a42",
+      "bytes": 959
+    }
+  ]
+}

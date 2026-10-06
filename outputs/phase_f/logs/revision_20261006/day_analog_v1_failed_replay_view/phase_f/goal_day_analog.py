@@ -23,10 +23,10 @@ from phase_f.models import day_analog
 from phase_f.registry import config_hash, now, sha256, write_json
 from phase_f.wf_evaluation import BASELINES, load_predictions, prediction_path
 from phase_f.wf_final import _junction
-from phase_f.wf_models import FRAME_KEY, _arm_view, _validate_frame
+from phase_f.wf_models import FRAME_KEY, _validate_frame
 
 
-NAMESPACE = "goal_r1_day_analog_v2"
+NAMESPACE = "goal_r1_day_analog_v1"
 PARENT = goal_transition.PARENT
 GUARD = goal_transition.GUARD
 BEST_GUARD = goal_transition.BEST_GUARD
@@ -362,14 +362,8 @@ def _verify_smoke(prepared, paths: pd.DataFrame, plan: dict) -> None:
 
 
 def _replay_view(prepared):
-    source = copy.copy(prepared.source)
-    source.out = prepared.out / "fresh_replay"
-    replay = _arm_view(source, "EXPLORE")
-    if (replay.source is prepared.source
-            or list(replay.contexts) != list(prepared.contexts)
-            or any(replay.contexts[key] is not prepared.contexts[key]
-                   for key in prepared.contexts)):
-        raise ValueError("Fresh replay changed the selected EXPLORE weekly contexts")
+    replay = copy.copy(prepared)
+    replay.out = prepared.out / "fresh_replay"
     replay.out.mkdir(parents=True, exist_ok=True)
     _junction(replay.out / "models", Path(r"D:\PeakGuard_PhaseF_20261003\models")
               / NAMESPACE / "fresh_replay")
