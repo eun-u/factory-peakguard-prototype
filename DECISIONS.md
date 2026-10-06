@@ -308,3 +308,9 @@
 - v1은 모델 fitting 이전 preflight의 dtype-only 비교 오류로 종료했다. 실제 signed paths의 내용은 동일하므로 원래 producer와 같은 exact ordered MultiIndex key 비교를 사용한다. 경로 값·누수 규칙·무결성·학습 및 선정 계약은 바꾸지 않는다.
 - 실패 원본은 그대로 보존하고 신규 v2 namespace/log/models에서 smoke 후 실제5seed 탐색을 진행한다. 경로 자료형·키·순서·중복·값 변경의 거부 회귀를 포함한18개 검사를 통과했다. 과거 v1 진단 사본은 같은 사후 EXPLORE 증거임을 공개한다.
 - 기존 실행 목표4.5/9/3.5/5.5/5%와 원래 전체 PhaseF 예산·최종 일회 평가 경계를 유지한다. 최신3.5/7 경쟁력 목표와 경보90/80 제안은 실행 계약 변경 승인이 아니다.
+
+
+## 2026-10-06 FG-R3 producer/model 해시 분리
+
+- 동일경로의원본CSV content해시와model._paths_index 정규화table해시는서로다른도메인이다. 원본producer경로해시는signedmanifest/chunk/causalproof검증에유지하고, 실제정규화helper에서계산한model_paths_sha256는별도실행계획필드로결속해모델checkpoint·seedaudit·identity검증에사용한다. 둘다재계산·검증하며어느무결성검사도면제하지않는다.
+- v2기술모델2개와미래교란0은보존하지만전체search진입전검증실패여서완료5seed후보로집계하지않는다. frozenv2원본을보존하고v3namespace에서같은과학적설계의smoke와search를수행한다. 원래성능목표·예산·독립평가경계는불변이다.

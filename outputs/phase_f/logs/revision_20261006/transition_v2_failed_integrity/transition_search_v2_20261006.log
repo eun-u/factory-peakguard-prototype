@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 705, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 689, in main
+    run_search(prepared, paths, plan)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 609, in run_search
+    _verify_smoke(prepared, plan)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 597, in _verify_smoke
+    raise ValueError("Technical smoke weekly model checkpoint changed")
+ValueError: Technical smoke weekly model checkpoint changed

@@ -342,3 +342,12 @@
 - root는 자료형 저장 폭에 무관한 정확한 순서별 origin/horizon 비교로 수정했다. 경로 길이·중복·전체 content hash·signed parent hash 검사는 유지한다. 기존 모델/features/hyperparameter/2설정/5seed/목표수치는 변경하지 않았다. focused 검사18개 통과(1.78초), 독립 reviewer의 코드 지적0개; 새 계획의 출력 경로 v1/v2 문구 불일치를 v2 동결 전 수정했다.
 - 실패한 v1 runner/model/tests/status/log/script 원본을 physical SHA와 함께 transition_v1_failed_preflight/manifest.json에 보존했다. 별도 goal_r1_transition_v2 namespace와 D 모델 디렉터리·새 로그를 사용하며, 진단4파일은 v1에서 바이트 일치 복사하고 새 독립 증거로 주장하지 않는다. 새 run_transition_v2.ps1은 smoke 비정상 종료 시 search를 실행하지 않는다. 기록 시점 v2 실제 학습은 아직 시작 전이다.
 - read-only final integration 탐색으로 residual/guard/transition의 현재 EXPLORE 전용 API가 최종 CONFIRM용이 아님을 재확인했다. 별도 cache/source/runtime/10seed/rolling producer identity와 WF/pc3 adapter가 필요하며 wf_final의 동일≤7 union·단일reservation에만 연결한다. 현 signed integration_pending barrier는 유지한다. 원래128/GBDT각500/상위20+3/실제final10/PhaseE 불가 보존/holdout 미열람 범위를 줄이지 않는다.
+
+
+### FG-R3 v2 기술 모델 검증의 추가 오류와 v3 수정
+
+- v2 실제preflight는249246경로·소스·sealedraw/보호파일검증후계획을고정했다. 두설정의seed42·fold1·13h single-seed 기술학습(23.558초/21.526초), fittedfutureperturbation0, 예측/모델물리SHA 저장이완료됐다. 그러나 root의실제smoke체크포인트재검증에서실패했고, 자동전체search도13:47:49UTC에동일조건으로fit이전에실패했다. session30222 exit1 및worker30560/launcher9512부재를확인했다. 기술학습성공을전체5seed평가성공으로기술하지않는다.
+- 독립debugger는원본producer의CSV해시476b02d1bb8f49e249ba36d204bbac0461e7f1fbde6f3094e82ba2287b38cc60와model._paths_index의정규화table해시36f8f97168475ab8c82e9e56def90bd1ef187dfb5efdbcb57a1114f33d797582가다름을실제두smoke에서입증했다. 물리checkpoint/metadata SHA와미래교란감사는모두일치했고, 검증기가원본해시를모델identity에넣은것이원인이었다.
+- 기존signedproducer해시를유지하고새model_paths_sha256를실제정규화helper에서계산해계획에각각잠근다. frozen검증은두해시를독립재계산하며, smoke/seed checkpoint identity와modelaudit는정규화해시만쓴다. 감사metadata가제공한값만믿지않는다. estimator source·features·hyperparameter·2설정·실제5seed·성공기준은변경하지않는다.
+- 원본v2source/model/tests/계획/계약/status/script/두로그및실제smoke체크포인트digests를transition_v2_failed_integrity에보존하고새goal_r1_transition_v3로실행한다. v1사후진단은바이트동일복사본으로유지한다. 새실제모델identity를mock하지않는양성smoke회귀와producer/model해시변조·checkpointidentity거부검사를추가했다. 첫검사에서root의테스트배치오류가드러나수정했으며최종24개전체통과(1.96초)다. v3실제smoke/search는이기록시점아직시작전이다.
+- 원래전체PhaseF worker27432는보존하며 Stage4 integration_pending·≤7단일union/단일reservation·원래전체검색예산·holdout미열람을유지한다. 현재정확도목표는미달, goalactive이며독립확인·상용적합성은미완료다.

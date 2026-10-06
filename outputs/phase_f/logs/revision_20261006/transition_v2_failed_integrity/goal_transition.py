@@ -22,7 +22,7 @@ from phase_f.wf_evaluation import BASELINES, load_predictions, prediction_path
 from phase_f.wf_models import FRAME_KEY, _mean_frames, _validate_frame, _arm_view
 
 
-NAMESPACE = "goal_r1_transition_v3"
+NAMESPACE = "goal_r1_transition_v2"
 PARENT = "goal_r1_v2"
 GUARD = "goal_r1_guard_v1"
 BEST_GUARD = "FG-R1-core-l1__guard-q95-suppress"
@@ -235,12 +235,8 @@ def _rolling_paths(original, prepared, parent_evidence: dict) -> tuple[pd.DataFr
     if config_hash(proof) != digest:
         raise ValueError("Reconstructed R1 causal proof differs from parent")
     paths.attrs["causal_provenance"] = proof
-    # The signed producer hashes canonical CSV bytes; model checkpoints bind
-    # the normalized table used by _paths_index. These are distinct domains.
-    _, model_paths_sha = transition_expert._paths_index(paths, prepared.contexts)
     return paths, {"manifest_sha256": sha256(manifest_path),
                    "paths_sha256": manifest["paths_sha256"],
-                   "model_paths_sha256": model_paths_sha,
                    "rolling_audit_sha256": digest, "parts": frozen_parts,
                    "anchor_source": source, "model": model, "execution": execution,
                    "snapshot_path": str(snapshot)}
@@ -284,14 +280,6 @@ def preflight(original, prepared) -> tuple[pd.DataFrame, dict]:
     write_json(prepared.out / "logs/target_contract.json", CONTRACT, exclusive=True)
     write_json(prepared.out / "logs/execution_plan.json", plan, exclusive=True)
     return paths, plan
-
-
-def _verify_path_digests(paths: pd.DataFrame, contexts: dict, rolling: dict) -> None:
-    if (goal_r1_paths._hash_frame(goal_r1_paths._sort_paths(paths))
-            != rolling["paths_sha256"]
-            or transition_expert._paths_index(paths, contexts)[1]
-            != rolling["model_paths_sha256"]):
-        raise ValueError("Frozen R1 producer or normalized model path digest changed")
 
 
 def _verify_frozen(prepared, plan: dict, paths: pd.DataFrame,
@@ -349,8 +337,9 @@ def _verify_frozen(prepared, plan: dict, paths: pd.DataFrame,
                 or goal_r1_paths._hash_frame(goal_r1_paths._sort_paths(pd.read_parquet(path)))
                 != entry["content_sha256"]):
             raise ValueError("Frozen R1 producer part changed")
-    _verify_path_digests(paths, prepared.contexts, rolling)
-    if (config_hash(paths.attrs.get("causal_provenance", {}))
+    if (goal_r1_paths._hash_frame(goal_r1_paths._sort_paths(paths))
+            != rolling["paths_sha256"]
+            or config_hash(paths.attrs.get("causal_provenance", {}))
             != rolling["rolling_audit_sha256"]):
         raise ValueError("Frozen R1 paths/provenance changed")
     if deep_model_snapshot:
@@ -583,7 +572,6 @@ def _verify_smoke(prepared, plan: dict) -> None:
                 or meta.get("five_seed_score") is not False
                 or audit.get("seed") != 42
                 or audit.get("rolling_audit_sha256") != child["rolling_audit_sha256"]
-                or audit.get("paths_sha256") != plan["rolling_evidence"]["model_paths_sha256"]
                 or audit.get("smoke_first_fold") is not True
                 or audit.get("n_fold_models") != 1
                 or audit.get("leakage_test") != "passed"
@@ -595,7 +583,7 @@ def _verify_smoke(prepared, plan: dict) -> None:
             raise ValueError("Technical smoke lacks its first weekly model")
         fit, stop, _ = transition_expert._common_roles(prepared.contexts, first_fold)
         identity = transition_expert._identity(prepared, child,
-            plan["rolling_evidence"]["model_paths_sha256"], first_fold, fit, stop)
+            plan["rolling_evidence"]["paths_sha256"], first_fold, fit, stop)
         checkpoint = Path(prepared.out) / "models/transition_expert" / child["id"] / \
             f"seed42_f{first_fold}.joblib"
         checkpoint_meta = _read(checkpoint.with_suffix(".json"))
@@ -645,7 +633,7 @@ def run_search(prepared, paths: pd.DataFrame, plan: dict) -> None:
                                        "child_spec": child, "seed": seed})
             frame, seed_audit = _verify_seed(prepared, child, path, seed_identity,
                                              plan["rolling_evidence"]["rolling_audit_sha256"],
-                                             plan["rolling_evidence"]["model_paths_sha256"])
+                                             plan["rolling_evidence"]["paths_sha256"])
             _verify_frozen(prepared, plan, paths)
             frames.append(frame)
             entries.append({"seed": seed, "prediction_sha256": sha256(path),
