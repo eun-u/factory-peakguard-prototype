@@ -1,0 +1,52 @@
+{
+  "protocol": "goal_r1_day_analog_v2",
+  "arm": "EXPLORE",
+  "specs": [
+    {
+      "id": "FG-R4-analog-w16-k3",
+      "adapter": "day_analog",
+      "family": "R1-frozen-fit-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 16,
+      "top_k": 3,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R4-analog-w16-k5",
+      "adapter": "day_analog",
+      "family": "R1-frozen-fit-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 16,
+      "top_k": 5,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R4-analog-w96-k3",
+      "adapter": "day_analog",
+      "family": "R1-frozen-fit-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 96,
+      "top_k": 3,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R4-analog-w96-k5",
+      "adapter": "day_analog",
+      "family": "R1-frozen-fit-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 96,
+      "top_k": 5,
+      "bank_days": 56
+    }
+  ],
+  "training": "frozen FIT-only day library per weekly fold; max-h16 embargo",
+  "selection": "FIT/STOP-only deterministic recipe; no SCORE library update",
+  "n_stochastic_seeds": 0,
+  "n_deterministic_runs": 1,
+  "fresh_replay": "second physical run in separate model namespace; reproducibility only",
+  "ranking": "metrics of one deterministic primary forecast",
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "contract_sha256": "ceeda5bc89c0129993bcb1d2157e969e01ad3f9dd3ba957d977d89e552b95689"
+}

@@ -385,3 +385,10 @@
 
 - 독립 탐색 agent가 plan/source/runtime/raw/split/parent/R1 producer를 전후 검증하고5개 실제seed파일/40개 실제weekly checkpoint/102427행 평균·64779행SCORE/9개평가표의identity·SHA·동일cohort·미래교란0을 확인했다. root가별도로5seed/40model의물리SHA와현재source/runtime/plan 및7개평가필드를재확인했다. 검증은 transition_v3_power_full_verification.json 및 transition_v3_power_root_acceptance.json에보존한다.
 - MAE7.4968506028/Peak15.7564444353/h4 6.2773225877/h16 8.8136980786/nMAE7.9824871611%로다섯목표전부미달이다. 최선guard대비 MAE0.252811/Peak1.888340 악화하므로 이전력전환설정은불채택이다. 생산추가설정은진행중이며파생평균결과를선행집계하지않는다.
+
+
+### FG-R4 v2 실제 전체 탐색 재개
+
+- 네 설정의 새 v2 첫fold·13h smoke가 정상종료(session7977 exit0)했고 root검증(session37012 exit0,14:44:53UTC)에서 249246R1keys/source29/runtime/raw/parent/split/계획·4physicalcheckpoint·예측행/미래교란·STOP재선정 및 실제 _ArmView 재구성/원본source불변/별도D모델junction을 확인했다. 네 v1/v2 기술예측은SHA단위동일하며 모델source도 동일하다. 전체성능/독립재현추가표본으로 계산하지않는다.
+- 별도v2 전체search(session82511,launcher32968/worker25784)를14:45:31UTC 실제CIM으로확인했다. plan33df8940daf9e623c3b1d505984280d3696dd16bf9ae3da059d4723d15683edd와root검증/새로그에결속한다. 기록시점 full후보점수는아직없으며original27432/transition25236도실제live다. 첫실패v1은보존한다.
+- 네고정deterministic설정은8EXPLORE주·13h·독립physicalfreshreplay의정확한동일출력을요구한다. 새시드/새통계표본으로replay를집계하지않고 기존Stage4 integration_pending/단일≤7CONFIRM/holdout미열람·원래전체PhaseF예산을유지한다. 목표미달/goalactive다.

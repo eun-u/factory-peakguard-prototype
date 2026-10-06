@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-06T14:45:31.6595001Z",
+  "analog_session": 82511,
+  "source_commit": "a921ff3",
+  "technical_smoke_session": 7977,
+  "technical_smoke_exit_code": 0,
+  "root_smoke_verification_session": 37012,
+  "root_smoke_verification_exit_code": 0,
+  "execution_plan_sha256": "33df8940daf9e623c3b1d505984280d3696dd16bf9ae3da059d4723d15683edd",
+  "actual_replay_wrapper_verified": true,
+  "analog_search_processes": [
+    {
+      "ProcessId": 32968,
+      "ParentProcessId": 34652,
+      "CreationDate": "2026-10-06T23:45:05.561132+09:00",
+      "CommandLine": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.goal_day_analog --stage search"
+    },
+    {
+      "ProcessId": 25784,
+      "ParentProcessId": 32968,
+      "CreationDate": "2026-10-06T23:45:05.573574+09:00",
+      "CommandLine": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.goal_day_analog --stage search"
+    }
+  ],
+  "original_full_phase_live": true,
+  "transition_search_live": true,
+  "full_score_completed": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}
