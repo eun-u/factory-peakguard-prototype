@@ -1,0 +1,995 @@
+{
+  "status": "lora_search",
+  "started_at": "2026-10-06T12:41:55.0184290Z",
+  "baseline_pid": 3420,
+  "goal_achieved": false,
+  "holdout_read": false,
+  "full_phase_budgets": "unchanged",
+  "resume_original_in_finally": true,
+  "baseline_command": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.run --stage all --retry",
+  "recovery_of": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\logs\\revision_20261006\\goal_lora_gpu_allocation.json",
+  "recovery_record_sha256": "9ce7998d83bf3abe8b765bc80655f072dd22a1ff55e67cabe92d9e6c99a4a1bd",
+  "original_driver_snapshot": {
+    "status": "running",
+    "stage": "all",
+    "pid": 3420,
+    "started_at": "2026-10-06T20:37:32.410554+09:00",
+    "full_phase_complete": false,
+    "holdout_read": false,
+    "historical_final_artifact_read": false
+  },
+  "completed_fits": [
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f1.pt",
+      "sha256": "cde297977433b6ee33580cbbc2bf17c210cff1b91a8e1782b971d2ef18b48e42",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f11.pt",
+      "sha256": "d01987d18bca351e9e36ab18b40dde1c107849742d031352fb3bfe5fb9347bed",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f13.pt",
+      "sha256": "6677c08c30761d8917295a2c0c5a341e117cca5b0fb36afe7920e5e67a63cdb8",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f3.pt",
+      "sha256": "37134ffba1b6666c57bac3df664622a1ab780c6dea7f9bfe7dde8c85cda8bfe4",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f5.pt",
+      "sha256": "b19465e074df0d64077e83c379eca36f7e543e53b4b89aa0dc215165222bcf80",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f7.pt",
+      "sha256": "27b2b041c66cd333a0d0911ab3250b10933a17161a075b9766cdaa2483312e77",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h04_f9.pt",
+      "sha256": "1b53ff434d6b9b7754eaefb4e32317be1b2aa2d80581429e6fa6aa7dc2750132",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f1.pt",
+      "sha256": "8b73dca847be0df3e47b9e147fc836e2868204bdf811bbffe56ff35dfec1c604",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f11.pt",
+      "sha256": "86899b86404c80a938af68dc4d13a16f3eb53a891b5a8e6843f5b5b9f62908c9",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f13.pt",
+      "sha256": "b626fdc703e51df00670e1998ef3cec5439e202479e9e879c9aae669bcaca7f8",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f3.pt",
+      "sha256": "303b5d636e339180e3d75e5a7e0694a3c1fa66451fe6277726eabad0161867dd",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f5.pt",
+      "sha256": "c525a849466b9d3ad8ba0b16d863cd2ad8ac05379ce01ed258c2fe3c76557b44",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f7.pt",
+      "sha256": "556f935625bb031c3c55ad4a6baf000996426cac05fbabae6d1d8cdf7357255d",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h05_f9.pt",
+      "sha256": "b28002fb51d94d2e8ec5adb7db76bc4b55ef63cbe0c0fafe1290b412ab2f511a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f1.pt",
+      "sha256": "a834fd46f661b0d95e2a78eb75daabb95a12c7b44297b349438042855a227eb4",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f11.pt",
+      "sha256": "70d9651f31f458de8c66a250759d5efeb3da319776527b43d97b158152fdfe65",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f13.pt",
+      "sha256": "4929b35f735212f704c021fe11fde4b0cce2e7383b5113eb2ac1d8b44acf4e4b",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f3.pt",
+      "sha256": "e4095e3472bdf33a01c3614bc0393d50c447811c218afa356a83131c4d41d1c3",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f5.pt",
+      "sha256": "2cff81a4a2d7ff936b870929ee228bedd6bfe607c9db058be2c2bde314dfb277",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f7.pt",
+      "sha256": "03cf153fbfece8433c0893b73416b95902d09e3ea5f71e43c6ba789ef3fe0f1c",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h06_f9.pt",
+      "sha256": "d7761b32c12d5728543d10d1b07d67685bfa49b401fda4afaf15944a183cf0b3",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f1.pt",
+      "sha256": "1c07c569df3c659d10d78f67cfae64d6cebc4df30cd9f49851b8185db6c66a4f",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f11.pt",
+      "sha256": "089d80892a729916c8b53ef9c96c3a06f6f20950f1ea1395ef13ac44395409b5",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f13.pt",
+      "sha256": "3b104800ae999f2abebdef2f29ec929c755ad46758fe0d59f754379ff3234d2a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f3.pt",
+      "sha256": "9418009729431968d42c2d0080873fd5d030f977f5eeb6ca622d093c76354d65",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f5.pt",
+      "sha256": "365fda547dcc2a2b302b942008c32548c9e93daf0764a4fe42790e2ba5558c6a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f7.pt",
+      "sha256": "5bae3919d235a2ef5695442b32998142876a022f66d112da940d57c476e27636",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h07_f9.pt",
+      "sha256": "4ab3699626b4c2ba89a4214d5382fa2f666978ab780f995a4d59be6f3652cf3e",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f1.pt",
+      "sha256": "f7d909f6cda037b83ec0d7134d47216dbda8966c54f1e17d46f6dc9989af5b53",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f11.pt",
+      "sha256": "70497f708c291bd7f3b14444808c379b89441881c7a7ffc98a261baa1ef463bb",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f13.pt",
+      "sha256": "030fcd5a931c683601566e6c6010b5597773b011850013696cc891b9a8b929cb",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f3.pt",
+      "sha256": "eb63ff504b8e9cadc94640b2da4bb632c32b6ffa48a78114ea81324d10de177a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f5.pt",
+      "sha256": "35001e060df7b2836dd89feb85ca237d6a9a36d29535d06929bf15d94d9b5532",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f7.pt",
+      "sha256": "807f0b8092c978ef8dc14129b16eb39dac813c762fb10dc141668e4679d2517c",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h08_f9.pt",
+      "sha256": "3ae86d3410c1d27f69a9ff45c646a5c7c3a389d06d127d2bc54ab21bbbbf45c2",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f1.pt",
+      "sha256": "41bd12b6011d70d62950128377be1ad2c94e68e0065e893a757578eb82384f9b",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f11.pt",
+      "sha256": "7e94f8dc44e6a92e717004ac31e21b00846ce1433022619ef8311e905d1d3e0f",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f13.pt",
+      "sha256": "d734fd4d657611dcb158a88009bff8e65e48e9ff9a7c7d750d6decf3d9e37ce0",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f3.pt",
+      "sha256": "b4b0aefea907e9bb179fce08e82cc8746c8852b4ef15987b947f9bbd974ece97",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f5.pt",
+      "sha256": "eb810aab5f4ddb24fd810c2acbc5073acb528e775630bf443dde52eac66b6a45",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f7.pt",
+      "sha256": "4792802ae4d590772359d547ef55f6094230ee1cfee36e8c848702b199021e58",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h09_f9.pt",
+      "sha256": "f40070a23ffeb169a7f3c92068893300ad11f5b7632be81971e52e9be93e0a34",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f1.pt",
+      "sha256": "44cb67358042fef206771578747cdf3b6c74731e7ba1bf54f061daaab9e95595",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f11.pt",
+      "sha256": "8af71089bbaf57980db7d68cc1d29c15ef813debda6e8ba369474a8c7bea2baa",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f13.pt",
+      "sha256": "a82b161c7c9e319d15d771847347a36a7f32cea403d9fa3457b2ad48865977a4",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f3.pt",
+      "sha256": "740c0edf715a884149ca93ecaff489980809fc21a8afda05053d870404af4356",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f5.pt",
+      "sha256": "5189670c9e7d8d8cf564e73439014dd589d737cef628c069ba8d931fb5460f8b",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f7.pt",
+      "sha256": "099a79a56360115a2b988b22c00500b1e0f67b4e0dd9b79346b417bb0d617a13",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h10_f9.pt",
+      "sha256": "9ea063f741e7d1a80433579d07d9989bb24e0cbb4e71010c430a8f960276a7e5",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f1.pt",
+      "sha256": "9aa8431cdbf15ed5b35bfc8eec29a1b3437ff3836bc6348e565a533a53a7349a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f11.pt",
+      "sha256": "ba8cad34eb94cd5dd416ca4e57b47cedf705c8fac54c329a7dcb4213102feddf",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f13.pt",
+      "sha256": "37d193cae8bf94f4535b77756183d28f7e61ec0f74cf160f7c5f7eda37304b60",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f3.pt",
+      "sha256": "57e9824234bbbb44640f85957c5f309cfad8df472f97dc26db15c5146cb58dce",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f5.pt",
+      "sha256": "aaa99cef01c7027486770871ee0158f8e0ce4f57a54b701418a9af955c2695de",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f7.pt",
+      "sha256": "df135d6f7c6526b05653e7afb5ff1073f50fc89ec6d62eabea3d2bcd6ae85c0a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h11_f9.pt",
+      "sha256": "c47cdb57b9617fc4a01920e3d632b68977f1f9e01db248f9925f6a3b52f3c37a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f1.pt",
+      "sha256": "fb1dfed77de2b675a461179dd7d78979722a160d6ac089519cd98a05266fe78b",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f11.pt",
+      "sha256": "25e55f58dcb2e251cd71f95712a465ef59f12fbabdb64b84accf68a6d7c1f612",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f13.pt",
+      "sha256": "fb5f4c5d8f094b5fb68db97ab0afa879a53de5718c546aff406a1196758432c7",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f3.pt",
+      "sha256": "12230a56b3fd7769b983579b7e01f6706df3a78d38226d2144466461c0918d9a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f5.pt",
+      "sha256": "09048853ca1a23e147f3d5b110b600bbd30b0ab957314ce6c7f188df720f892a",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f7.pt",
+      "sha256": "ead9ca7ec7921df106ada5e3323b91ae5f748197601e32a4d7f5cab6d9db45d9",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h12_f9.pt",
+      "sha256": "059cc3436738822e8f86018f2ddbc8447dc83b86c744d5465aa6ef9ab1682134",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f1.pt",
+      "sha256": "cdd5c11d873d18feb76cf1a7fe6b1f3628eafa11d81c2461c376f6313b4f142f",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f11.pt",
+      "sha256": "73a41b5f2875a141bbfb9c41a432f35eccfd0136c9016101e583def3b0a5cff2",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f13.pt",
+      "sha256": "51c83642726faa57f211882cf60f9fed76d59588b9208e8a8cbb1b0aacbd4450",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f3.pt",
+      "sha256": "9835aeb46d69a5865b92692a0a22c5463f7d86f85e19e24808dfd936f13c554e",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f5.pt",
+      "sha256": "e1f7db7290aa1f9c03a46f1143ae3010c68ef8aba07ebaf2ba715e9039e010f2",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f7.pt",
+      "sha256": "1debf84a49d0f594743a8e18094f83521e2e865070007cc26b7127ebfdd94c68",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h13_f9.pt",
+      "sha256": "e39c5e00a73e6ff67796cc0cd60471903d1f04518bfe6949350c6ea26c30fe14",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f1.pt",
+      "sha256": "29e6c4a565af87fa04cbc64e0dc9db8c128fd317a7750c437ed242793072c3ce",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f11.pt",
+      "sha256": "537f1d6bfd610afbd6fcd6204d01d8d53b4e9c11d1bc758fe9303d1cb1e350f1",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f13.pt",
+      "sha256": "845cb578ec1fbf3a609b3bbb38ac04bab3f2965e69c8e59cd471f0b4247cfc95",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f3.pt",
+      "sha256": "5d3ab40298ef28d6ce0ba1190ac751cbf00f0027fbb5517471df18ccac62abfb",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f5.pt",
+      "sha256": "d07a6551b949059f91ad94760cb3ba5bf27f44c44bc45af6e0afe006ee592a44",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f7.pt",
+      "sha256": "dc84d75e697ec506b52387450b5b0a98ea30668ab48dcf2f8cab61ecc376af5d",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h14_f9.pt",
+      "sha256": "fe344e676fcc292968dcd7f02e340aa070cc04081981fa695dcad32f83d5c9b1",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f1.pt",
+      "sha256": "cd490e5e4e8343d7548b003390e860f8e13140d0a68990d78b2dfb4f9f96d908",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f11.pt",
+      "sha256": "5c41daa892ff471be83808314fc5133636a3b0065dca29d41c858ff6ccac9baf",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f13.pt",
+      "sha256": "b63f3ec8539b0b4e272702f0b9cd85ee1974ee21dfaacc05e0285aa89e4e42b8",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f3.pt",
+      "sha256": "0b3e5d55308e6e462528470d1b0383aa3bd21c762338d4ba7cd88028bc248a5b",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f5.pt",
+      "sha256": "947cd0c509fbc5facfe7f22a63f45f874797626005d974a12c969d53722562db",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f7.pt",
+      "sha256": "b426e126966199c05509c56a90d67b01e77913b22fa10ead07b0ea3fb407a5d3",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h15_f9.pt",
+      "sha256": "9f0ddb6484154ee0dc0bc403007e8c4d6ee03f3ce275309aa210d9f668e71657",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h16_f1.pt",
+      "sha256": "a4fac556ebfd09a0030b709efd4657c67be29730872741977e9574eb78c698ae",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h16_f11.pt",
+      "sha256": "f803ea5f6c2c9b1cf553c0bfbd9deebf03dc0481210bce761ab340a1182983e6",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h16_f3.pt",
+      "sha256": "4df36c51a41e576b0dbb268ad9ccbd95b8eb0e387726d5b2b0a02787cd3bf130",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h16_f5.pt",
+      "sha256": "8d0326a3ae8e1a36228d2899eb1d1b1f2282525655e47fd9a5d89d9039220fdd",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h16_f7.pt",
+      "sha256": "46543a49ebe30fc401be171e804d477572653273586ab9a6be96729274544065",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed123\\h16_f9.pt",
+      "sha256": "02f6d2ff1a487e703986ff1919793e36cf20d79c043f9f096ef1f9a19abbf580",
+      "seed": 123
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f1.pt",
+      "sha256": "b5b5846b200366741e8b45bc798f89ea6e586541bffb22c32895feef17da5824",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f11.pt",
+      "sha256": "c6263e7e1c47d3e7f356c47d1c7543abca7a033141156a5ebba7364f4e574cb8",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f13.pt",
+      "sha256": "63c2426293e8dbf20c3fbc5c11dc7a834f20784af083c301f92e380d6a620e67",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f15.pt",
+      "sha256": "3b0ac1e11069693aa7d39135ca49a8272bddc87753367e2d9dc9999173ba531e",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f3.pt",
+      "sha256": "9fbf4a1e2bbe2fdfd54d2ebcee7b57d9fcc5ee91eddfc62261a47c216623396f",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f5.pt",
+      "sha256": "f41f5737e58013753eeb75a78572176413464f36051f9e995d10de134c24925a",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f7.pt",
+      "sha256": "7bb35353c19d1b559ef4ac188dbbeb67db9008bd6e0f1b7cb64888f441cd50b5",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h04_f9.pt",
+      "sha256": "15a4d264fe2123e5f1e8b12badb1dc2e33d74de2dcbdc7a3916b3c217719c83f",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f1.pt",
+      "sha256": "6a6e4841e809ff3a74dc5980c3fe975392ce3f39173b2788a24fa3e6eddac1cb",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f11.pt",
+      "sha256": "9e8b55e1e27b13a92956fa035bc61c32a89219382d1ab24c67f603ea65e73fd7",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f13.pt",
+      "sha256": "506974008fbe3bd76eceff4ebc2e2d4358c66b40732abfad8ba14965cb01d865",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f15.pt",
+      "sha256": "12daa1973fa36f48d05593eefe6b56ccd44fb74991722bf68367f9811f2d4c25",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f3.pt",
+      "sha256": "723724e83b7a5f532ecf945aa5a79b1fd5ff2d86625e77f993283544b0725213",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f5.pt",
+      "sha256": "0ff965448287b847101f62093f8a442ab12cbae715bb20bc32370921d2457b96",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f7.pt",
+      "sha256": "256534dc9f413843e367fcddab7128e67c2e9549af061de6c9a4bac35aea8343",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h05_f9.pt",
+      "sha256": "a41637b45c65d5ea436a113310244eccbda1bad8135ed56f3a3f2fd070c8fcce",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f1.pt",
+      "sha256": "040f5d35273837472e959f16a0721e32732c98ba79bc7cbcdf793abf9abfd73c",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f11.pt",
+      "sha256": "675a4861728d80aecce3ff1d51e3bcf8bc2033dea4d8ba490b8a9b96e00ab5c9",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f13.pt",
+      "sha256": "a5d04676e12922deaf0b31e547b0fe30d2450f4c9663f36bc80ed816a3f1f209",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f15.pt",
+      "sha256": "798e6a34ec31d86b6e449fe45b2122b1dbe68e56b71e3027a6d009cb4cc4defc",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f3.pt",
+      "sha256": "af4105ab83886dbd312a36624a54b878f7583142c4dfde73d54328d102cd78ac",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f5.pt",
+      "sha256": "27ae5fd0536e8e6a42ddf8b7478b0077ccd77a9124aa6bf02a2b15fdbd24b858",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f7.pt",
+      "sha256": "dd0b4b31174020458874bce98fa1a74f3e077027d602dde39c4207c36fc41d75",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h06_f9.pt",
+      "sha256": "a7aeae0bfcd5005d4b3b646867c37593960ec7622eabeef7945157ac839676ae",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f1.pt",
+      "sha256": "38f137b42268e74dcac249e07c4a3d9f8c24ff903add35546377bffcbd3ec269",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f11.pt",
+      "sha256": "723fb375abd57983d6adbc8b6d5bce4c5a48d07133e0e0ffccc67bc41a4db174",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f13.pt",
+      "sha256": "0468880d7a63c559ab3a5bfadabdf4bb172315603afbaf91fa263485d83692cf",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f15.pt",
+      "sha256": "55581d8f82f605165ba085b3cc0d27643b94afebc24fcc7838008a578d9e9087",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f3.pt",
+      "sha256": "c365328b6affcc0f4d0779f4d76aa29acc818aeb4e2776d6260ce564e1a10159",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f5.pt",
+      "sha256": "5e7d29678c2145f47faf96985b39771cd020c7d5451dfd29edb48f2bffc8cef4",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f7.pt",
+      "sha256": "510694ecc50b318eb23f3a9e92fecdf8a75b7de29a18d3a4ece1cc1e9479a567",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h07_f9.pt",
+      "sha256": "6313ff34891397869e84b866599df238a6738352a52e5d1e44ff122b9b4fa2d0",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f1.pt",
+      "sha256": "5a4f0b95768c681b8fdfbbd4428f6530d711e3d4c0e2bad3207613b9184a015d",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f11.pt",
+      "sha256": "fe33691cfb7bfb7774b7c3b0e5579fcfe3117b7402d07cf42b805c51adad1eab",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f13.pt",
+      "sha256": "83f6e5a5df006665377ea3f378392951325f4634ef75319adeceb2683e05b88a",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f15.pt",
+      "sha256": "6f18f94b04291eb43357ab8d61febd2559cd466f1f2231450ed7c35bdf496ce0",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f3.pt",
+      "sha256": "93c17d8bf872b243dda1125f525b1c1f8d8ce0a45726677a534ee8c0ffacb801",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f5.pt",
+      "sha256": "1835033d023c9b33672346e7e4c21fc399fbc05a291ffd4fc589c5d8af0a0b61",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f7.pt",
+      "sha256": "7d12cc11270c32255b699c32418d1bdca86c42d257c0ef401a9398a0c6a263db",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h08_f9.pt",
+      "sha256": "48fb70d02b0f6cbf0898c1120e8418768bc83e0b3dfb4f1c18081e39a2bb64e5",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f1.pt",
+      "sha256": "c54be0b2ae20287de6027b9b52ea4f16bd319c570cc4622c0a69a6f188db707c",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f11.pt",
+      "sha256": "cf3d2c649d9cce5c4f84aa1dd2ccdfeb9cf14723228d0fe66739e8883a439094",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f13.pt",
+      "sha256": "41c77f7801e5c46db514b760d763ddc86cf45851d76070110baf7f522160d29f",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f15.pt",
+      "sha256": "c2e0c9ef4c5daaeaca82ad591f601a185ddc72afeb82fbbbb560bdb1e6784299",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f3.pt",
+      "sha256": "0857121bd12af1b175d3dfab869a26134ce398390d3c4c84364f83f61f55ad2a",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f5.pt",
+      "sha256": "f4338d7cbfa6d99c2fd2dbabbc7d3e8bd3fd30e3456cb8ff8b0264ee9dc8d7a9",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f7.pt",
+      "sha256": "b94125e8c64a1d299bd834dfc8484d455ba6c8d0bab5ddd12f1b0ae8844e909e",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h09_f9.pt",
+      "sha256": "1585d3465f44bd5e982ff82fd8d67c5ea3d43fbec0fd9638cf012cbecc165394",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f1.pt",
+      "sha256": "e4d16962330d24604761ab9ab0ae287e1fb46cace09126b15b4206addfd61375",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f11.pt",
+      "sha256": "c472d8107160ddd7af6962568dc5d49ac901453776aef184a239ccaf13135e49",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f13.pt",
+      "sha256": "d706fe51d428fa77989684310fa1d0fcaf8061ad7ef1f8d37bff28e6ab154457",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f15.pt",
+      "sha256": "991b1510d35786c08f41bfb9d5c25028a94ee46e7337695fa3e34035d8f34267",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f3.pt",
+      "sha256": "34da8a4fcb384ed6b28e15f6a2c36c7505391ec46dcdc8b18422bbed1b92fd7f",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f5.pt",
+      "sha256": "cf3bf626507aa964d635ecdcf1de1aa57aa5ab26963fde9bf398a813c84de7b8",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f7.pt",
+      "sha256": "4b51871b8d248b765f52103edd88535f3bc4f3eb5b04a89e9e35d1c0ea6b69cb",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h10_f9.pt",
+      "sha256": "1a485d38165b5fd00af12597dfaaaad975d8466dd417ec25789c407a0563300a",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f1.pt",
+      "sha256": "c76acb57003e681996a7dd8cc456a1083bfb052142da851ecec7f2dde5de330b",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f11.pt",
+      "sha256": "5ccbbe64d5e4ca90f21c5c5c468be63fb8335572a94288a87d7a70174d6c3ea2",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f13.pt",
+      "sha256": "3905813a73528226b4d0e54651fd6b7a1f1cd43362eedbc007b6c08b566abf29",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f15.pt",
+      "sha256": "fcbb9086149da8cb68a21330139445a334794099a050621f1e0ad86102a50249",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f3.pt",
+      "sha256": "a5dc334408fd1a5fa94c4ad553cca18ca38069cc1a61ad1d3945dcda900eab62",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f5.pt",
+      "sha256": "da98f00c5cd3f20274b1c7fd27d5d99a28fa40021dae286d0bf962e26ee9f596",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f7.pt",
+      "sha256": "763cff79532ed6dbc97a3927579b0163759655f66179231874a590a9f731e3d7",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h11_f9.pt",
+      "sha256": "2242d42cde56e7a6dee7870c2bb335d33af71cb6626bbccd2d71b0d06cc26b06",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f1.pt",
+      "sha256": "e3bc75f22080458a0b0cd2e532291a0ac8dcf50e026fdfa34ed1d94329653a49",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f11.pt",
+      "sha256": "2267c78e44648c0e5aac0640d12c0cfaaae3abf2d214213c39f8fadbc1bc520b",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f13.pt",
+      "sha256": "471a9d2af461fc17d678100c8d2508d4b5a74895cf4498f0e2b7c93626420627",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f15.pt",
+      "sha256": "a85b0cb5c718c5fb82ba218d406fb930611887e00d800ef0de8200bc4f1a8d13",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f3.pt",
+      "sha256": "8fdab144ded2df7177018c0c25a179774a0f906308232bae04f5937b969890a2",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f5.pt",
+      "sha256": "6297a748803749c0b556815931fc02c5e03599abc28179764474972cfb96dc96",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f7.pt",
+      "sha256": "c8a2cf2b942cb1822200203d797fd1942584e99d4ce2cc72153fbdeaecd8f1ab",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h12_f9.pt",
+      "sha256": "d6fc6244716c948c605be203595d0eb293758370abea53ef493f04ce48a60964",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f1.pt",
+      "sha256": "3c66485c556773386b08e07de15c3f31d51562f3ddb1de96d5b28e7c715b3d66",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f11.pt",
+      "sha256": "cc06a05ed955c60ca889bd5ea14c78cb9b5a99fe0599523149bea82acbc0573c",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f13.pt",
+      "sha256": "149dfefbb309db3e5cf4466068ec34721545903998a9a6130d529385a08eea78",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f15.pt",
+      "sha256": "67dc361a105ba0b7cd9230806f02d0be6530bf46e289cf4ed8ff3af602828b8e",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f3.pt",
+      "sha256": "589930b9110b0b255973beff38d56225104f51d14a9c9f7b81ddb6b398468f13",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f5.pt",
+      "sha256": "f013f972db0f416ca7fbe6c5e1d3fe159c741caf1b5a9c591c2c091c642d709a",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f7.pt",
+      "sha256": "d600c3a726d1bcfbe9c4655e301b5fa9b440fb248c9f0e0b043f6d0121da0fe4",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h13_f9.pt",
+      "sha256": "b112cb433f307c502ab1e3fa8c0fc7b4851c9b6113c9f44886ebd07a0585e432",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f1.pt",
+      "sha256": "1aa19ed312b15e0fef35ba4b997ad7bde4c5018b14a1b67157b12568eba72016",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f11.pt",
+      "sha256": "f9e87a5fd79e70876af4f8856963116413624644f31867f83740fb5bb282c652",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f13.pt",
+      "sha256": "fd20eeacdff71f68d3fa120259354f8c85bca34e0d805745756d745c08433e89",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f15.pt",
+      "sha256": "124ce35ad44eacf1f6f2e7baaec48666295039532af9df856cefe20e123c4af9",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f3.pt",
+      "sha256": "2fabaa7df591d34b610bd3e60c2a0c820c035765484f536bb1414670a6c61d69",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f5.pt",
+      "sha256": "cf3589fae245f2428c5a0afd06fe1613feb1ddd9f379054d640e2d46f49b665b",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f7.pt",
+      "sha256": "f37fbd0466996e2a803d2876998e391fb70c752d3f22ab0d08dae508da27c9c6",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h14_f9.pt",
+      "sha256": "3b714609dca2141e9974e5a34069efa1dedfbf787be13227115156edb1428e64",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f1.pt",
+      "sha256": "5ee58d961eab7334c4c695b597b8b8e63d5fa428747545b711f5d5057c089065",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f11.pt",
+      "sha256": "77f5a4648b2bf78d655b4cfd24aa37b328c7160d2ecc9a58bc3b5f0c30a5cb92",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f13.pt",
+      "sha256": "dfe9464b2de61383ce081b5d3384f6faa3a9939fa8ee49b7c59c5d16fe5ad7b5",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f15.pt",
+      "sha256": "3435899e0b34bea81fe67ae0f810dc2f920993af0857a35455f44bee16b8d929",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f3.pt",
+      "sha256": "7d24b451a9d716ebabc820061f952acd55a6be2660d9d570597916a3bb77e4bb",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f5.pt",
+      "sha256": "59cd3279d95e36115d6e51e7c768ea06986c44ba1cf5b219a0345ed26f26f4ad",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f7.pt",
+      "sha256": "d6134d1164a3e2eb93f7b161638c83f60e8e1e9aa8443f03cebb7d089499f4cd",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h15_f9.pt",
+      "sha256": "3cc8c1f569ec3b8ac0957cce0a50ab3913098edc8b5174afe71310756c1421c8",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f1.pt",
+      "sha256": "189ba3fe9d7e55612876740aa75f5601f67b81757629fd4914c47505bb872985",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f11.pt",
+      "sha256": "13077339e6794b60ab72ff25ac9286cdd34f8ec52956f002bda7fab80267831c",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f13.pt",
+      "sha256": "f2980cf3a6b98b0bdf775631989ee00e70059b2c248aa56f0b8bd7767fbaab67",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f15.pt",
+      "sha256": "b5b9dd2073735179af7a7cf2217710d977b0391afa75519ead94ddd83be8b9e7",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f3.pt",
+      "sha256": "79ba1c1e6f3c801be26ecac2c15f6e8401b53c65c3a2f75f7598b1d2db3e6c32",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f5.pt",
+      "sha256": "bc048771da43b3d43dd856aecc29c53d9975bf0596f362d699fcbd8e5b2fc2c9",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f7.pt",
+      "sha256": "3114d4651f7762ba0d6362e94568f56e38b4d7d36cf71a6eb8931f63c3d7fbe5",
+      "seed": 42
+    },
+    {
+      "path": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\walkforward_v2\\models\\F0-1-M2__wf_explore__seed42\\h16_f9.pt",
+      "sha256": "a0f35a08d30ede0dbe7bdfd2147418f739a6e8adeb1fbe632dfad79585a6ff20",
+      "seed": 42
+    }
+  ],
+  "preserved_incomplete_files": [],
+  "smoke_passed_at": "2026-10-06T12:43:36.2328055Z"
+}

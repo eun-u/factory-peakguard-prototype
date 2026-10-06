@@ -1,0 +1,20 @@
+{
+  "status": "lora_failed",
+  "started_at": "2026-10-06T12:10:33.3748925Z",
+  "baseline_pid": 3420,
+  "goal_achieved": false,
+  "holdout_read": false,
+  "full_phase_budgets": "unchanged",
+  "resume_original_in_finally": true,
+  "baseline_command": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.run --stage all --retry",
+  "original_driver_snapshot": {
+    "status": "running",
+    "stage": "all",
+    "pid": 3420,
+    "started_at": "2026-10-06T20:37:32.410554+09:00",
+    "full_phase_complete": false,
+    "holdout_read": false,
+    "historical_final_artifact_read": false
+  },
+  "error": "The original process has not exited; no model files moved or new jobs launched."
+}

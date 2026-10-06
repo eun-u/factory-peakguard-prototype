@@ -313,3 +313,4 @@
 - GPU 할당 안전 검사가 기존3420 종료 직후 CIM에 남은 항목을 보고 첫 시도를 중단했다. 실제 프로세스/세션 부재 및 GPU 해제를 다시 확인해 별도 recovery 기록으로 이어갔다. 첫 실패 기록을 덮어쓰지 않았다. 기존M2 완료194개 fit의 물리 SHA/메타데이터 쌍을 검증·보존했고 불완전 파일은0개다.
 - Chronos LoRA c512(batch16)/c2048(batch8), lr1e-5/100steps: 첫 EXPLORE fold1·seed42에서 각각13442행 예측, 실제 training22.332525/30.261475초, fitted-pipeline future perturbation0.0으로 smoke 통과했다. 후보점수/mean/목표달성으로 집계하지 않는다.
 - 별도 goal_r1_ft_v1의 두 설정 전체8주·13h·실제5시드 탐색이 시작됐다. 원래 전체PhaseF는 이 GPU wave 성공/실패 뒤 finally에서 재개하며 예산/단계 요구를 유지한다. 새 코드·기존 foundation 검증15개 통과 및 독립 재검토 반영. 소스·baseline·snapshot을 장시간 학습 후에도 다시 검증하고 복구 학습 시간은UNKNOWN을 보존한다.
+- 부모재개 과정에서 q60/seed3407의 fold7·9 메타데이터가NUL bytes로 채워져 파싱 불가한 것을 확인했다. 387개 나머지 checkpoint 쌍의 실제 SHA가 메타데이터와 일치함을 확인했고, 문제2쌍의 모델·메타데이터 원본을 SHA를 붙인 별도 파일로 보존했다. 누락 신원을 재구성하지 않고 동일 동결 seed/fold recipe로 재학습한다. 물리 손상 원인은UNKNOWN이다. 기록: r1_q60_interrupted_checkpoint_recovery.json.
