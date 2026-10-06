@@ -1,0 +1,102 @@
+{
+  "spec": {
+    "adapter": "r1_residual",
+    "groups": [
+      "lag_1_16",
+      "slot_7_28d",
+      "profile",
+      "rolling",
+      "trend",
+      "calendar",
+      "peak"
+    ],
+    "peak_weight": 1.0,
+    "model_params": {
+      "n_estimators": 1200,
+      "learning_rate": 0.03,
+      "num_leaves": 31,
+      "min_child_samples": 100,
+      "objective": "quantile",
+      "colsample_bytree": 0.85,
+      "subsample": 0.85,
+      "subsample_freq": 1,
+      "reg_lambda": 5.0,
+      "n_jobs": 4,
+      "alpha": 0.55
+    },
+    "early_stopping_rounds": 60,
+    "id": "FG-R1-expanded-q55",
+    "family": "F2",
+    "recency_halflife_days": null
+  },
+  "status": "completed",
+  "result": {
+    "at": "2026-10-06T12:48:41.033400+00:00",
+    "candidate": "FG-R1-expanded-q55",
+    "arm": "EXPLORE",
+    "fields": {
+      "AUC_MAE": 7.488524961568885,
+      "AUC_PeakMAE": 15.961150695169572,
+      "AUC_nMAE": 0.07973620434669301,
+      "h4_MAE": 6.041963968574831,
+      "h16_MAE": 8.906235821774615,
+      "h4_PeakMAE": 13.36061539842425,
+      "h16_PeakMAE": 17.829056963105923
+    },
+    "targets_met": false,
+    "individual": {
+      "AUC_MAE": false,
+      "AUC_PeakMAE": false,
+      "h4_MAE": false,
+      "h16_MAE": false,
+      "AUC_nMAE": false
+    },
+    "seed_uncertainty": {
+      "AUC_MAE": {
+        "individual_mean": 7.508454025445116,
+        "individual_sd": 0.04939374069289105
+      },
+      "AUC_PeakMAE": {
+        "individual_mean": 15.97988607481497,
+        "individual_sd": 0.2839139727523874
+      },
+      "AUC_nMAE": {
+        "individual_mean": 0.07994840514701425,
+        "individual_sd": 0.0005259366667352896
+      },
+      "h4_MAE": {
+        "individual_mean": 6.064422014083509,
+        "individual_sd": 0.06123891714841591
+      },
+      "h16_MAE": {
+        "individual_mean": 8.92692746149213,
+        "individual_sd": 0.04570227820775452
+      },
+      "h4_PeakMAE": {
+        "individual_mean": 13.3700538710839,
+        "individual_sd": 0.3254367339069927
+      },
+      "h16_PeakMAE": {
+        "individual_mean": 17.84726346744675,
+        "individual_sd": 0.26390956184853165
+      }
+    },
+    "n_seeds": 5,
+    "ranking_basis": "metrics of mean forecasts",
+    "independent_confirmation": "pending",
+    "goal_achieved": false,
+    "holdout_read": false,
+    "leakage_test": "passed",
+    "prediction_sha256": "06ae746fbf3b9a5381e4a99c28a93907ad6e6845d50e6254e45230c0ebe91468",
+    "artifacts": {
+      "auc.csv": "b7bd7c4ae418fd04035dfb555f0fce736ef437f64181c3007f4a990a9aac6368",
+      "daily.csv": "9597ae0df1506d51319101882902e3566e566ad46a5e2c834e4ed3d7a5a611d3",
+      "daily_summary.csv": "d90c4d98ac06add71830bd0652d43b360ab7961e0034ab817841aae395df1b26",
+      "fold.csv": "39d5b9004a0c16c90ce358d458df2d34486673c4a450ece92adb7b22bec32b10",
+      "paired_ci.csv": "568bdce4ea9ec0c2fa551806caa5d226ae3745ba554fb11b680a1797141260fc",
+      "pooled.csv": "261513e0c352c4d93845ea3d51b5bced0b3b1b4534a161750518fa0806d662c7",
+      "seed_metrics.csv": "414ae40cc9c249739476920816b9a593e4c19c5f4d84527445e5aae79609c6e3"
+    }
+  },
+  "holdout_read": false
+}
