@@ -351,3 +351,10 @@
 - 기존signedproducer해시를유지하고새model_paths_sha256를실제정규화helper에서계산해계획에각각잠근다. frozen검증은두해시를독립재계산하며, smoke/seed checkpoint identity와modelaudit는정규화해시만쓴다. 감사metadata가제공한값만믿지않는다. estimator source·features·hyperparameter·2설정·실제5seed·성공기준은변경하지않는다.
 - 원본v2source/model/tests/계획/계약/status/script/두로그및실제smoke체크포인트digests를transition_v2_failed_integrity에보존하고새goal_r1_transition_v3로실행한다. v1사후진단은바이트동일복사본으로유지한다. 새실제모델identity를mock하지않는양성smoke회귀와producer/model해시변조·checkpointidentity거부검사를추가했다. 첫검사에서root의테스트배치오류가드러나수정했으며최종24개전체통과(1.96초)다. v3실제smoke/search는이기록시점아직시작전이다.
 - 원래전체PhaseF worker27432는보존하며 Stage4 integration_pending·≤7단일union/단일reservation·원래전체검색예산·holdout미열람을유지한다. 현재정확도목표는미달, goalactive이며독립확인·상용적합성은미완료다.
+
+
+### FG-R3 v3 실제 smoke와 root 물리 검증 완료
+
+- v3 smoke worker1864/launcher32076/session55182를 실제CIM으로 확인했다. 두설정은각각fold1·seed42·13h에서13442예측행과1개weeklymodel을완료했다. 실제train_seconds25.325451/25.078079, 미래전력·모든생산열교란에대한최대예측차이0.0이다. 기술모델checkpoint/prediction 물리SHA는보존된v2와동일하나새v3계획으로다시fit했다. 이것은동일설계실행증거이며새독립성능증거가아니다.
+- root가v3 source/runtime/진단·계획selfSHA, sealedEXPLORErequired249246keys, 원래R1anchors와37개physicalproducerchunk/contentSHA, 원본/정규화두pathdigest, 두smoke모델identity/physicalcheckpoint/metadataSHA/코호트를재검증하여통과했다. 결과는transition_v3_smoke_verification.json이며plan_sha2565f2676d5c72cde981ff145d2d01dc8b81220eb21d67df4e95aa5597076d00bdd에결속한다. 앞선v2 root검증실패를v3통과로덮어쓰지않는다.
+- smoke0뒤자동search worker25236/launcher12864를13:56:25UTC에확인했다. 기존originalfullPhaseF worker27432도동일CIM에서실제live다. v3 search의추가preflight를관찰하면서같은session55182를유지하며새driver를중복실행하지않는다. 전체5seed후보점수/목표달성/독립CONFIRM·holdout은아직없다. 기존최소전체MAE7.244040/동일후보Peak13.868104는유지된다.

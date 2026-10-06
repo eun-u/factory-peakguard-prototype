@@ -1,0 +1,34 @@
+{
+  "protocol": "goal_r1_transition_v3",
+  "arm": "EXPLORE",
+  "past_result_used_for_design": "signed post-observation EXPLORE transition diagnosis",
+  "threshold_data_units": 30,
+  "classes": [
+    "fall",
+    "neutral",
+    "rise"
+  ],
+  "training": "FIT only; pooled all13; max-h16 embargo",
+  "stopping": "STOP classifier multi_logloss and class-conditional magnitude L1",
+  "alpha_selection": "pooled STOP point MAE + 0.25 * pooled STOP PeakMAE",
+  "alpha_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "min_fit_stop_per_class": 20,
+  "seeds": [
+    42,
+    123,
+    2024,
+    3407,
+    777
+  ],
+  "ranking": "metrics of mean of five actual seed forecasts",
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "contract_sha256": "017c95a8fefc77395b207ea11e6457f62a53c8a1e17e246e89917191e3bd4819"
+}
