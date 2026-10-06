@@ -392,3 +392,11 @@
 - 네 설정의 새 v2 첫fold·13h smoke가 정상종료(session7977 exit0)했고 root검증(session37012 exit0,14:44:53UTC)에서 249246R1keys/source29/runtime/raw/parent/split/계획·4physicalcheckpoint·예측행/미래교란·STOP재선정 및 실제 _ArmView 재구성/원본source불변/별도D모델junction을 확인했다. 네 v1/v2 기술예측은SHA단위동일하며 모델source도 동일하다. 전체성능/독립재현추가표본으로 계산하지않는다.
 - 별도v2 전체search(session82511,launcher32968/worker25784)를14:45:31UTC 실제CIM으로확인했다. plan33df8940daf9e623c3b1d505984280d3696dd16bf9ae3da059d4723d15683edd와root검증/새로그에결속한다. 기록시점 full후보점수는아직없으며original27432/transition25236도실제live다. 첫실패v1은보존한다.
 - 네고정deterministic설정은8EXPLORE주·13h·독립physicalfreshreplay의정확한동일출력을요구한다. 새시드/새통계표본으로replay를집계하지않고 기존Stage4 integration_pending/단일≤7CONFIRM/holdout미열람·원래전체PhaseF예산을유지한다. 목표미달/goalactive다.
+
+
+### FG-R4 완료 전체 검증·불채택 및 FG-R5 사후 가설
+
+- v2 전체search session82511 exit0(14:52:41UTC)과 root전체검증 session75334 exit0(14:57:01UTC)을 확인했다. 네설정 각각8주primary+8주새physicalreplay(총64모델),102427행씩전키/point/보조값/lockedcontext정확동일, fresh모델최초reuse없음, cachepayload/FITbank/STOP재선정·source/runtime/raw/split/parent/경로무결성과성능7필드재계산을완료했다. day_analog_v2_full_verification.json에보존한다.
+- w16/k3 9.108648/14.122079, w16/k5 8.787123/14.200920, w96/k3 10.184119/13.988902, w96/k5 9.828264/13.774114 (각MAE/Peak)다. 목표모두미달. 마지막설정의작은peak개선은큰평균악화를동반하며기존bestpeakguard에도미달하므로네설정모두불채택한다. 현재bestoverall7.244040/13.868104는유지한다.
+- read-only경계감사에서고정FITbank최신참조가각SCORE주보다23.7~48.2일오래됐음을확인했다. 새FG-R5는시점t에이미관측한rawpower에서t-d일(d1..56) referenceprefix/전체13suffix만조회하는stateless seasonal-inputfeature다. query이후target/evaluation-framey를입력하지않고tau/scales는FIT,혼합alpha는STOPonly, CAL/SCORE에서는fittedstate를갱신하지않는다. 이전평가기간raw값이후시점의관측입력이될수있다는점을명시한다.
+- 별도goal_r1_recent_analog_v1/RECENT_ANALOG_PLAN.md와CAUSAL_INPUT_CONTRACT.json을FG-R5fit/점수전고정했고 prefix16/96×k3/5의동일4recipe/최근56일을잠갔다. root가사용자개정prompt§3/§4(c)/§5.2-B와기존seasonal/lag코드를확인했으며독립designreview에정책상blocker없음이다. 모델/runner는각각새파일과새검사만구현중이고FG-R5실제fit/후보점수는아직없다. 기존공통source/실험/목표/원래전체예산/단일≤7최종union·integration_pending·holdout미열람은유지한다.

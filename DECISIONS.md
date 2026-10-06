@@ -332,3 +332,10 @@
 ## 2026-10-06 FG-R3 power 탐색 판정
 
 - 완전5seed·40physicalcheckpoint·cohort/해시/평가재계산검증을완료했지만전체/피크오차모두기존최선보다악화했다. 현재고정전력전환설정은불채택한다. 생산추가설정이나전환모델전체의실패로일반화하지않으며목표달성·독립검증을주장하지않는다.
+
+
+## 2026-10-06 FG-R4 불채택과 최근 관측입력 탐색 경계
+
+- 네고정FIT유사일설정을완전physicalfreshreplay/64모델/전체cohort/성능재계산으로검증했으나목표전부미달이다. 평균최선8.787123/14.200920이며최선guard7.244040/13.868104를바꾸지않는다. w96/k5의작은peak감소는평균악화이므로종합개선으로세지않는다. 실패/불리한결과를보존한다.
+- 사용자§3원점가용관측/§4(c)과거powercontext확장/§5.2-B주간fitting경계에따라, 새로운stateless causal seasonal retrieval feature를별도FG-R5로허용된범위안에서구현한다. §5.2의score학습금지는fit/alpha/tuning에적용하며추론은평가framey가아닌이미관측된rawhistory만사용한다. 기존seasonal/lag도같은원점가용관측을사용한다. 과거평가값과수치상동일한raw입력을읽을수있으므로SCORE값절대미열람으로표현하지않는다. 현재/미래target, SCORE-drivenweights/state변경, numericcandidateCONFIRM/holdout/과거finalartifact열람은금지한다.
+- FG-R5고정4설정/56일/STOP-onlyalpha/정확한미래교란불변성/독립physicalreplay/신규namespace/선택편향공개를요구한다. 그효과는미입증이며원래탐색budget/PhaseE/실제stochasticfinal10/단일≤7CONFIRM을대체하지않는다.

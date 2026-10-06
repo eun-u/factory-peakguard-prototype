@@ -1,0 +1,49 @@
+{
+  "protocol": "goal_r1_recent_analog_v1",
+  "arm": "EXPLORE",
+  "n_stochastic_seeds": 0,
+  "n_deterministic_runs": 1,
+  "fixed_specs": [
+    {
+      "id": "FG-R5-recent-w16-k3",
+      "adapter": "recent_day_analog",
+      "prefix_length": 16,
+      "top_k": 3,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R5-recent-w16-k5",
+      "adapter": "recent_day_analog",
+      "prefix_length": 16,
+      "top_k": 5,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R5-recent-w96-k3",
+      "adapter": "recent_day_analog",
+      "prefix_length": 96,
+      "top_k": 3,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R5-recent-w96-k5",
+      "adapter": "recent_day_analog",
+      "prefix_length": 96,
+      "top_k": 5,
+      "bank_days": 56
+    }
+  ],
+  "historical_inputs": "quality-masked raw observed power at timestamps no later than each query origin; may include past elapsed evaluation-period observations",
+  "reference_origins": "r=t-d calendar days, integer d=1..56, same quarter slot",
+  "reference_suffix": "all h4..h16 source times r+15min*h must be <=t; require all finite and quality-clean",
+  "prediction_state_updates": "none; stateless observed-history retrieval, no evaluation-frame labels passed to inference",
+  "weight_selection": "pooled STOP-only alpha in [0,.25,.5,.75,1], objective MAE+.25 PeakMAE using FIT tau, ties lower alpha",
+  "score_tuning": "forbidden",
+  "current_or_future_target_access": "forbidden",
+  "scope": "post-observation exploratory causal input expansion; preserves original search budgets and one frozen final union",
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "contract_sha256": "88daa8b573c87b1f29febf01ba930ef1552dabafb4c07ded6da48a144560c117"
+}
