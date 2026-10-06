@@ -1,0 +1,20 @@
+{
+  "protocol": "goal_r1_v1",
+  "targets": {
+    "AUC_MAE": 4.5,
+    "AUC_PeakMAE": 9.0,
+    "h4_MAE": 3.5,
+    "h16_MAE": 5.5,
+    "AUC_nMAE": 0.05
+  },
+  "target_authorization": "User accepted competitive targets and requested execution",
+  "primary_geometry": "existing walkforward_v2; 13 horizons h4..h16",
+  "ranking": "metrics of five-seed mean predictions; individual mean and SD disclosed",
+  "training": "fit-only causal rolling R1 residuals; stop-only early stopping and attenuation",
+  "selection_arm": "EXPLORE",
+  "confirmation": "locked candidate set; independent WF CONFIRM and pc3 auxiliary before achievement",
+  "holdout_read": false,
+  "commercial_qualification": "not implied by target attainment on this single-site development set",
+  "past_result_used_for_design": "R1 EXPLORE underprediction and morning error diagnostics",
+  "contract_sha256": "cea5b74906f79c67541e81c19c31b4545745e1157f8c895499c3a67ad56592de"
+}

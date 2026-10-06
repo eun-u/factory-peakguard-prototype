@@ -294,3 +294,7 @@
 - 전체 탐색 PID21428은 목표 경로 생성 동안 중단했고 M2 seed42 전체 104 fit transaction을 보존했다. 실제 재개 PID/로그는 후속 기록으로 남긴다.
 - 목표 달성 및 독립 확인은 미완료이며 현장 상용 적합성·경보 자격은 판정하지 않았다.
 - 수정본 v2 paths 실제 실행: 2026-10-06 20:35:51 KST PID32328, session55505, 로그 outputs/phase_f/logs/goal_r1_paths_v2_20261006.log. 기존 R1 첫/중간/마지막 앵커 156분위수 대조 최대 차이 0.000030517578125 <=0.0001; 동일 recipe 대조 통과. 실제 추가 11573 원점 중 첫2240 원점의 청크 생성 확인. 이 수치는 실행 진행이며 잔차 모델 성능 결과가 아니다.
+- 로컬 소스 커밋 1efec71 완료(자동 push 없음). 최종 신규 통합 검사 19개 통과 및 캐시 생성기 재검토에서 추가 조치 결함 없음.
+- v2 Chronos 경로 249246행 완료(2026-10-06 20:36:36 KST), content SHA256 476b02d1bb8f49e249ba36d204bbac0461e7f1fbde6f3094e82ba2287b38cc60. 실제 미래 교란 검사 통과, 원점 이후 입력 접근 없음.
+- 기존 전체 탐색 재개: 20:37:32 KST PID3420/session20143, outputs/phase_f/logs/revised_full_resume3_20261006.log. 목표 보정 탐색: 20:38:17 KST PID22100/session48852, outputs/phase_f/logs/goal_r1_search_v2_20261006.log. 두 PID의 실제 명령 확인. 첫 core-l1 seed42/123의 각8 주차 fit 및 예측 저장 완료; 2024 진행 중. 아직 전체5시드 평균 평가 결과가 없다.
+- 첫 core-l1의 실제5시드 평균 EXPLORE 결과: AUC_MAE7.443291, AUC_PeakMAE17.098625, h4_MAE5.942396, h16_MAE8.971350, mean_nMAE7.925455%. 기존R1의7.332248/14.306291보다 악화했고 절대 목표를 통과하지 못했다. 채택·개선 주장 없음. 다음 expanded/weight/recency/loss 설정 계속 실행 중.

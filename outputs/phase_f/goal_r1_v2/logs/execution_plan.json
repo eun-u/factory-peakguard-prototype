@@ -1,0 +1,339 @@
+{
+  "contract": {
+    "protocol": "goal_r1_v1",
+    "targets": {
+      "AUC_MAE": 4.5,
+      "AUC_PeakMAE": 9.0,
+      "h4_MAE": 3.5,
+      "h16_MAE": 5.5,
+      "AUC_nMAE": 0.05
+    },
+    "target_authorization": "User accepted competitive targets and requested execution",
+    "primary_geometry": "existing walkforward_v2; 13 horizons h4..h16",
+    "ranking": "metrics of five-seed mean predictions; individual mean and SD disclosed",
+    "training": "fit-only causal rolling R1 residuals; stop-only early stopping and attenuation",
+    "selection_arm": "EXPLORE",
+    "confirmation": "locked candidate set; independent WF CONFIRM and pc3 auxiliary before achievement",
+    "holdout_read": false,
+    "commercial_qualification": "not implied by target attainment on this single-site development set",
+    "past_result_used_for_design": "R1 EXPLORE underprediction and morning error diagnostics",
+    "contract_sha256": "cea5b74906f79c67541e81c19c31b4545745e1157f8c895499c3a67ad56592de"
+  },
+  "specs": [
+    {
+      "adapter": "r1_residual",
+      "groups": [],
+      "peak_weight": 1.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-core-l1",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 1.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-l1",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 1.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-l2",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 2.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-peak2",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 4.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-peak4",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 1.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-recent30",
+      "family": "F2",
+      "recency_halflife_days": 30.0
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 2.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-peak2-recent30",
+      "family": "F2",
+      "recency_halflife_days": 30.0
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 2.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 15,
+        "min_child_samples": 100,
+        "objective": "regression_l1",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-small",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 1.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "quantile",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4,
+        "alpha": 0.55
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-q55",
+      "family": "F2",
+      "recency_halflife_days": null
+    },
+    {
+      "adapter": "r1_residual",
+      "groups": [
+        "lag_1_16",
+        "slot_7_28d",
+        "profile",
+        "rolling",
+        "trend",
+        "calendar",
+        "peak"
+      ],
+      "peak_weight": 1.0,
+      "model_params": {
+        "n_estimators": 1200,
+        "learning_rate": 0.03,
+        "num_leaves": 31,
+        "min_child_samples": 100,
+        "objective": "quantile",
+        "colsample_bytree": 0.85,
+        "subsample": 0.85,
+        "subsample_freq": 1,
+        "reg_lambda": 5.0,
+        "n_jobs": 4,
+        "alpha": 0.6
+      },
+      "early_stopping_rounds": 60,
+      "id": "FG-R1-expanded-q60",
+      "family": "F2",
+      "recency_halflife_days": null
+    }
+  ],
+  "seeds": [
+    42,
+    123,
+    2024,
+    3407,
+    777
+  ],
+  "sources": {
+    "phase_f/goal_r1.py": "0345aa562f9ff6f8165bda3d39deb896303a002be49e9d56898dc3e257219553",
+    "phase_f/goal_protocol.py": "6f746d3737251b53d4c530845c02db1ba0544ae5ea6cd922fe17ba30258ccd1c",
+    "phase_f/goal_r1_paths.py": "e1450959cd6e2ef1138270efdc011ff6256bc3c0c880a59269e4c5409160b836",
+    "phase_f/models/r1_residual.py": "8dd0471de7c1bcd7b7c82286b1f3a6c2b7b0ed07aa1a17805f65d20835983ef2",
+    "phase_f/models/regression.py": "868473528a5d87e64f33bdda9b5db433b368ab13f2e8c6a50087e5f1631230c9",
+    "phase_f/models/foundation.py": "8943eb422b32891c575b06f89169d9c5d9013acb618f6dd4e68210cde412232c",
+    "phase_f/features_ext.py": "0db3fbd4b23d9a26164b955df9463c02e9ceef51cb40cfca2fa7c096fab641aa",
+    "phase_f/wf_models.py": "cb4a5c03f754f1412ebcb1381927dc2bc4a6463689a42a344f8c534ecb4dac11",
+    "phase_f/wf_metrics.py": "4e09ad06b93c66be85b0821c50f6f0c45b5da623183ba545e62bdfbc7128d6f2",
+    "phase_f/harness.py": "a716c1bf9f57f293519d9dd579677746f9101ee8e3cc385d8891af919a9d774d",
+    "phase_f/wf_harness.py": "177dab7c5bf39862ff2f77d69d347f96550fe14df155611b1f35af08b26dcefd",
+    "phase_c/data.py": "fee8922ed85bec860d9870f85d5eeeeeb29dc61fb74ee692e3aabab5ca9600fb",
+    "src/targets.py": "11f19a971c0f1ee06bbbc01e17847d98ccde170838da3c957746d1d5912758e1",
+    "src/holidays.py": "f37399c9c9c809f16f28858f9c7ad7caa86d8eff1d0e50597afb14f9096becf4",
+    "src/models/cbl.py": "66cdeb4e93b911850f945e6303f561811e287f647f21efab0b748975dddf3c0a"
+  },
+  "baseline_prediction_sha256": {
+    "F0-1-B5": "f26ae698e1e63cce402ed8683ab6eba1bde4fd77aa33acc58939347f2ccb0bf4",
+    "F0-1-M1": "98695282309a934f0c7b511cb1758eb1ea74fccdd7740d3e791ad65c4dd4b382",
+    "F0-1-R1": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf"
+  },
+  "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8",
+  "rolling_paths_sha256": "476b02d1bb8f49e249ba36d204bbac0461e7f1fbde6f3094e82ba2287b38cc60"
+}
