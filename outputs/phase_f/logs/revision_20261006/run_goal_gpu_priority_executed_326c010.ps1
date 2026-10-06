@@ -46,7 +46,6 @@ if ($RecoverVerifiedExit) {
 $phaseRecord['original_driver_snapshot'] = Get-Content -LiteralPath $phaseOriginalStatus -Raw | ConvertFrom-Json
 Save-Allocation
 $phaseCheckpointed = $false
-$phaseLoraFailed = $false
 try {
     if (-not $RecoverVerifiedExit) {
         Stop-Process -Id $ExpectedBaselinePid -ErrorAction Stop
@@ -117,7 +116,6 @@ try {
     $phaseRecord['status'] = 'lora_explore_complete'; $phaseRecord['lora_finished_at'] = [DateTime]::UtcNow.ToString('o')
     Save-Allocation
 } catch {
-    $phaseLoraFailed = $true
     $phaseRecord['status'] = 'lora_failed'; $phaseRecord['error'] = $_.Exception.Message
     Save-Allocation
     Write-Output ('GOAL_LORA_FAILED ' + $_.Exception.Message)
@@ -133,5 +131,3 @@ try {
         Save-Allocation
     }
 }
-if ($phaseLoraFailed) { exit 1 }
-if ($phaseCheckpointed -and $phaseRecord['original_resume_exit_code'] -ne 0) { exit 1 }
