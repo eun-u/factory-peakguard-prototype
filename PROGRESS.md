@@ -419,3 +419,15 @@
 - 실제 search session17563 exit0 및 root full verifier session22380 exit0. 4설정/64physical모델/각102427행 primary와 fresh exact replay 및 평가7필드 재계산, 전28개 score artifact SHA와 모든 목표판정 의미를 확인했다.
 - 네 설정 모두 다섯 목표 미달. 평균 최선 w16/k3는 MAE7.528010/Peak11.621093/h4 5.607685/h16 9.663053/nMAE8.015654%. 기존 guard대비 peak 점추정 감소/평균 악화이며 D1/D2 평균·피크 CI는 모두0포함이다. 확정적 개선·출시 승격·상용성으로 표현하지 않는다.
 - 사용자 지시대로 이후 변형/새 학습/자동재개를 중지한다. 원래 모델406/520·시드3/5를 물리SHA로 재확인해 보존했고 원래 Stage1 및 나머지 예산/최종 검증은 미완료다. 결과·중지/재개문·검증근거는 logs/revision_20261006/user_pause_20261007에 저장한다. 목표 paused 요청, goal_achieved=false, holdout/history-final 미열람.
+
+
+## 2026-10-07 FG-R6 전체 이력 유사일 게이트 모델
+
+- master는 origin과 동일, 최신 작업 브랜치 Phase4_performance로 전환해 진행.
+- 순수 유사일(오늘 prefix 최근접 일 지연) 만으로 EXPLORE AUC MAE 7.133 / Peak 11.162 — 기존 최선 guard 7.244/13.868 보다 낮음.
+- 선정 FG-R6(게이트 + LightGBM L1, 5 seed 평균 예측):
+  - EXPLORE: MAE 5.818, Peak 9.171, h4 4.010, h16 7.741, nMAE 6.19%, D2 8.045
+  - CONFIRM(1회): MAE 5.955, Peak 13.752, h4 4.051, h16 7.868, nMAE 6.35%, D2 7.609 (참고: 같은 하네스의 B1 CONFIRM 21.953/14.613)
+  - 다섯 목표(4.5/9/3.5/5.5/5%) 모두 미달. CONFIRM 피크 악화는 피크 행 중 복제일 비율 차이(EXPLORE 53% vs CONFIRM 33%) 때문이며, 비복제 피크 오차는 두 arm 모두 약 20, 편향 −9~−14(과소예측).
+- 부정적 결과: 비게이트 행만 학습(6.994), 게이트 없는 LGBM(6.928), L2(6.332)는 열위. B1 14.585211 재현으로 지표 구현 확인. 미래 교란 누수 검사 포함 신규 테스트 3개 통과.
+- 남은 일: 비복제 피크 과소예측 개선, 자정 넘김 행(오차 기여 18%) 개선, R1 대비 paired CI, 공식 하네스 연결, run_all/보고서 반영 여부 결정.
