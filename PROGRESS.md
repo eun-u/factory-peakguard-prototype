@@ -278,3 +278,10 @@
 - B5/M1의 104개 EXPLORE 주차·horizon 셀 예측 저장 완료. R1 최초 시도는 explicit zero-shot `finetune=False` 검증 오류로 중단됐으며 원 기록을 별도 보존했다. 검증기를 수정한 후 기존 B5/M1 해시를 확인해 재사용했다.
 - 2026-10-06 19:48:45 KST 전체 드라이버 재개(PID 26204). R1 실제 GPU 추론 진행 중; fresh cache 반복 검증 이후 Stage 1~4가 순차 실행된다. 진행 상태는 outputs/phase_f/walkforward_v2/logs/driver_status.json, 로그는 outputs/phase_f/logs/revised_full_resume_20261006.log다.
 - 후보 CONFIRM과 holdout은 현재 미평가. 후보 CONFIRM은 검색 완료 및 설정·소스·예측의 커밋 잠금 후 예약된 경로에서만 수행한다. 이번 개정안은 자동 GitHub push·배포·현장 제어를 승인하지 않는다.
+
+### 실제 연결 검증 후 재개
+
+- R1 EXPLORE 및 별도 캐시 반복 추론 완료, 최대 예측 차이 0. EXPLORE AUC-MAE B5 11.453898, M1/R1 기준 집계 완료; R1 7.332248은 기존 기준 모델의 새 주별 재평가 수치이며 새 후보 개선으로 해석하지 않는다. R1 peak 악화 CI 상한 +1.069630으로 엄격한 peak 보호 자격은 통과하지 못했다.
+- 실제 전체 horizon 입력으로 드러난 Phase E h16 필터 연결을 수정했다. Chronos의 실제 seed별 미래 교란 검사도 검증 후 누수 상태에 반영했다. 관련 추가 회귀 검사 27개 통과. 기존 R1 표는 별도 보존, 기준 예측 바이트 변화 0.
+- 8개 EXPLORE 주차 모두 후반 CAL 173행의 peak 양성 수가 0이라 Platt 보정의 두 클래스가 없고, 기준 세 모델의 Phase E는 unavailable이다. CAL 클래스 수를 cal_class_availability.json에 기록했고, 이 상태를 경보 자격 통과로 취급하지 않는다. 기존 기준·임계 또는 보정식을 변경하지 않았다. 경보까지 자격을 입증하려면 CAL 기간/분할을 별도의 개정 실험으로 검토해야 한다.
+- 수정본 로드 재개: 2026-10-06 19:54:36 KST PID 21428, Stage 1 기존 고유 설정 재평가 중. 현재 로그 outputs/phase_f/logs/revised_full_resume2_20261006.log. 전체 검색·최종 검증은 미완료다.
