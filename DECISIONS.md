@@ -314,3 +314,10 @@
 
 - 동일경로의원본CSV content해시와model._paths_index 정규화table해시는서로다른도메인이다. 원본producer경로해시는signedmanifest/chunk/causalproof검증에유지하고, 실제정규화helper에서계산한model_paths_sha256는별도실행계획필드로결속해모델checkpoint·seedaudit·identity검증에사용한다. 둘다재계산·검증하며어느무결성검사도면제하지않는다.
 - v2기술모델2개와미래교란0은보존하지만전체search진입전검증실패여서완료5seed후보로집계하지않는다. frozenv2원본을보존하고v3namespace에서같은과학적설계의smoke와search를수행한다. 원래성능목표·예산·독립평가경계는불변이다.
+
+## 2026-10-06 FG-R4 결정적 유사일 검색의 과학적 경계
+
+- 승인된유망변형추가탐색범위에서새고정FITbank유사일검색을설계한다. 원래모델·source·학습/평가경계는수정하지않고phase_f의새파일/goal_r1_day_analog_v1에만추가한다. 현재관측prefix와참조일prefix의상사성을검색하는것은기존무조건동일slot집계와구별되며성능효과는미입증이다.
+- prefix16/96관측×top3/5의4설정,최근FIT56calendar days,mean-centered L1/최근참조우선동률/inverse-distanceweightedmedian/원점levelshift/STOP-onlyalpha를수치평가전에고정한다. query까지의전력/qualityflag만입력한다. library의목표관측은모두FIT이며SCORE동안library를갱신하지않는다. 이후FITquery확장도self/futuretarget제외가필수다.
+- revisedprompt5.3-B의5/10seed는무작위모델반복이다. 이결정적검색은하나의distinctforecast로보고하고별도물리checkpoint에서전체freshreplay를검증한다. replay를독립seed또는추가통계표본으로집계하지않고stochasticSD는not_applicable로보존한다. 만일후속stochastic residual/gate를추가하면새설정·실제5seed·final10seed가필수다.
+- 통과/채택여부는원래목표와동일코호트D1/D2/주별/pairedCI로판단하며PhaseE불가를통과로바꾸지않는다. 독립CONFIRM연결에는별도deterministicfinaladapter/재현규칙이필요하고기존≤7union·singlereservation·integration_pending barrier를유지한다. 경쟁력3.5/7제안은승인실행목표변경으로간주하지않는다.
