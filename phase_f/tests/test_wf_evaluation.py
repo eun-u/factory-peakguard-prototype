@@ -8,6 +8,25 @@ from phase_f import wf_metrics,wf_evaluation
 from phase_f.registry import write_json,sha256
 
 
+def test_chronos_status_requires_actual_zero_perturbation_for_every_seed():
+    spec={'adapter':'foundation'}
+    audit={'leakage_test':'requires_family_audit','n_seeds':2,'seeds':[
+        {'seed':42,'audit':{'fit_cells':[{'future_perturbation_max_abs_difference':0}]}},
+        {'seed':43,'audit':{'fit_cells':[{'future_perturbation_max_abs_difference':0}]}}]}
+    assert wf_evaluation.verified_leakage_status(spec,audit)=='passed'
+    audit['seeds'][1]['audit']['fit_cells'][0]['future_perturbation_max_abs_difference']=1
+    assert wf_evaluation.verified_leakage_status(spec,audit)=='requires_family_audit'
+    audit['seeds'][1]['audit']['fit_cells'][0]['future_perturbation_max_abs_difference']=None
+    assert wf_evaluation.verified_leakage_status(spec,audit)=='requires_family_audit'
+    assert wf_evaluation.verified_leakage_status({'adapter':'neural'},audit)=='requires_family_audit'
+    audit['leakage_test']='passed'
+    for invalid in (1,None,False,float('nan')):
+        audit['seeds'][1]['audit']['fit_cells'][0]['future_perturbation_max_abs_difference']=invalid
+        assert wf_evaluation.verified_leakage_status(spec,audit)=='requires_family_audit'
+    audit['seeds'][1]['audit']['fit_cells']=[]
+    assert wf_evaluation.verified_leakage_status(spec,audit)=='requires_family_audit'
+
+
 def test_variable_locked_folds_and_contaminated_confirm_are_separate():
     f=predictions('candidate'); f['fold']=f.fold.map({0:1,1:3,2:5})
     extra=f.loc[f.fold.eq(5)].copy();extra['fold']=7

@@ -45,14 +45,15 @@ def _contexts(prepared: Any) -> dict:
 
 def _select(frame: pd.DataFrame, arm: str, name: str) -> pd.DataFrame:
     """Filter before reading any prediction, label, quantile or sigma values."""
-    if not isinstance(frame, pd.DataFrame) or not {"role", "arm", "fold"} <= set(frame):
-        raise ValueError(f"{name} requires role, arm and fold")
-    score = frame.loc[frame.role.eq("score") & frame.arm.eq(arm)]
+    if not isinstance(frame, pd.DataFrame) or not {"role", "arm", "fold", "horizon", "model"} <= set(frame):
+        raise ValueError(f"{name} requires role, arm, fold, horizon and model")
+    h16 = frame.horizon.eq(16)
+    score = frame.loc[frame.role.eq("score") & frame.arm.eq(arm) & h16]
     if score.empty:
         raise ValueError(f"{name} has no {arm} score rows")
     folds = set(score.fold)
-    selected = frame.loc[(frame.role.eq("score") & frame.arm.eq(arm)) |
-                         (frame.role.eq("cal") & frame.fold.isin(folds))].copy()
+    selected = frame.loc[h16 & ((frame.role.eq("score") & frame.arm.eq(arm)) |
+                                  (frame.role.eq("cal") & frame.fold.isin(folds)))].copy()
     missing = REQUIRED - set(selected)
     if missing:
         raise ValueError(f"{name} missing columns: {sorted(missing)}")
@@ -576,13 +577,16 @@ def evaluate_candidate(prepared: Any, candidateframe: pd.DataFrame,
     if arm not in {"EXPLORE", "CONFIRM"} or not isinstance(n_boot, int) or n_boot < 1:
         raise ValueError("Expected EXPLORE/CONFIRM arm and positive bootstrap count")
     contexts = _contexts(prepared)
+    for name, frame in (("Candidate", candidateframe), ("Baseline", baselineframe)):
+        if not isinstance(frame, pd.DataFrame) or not {"role", "arm", "horizon", "model"} <= set(frame):
+            raise ValueError(f"{name} requires role, arm, horizon and model")
     candidate_ids = set(candidateframe.loc[candidateframe.role.eq("score") &
-                                     candidateframe.arm.eq(arm), "model"])
+                                     candidateframe.arm.eq(arm) & candidateframe.horizon.eq(16), "model"])
     if len(candidate_ids) != 1 or "B5" in candidate_ids:
         raise ValueError("Exactly one non-B5 candidate is required")
     candidate_id = str(next(iter(candidate_ids)))
     if not baselineframe.loc[baselineframe.role.eq("score") &
-                             baselineframe.arm.eq(arm), "model"].eq("B5").all():
+                             baselineframe.arm.eq(arm) & baselineframe.horizon.eq(16), "model"].eq("B5").all():
         raise ValueError("Baseline must be B5")
     candidate = _select(candidateframe, arm, candidate_id)
     baseline = _select(baselineframe, arm, "B5")

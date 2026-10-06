@@ -1,0 +1,972 @@
+{
+  "identity": "7f71929a6ac5e8020a5435f510170760f348da13f0b6d9b3d64dd059a7b709fd",
+  "config_hash": "c59b3af8ed44e327cb64a052e42cc1c0fcf3971382899e2c1d5f86aa9d021d02",
+  "sha256": "d6df7e59344696dca34069a1db1001ce0b4e53ea03708464b4f5404e3b3edfb6",
+  "prediction_sha256": "d6df7e59344696dca34069a1db1001ce0b4e53ea03708464b4f5404e3b3edfb6",
+  "arm": "EXPLORE",
+  "audit": {
+    "arm": "EXPLORE",
+    "n_seeds": 1,
+    "seeds": [
+      {
+        "seed": 42,
+        "prediction_sha256": "4e31c19d751043ab585724af89b5615d506e2e92b8e07a0086fe50e66ad1790e",
+        "auc_mae": 14.585211360044717,
+        "cache_reused": false,
+        "leakage_test": "passed",
+        "audit": {
+          "cells": [
+            {
+              "horizon": 4,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "1",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "3",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "5",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "7",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "9",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "11",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "13",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 4,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 5,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 6,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 7,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 8,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 9,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 10,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 11,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 12,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 13,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 14,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 15,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            },
+            {
+              "horizon": 16,
+              "fold": "15",
+              "train_seconds": 0.0,
+              "source": "Phase C fixed model recipe refit on weekly fit/stop",
+              "future_perturbation_max_abs_difference": 0,
+              "native_training_seed": null,
+              "stop_MAE": null
+            }
+          ],
+          "leakage_test": "passed",
+          "phase_c_selection_sha256": null,
+          "phase_c_b2_method_lock_sha256": null
+        }
+      }
+    ],
+    "seed_auc_mae_mean": 14.585211360044717,
+    "seed_auc_mae_sd": 0.0,
+    "ranking_basis": "metric of mean prediction, not best seed",
+    "leakage_test": "passed",
+    "fresh_determinism_check": null,
+    "development_only": true,
+    "holdout_read": false
+  },
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

@@ -14,7 +14,7 @@
   "holdout_read": false,
   "note": "",
   "started_at": "2026-10-06T10:50:58.317537+00:00",
-  "updated_at": "2026-10-06T10:51:08.043551+00:00",
+  "updated_at": "2026-10-06T10:53:48.031304+00:00",
   "n_seeds": 1,
   "stop_MAE": null,
   "stop_cells": null,
@@ -42,5 +42,5 @@
   "explore_AUC_PeakMAE": 17.365839800746944,
   "metric_manifest_sha256": "5644b275084afe501a665198d39e97efc43f79983a16b62256bbc8bdec72b7c8",
   "E_status": "unavailable",
-  "E_reason": "ValueError: Phase E evaluation requires direct h16 forecasts"
+  "E_reason": "ValueError: Platt calibration requires both classes in cal"
 }

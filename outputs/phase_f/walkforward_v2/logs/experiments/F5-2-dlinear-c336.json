@@ -1,0 +1,16 @@
+{
+  "exp_id": "F5-2-dlinear-c336",
+  "family": "F5",
+  "tier": 1,
+  "parent_exp": "",
+  "config_json": "{\"adapter\":\"neural\",\"context_length\":336,\"family\":\"F5\",\"id\":\"F5-2-dlinear-c336\",\"kind\":\"dlinear\",\"nonfinite_policy\":\"weekly_anchor\",\"seeds\":[42,43,44,45,46],\"tier\":1}",
+  "config_hash": "1f8bb4d4d2030792c5a2cebc3d45cc96006ec784e58cce6b046d80cca213e9e5",
+  "code_commit": "ce6d09aced2dcce4bf31789aeaff1a1e6804fba9",
+  "source_digest": "2460f0358504a3cd8e416c8da865772bea5e443a4755a7fbfa83088fd6d8ff59",
+  "status": "planned",
+  "created_at": "2026-10-06T10:51:16.283722+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": ""
+}

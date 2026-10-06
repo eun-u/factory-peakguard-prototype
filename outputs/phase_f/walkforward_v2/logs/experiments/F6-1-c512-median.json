@@ -1,0 +1,16 @@
+{
+  "exp_id": "F6-1-c512-median",
+  "family": "F6",
+  "tier": 1,
+  "parent_exp": "",
+  "config_json": "{\"adapter\":\"foundation\",\"context_length\":512,\"family\":\"F6\",\"id\":\"F6-1-c512-median\",\"kind\":\"chronos2\",\"point\":\"median\",\"tier\":1,\"verify_determinism\":true}",
+  "config_hash": "1ee4969c7a54a76d07f0f6872a0d9f37ac4d56581293b8a4fab6c1132b081422",
+  "code_commit": "ce6d09aced2dcce4bf31789aeaff1a1e6804fba9",
+  "source_digest": "2460f0358504a3cd8e416c8da865772bea5e443a4755a7fbfa83088fd6d8ff59",
+  "status": "planned",
+  "created_at": "2026-10-06T10:51:18.110375+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": ""
+}

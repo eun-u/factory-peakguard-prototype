@@ -1,7 +1,7 @@
 {
   "arm": "EXPLORE",
   "candidate": "F0-1-R1",
-  "at": "2026-10-06T10:51:07.478588+00:00",
+  "at": "2026-10-06T10:53:47.340422+00:00",
   "prediction_sha256": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf",
   "metrics_source_sha256": "4e09ad06b93c66be85b0821c50f6f0c45b5da623183ba545e62bdfbc7128d6f2",
   "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8",
@@ -31,7 +31,7 @@
     "wf_explore_AUC_MAE_seed_sd": 0.0,
     "n_seeds": 1,
     "seed_auc_mae_mean": 7.332247638581336,
-    "leakage_test": "requires_family_audit",
+    "leakage_test": "passed",
     "ranking_basis": "metric of seed-mean predictions",
     "wf_explore_AUC_PeakMAE_seed_sd": 0.0,
     "wf_explore_h16_Peak_seed_sd": 0.0,

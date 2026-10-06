@@ -85,6 +85,30 @@ def test_unselected_confirm_numbers_are_not_read():
     assert result["manifest"]["arm"] == "EXPLORE"
 
 
+def test_full_horizon_input_reads_only_h16_cal_and_score_values():
+    prepared, candidate, baseline = _fixture()
+    expected = evaluate_candidate(prepared, candidate, baseline, n_boot=2)
+    other_candidate = candidate.copy()
+    other_baseline = baseline.copy()
+    for frame in (other_candidate, other_baseline):
+        frame["horizon"] = 4
+        frame["model"] = "poisoned-other-horizon"
+        for column in ("y", "pred", "tau", "sigma", "q10", "q50", "q90", "q95"):
+            if column in frame:
+                frame[column] = np.nan
+        frame["origin"] = "not-a-date"
+        frame["target_time"] = "not-a-date"
+    mixed_candidate = pd.concat([other_candidate, candidate], ignore_index=True)
+    mixed_baseline = pd.concat([other_baseline, baseline], ignore_index=True)
+    actual = evaluate_candidate(prepared, mixed_candidate, mixed_baseline, n_boot=2)
+    pd.testing.assert_frame_equal(actual["tables"]["score_probabilities"],
+                                  expected["tables"]["score_probabilities"])
+    assert actual["registry_fields"] == expected["registry_fields"]
+    assert actual["manifest"]["candidate_input_sha256"] == expected["manifest"]["candidate_input_sha256"]
+    with pytest.raises(ValueError, match="requires role, arm, horizon and model"):
+        evaluate_candidate(prepared, candidate.drop(columns="horizon"), baseline, n_boot=2)
+
+
 def test_selected_score_truth_never_changes_calibrator():
     prepared, candidate, _ = _fixture()
     context = prepared.contexts[(16, 0)]

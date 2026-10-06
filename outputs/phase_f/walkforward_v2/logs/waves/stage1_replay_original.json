@@ -1,0 +1,1910 @@
+{
+  "name": "stage1_replay_original",
+  "hypothesis": "Re-evaluate all original nonduplicate model settings on weekly folds",
+  "specs": [
+    {
+      "adapter": "baseline",
+      "baseline": "B1",
+      "family": "F0",
+      "id": "F0-1-B1",
+      "tier": 0
+    },
+    {
+      "adapter": "baseline",
+      "baseline": "M1-W",
+      "family": "F0",
+      "id": "F0-1-M1-W",
+      "tier": 0
+    },
+    {
+      "adapter": "baseline",
+      "baseline": "M2",
+      "family": "F0",
+      "id": "F0-1-M2",
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-2",
+      "id": "F0-2-fixed",
+      "kind": "mstl_stationary",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {},
+      "tier": 0
+    },
+    {
+      "adapter": "baseline",
+      "baseline": "B2",
+      "family": "F0",
+      "id": "F0-3-CBL",
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-daytype",
+      "kind": "daytype_profile",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "level_span": 96,
+        "statistic": "median"
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-k2-mean",
+      "kind": "seasonal_kweek",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "statistic": "mean",
+        "weeks": 2
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-k2-median",
+      "kind": "seasonal_kweek",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "statistic": "median",
+        "weeks": 2
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-k3-mean",
+      "kind": "seasonal_kweek",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "statistic": "mean",
+        "weeks": 3
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-k3-median",
+      "kind": "seasonal_kweek",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "statistic": "median",
+        "weeks": 3
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-k4-mean",
+      "kind": "seasonal_kweek",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "statistic": "mean",
+        "weeks": 4
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "statistical",
+      "family": "F0-3",
+      "id": "F0-3-k4-median",
+      "kind": "seasonal_kweek",
+      "nonfinite_policy": "weekly_anchor",
+      "params": {
+        "statistic": "median",
+        "weeks": 4
+      },
+      "tier": 0
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16"
+      ],
+      "id": "F1-1-lag1-16-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16"
+      ],
+      "id": "F1-1-lag1-16-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_4"
+      ],
+      "id": "F1-1-lag1-4-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_4"
+      ],
+      "id": "F1-1-lag1-4-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_8"
+      ],
+      "id": "F1-1-lag1-8-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_8"
+      ],
+      "id": "F1-1-lag1-8-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d",
+        "production"
+      ],
+      "id": "F1-10-production-once",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-2-daily-lightgbm",
+      "production_single_check": true,
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "feature_top_k": 10,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-11-top10",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-2-daily-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "feature_top_k": 20,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-11-top20",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-2-daily-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-11-top40",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-2-daily-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-2-daily-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-2-daily-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_7_28d"
+      ],
+      "id": "F1-2-weekly-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_7_28d"
+      ],
+      "id": "F1-2-weekly-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_2w"
+      ],
+      "id": "F1-3-2w-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_2w"
+      ],
+      "id": "F1-3-2w-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_3w"
+      ],
+      "id": "F1-3-3w-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_3w"
+      ],
+      "id": "F1-3-3w-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_4w"
+      ],
+      "id": "F1-3-4w-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_4w"
+      ],
+      "id": "F1-3-4w-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_5work"
+      ],
+      "id": "F1-3-five-workdays-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "same_slot_5work"
+      ],
+      "id": "F1-3-five-workdays-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "profile"
+      ],
+      "id": "F1-4-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "profile"
+      ],
+      "id": "F1-4-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "rolling"
+      ],
+      "id": "F1-5-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "rolling"
+      ],
+      "id": "F1-5-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "trend"
+      ],
+      "id": "F1-6-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "trend"
+      ],
+      "id": "F1-6-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "peak"
+      ],
+      "id": "F1-7-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "peak"
+      ],
+      "id": "F1-7-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "calendar"
+      ],
+      "id": "F1-8-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "calendar"
+      ],
+      "id": "F1-8-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "legacy"
+      ],
+      "id": "F1-9-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "legacy"
+      ],
+      "id": "F1-9-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [],
+      "id": "F1-core-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [],
+      "id": "F1-core-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_16-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_16-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_4-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_4-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_8-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_8-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-legacy-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-legacy-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-profile-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-profile-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_2w-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_2w-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_5work-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_5work-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-slot_1_7d-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-slot_1_7d-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d"
+      ],
+      "id": "F1-union-without-slot_7_28d-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-lightgbm",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d"
+      ],
+      "id": "F1-union-without-slot_7_28d-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-core-ridge",
+      "target": "direct",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-3",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-2-daily-lightgbm",
+      "target": "weekly",
+      "tier": 1
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-5",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-2-daily-lightgbm",
+      "target": "b5_residual",
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 1344,
+      "family": "F5",
+      "id": "F5-2-dlinear-c1344",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 192,
+      "family": "F5",
+      "id": "F5-2-dlinear-c192",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 2016,
+      "family": "F5",
+      "id": "F5-2-dlinear-c2016",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 2688,
+      "family": "F5",
+      "id": "F5-2-dlinear-c2688",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 336,
+      "family": "F5",
+      "id": "F5-2-dlinear-c336",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 672,
+      "family": "F5",
+      "id": "F5-2-dlinear-c672",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 96,
+      "family": "F5",
+      "id": "F5-2-dlinear-c96",
+      "kind": "dlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 1344,
+      "family": "F5",
+      "id": "F5-2-nlinear-c1344",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 192,
+      "family": "F5",
+      "id": "F5-2-nlinear-c192",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 2016,
+      "family": "F5",
+      "id": "F5-2-nlinear-c2016",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 2688,
+      "family": "F5",
+      "id": "F5-2-nlinear-c2688",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 336,
+      "family": "F5",
+      "id": "F5-2-nlinear-c336",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 672,
+      "family": "F5",
+      "id": "F5-2-nlinear-c672",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "neural",
+      "context_length": 96,
+      "family": "F5",
+      "id": "F5-2-nlinear-c96",
+      "kind": "nlinear",
+      "nonfinite_policy": "weekly_anchor",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "tier": 1
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 1024,
+      "family": "F6",
+      "id": "F6-1-c1024-integrated_mean",
+      "kind": "chronos2",
+      "point": "integrated_mean",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 1024,
+      "family": "F6",
+      "id": "F6-1-c1024-median",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 2048,
+      "family": "F6",
+      "id": "F6-1-c2048-integrated_mean",
+      "kind": "chronos2",
+      "point": "integrated_mean",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 2048,
+      "family": "F6",
+      "id": "F6-1-c2048-median",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 4096,
+      "family": "F6",
+      "id": "F6-1-c4096-integrated_mean",
+      "kind": "chronos2",
+      "point": "integrated_mean",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 4096,
+      "family": "F6",
+      "id": "F6-1-c4096-median",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 512,
+      "family": "F6",
+      "id": "F6-1-c512-integrated_mean",
+      "kind": "chronos2",
+      "point": "integrated_mean",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 512,
+      "family": "F6",
+      "id": "F6-1-c512-median",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 8192,
+      "family": "F6",
+      "id": "F6-1-c8192-integrated_mean",
+      "kind": "chronos2",
+      "point": "integrated_mean",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 8192,
+      "family": "F6",
+      "id": "F6-1-c8192-median",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 2048,
+      "covariates": true,
+      "family": "F6",
+      "id": "F6-2-c2048-calendar",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 4096,
+      "covariates": true,
+      "family": "F6",
+      "id": "F6-2-c4096-calendar",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 512,
+      "covariates": true,
+      "family": "F6",
+      "id": "F6-2-c512-calendar",
+      "kind": "chronos2",
+      "point": "median",
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 2048,
+      "family": "F6",
+      "id": "F6-3-c2048-q0.55",
+      "kind": "chronos2",
+      "point": 0.55,
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 2048,
+      "family": "F6",
+      "id": "F6-3-c2048-q0.6",
+      "kind": "chronos2",
+      "point": 0.6,
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "foundation",
+      "context_length": 2048,
+      "family": "F6",
+      "id": "F6-3-c2048-q0.65",
+      "kind": "chronos2",
+      "point": 0.65,
+      "tier": 1,
+      "verify_determinism": true
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-fair",
+      "kind": "lightgbm",
+      "model_params": {
+        "objective": "fair"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-huber0.5",
+      "kind": "lightgbm",
+      "model_params": {
+        "alpha": 0.5,
+        "objective": "huber"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-huber0.8",
+      "kind": "lightgbm",
+      "model_params": {
+        "alpha": 0.8,
+        "objective": "huber"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-huber0.95",
+      "kind": "lightgbm",
+      "model_params": {
+        "alpha": 0.95,
+        "objective": "huber"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-l1",
+      "kind": "lightgbm",
+      "model_params": {
+        "objective": "regression_l1"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-l2",
+      "kind": "lightgbm",
+      "model_params": {
+        "objective": "regression"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-q0.5",
+      "kind": "lightgbm",
+      "model_params": {
+        "alpha": 0.5,
+        "objective": "quantile"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-q0.55",
+      "kind": "lightgbm",
+      "model_params": {
+        "alpha": 0.55,
+        "objective": "quantile"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-q0.6",
+      "kind": "lightgbm",
+      "model_params": {
+        "alpha": 0.6,
+        "objective": "quantile"
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-2-tweedie",
+      "kind": "lightgbm",
+      "model_params": {
+        "objective": "tweedie",
+        "tweedie_variance_power": 1.5
+      },
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "continuous_peak_alpha": 0.5,
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-a0.5",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "continuous_peak_alpha": 1,
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-a1",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "continuous_peak_alpha": 2,
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-a2",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-w1",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "peak_weight": 1,
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-w1.5",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "peak_weight": 1.5,
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-w2",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "peak_weight": 2,
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-w3",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "peak_weight": 3,
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-3-w4",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "peak_weight": 4,
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-4-catboost-base",
+      "kind": "catboost",
+      "model_params": {},
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F3",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-4-xgboost-base",
+      "kind": "xgboost",
+      "model_params": {},
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "multihorizon",
+      "family": "F3",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-5-global-h-direct",
+      "kind": "global_h",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "multihorizon",
+      "family": "F3",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-5-global-h-weekly",
+      "kind": "global_h",
+      "target": "weekly",
+      "tier": 2
+    },
+    {
+      "adapter": "multihorizon",
+      "family": "F3",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-6-multioutput-direct",
+      "kind": "multioutput",
+      "target": "direct",
+      "tier": 2
+    },
+    {
+      "adapter": "multihorizon",
+      "family": "F3",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F3-6-multioutput-weekly",
+      "kind": "multioutput",
+      "target": "weekly",
+      "tier": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F4",
+      "feature_top_k": 40,
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F4-3-kalman-features",
+      "kalman_features": true,
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "parent": "F1-11-top40",
+      "target": "direct",
+      "tier": 2
+    }
+  ],
+  "config_sha256": "2132f488eb4aa4ff92e75be72e240b6fec4baeb9354c45152a9823e78d548491",
+  "selection_arm": "EXPLORE",
+  "original_source": {
+    "config_sha256": {
+      "F0-1-B1": "c59b3af8ed44e327cb64a052e42cc1c0fcf3971382899e2c1d5f86aa9d021d02",
+      "F0-1-M1-W": "4472b106fbab9532a79928d57a6348f4815aec25e46de2209094e6ed07ac241d",
+      "F0-1-M2": "6b7968260f8a577c0cb3b01ca788fdab6ed3da08fc93914ab6640710abd13fe8",
+      "F0-2-fixed": "3ee80410d75b811f4ff5730fbc709235fc0b437ce830806eaa07d3d1ba962315",
+      "F0-3-CBL": "373236ffaff0282a1f9dc1c967e4ee156f0ec2382fb5200b67e285dd80c4d318",
+      "F0-3-daytype": "7f1b49a6a272e89d06b227b049aa46207866a97018e2b67324762060f424a44d",
+      "F0-3-k2-mean": "5fad31a2dbdb587f7a38bdb234da97595f38264f19a00a2c33f9d26690a35b83",
+      "F0-3-k2-median": "5c737d1f7a421ec9dccbdd38e4e6272dc2e5265fe3512800e95b8f4c5c45ef34",
+      "F0-3-k3-mean": "ec77df1fedba34cc1ba771ec545b8ce9a19a1bdf95dd7410739cf3c794efd8c5",
+      "F0-3-k3-median": "e1475e6afb5ca57cafa1d4336616f752022d2e2f41a02aab8b3a17f4fe164c89",
+      "F0-3-k4-mean": "6ace86ca63070f4a9197713f67397c31f2e17713f986f968773f8a30bd132208",
+      "F0-3-k4-median": "310b563949b847fdf40a6c5048fc6eff09ace74dee9224e9c8376dc3a9960c5c",
+      "F1-1-lag1-16-lightgbm": "fa9adddd2bbb2c297a51ed50a4c7ace00476ca329767b1077646d243127e467d",
+      "F1-1-lag1-16-ridge": "5f32f7ed7bc4adeb83c3c4d731d46fbe5389832ac5db4d08b8745050051bcb7a",
+      "F1-1-lag1-4-lightgbm": "1cb345e28a801a85f39e9b95bc03c7f8f5b4009e8d63e4aa2049a5e353ee67b3",
+      "F1-1-lag1-4-ridge": "92006d1df2791c40a755f1986d5e8a6187ab584a6a31cdb51782062a65cd44a9",
+      "F1-1-lag1-8-lightgbm": "dd4357e2a1b0f84726f4df78b3de26d76557c92de6a0443c1b80f8efaeb62010",
+      "F1-1-lag1-8-ridge": "b1e2ad744512f4e603bc43f5dc0fac99e5d39f7caa491842fdf06af7b089a689",
+      "F1-10-production-once": "9ddc9fa373e1e46177984505034385ca3d0c24141984c020103717506eee5f74",
+      "F1-11-top10": "07315f5c3b1bb1a2703d6275ca2586e44fdccd13e2fc86f99e52d9aae6a96010",
+      "F1-11-top20": "23adc4e1986807d2404f2b27fd99089e15e05c02ce43e24999da53047b4f2be8",
+      "F1-11-top40": "800b1f335f503b0607846f61df95cd4ce0c50722a1330a0db50ab70f0aca74d8",
+      "F1-2-daily-lightgbm": "3dfec59ae68802e9edf42a299bcbfd688ec69759ee35baf9183efdf719b4b36c",
+      "F1-2-daily-ridge": "66c837625224c6b048cf138d70f87d9e186401aa90a81058651eb9d78b34960a",
+      "F1-2-weekly-lightgbm": "5efc28df919eaa4f7d0fa0005796d6ba6a6193d131af2d7d4b1022fb1b098022",
+      "F1-2-weekly-ridge": "e8d9aa941bb450a8a70fba3e8d9530e039f002c11eeeb0d512e6b93392fc1dbf",
+      "F1-3-2w-lightgbm": "1dd0364abaac15daf8bd745ff7fc7b6e0ffef92e165dbde5743aba29d4955edd",
+      "F1-3-2w-ridge": "34209220f0961d33f59e513c93deb5ec8a026edd26ecc6b00fdf10266d666dd4",
+      "F1-3-3w-lightgbm": "dba4d5588785c6d6dee3f13da6c31318e29c35de8d4eb812ef4d6d83c8d63c43",
+      "F1-3-3w-ridge": "78a87fdc369b80265830b72a748d54cb8f95c4443abede08d954725f5d014308",
+      "F1-3-4w-lightgbm": "ce909707ca1098e47a526496d0307dea0f385e3b60a7609b5c2b7c5104b624b3",
+      "F1-3-4w-ridge": "f7627c5ac2d5222aafcf21ed23a00f5c1e4c72ded33ff189709a35cc713b91a3",
+      "F1-3-five-workdays-lightgbm": "15874c4495e08e197904201dd061cd111e2d9465ff1d66cebd7ce4fdf984dee8",
+      "F1-3-five-workdays-ridge": "ccffdcd6c29fd887bc1f8fc2345fa0383ae5ec7b03ff82078dfd75e2d0cf5ec4",
+      "F1-4-lightgbm": "7630e62e9b987226328f5eab921f99bfb95e6d212a2ecbc55bc1ea29f08b48e6",
+      "F1-4-ridge": "f024263d8ae678637b80c7b92af6adb75b33dcf5ecb1d1fb737b897a6c655a25",
+      "F1-5-lightgbm": "8741b5a5a2eeb75e62a7c1e23025b8c2e8d143865556502bbde019f26bd13fec",
+      "F1-5-ridge": "9ab8ee914b5b83afa021ed80f0ecd2950123ef02c0b939796d845493aa03bd34",
+      "F1-6-lightgbm": "e30504d94feddf662a68e28199c81dd318e6fd2dcf7ada82dc901c78f0c8f5cf",
+      "F1-6-ridge": "6fbad0c7dded8beab2f12f082317ee9f8e5aa2f92eab641b4364f3eba4cd1fd7",
+      "F1-7-lightgbm": "78d9c92b2687a832180120e31eb11f308b63be289583dbd00971ad96b96fb25b",
+      "F1-7-ridge": "fa52372e79136f8e7dd7aad7dcf8455eac1fc2f9503a267d946cbab666b3a0e6",
+      "F1-8-lightgbm": "fffd606470a967ae186e75997baed6f8422f2b87ce2d1923dc4d3d9ed7180b5c",
+      "F1-8-ridge": "fafbf488b345e66b717dfa1eeb266893e1bad758d5e5e63521782da66bd6a3db",
+      "F1-9-lightgbm": "3bfa7e3c6b550b361cc16532b34826b0575f82531e21f2d0d43fc3f3f75ad027",
+      "F1-9-ridge": "c97c97aa0bc61252f738b14feed0a98070f0af93309b84f6da2ef231d1f90f74",
+      "F1-core-lightgbm": "2a40b4597efa74ae5e31a462a8f1787721aa1eed0214a8de964279311f4e7636",
+      "F1-core-ridge": "a034e6dc0466c16c7d05348269669fa83dce7544c03b3b9e6f224d8a591b8584",
+      "F1-union-lightgbm": "eb08cc3da3cfdf68f1681fe80eae3f4bc3a87f9e3bec70ad39f43252a7487966",
+      "F1-union-ridge": "d0e7c78b957506c23c301a8eaa62cd7c1af39c3bed2acaaba5687492a5c970b2",
+      "F1-union-without-lag_1_16-lightgbm": "679943eb1226c601e841b86a1dd7fc71f7f7a80a22e0ff5105a548d4a90d7b3e",
+      "F1-union-without-lag_1_16-ridge": "3f9c1208e0a6005b990e7027d3c8b4e4d6af35f6d67141974e52172a0c5ff915",
+      "F1-union-without-lag_1_4-lightgbm": "e98e9a9c945a834fefc4874e2de2afb14bdea1e1c2b2d0c590cbd080e5625734",
+      "F1-union-without-lag_1_4-ridge": "c51a4f16c1478521479d43450cce19e36c02a38ded17b114227630b95059f953",
+      "F1-union-without-lag_1_8-lightgbm": "dd7e2c673cf35489eac80089fe143c00e1599aa98d97a43fd1fca440749ca216",
+      "F1-union-without-lag_1_8-ridge": "6173007c07c446e7dd86f0ac66092a0c0bfd7de195f22fc2d19abd4e6aea7ac6",
+      "F1-union-without-legacy-lightgbm": "92359cca7d1755a00fb95193f67ef1318b3ef588bbf32097ae12d45267ed7bc4",
+      "F1-union-without-legacy-ridge": "0cdc43640ee88762b836a3caf8c82ed88643c87aa6af3ebe817c8eaf8841a577",
+      "F1-union-without-profile-lightgbm": "a115ea676196ab15a1e0bb57f86ef700a675af050894ef8f59cf22ad291c2cc5",
+      "F1-union-without-profile-ridge": "9e820783c370ed1b34a8e2eb857d3b26b13e0d3a844905f2bda964e3015aa7af",
+      "F1-union-without-same_slot_2w-lightgbm": "7c056139e12183463a2e415f150e7ee5c952110fa546df19dde80039940b6c96",
+      "F1-union-without-same_slot_2w-ridge": "52b1aa7314f9d1a28c83058cbb1da234b222a5effc878f576f7055fb266222c7",
+      "F1-union-without-same_slot_5work-lightgbm": "8bf5109ebcb04ecce3d1382db0f7f5ee70e74d0e726d6f251e0765aa42188cb0",
+      "F1-union-without-same_slot_5work-ridge": "46abbd29240c3269256ae8cfb75fb947935989053e254f2518084e32ca0d489c",
+      "F1-union-without-slot_1_7d-lightgbm": "a90855d2d1865e11de14db404bd4e206837fe2b1395c9db063aed3c9d8463d9d",
+      "F1-union-without-slot_1_7d-ridge": "0b2f236d19b5717dcb30c9bfe32a284295cb2f248e09183718e42f5bc9a99dbf",
+      "F1-union-without-slot_7_28d-lightgbm": "be965446b6c7db9146a5d441f50770aa906220c8e85bc5b35da15b5501e7350a",
+      "F1-union-without-slot_7_28d-ridge": "abeff74ed79f3d24b9d2965a0d95a641bf71f88f32a59b59e3a22f49bde1fc3f",
+      "F2-3": "946fa9a0c986a2324f97e469cf582b47cb9cc30115d4cba2850c6bbe311d2ead",
+      "F2-5": "26431954876b83d20f4d23a73297deca18aceddf429cb1bbc151a9ddfdfe387a",
+      "F5-2-dlinear-c1344": "bd4aebae9bf429dcc0e196f08342e55fb2c05ae2d6f23deeca24b7ee3c80dcf8",
+      "F5-2-dlinear-c192": "c6e39dd9566571f11b02073ee573ac4f507d78b84d956f455eb95403ba223c85",
+      "F5-2-dlinear-c2016": "0426015b5702e4da782f04d35e17ea71c50c40478dd5080f90c12837c515441a",
+      "F5-2-dlinear-c2688": "098761b17db02995da948933178d4da0e479382666f171253c4ff41dd5a58fde",
+      "F5-2-dlinear-c336": "1f8bb4d4d2030792c5a2cebc3d45cc96006ec784e58cce6b046d80cca213e9e5",
+      "F5-2-dlinear-c672": "7a54055def4a0bd26fa40665da853d6ac7c737e7482202728a7ffcb2c42dd840",
+      "F5-2-dlinear-c96": "dfe01fc2bfd39537dd21fafa2c8dc884df8dc84909492b27ecbbeda6f2e855da",
+      "F5-2-nlinear-c1344": "2edd781a22c2ba0b6d1d94e71ae37e21d1f45c4d13f158666f4e061a18db6da7",
+      "F5-2-nlinear-c192": "d86c6640349f9340608622d21e4f0608270d51454a3149057a4e0de0b0af92e2",
+      "F5-2-nlinear-c2016": "ee821806f76ca75adb260e76724cd1b90d0399fea5372947f8dcd1a13f0f402d",
+      "F5-2-nlinear-c2688": "7487e0d416e67a58cfec8f58229f01e561597d65998a9c30ef1767b4534c907f",
+      "F5-2-nlinear-c336": "586d4ee6ce0fbe55cee23cad0dbb7ad1ccb3e5dfd0d1c1925461f98d0b885747",
+      "F5-2-nlinear-c672": "f1060cc08b44e8ec5fa244328c65afa4bb5f084886fc64037b71a7a7cf3e2044",
+      "F5-2-nlinear-c96": "f0293350b482397466908b64e5715cf28881e09698530bbad943df5ee2b61209",
+      "F6-1-c1024-integrated_mean": "60ba234eedebe20783fc08ff34d18c0f07399febd667810276acebc36bc8d4d8",
+      "F6-1-c1024-median": "6edb78cf59d4cfb35173b6b109f2670a81d12e5093616c58db7202061724f71e",
+      "F6-1-c2048-integrated_mean": "cc952f7a3186273805b8754c3672b4e4c44397436e15ef4f6cebe2b6088592ee",
+      "F6-1-c2048-median": "79423c01dda53331dee51a5d8a322f37833d8488ee54e07fc377b1fba966b0ac",
+      "F6-1-c4096-integrated_mean": "86efd346b63e20d57c092a9d73b8c558e931289597b5aef0b18d31030cd44765",
+      "F6-1-c4096-median": "92c7a8853a6a6af690807347a6fba6ee7eee1c91bf2f2144be0af094a06c427f",
+      "F6-1-c512-integrated_mean": "26b30d3f431ad72e754bf1c161b0adfa68318a825f81f5e701c30604cfaeb231",
+      "F6-1-c512-median": "eabb57aac313cd186ed461f58cc99fd83e26a0bc4ba6607e83245c196be2fbe6",
+      "F6-1-c8192-integrated_mean": "68e2eb71f88adc8d5ba679f7bca3f84f6d7c7fe732076d94133d05eabc6a6235",
+      "F6-1-c8192-median": "555076d0abb7e6fb5646661de94f49460f3683f6cec9b892f1920833d7bd51d8",
+      "F6-2-c2048-calendar": "bf4c425c8cddf15ef71743fb3852d5962614b8736e8071d5554cb07cc8cba76d",
+      "F6-2-c4096-calendar": "0f302f87dbd094509305c5d68765b8f1a35dfab63d34c65e911637e49e643bc4",
+      "F6-2-c512-calendar": "68035a613cae511789bc54473326812b19cb043236ac569bcea1c523714df121",
+      "F6-3-c2048-q0.55": "ad480ecd917da4092bdd86c63227315fc9081c4c889bea70466b146d2bb49f4f",
+      "F6-3-c2048-q0.6": "9681183f967acd47cb3c0c2c45dbcc14ce26c3fc05abf765a7ae3aff39cad5a0",
+      "F6-3-c2048-q0.65": "39a8723cd786e07f9550f262a6355e1a39c1588cb534a2b51616f52b880cfea9",
+      "F3-2-fair": "11e605834abae730655bca84fa2a4df8fd82ca5598ca15099d5cc68d2d0d8543",
+      "F3-2-huber0.5": "6472f239d686e09641a0c5e682853eca7465c3dbea8be924f6af1169cc65a5fd",
+      "F3-2-huber0.8": "89498645d3938c1eaf46383e6180d740514a3ce2a864dae0a45538e5ff731e17",
+      "F3-2-huber0.95": "234ece4138c3c88c19a708fbc1bba8e508f61526df6ecae4e4cff633e91b0904",
+      "F3-2-l1": "91e687ca4a1d9ed5362bb8305f763325835c20b4ee4c19b16ac49b7cf11c88d4",
+      "F3-2-l2": "df7e0e548b2f5ad74b85a5f034719d41cdf36e1a1286d72d7a5ed825b75b6aae",
+      "F3-2-q0.5": "89add5d1b8e1e9ea88ae1af3e53bd4d2f23ad2caca245609f46a099dee8d2b35",
+      "F3-2-q0.55": "02ad7c16d8d000a5a080ec69a2dbf3833851c18fb8e546f8e4f587992592f655",
+      "F3-2-q0.6": "3da6a7e654b79efa740ec9faa117587169cc1e14bcc781951065c8b121a3c23c",
+      "F3-2-tweedie": "c4da1872cd77058366e2d1e6ef604160b0a6b7b4b571deefe9818c19e5613100",
+      "F3-3-a0.5": "6104eb6b586252ca9156d07d69095f6616e87b24ff63f195dccc7724ba2fc962",
+      "F3-3-a1": "43106a37f964e8ec8da4986a0e7e0d3c3b2a3108f897c3df75077e12e8f04207",
+      "F3-3-a2": "14e853888ff3feff2bdb56a0d05ab8e63ce9c6022c38fd2bf94206b71fc2f08b",
+      "F3-3-w1": "27779fbafef00693acc453cd4b88c370457ba10844b6a165dc3866aaedcfd92b",
+      "F3-3-w1.5": "8c51a40842b369b0674644d2bffccfee9fb060a420594aa924a32015511848c5",
+      "F3-3-w2": "7a61f6e8acaa123eab4e3a627879b9c4c4ee52236e4d41a30e254b5c1c1e79c4",
+      "F3-3-w3": "06a7dd1d419d67070df294642ad1c4cf159ddc8f1ea88a1ef6ab858307743ad7",
+      "F3-3-w4": "17bcb70631606b27983719eff782cf196817576b09480cbb59bb5774ac3b04ba",
+      "F3-4-catboost-base": "f1599564671773e1e7683142d6e154218f8d5ddf89edb0e7eb3f4717345b3d33",
+      "F3-4-xgboost-base": "60ddae391684f2427c47b9fe92d1dff16c371acccbff654f13219ffd1257f646",
+      "F3-5-global-h-direct": "7e7984207e01a996a843f62b41e2fcf5e22b9a6c5aed17de80fbf9cd9040ebba",
+      "F3-5-global-h-weekly": "5d8bee7e39316226ba76813743c8133c51cb49a1f9041728dc4efb0e508b2f7f",
+      "F3-6-multioutput-direct": "9eedf65a1253bab38765b348b728cbf4d1b288919ebe7c89f492b858b0f9ab76",
+      "F3-6-multioutput-weekly": "c0369dbb3e3e4711e62c62a4f7881000fb4c291984b35444cd409cbb51c9455c",
+      "F4-3-kalman-features": "468bf923d3166e8b90680453b1ebc7d5bf9bb76679fc9231192268253f5d31fa"
+    },
+    "previous_failures": [
+      "F2-5",
+      "F3-5-global-h-direct",
+      "F3-5-global-h-weekly",
+      "F3-6-multioutput-direct"
+    ],
+    "previous_planned": [
+      "F3-6-multioutput-weekly",
+      "F4-3-kalman-features"
+    ]
+  },
+  "skipped_aliases": [],
+  "locked_at": "2026-10-06T10:51:08.711498+00:00",
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

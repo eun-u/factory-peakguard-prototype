@@ -27,6 +27,28 @@ def baselines_ready(prepared,arm='EXPLORE'):
     return all(prediction_path(prepared,key,arm).exists() for key in BASELINES.values())
 
 
+def verified_leakage_status(spec,audit):
+    status=audit.get('leakage_test')
+    if spec.get('adapter')!='foundation':return status
+    unresolved='requires_family_audit'
+    # Chronos records the actual fitted-pipeline perturbation per fold but
+    # its original adapter leaves the generic status unset. Resolve that
+    # evidence here without changing cached model or prediction bytes.
+    seeds=audit.get('seeds',[])
+    if len(seeds)!=audit.get('n_seeds') or not seeds:return unresolved
+    if any('seed' not in entry for entry in seeds) or len({e['seed'] for e in seeds})!=len(seeds):
+        return unresolved
+    for entry in seeds:
+        cells=entry.get('audit',{}).get('fit_cells',[])
+        if not cells:return unresolved
+        for cell in cells:
+            difference=cell.get('future_perturbation_max_abs_difference')
+            if isinstance(difference,(bool,np.bool_)) or not isinstance(difference,(int,float,np.number)):
+                return unresolved
+            if not np.isfinite(difference) or difference!=0:return unresolved
+    return 'passed'
+
+
 def summarize(prepared,spec,frame,audit,*,arm='EXPLORE',destination=None,update_registry=True):
     dest=Path(destination) if destination else prepared.out/'tables'/spec['id']/arm
     dest.mkdir(parents=True,exist_ok=True)
@@ -48,7 +70,7 @@ def summarize(prepared,spec,frame,audit,*,arm='EXPLORE',destination=None,update_
         'wf_explore_PredPeakMAE':float(d1.AUC_PredPeakMAE),
         'wf_explore_AUC_MAE_seed_sd':audit.get('seed_auc_mae_sd'),
         'n_seeds':audit['n_seeds'],'seed_auc_mae_mean':audit.get('seed_auc_mae_mean'),
-        'leakage_test':audit.get('leakage_test'),'ranking_basis':'metric of seed-mean predictions'}
+        'leakage_test':verified_leakage_status(spec,audit),'ranking_basis':'metric of seed-mean predictions'}
     seedrows=[]
     parent=spec.get('parent_spec',{}).get('id',spec['id']) if spec.get('adapter')=='seed_ensemble' else spec['id']
     for entry in audit.get('seeds',[]):

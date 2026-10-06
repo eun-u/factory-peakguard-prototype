@@ -1,6 +1,6 @@
 {
   "candidate": "F0-1-B5",
-  "reason": "ValueError: Phase E evaluation requires direct h16 forecasts",
+  "reason": "ValueError: Platt calibration requires both classes in cal",
   "prediction_sha256": "f26ae698e1e63cce402ed8683ab6eba1bde4fd77aa33acc58939347f2ccb0bf4",
   "holdout_read": false,
   "historical_final_artifact_read": false
