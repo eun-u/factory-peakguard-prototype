@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_day_analog.py", line 594, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_day_analog.py", line 576, in main
+    run_search(prepared, paths, plan)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_day_analog.py", line 511, in run_search
+    replay = _replay_view(prepared)
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_day_analog.py", line 366, in _replay_view
+    replay.out = prepared.out / "fresh_replay"
+    ^^^^^^^^^^
+AttributeError: property 'out' of '_ArmView' object has no setter
