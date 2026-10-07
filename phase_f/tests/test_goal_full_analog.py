@@ -41,3 +41,26 @@ def test_cross_midnight_is_not_gated():
     F = Features(history)
     origin = history.index[96 * 35 + 90]
     assert not gate(F.build([origin], 16))[0]
+
+
+def test_v2_features_ignore_values_after_origin():
+    from phase_f.goal_full_analog_v2 import Features as F2
+    history = _history()
+    history.iloc[96 * 31 + 5, 0] = np.nan  # missing slot must not leak or crash
+    reference = F2(history)
+    for origin in history.index[96 * 31 + np.array([3, 40, 90])]:
+        changed = history.copy()
+        changed.loc[changed.index > origin, "power"] += 1000.
+        perturbed = F2(changed)
+        for h in (4, 16):
+            pd.testing.assert_frame_equal(reference.build([origin], h), perturbed.build([origin], h))
+
+
+def test_v2_gate_uses_most_recent_exact_day():
+    from phase_f.goal_full_analog_v2 import Features as F2, gate as gate2
+    history = _history()
+    F = F2(history)
+    origin = history.index[96 * 35 + 50]
+    X = F.build([origin], 8)
+    assert gate2(X)[0]
+    assert X.a_today_pred.iloc[0] == history.power.loc[origin + pd.Timedelta(minutes=120)]

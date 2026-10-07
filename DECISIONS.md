@@ -360,3 +360,11 @@
 - 결정: 오늘 prefix가 정확히 일치하고 목표가 같은 날이면 유사일 값을 그대로 쓰는 고정 게이트, 그 외는 전력 전용 다지평 LightGBM(L1, 비게이트 행 가중 3). EXPLORE 10개 설정 비교 후 선정(근거: outputs/phase_f/goal_full_analog_v1/PLAN.md). Huber 계열은 MAE 0.05 낮지만 Peak 1.2 이상 악화해 제외.
 - 잠금 후 CONFIRM 1회 실행(CONFIG_LOCK.json, source SHA 4cfaa55e…). CONFIRM 결과로 재선정하지 않는다. holdout 미열람.
 - 공식 WeeklyPrepared는 부모 모델 파일 부재로 봉인 검사에서 멈춰, build_weekly_contexts로 fold를 만들고 score key SHA 일치를 확인했다. R1과의 paired CI는 R1 예측 파일이 없어 계산하지 못했다.
+
+
+## 2026-10-07 FG-R7 2차 탐색 판정
+
+- 사용자 재요청으로 FG-R6 이후 EXPLORE 약 25개 설정을 추가 탐색했다(근거: outputs/phase_f/goal_full_analog_v2/PLAN.md). FG-R6 CONFIRM을 본 뒤의 개정임을 공개한다.
+- 선정: 결측 허용 거리, 어제 전체일 기준, 현재 편차 특징, 동률 시 최근 정확 일치 게이트, 얕은 Huber LightGBM 2개(잎 3·7) 평균. 피크 악화 없는 후보 중 MAE 최소.
+- CONFIRM 1회: 5.816/14.164(FG-R6 5.955/13.752). MAE 개선 CI [−0.409, 0.639]가 0을 포함하고 피크는 점추정 악화. 일반화된 요소는 게이트 완화뿐이고 대체 모델 개선은 CONFIRM에서 사라졌다.
+- 따라서 FG-R7을 확정 개선으로 주장하지 않는다. 후속 후보는 "FG-R6 + 게이트 완화만"이지만 CONFIRM을 보고 만든 조합이라 새 독립 평가 없이는 채택하지 않는다.
