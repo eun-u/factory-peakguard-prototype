@@ -392,3 +392,10 @@
 - 사용자 요청으로 마지막 라운드. 사전 고정 문서(goal_fm_ensemble_v1/PREREGISTRATION.md)를 결과 전에 작성. 선택은 개발 16주 비게이트 행만 사용.
 - TimesFM-3·TimesFM-2.5·TiRex·앙상블·Chronos 공변량/문맥 변형 모두 Chronos-2 단독을 넘지 못함(동점인 달력 공변량은 Peak 열위). 선택: Chronos-2 + 게이트 최소 5칸.
 - 테스트 2차 평가 1회: FG-R9 MAE 6.781 / Peak 8.032 (FG-R8 6.811 / 8.032, Chronos 6.651 / 10.270). 테스트 재사용이므로 보고서 주 결과는 FG-R8 1차 결과를 유지하고 FG-R9는 사후 개선으로 병기한다.
+
+
+## 2026-10-08 FG-R10 (Chronos-2 + 선형 MOS) 및 테스트 3차 평가
+
+- 개발 16주 비게이트 행에서 선형 MOS(실현 오차 피드백)가 Peak를 유의하게 낮춤(FG-R9 규칙 대비 0.162 [0.041, 0.304]), MAE는 유지. LightGBM 잔차·지연 앙상블·최근창 학습·문맥 앙상블은 열위.
+- 테스트 3차: FG-R10 6.752/8.251, Chronos+MOS 6.649/9.922, FG-R9 6.781/8.032. 평균은 FG-R10, 피크는 FG-R9가 근소 우위. 근거: outputs/phase_f/goal_fm_ensemble_v1/MOS_RESULTS.md.
+- 테스트 3회 열람으로 R9/R10의 테스트 수치는 낙관 편향 가능. 보고서 주 결과는 FG-R8 1차.
