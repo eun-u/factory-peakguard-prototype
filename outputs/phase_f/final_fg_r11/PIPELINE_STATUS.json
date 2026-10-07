@@ -1,0 +1,48 @@
+{
+  "caches": {
+    "outputs/phase_f/goal_gate_chronos_v1/cache/chronos_c2048.parquet": {
+      "sha256": "1d37b2efb7641c0c4c6f1fe60d8759bbef2d0f34f43a4651f67ff1461d3450af",
+      "locked_hash": "verified"
+    },
+    "outputs/phase_f/final_fg_r8/cache/chronos_test.parquet": {
+      "sha256": "e467de257815b8cc710ef0af284e2452fdd2e921819fa57314fb4ef262ceb1b8",
+      "locked_hash": "verified"
+    },
+    "outputs/phase_f/final_fg_r11/cache/th_dev.parquet": {
+      "sha256": "b58ce0f2105fa0d2665cb685655d504bc214992da94ea9ed40b19237f1521db5",
+      "locked_hash": "verified"
+    },
+    "outputs/phase_f/final_fg_r11/cache/th_full.parquet": {
+      "sha256": "0528b4a22fca44fada5787e54421e072bff49665bc52b26e83f45d4a870e3a6c",
+      "locked_hash": "not_locked"
+    }
+  },
+  "evaluation": "existing",
+  "reproduction": {
+    "max_abs_metric_difference": 0.0,
+    "reproduced": true,
+    "prediction_files_byte_identical": true
+  },
+  "prediction_csv": {
+    "rows": 44668,
+    "rows_h4": 3442,
+    "next_day_rows": 34,
+    "first_origin": "2021-08-09 09:45:00",
+    "last_target": "2021-09-15 00:00:00",
+    "auc_mae_from_csv": 6.637510204198268,
+    "problems": [],
+    "ok": true
+  },
+  "report_blocks": {
+    "chapters": [
+      "ch1_data",
+      "ch2_model",
+      "ch3_errors",
+      "ch4_field",
+      "ch5_novelty",
+      "ch6_repro"
+    ],
+    "draft": "REPORT_DRAFT.md"
+  },
+  "seconds": 85.6
+}

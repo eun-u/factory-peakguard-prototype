@@ -53,6 +53,19 @@ python run_all.py --development-only
 
 최종 평가는 기존 날짜·사람 승인·해시·일회 실행 조건을 따른다. 문서 생성·구조 개편·main 반영은 동결 승인이나 예약 활성화를 뜻하지 않는다. 과거 마지막 15% 열람 이력, 단위·시간 경계 미확인, 통계적 피크와 실제 계약 한도의 차이를 유지한다.
 
+## 최종 모델 FG-R11 재현 — GPU 필요
+
+FG-R11 = 정확 복제 게이트(5칸 이상 일치) + Chronos-2(문맥 2048)의 시간 계층 조정(15분~4시간, WLS-분산) + 실현 오차 보정(MOS) + 피크 상향 보정 + conformal 위험 추정. 근거와 실험 기록은 `outputs/phase_f/goal_fm_ensemble_v1/`, 잠금과 테스트 결과는 `outputs/phase_f/final_fg_r11/`에 있다.
+
+```bash
+python -m pip install -r requirements.txt
+python -m venv outputs/phase_f/env
+outputs/phase_f/env/Scripts/python -m pip install -r requirements-chronos.txt --extra-index-url https://download.pytorch.org/whl/cu126
+python run_all.py --fg-r11
+```
+
+`--fg-r11`은 캐시(Chronos·시간 계층 예측)를 확인하고, 잠금이 없으면 개발 데이터로 잠근 뒤 테스트를 1회 평가한다. 이미 평가된 경우 저장 결과를 덮어쓰지 않고 임시 폴더에서 재계산해 일치 여부만 확인한다. 이어서 예측결과 CSV(`outputs/predictions/final_test_fg_r11*.csv`, `final_test_next_day_max.csv`)를 검사하고 보고서 각 장의 FG-R11 블록을 갱신한다. `--refresh-caches`를 붙이면 GPU로 캐시를 다시 만들고 잠금 해시와 대조한다. 캐시가 이미 있으면 GPU 없이 실행된다.
+
 ## 과거 결과와 제출
 
 현재 선정은 [스냅샷](research/generated/current_snapshot.json)으로 확인한다. P4/P5/P6는 기존 기록으로 보존하고 새 실험은 R2-EX01~06의 planned 상태에서 시작한다. [기존 보고서](report/REPORT_DRAFT.md)·발표·프로토타입은 생성 시점과 모델 범위가 다를 수 있다.

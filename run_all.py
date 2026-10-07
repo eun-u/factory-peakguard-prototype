@@ -29,7 +29,19 @@ def main(argv=None):
                         help="Rebuild/verify development from the sealed source prefix only")
     parser.add_argument("--dry-run-freeze", action="store_true",
                         help="Verify development cache and fingerprints without opening test data")
+    parser.add_argument("--fg-r11", action="store_true",
+                        help="Final FG-R11 pipeline: caches, lock/one-time evaluation or reproduction, CSV checks, report blocks")
+    parser.add_argument("--refresh-caches", action="store_true",
+                        help="With --fg-r11: regenerate Chronos/temporal-hierarchy caches on GPU and verify locked hashes")
     args = parser.parse_args(argv)
+    if args.refresh_caches and not args.fg_r11:
+        parser.error("--refresh-caches requires --fg-r11")
+    if args.fg_r11:
+        if args.development_only or args.dry_run_freeze or args.only or args.from_step or args.rebuild_dev:
+            parser.error("--fg-r11 runs its own pipeline and cannot be combined with other modes")
+        os.chdir(ROOT)
+        from phase_f.pipeline_fg_r11 import main as run_fg_r11
+        return run_fg_r11(refresh_caches=args.refresh_caches)
     if args.development_only and args.dry_run_freeze:
         parser.error("Choose one of --development-only and --dry-run-freeze")
     if (args.development_only or args.dry_run_freeze) and (args.only or args.from_step):

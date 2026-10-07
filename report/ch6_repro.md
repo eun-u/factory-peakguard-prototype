@@ -25,3 +25,22 @@ README의 설치 후 `python run_all.py`로 데이터, 개발모델, 분석, 그
 | package | 1.9830 | cold_run |
 
 이 시간표는 독립 전체 실행 기록이다. 이후 캐시 사용 실행과 예약 최종 평가의 최신 상태는 run_status.json을 따른다.
+
+<!-- FG-R11 결과 블록 시작: phase_f/report_fg_r11.py 자동 생성, 손으로 고치지 않음 -->
+
+## FG-R11 재현 절차
+> 이 블록이 최종 수치의 기준이다. 위쪽 기존 표는 이전 파이프라인의 개발 교차검증 수치다. 테스트 = 마지막 15%(2021-08-09 09:45 원점~2021-09-15), 같은 구간을 사전 검증 1회와 FG-R8~R12 평가 5회 열람했다.
+
+```
+python -m pip install -r requirements.txt            # 메인 환경
+python -m venv outputs/phase_f/env                   # Chronos 환경 (GPU)
+outputs/phase_f/env/Scripts/python -m pip install -r requirements-chronos.txt --extra-index-url https://download.pytorch.org/whl/cu126
+python run_all.py --fg-r11                           # 캐시 확인 → 잠금/평가 또는 재현 검증 → CSV 검사 → 보고서 블록
+python run_all.py --fg-r11 --refresh-caches          # Chronos·시간 계층 예측을 GPU로 재생성 후 잠금 해시 대조
+```
+
+- 재현 검증: 저장 결과와 재계산 지표의 최대 차이 0.00e+00, 예측 파일 바이트 동일 True.
+- 산출물: outputs/predictions/final_test_fg_r11.csv(전 지평), final_test_fg_r11_h4.csv(1시간 앞), final_test_next_day_max.csv(익일 최대).
+- 모델·설정 잠금: outputs/phase_f/final_fg_r11/FINAL_LOCK.json (소스·캐시 SHA-256, MOS 계수, 시간 계층 투영행렬, 보정값).
+
+<!-- FG-R11 결과 블록 끝 -->
