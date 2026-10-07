@@ -280,7 +280,10 @@ def main(argv=None) -> dict:
     test_series = test_series.loc[~test_series["recovered"] & test_series["power"].notna()]
     targets_by_trigger = simulate_shift.shift_targets(frame, peak, event_cutoffs["lgb"], static_hours)
     forecast_plan = pd.Series(frame["lgb"].to_numpy(), index=frame["target_time"].to_numpy())
-    plans = {"forecast": forecast_plan, "static": forecast_plan, "oracle": test_series["power"]}
+    upper_plan = pd.Series(frame["q95"].to_numpy(), index=frame["target_time"].to_numpy())
+    targets_by_trigger["forecast_q95"] = targets_by_trigger["forecast"]
+    plans = {"forecast": forecast_plan, "forecast_q95": upper_plan, "static": forecast_plan,
+             "oracle": test_series["power"]}
     sim_rows = []
     for trigger, shift_hours in targets_by_trigger.items():
         for case, b in (("point", slope["slope"]), ("ci_low", slope["ci_low"]), ("ci_high", slope["ci_high"])):

@@ -209,7 +209,8 @@ def rev_curve(ratios, point, low, high, path) -> None:
 
 def shift_simulation(table: pd.DataFrame, path) -> None:
     fig, ax = plt.subplots(figsize=(6.4, 3.8))
-    labels = {"forecast": "예측 경보 기반", "static": "고정 시간대", "oracle": "사후 정보(상한)"}
+    labels = {"forecast": "예측 경보 기반", "forecast_q95": "예측 경보 + 95% 분위 여유", "static": "고정 시간대",
+              "oracle": "사후 정보(상한)"}
     for trigger, label in labels.items():
         part = table[(table["trigger"] == trigger) & (table["slope_case"] == "point")].sort_values("fraction")
         if part.empty:
