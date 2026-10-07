@@ -11,8 +11,8 @@ const {
 } = require("docx");
 
 const ROOT = path.resolve(__dirname, "..", "..");
-const input = process.argv[2] || path.join(ROOT, "report/submission_draft/report_draft_v1.md");
-const output = process.argv[3] || path.join(ROOT, "submission/report/report_draft_v1.docx");
+const input = process.argv[2] || path.join(ROOT, "report/submission_draft/report_draft_v2.md");
+const output = process.argv[3] || path.join(ROOT, "submission/report/report_draft_v2.docx");
 const baseDir = path.dirname(input);
 
 const FONT = "휴먼명조";
@@ -85,19 +85,21 @@ function table(lines) {
   widths[n - 1] += TEXT_W - widths.reduce((a, b) => a + b, 0);
   const align = parse(lines[1]).map((c) => (c.endsWith(":") && !c.startsWith(":") ? AlignmentType.RIGHT : AlignmentType.LEFT));
   const border = { style: BorderStyle.SINGLE, size: 4, color: "808080" };
-  const cell = (text, i, head) => new TableCell({
+  // 짧은 표(본문 12행 이하)는 한 쪽에 모이도록 마지막 행을 뺀 모든 행에 keepNext를 건다.
+  const keep = rows.length <= 12;
+  const cell = (text, i, head, last) => new TableCell({
     width: { size: widths[i], type: WidthType.DXA },
     shading: head ? { type: ShadingType.CLEAR, fill: "E7EDF3", color: "auto" } : undefined,
     margins: { top: 40, bottom: 40, left: 80, right: 80 },
     borders: { top: border, bottom: border, left: border, right: border },
     children: [new Paragraph({ children: runs(text, SMALL, head ? { bold: true } : {}),
-      alignment: head ? AlignmentType.CENTER : align[i], spacing: { line: 276, after: 0 } })],
+      alignment: head ? AlignmentType.CENTER : align[i], spacing: { line: 276, after: 0 }, keepNext: keep && !last })],
   });
   return new Table({
     width: { size: TEXT_W, type: WidthType.DXA },
     columnWidths: widths,
-    rows: [new TableRow({ tableHeader: true, children: header.map((t, i) => cell(t, i, true)) }),
-      ...rows.map((r) => new TableRow({ children: header.map((_, i) => cell(r[i] || "", i, false)) }))],
+    rows: [new TableRow({ tableHeader: true, cantSplit: true, children: header.map((t, i) => cell(t, i, true, rows.length === 0)) }),
+      ...rows.map((r, k) => new TableRow({ cantSplit: true, children: header.map((_, i) => cell(r[i] || "", i, false, k === rows.length - 1)) }))],
   });
 }
 

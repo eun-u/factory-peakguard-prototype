@@ -7,6 +7,7 @@
 - outputs/predictions/final_test_fg_r11_h4.csv           (1시간 앞 예측·경보)
 - data/raw/task05_power/okm_augumented_2021.csv           (원자료, 조건 설명용 생산량·기온)
 출력: outputs/tables/submission/*.csv, outputs/figures/submission/*.png, outputs/tables/submission/summary.json
+마지막에 reduction.py(일·월 최대 피크 사전 포착, 목표 최대수요 운영 시나리오)를 이어서 실행한다.
 조건 분석은 탐색적이며 다중 비교 보정이 없다. 시각대·휴일·생산량은 교대·가동의 대리변수다.
 """
 
@@ -290,15 +291,15 @@ def relative_value(f: pd.DataFrame, s_dev: pd.DataFrame, tau: float, rng) -> pd.
 
 
 def figures(result: dict, cond: pd.DataFrame, heat: pd.DataFrame, f: pd.DataFrame, shift: pd.DataFrame, tau: float):
-    names = {"persistence": "지속 예측", "B1 weekly naive": "주간 계절 나이브", "analog only": "순수 유사일",
-             "FG-R6": "FG-R6", "Chronos-2 alone": "Chronos-2 단독", "TH reconciled Chronos": "시간 계층 조정",
-             "TH Chronos + MOS": "시간 계층 + MOS", "FG-R11 without peak shift": "FG-R11 (피크 보정 전)",
-             "FG-R11": "FG-R11 (최종)"}
+    names = {"persistence": "직전값 유지", "B1 weekly naive": "1주 전 같은 시각", "analog only": "유사일",
+             "FG-R6": "유사일+LightGBM", "Chronos-2 alone": "Chronos-2 단독", "TH reconciled Chronos": "+ 시간 계층 조정",
+             "TH Chronos + MOS": "+ 최근 오차 보정", "FG-R11 without peak shift": "+ 동일일 복사 규칙",
+             "FG-R11": "제안 모델(+ 피크 보정)"}
     p = result["point"]
     # 그림 2-1 모델 비교
     fig, axes = plt.subplots(1, 2, figsize=(11, 4))
     labels = [names[k] for k in names]
-    for ax, key, title in ((axes[0], "AUC_MAE", "전체 MAE (13지평 평균)"), (axes[1], "AUC_PeakMAE", "피크 MAE (실제 > τ)")):
+    for ax, key, title in ((axes[0], "AUC_MAE", "전체 MAE (1~4시간 앞 평균)"), (axes[1], "AUC_PeakMAE", "피크 구간 MAE (실제 > 178)")):
         vals = [p[k][key] for k in names]
         colors = ["#1f6fb2" if k == "FG-R11" else "#9db7cf" for k in names]
         ax.barh(labels[::-1], vals[::-1], color=colors[::-1])
@@ -317,7 +318,7 @@ def figures(result: dict, cond: pd.DataFrame, heat: pd.DataFrame, f: pd.DataFram
         ax.plot([x * 15 for x in xs], [ph[str(x)] if str(x) in ph else ph[x] for x in xs], marker="o", ms=3,
                 lw=2 if k == "FG-R11" else 1, label=names[k])
     ax.set_xlabel("예측거리 (분)")
-    ax.set_ylabel("MAE (원자료 단위)")
+    ax.set_ylabel("평균 절대오차 (원자료 단위)")
     ax.set_xticks([60, 120, 180, 240])
     ax.legend(fontsize=7, ncol=2)
     ax.grid(alpha=.3)
@@ -334,14 +335,14 @@ def figures(result: dict, cond: pd.DataFrame, heat: pd.DataFrame, f: pd.DataFram
     for _, r in part[has].iterrows():
         axes[0].text(r["value"], -0.1, f"n={int(r['peaks'])}", ha="center", fontsize=8)
     axes[0].set_ylim(-0.15, 1.05)
-    axes[0].set_title("시각대별 피크 재현율 (h4 경보)", fontsize=10)
+    axes[0].set_title("시각대별 피크 재현율 (1시간 앞 경보)", fontsize=10)
     axes[1].errorbar(part["value"], part["fp_rate"],
                      yerr=[part["fp_rate"] - part["fp_rate_ci_low"], part["fp_rate_ci_high"] - part["fp_rate"]],
                      fmt="o", capsize=4, color="#d97a1e")
     axes[1].set_title("시각대별 비피크 오경보율", fontsize=10)
     for ax in axes:
         ax.grid(alpha=.3)
-        ax.set_xlabel("목표 시각대")
+        ax.set_xlabel("예측 대상 시각대")
     fig.tight_layout()
     fig.savefig(FIG / "fig3_1_conditions_by_band.png", dpi=170)
     plt.close(fig)
@@ -350,8 +351,8 @@ def figures(result: dict, cond: pd.DataFrame, heat: pd.DataFrame, f: pd.DataFram
     im = ax.imshow(heat.to_numpy(), aspect="auto", cmap="Reds", vmin=0)
     ax.set_yticks(range(len(heat.index)), [f"{m}월" for m in heat.index])
     ax.set_xticks(range(24), range(24))
-    ax.set_xlabel("목표 시각(15분 구간 종료)")
-    ax.set_title("개발 이력(평일)의 월 × 시각 피크 발생률", fontsize=10)
+    ax.set_xlabel("시각 (15분 구간이 끝나는 시각)")
+    ax.set_title("개발 구간 평일의 월 × 시각 피크 비율", fontsize=10)
     fig.colorbar(im, ax=ax, fraction=.03)
     fig.tight_layout()
     fig.savefig(FIG / "fig3_2_peak_heatmap.png", dpi=170)
@@ -359,10 +360,10 @@ def figures(result: dict, cond: pd.DataFrame, heat: pd.DataFrame, f: pd.DataFram
     # 그림 2-3 테스트 첫 주 예측·구간·경보
     w = f[f["target_time"] < f["target_time"].min() + pd.Timedelta(days=7)]
     fig, ax = plt.subplots(figsize=(11, 3.8))
-    ax.fill_between(w["target_time"], w["q05"], w["q95"], color="#1f6fb2", alpha=.15, label="90% 예측구간(q05~q95)")
+    ax.fill_between(w["target_time"], w["q05"], w["q95"], color="#1f6fb2", alpha=.15, label="90% 예측구간")
     ax.plot(w["target_time"], w["actual"], color="#222", lw=1, label="실제")
-    ax.plot(w["target_time"], w["pred"], color="#1f6fb2", lw=1, label="FG-R11 1시간 전 예측")
-    ax.axhline(tau, color="#b22222", ls="--", lw=.8, label=f"피크 경계 τ={tau:.0f}")
+    ax.plot(w["target_time"], w["pred"], color="#1f6fb2", lw=1, label="제안 모델 1시간 앞 예측")
+    ax.axhline(tau, color="#b22222", ls="--", lw=.8, label=f"피크 기준값 {tau:.0f}")
     al = w[w["alert"]]
     ax.scatter(al["target_time"], np.full(len(al), w["actual"].max() * 1.04), marker="|", color="#b22222", s=40, label="경보")
     ax.legend(fontsize=7, ncol=5, loc="lower left")
@@ -372,27 +373,30 @@ def figures(result: dict, cond: pd.DataFrame, heat: pd.DataFrame, f: pd.DataFram
     plt.close(fig)
     # 그림 4-2 이동 시나리오
     fig, ax = plt.subplots(figsize=(7, 4))
+    shown = {"예측 경보(FG-R11 h4)": "예측 경보 시간", "고정 시간대": "피크가 잦은 시각에 고정 (예측 없음)",
+             "사후 정보(상한)": "실제 피크 시간 (사후에 안 경우)"}
     for trig, g in shift[shift["slope_case"] == "점추정"].groupby("trigger", sort=False):
-        ax.plot(g["fraction"] * 100, g["exceed_reduction"] * 100, marker="o", label=trig)
+        if trig in shown:
+            ax.plot(g["fraction"] * 100, g["exceed_reduction"] * 100, marker="o", label=shown[trig])
     ax.axhline(0, color="black", lw=.8)
     ax.set_xlabel("이동 비율 (%)")
-    ax.set_ylabel("피크 경계 초과 위치 감소율 (%)")
+    ax.set_ylabel("피크 구간 감소율 (%)")
     ax.grid(alpha=.3)
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(FIG / "fig4_2_shift_scenario.png", dpi=170)
+    fig.savefig(FIG / "fig4_4_shift_scenario.png", dpi=170)
     plt.close(fig)
 
 
 def transfer_figure():
     """개발 개선이 테스트로 전이되었는가 (같은 개발·테스트 정의의 라운드·구성요소, 각 결과 문서 수치)."""
-    rows = [("MOS", .025, .385, .002, .348), ("시간계층", .038, .041, .147, .407),
-            ("R10", .020, .162, .029, -.219), ("R11", .099, .262, .114, .273),
-            ("R12", .022, .041, -.003, -.018)]
+    rows = [("최근 오차 보정", .025, .385, .002, .348), ("시간 계층 조정", .038, .041, .147, .407),
+            ("보정량 재조정", .020, .162, .029, -.219), ("시간 계층 통합", .099, .262, .114, .273),
+            ("세부 파라미터 조절", .022, .041, -.003, -.018)]
     table = pd.DataFrame(rows, columns=["change", "dev_mae_gain", "dev_peak_gain", "test_mae_gain", "test_peak_gain"])
     table.to_csv(TAB / "dev_to_test_transfer.csv", index=False, encoding="utf-8-sig")
     fig, axes = plt.subplots(1, 2, figsize=(10, 4))
-    for ax, d, t, title in ((axes[0], "dev_mae_gain", "test_mae_gain", "MAE 개선량"), (axes[1], "dev_peak_gain", "test_peak_gain", "피크 MAE 개선량")):
+    for ax, d, t, title in ((axes[0], "dev_mae_gain", "test_mae_gain", "전체 MAE 개선량"), (axes[1], "dev_peak_gain", "test_peak_gain", "피크 MAE 개선량")):
         ax.scatter(table[d], table[t], color="#1f6fb2")
         for _, r in table.iterrows():
             ax.annotate(r["change"], (r[d], r[t]), fontsize=7, xytext=(3, 3), textcoords="offset points")
@@ -400,8 +404,8 @@ def transfer_figure():
         ax.plot([-lim, lim], [-lim, lim], color="grey", ls="--", lw=.8)
         ax.axhline(0, color="black", lw=.6)
         ax.axvline(0, color="black", lw=.6)
-        ax.set_xlabel("개발 16주 개선량")
-        ax.set_ylabel("테스트 개선량")
+        ax.set_xlabel("개발 구간 개선량")
+        ax.set_ylabel("평가 구간 개선량")
         ax.set_title(title, fontsize=10)
     fig.tight_layout()
     fig.savefig(FIG / "fig2_4_dev_test_transfer.png", dpi=170)
@@ -426,7 +430,7 @@ def main():
     rev = relative_value(f, s_dev, tau, rng)
     rev.to_csv(TAB / "rev_fg_r11_h4.csv", index=False, encoding="utf-8-sig")
     fig, ax = plt.subplots(figsize=(6, 3.8))
-    ax.plot(rev["cost_loss_ratio"], rev["rev"], marker="o", color="#1f6fb2", label="FG-R11 초과확률 (h4)")
+    ax.plot(rev["cost_loss_ratio"], rev["rev"], marker="o", color="#1f6fb2", label="제안 모델 1시간 앞 피크 확률")
     ax.fill_between(rev["cost_loss_ratio"], rev["ci_low"], rev["ci_high"], color="#1f6fb2", alpha=.18, label="95% 구간")
     ax.axhline(0, color="black", lw=.8)
     ax.set_xlabel("가정한 비용비 C/L (조치 비용 / 피크 손실)")
@@ -434,7 +438,7 @@ def main():
     ax.legend(fontsize=8)
     ax.grid(alpha=.3)
     fig.tight_layout()
-    fig.savefig(FIG / "fig4_1_rev.png", dpi=170)
+    fig.savefig(FIG / "fig4_2_rev.png", dpi=170)
     plt.close(fig)
     transfer = transfer_figure()
     figures(result, cond, heat, f, shift, tau)
@@ -442,6 +446,8 @@ def main():
                "dev_overall_peak_rate": float(s_dev["peak"].mean()), "dev_positions": int(len(s_dev))}
     (TAB / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2, default=float), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=1, default=float))
+    from reduction import main as reduction_main   # 최대 피크 사전 포착·목표 최대수요 운영
+    reduction_main()
 
 
 if __name__ == "__main__":

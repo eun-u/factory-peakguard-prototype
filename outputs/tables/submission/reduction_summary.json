@@ -1,0 +1,45 @@
+{
+  "working_days": 26,
+  "daily_max_alert_h4": 0.8076923076923077,
+  "daily_max_alert_any": 1.0,
+  "daily_max_lead_median": 225.0,
+  "daily_max_lead_ge_120": 0.9615384615384616,
+  "daily_max_lead_ge_180": 0.9230769230769231,
+  "monthly": [
+    {
+      "month": 8,
+      "time": "2021-08-11 08:45:00",
+      "max": 218.0,
+      "alert_h4": true,
+      "earliest_lead_min": 225,
+      "alert_horizons": 13,
+      "horizons": 13
+    },
+    {
+      "month": 9,
+      "time": "2021-09-10 10:00:00",
+      "max": 204.0,
+      "alert_h4": true,
+      "earliest_lead_min": 135,
+      "alert_horizons": 7,
+      "horizons": 13
+    }
+  ],
+  "top20_alert_h4": 1.0,
+  "daily_max_time_counts": {
+    "08:45": 5,
+    "12:00": 3,
+    "16:00": 3,
+    "09:00": 3,
+    "11:30": 2,
+    "10:30": 2,
+    "14:00": 1,
+    "16:15": 1,
+    "11:00": 1,
+    "15:45": 1,
+    "10:45": 1,
+    "09:45": 1,
+    "11:45": 1,
+    "10:00": 1
+  }
+}
