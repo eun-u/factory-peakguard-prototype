@@ -1,0 +1,41 @@
+{
+  "tau": 178.0,
+  "h4": {
+    "h4_rows": 3442,
+    "h4_peaks": 316,
+    "h4_tp": 266,
+    "h4_fn": 50,
+    "h4_fp": 279,
+    "alert_share": 0.15833817547937246,
+    "restart_day_2021_08_09": {
+      "peaks": 13,
+      "fn": 0,
+      "mean_peak_error": -1.7030253268162947
+    },
+    "daytime_peak_mean_underprediction": 5.418644613443035,
+    "evening_peak_mean_underprediction": 18.122215887150187,
+    "evening_peaks": 7,
+    "fn_share_14_18": 0.4,
+    "fp_share_weekday_06_18": 0.9283154121863799,
+    "peaks_in_top_production_band": 0.8575949367088608
+  },
+  "shift": {
+    "slope": 0.023417645350579292,
+    "slope_ci": [
+      0.01859945750301087,
+      0.02907937625200744
+    ],
+    "hours": 5241,
+    "static_hours": [
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15
+    ]
+  },
+  "dev_overall_peak_rate": 0.0486978918248593,
+  "dev_positions": 20966
+}
