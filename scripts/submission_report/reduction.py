@@ -37,6 +37,22 @@ from src.holidays import calendar_flags  # noqa: E402
 MAX_DELAY = 4          # 미룬 부하는 최대 1시간 안에 다시 넣는다
 # 개발 구간 평일 평균 전력에서 기동·재가동 직후 부하가 오르는 구간(구간 종료 시각 기준)
 START_WINDOWS = [("07:45", "09:00"), ("10:30", "10:45"), ("13:00", "13:45"), ("15:30", "15:30"), ("17:45", "18:00")]
+# 조치·일 최대 시점 분류 (구간 종료 시각). 개발 구간 평일 평균 부하에서 휴식·점심으로 내려가는 구간은
+# 10:15, 12:15~13:00, 15:15, 17:15~17:30이다(dev_weekday_profile.csv). 재가동 직후 = 재가동부터 45분,
+# 휴식 직전 = 휴식 구간 바로 앞 30분, 아침 기동 = 부하가 오르기 시작한 07:30부터 09:00까지.
+SLOT_GROUPS = {
+    "아침 기동 직후": ["07:30", "07:45", "08:00", "08:15", "08:30", "08:45", "09:00"],
+    "휴식 후 재가동 직후": ["10:30", "10:45", "11:00", "13:00", "13:15", "13:30", "15:30", "15:45", "16:00",
+                    "17:45", "18:00", "18:15"],
+    "휴식·점심 직전": ["09:45", "10:00", "11:45", "12:00", "14:45", "15:00", "16:45", "17:00"],
+}
+
+
+def slot_group(slot: str) -> str:
+    for name, slots in SLOT_GROUPS.items():
+        if slot in slots:
+            return name
+    return "기타"
 
 
 def working_mask(times: pd.DatetimeIndex) -> np.ndarray:
@@ -90,7 +106,7 @@ def peak_capture(full: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
 def demand_cap(actual: np.ndarray, armed: np.ndarray, D: float, c: float) -> dict:
     out = actual.astype(float).copy()
     queue: deque = deque()
-    cut_total, cut_index, cut_amounts, forced = 0.0, [], [], 0
+    cut_total, cut_index, cut_amounts, forced, max_queued = 0.0, [], [], 0, 0.0
     for t in range(len(out)):
         for item in queue:
             item[1] += 1
@@ -112,9 +128,11 @@ def demand_cap(actual: np.ndarray, armed: np.ndarray, D: float, c: float) -> dic
             cut_total += cut
             cut_index.append(t)
             cut_amounts.append(cut)
+        max_queued = max(max_queued, sum(item[0] for item in queue))
     while queue:
         out[-1] += queue.popleft()[0]
-    return {"out": out, "cut_total": cut_total, "cut_index": cut_index, "cut_amounts": np.array(cut_amounts), "forced": forced}
+    return {"out": out, "cut_total": cut_total, "cut_index": cut_index, "cut_amounts": np.array(cut_amounts),
+            "forced": forced, "max_queued": max_queued}
 
 
 def run_scenarios(full: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -166,6 +184,79 @@ def run_scenarios(full: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return pd.DataFrame(rows), pd.DataFrame(where)
 
 
+def execution_requirements(full: pd.DataFrame, capture: pd.DataFrame, D: float = 200, c: float = 0.10) -> dict:
+    """4.5절 실행 계층의 요구 사양: 예측 경보로 준비한 목표 최대수요 운영(D, c)이 실제로 요구한 조치의 크기·빈도·여유."""
+    truth = full.drop_duplicates("target_time").set_index("target_time")["actual"].sort_index()
+    times = truth.index
+    actual = truth.to_numpy(float)
+    alert_any = full.groupby("target_time")["alert"].any().reindex(times).fillna(False).to_numpy()
+    r = demand_cap(actual, alert_any, D, c)
+    idx = np.array(r["cut_index"], dtype=int)
+    days = pd.Series(times[idx].date).value_counts()
+    first_alert = full[full["alert"]].groupby("target_time")["horizon"].max()      # 가장 먼 경보 시점
+    exceed_times = times[actual > D]
+    leads = [(int(first_alert[t]) - 1) * 15 for t in exceed_times if t in first_alert.index]
+    event_groups = pd.Series([slot_group(times[t].strftime("%H:%M")) for t in idx]).value_counts().to_dict()
+    max_groups = capture["time"].str[11:16].map(slot_group).value_counts().to_dict()
+    return {"target_D": D, "deferrable_share": c, "test_days": int(len(np.unique(times.date))),
+            "control_events": int(len(idx)), "control_days": int(len(days)), "max_events_per_day": int(days.max()),
+            "mean_deferred": float(r["cut_amounts"].mean()), "max_deferred": float(r["cut_amounts"].max()),
+            "mean_deferred_share_of_load": float(np.mean(r["cut_amounts"] / actual[idx])),
+            "max_queued_deferral": float(r["max_queued"]), "max_delay_min": MAX_DELAY * 15, "forced_releases": int(r["forced"]),
+            "exceed_intervals": int(len(exceed_times)), "exceed_alerted": int(len(leads)),
+            "exceed_lead_median_min": float(np.median(leads)), "exceed_lead_min_min": int(min(leads)),
+            "event_slot_groups": event_groups, "daily_max_slot_groups": max_groups}
+
+
+def dev_weekday_profile() -> pd.DataFrame:
+    """개발 구간 평일 15분 평균 전력 (휴식·재가동 시점 분류의 근거)."""
+    from src.data import load_power_data
+    df, _ = load_power_data(ROOT / "data/raw/task05_power/okm_augumented_2021.csv")
+    full = pd.read_csv(ROOT / "outputs/predictions/final_test_fg_r11.csv", usecols=["origin"], parse_dates=["origin"])
+    s = df.loc[(df.index < full["origin"].min()) & ~df["time_repaired"] & df["power"].notna(), "power"]
+    s = s[working_mask(pd.DatetimeIndex(s.index))]
+    return s.groupby(s.index.strftime("%H:%M")).mean().rename("mean_power").rename_axis("slot_end").reset_index()
+
+
+def architecture_figure() -> None:
+    """그림 4-5: 지각 → 분석 → 의사결정 → 실행 구조와 구현 상태."""
+    from matplotlib.patches import FancyBboxPatch
+    setup_font()
+    fig, ax = plt.subplots(figsize=(11, 4.6))
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 42)
+    ax.axis("off")
+    layers = [
+        ("지각", ["15분 전력 계측", "자료 품질 점검", "생산량 · 기상 기록"], True),
+        ("분석", ["Chronos-2 1~4시간 앞 예측", "피크 확률 · 발생 조건 · 비용-손실", "4시간 앞 주의 · 1시간 앞 조치 경보"], True),
+        ("의사결정", ["설비 에이전트 협상", "(미룰 부하 · 기동 순서 배분)", "LLM: 말로 된 제약 구조화 · 근거 설명"], False),
+        ("실행", ["설비 에이전트 · 설비 제어(PLC)", "기동 지연 · 부하 지연", "여유 구간 재투입"], False),
+    ]
+    w, gap, x0 = 21, 4.3, 2
+    for k, (name, lines, done) in enumerate(layers):
+        x = x0 + k * (w + gap)
+        face, edge, ls = ("#dbe8f5", "#1f6fb2", "-") if done else ("#fbf3e6", "#c47a12", "--")
+        ax.add_patch(FancyBboxPatch((x, 14), w, 26, boxstyle="round,pad=0.4", fc=face, ec=edge, lw=1.6, ls=ls))
+        ax.text(x + w / 2, 36.5, name, ha="center", va="center", fontsize=13, weight="bold")
+        for j, line in enumerate(lines):
+            ax.text(x + w / 2, 30 - j * 4.6, line, ha="center", va="center", fontsize=8.6)
+        ax.text(x + w / 2, 16.5, "구현·평가 완료" if done else "제안", ha="center", va="center", fontsize=8.6,
+                color=edge, weight="bold")
+        if k < len(layers) - 1:
+            ax.annotate("", xy=(x + w + gap - 0.6, 27), xytext=(x + w + 0.6, 27),
+                        arrowprops=dict(arrowstyle="-|>", color="#444", lw=1.4))
+    xr = x0 + 3 * (w + gap) + w / 2
+    ax.annotate("", xy=(x0 + w / 2, 13.2), xytext=(xr, 13.2),
+                arrowprops=dict(arrowstyle="-|>", color="#777", lw=1.1, connectionstyle="bar,fraction=-0.08"))
+    ax.text((x0 + w / 2 + xr) / 2, 7.6, "조치 기록 · 계측 결과를 다시 입력 (월별 목표 최대수요 점검)", ha="center", fontsize=8.6, color="#555")
+    xd = x0 + 2 * (w + gap)
+    ax.add_patch(FancyBboxPatch((xd, 1.2), 2 * w + gap, 3.6, boxstyle="round,pad=0.3", fc="#eeeeee", ec="#999", lw=1))
+    ax.text(xd + w + gap / 2, 3.0, "운영자 승인: 목표 최대수요 · 미룰 수 있는 부하 목록 · 예외 처리", ha="center", va="center", fontsize=8.4)
+    fig.tight_layout()
+    fig.savefig(FIG / "fig4_5_physical_ai.png", dpi=170)
+    plt.close(fig)
+
+
 def figures(curve: pd.DataFrame, scen: pd.DataFrame) -> None:
     setup_font()
     fig, ax = plt.subplots(figsize=(6, 3.6))
@@ -205,6 +296,11 @@ def main() -> dict:
     scen.to_csv(TAB / "demand_cap_scenarios.csv", index=False, encoding="utf-8-sig")
     where.to_csv(TAB / "demand_cap_events.csv", index=False, encoding="utf-8-sig")
     figures(curve, scen)
+    architecture_figure()
+    dev_weekday_profile().to_csv(TAB / "dev_weekday_profile.csv", index=False, encoding="utf-8-sig")
+    req = execution_requirements(full, table)
+    (TAB / "physical_ai_requirements.json").write_text(json.dumps(req, ensure_ascii=False, indent=2, default=float), encoding="utf-8")
+    print(json.dumps(req, ensure_ascii=False, indent=1, default=float))
     (TAB / "reduction_summary.json").write_text(json.dumps(facts, ensure_ascii=False, indent=2, default=float), encoding="utf-8")
     print(json.dumps(facts, ensure_ascii=False, indent=1, default=float))
     return facts

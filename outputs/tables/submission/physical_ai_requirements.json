@@ -1,0 +1,30 @@
+{
+  "target_D": 200,
+  "deferrable_share": 0.1,
+  "test_days": 38,
+  "control_events": 13,
+  "control_days": 5,
+  "max_events_per_day": 5,
+  "mean_deferred": 5.461538461538462,
+  "max_deferred": 18.0,
+  "mean_deferred_share_of_load": 0.02608786640704414,
+  "max_queued_deferral": 36.0,
+  "max_delay_min": 60,
+  "forced_releases": 0,
+  "exceed_intervals": 13,
+  "exceed_alerted": 13,
+  "exceed_lead_median_min": 225.0,
+  "exceed_lead_min_min": 135,
+  "event_slot_groups": {
+    "아침 기동 직후": 5,
+    "휴식 후 재가동 직후": 3,
+    "휴식·점심 직전": 3,
+    "기타": 2
+  },
+  "daily_max_slot_groups": {
+    "아침 기동 직후": 8,
+    "휴식 후 재가동 직후": 8,
+    "휴식·점심 직전": 6,
+    "기타": 4
+  }
+}
