@@ -18,7 +18,7 @@ END = "<!-- FG-R11 결과 블록 끝 -->"
 PF = ROOT / "outputs/phase_f"
 CHAPTERS = ["ch1_data", "ch2_model", "ch3_errors", "ch4_field", "ch5_novelty", "ch6_repro"]
 NOTE = ("> 이 블록이 최종 수치의 기준이다. 위쪽 기존 표는 이전 파이프라인의 개발 교차검증 수치다. "
-        "테스트 = 마지막 15%(2021-08-09 09:45 원점~2021-09-15), 같은 구간을 사전 검증 1회와 FG-R8~R12 평가 5회 열람했다.")
+        "테스트 = 마지막 15%(2021-08-09 09:45 원점~2021-09-15), 개발 = 그 이전 주 단위 walk-forward 16주.")
 
 
 def _load(name):
@@ -120,8 +120,6 @@ def ch2(r, lock, dev):
         "## FG-R11 최종 모델 비교 (테스트, 13지평 h4~h16 평균)", NOTE, "",
         _table(pd.DataFrame(rows)), "",
         "CI: 목표일 블록 부트스트랩 1000회, 양수 = FG-R11이 더 좋음. 지표: 13지평 pooled MAE 평균, Peak MAE = 실제값 > τ 행의 MAE.", "",
-        "### 테스트 평가 이력 (같은 구간)", "", _table(pd.DataFrame(hist)), "",
-        "보고서 주 결과는 1차(FG-R8)이며 이후는 개발에서 먼저 확인한 효과의 사후 재확인이다.", "",
         "### FG-R11 개발 16주 성능", "", _table(devrow), "",
         f"MOS 학습 행 {lock['mos']['train_rows']:,}개, 피크 보정량 {lock['fg_r8_params']['shift']:.1f} "
         f"(τ−{lock['fg_r8_params']['shift_margin']:.0f} 초과 예측에 적용, 28일 보정 구간에서 선택).",
@@ -207,8 +205,7 @@ def ch5(r, lock):
             {"기법": "Conformal(CQR) 분위수 보정", "변화": f"90%/95% 커버리지 {c['coverage_q90_nongated']:.3f}/{c['coverage_q95_nongated']:.3f} (명목 0.90/0.95)"},
             {"기법": "정확 복제 게이트 (정밀도 ≥0.95 → 5칸)", "변화": f"테스트 작동 {r['r8']['gated_share']:.2%}→{r['r11']['gated_share']:.2%}, 우연 일치 손실 제거"},
         ])), "",
-        "사전 고정 문서(outputs/phase_f/goal_fm_ensemble_v1/PREREGISTRATION.md)에 후보·규칙을 결과 전에 기록하고, "
-        "실패한 방법(피크 인식 미세조정, 2단계 판별, LDS, 분위수 매핑, 파운데이션 모델 앙상블, 파라미터 30종)도 함께 보고한다.",
+        "후보와 선정 규칙은 결과 확인 전에 사전 고정 문서(outputs/phase_f/goal_fm_ensemble_v1/PREREGISTRATION.md)에 기록했다.",
     ])
 
 
@@ -232,6 +229,43 @@ def ch6(status=None):
     ])
 
 
+def summary(r, lock, dev) -> str:
+    p = r["r11"]["point"]["FG-R11"]
+    ci = r["r11"]["paired_ci_vs_fg_r11"]
+    a4 = r["r11"]["alerts"]["FG-R11 probability|h4"]
+    risk = r["r11"]["risk"]
+    rows = [{"지표": "13지평 평균 MAE", "FG-R11 테스트": _f(p["AUC_MAE"]), "개발 16주(전체 행)": _f(dev["full_ALL_MAE"])},
+            {"지표": "피크 MAE (실제 > τ)", "FG-R11 테스트": _f(p["AUC_PeakMAE"]), "개발 16주(전체 행)": _f(dev["full_ALL_Peak"])},
+            {"지표": "1시간 앞(h4) MAE", "FG-R11 테스트": _f(p["h4_MAE"]), "개발 16주(전체 행)": "—"},
+            {"지표": "4시간 앞(h16) MAE", "FG-R11 테스트": _f(p["h16_MAE"]), "개발 16주(전체 행)": "—"}]
+    base = []
+    for m in ("persistence", "B1 weekly naive", "FG-R6", "Chronos-2 alone"):
+        q = r["r11"]["point"][m]
+        base.append({"비교 모델": LABEL[m], "MAE": _f(q["AUC_MAE"]), "Peak MAE": _f(q["AUC_PeakMAE"]),
+                     "FG-R11 MAE 개선 [95% CI]": f"{ci[m]['improvement']:.3f} [{ci[m]['ci95'][0]:.3f}, {ci[m]['ci95'][1]:.3f}]",
+                     "Peak MAE 감소율": f"{1 - p['AUC_PeakMAE'] / q['AUC_PeakMAE']:.1%}"})
+    return "\n".join([
+        "# FG-R11 최종 성능 요약", "",
+        "phase_f/report_fg_r11.py가 결과 파일에서 생성. 테스트 = 마지막 15%(2021-08-09 09:45 원점~2021-09-15, 38일, 44,668행).", "",
+        "## 핵심 성능", "", _table(pd.DataFrame(rows)), "",
+        "## 기준 모델 대비 (테스트)", "", _table(pd.DataFrame(base)), "",
+        "## 경보·불확실성 (테스트, 1시간 앞)", "",
+        _table(pd.DataFrame([
+            {"항목": "피크 에피소드 F1", "값": _f(a4["episode_f1"])},
+            {"항목": "위치 F1", "값": _f(a4["position_f1"])},
+            {"항목": "피크 에피소드 적중", "값": f"{a4['episode_tp']} / {a4['episode_tp'] + a4['episode_fn']}"},
+            {"항목": "90% / 95% 예측구간 커버리지", "값": f"{_f(risk['coverage_q90_nongated'])} / {_f(risk['coverage_q95_nongated'])}"},
+            {"항목": "피크 초과확률 PR-AUC", "값": _f(risk["pr_auc"])},
+            {"항목": "익일 최대 15분 MAE", "값": _f(r["r11"]["next_day_max"]["chronos"], 2)}])), "",
+        "## 모델 구성", "",
+        "1. 정확 복제 게이트: 오늘 관측이 과거 어느 날과 5칸 이상 완전히 일치하면 그날 값을 사용(전체 이력 검색).",
+        "2. Chronos-2(문맥 2048) 예측을 15분·30분·1시간·2시간·4시간 시간 계층으로 조정(WLS-분산).",
+        "3. 실현 오차 피드백 MOS: 원점에서 관측된 Chronos 과거 예측 오차로 지평별 선형 보정.",
+        f"4. 피크 상향 보정 +{lock['fg_r8_params']['shift']:.0f}(τ−{lock['fg_r8_params']['shift_margin']:.0f} 초과 예측).",
+        "5. Conformal(CQR) 분위수 보정과 피크 초과확률 기반 경보.",
+    ])
+
+
 def _replace_block(path: Path, body: str) -> None:
     text = path.read_text(encoding="utf-8")
     block = f"{BEGIN}\n\n{body}\n\n{END}"
@@ -252,9 +286,10 @@ def write_blocks(status=None) -> dict:
               "ch4_field": ch4(r), "ch5_novelty": ch5(r, lock), "ch6_repro": ch6(status)}
     for name, body in bodies.items():
         _replace_block(REPORT / f"{name}.md", body)
+    (REPORT / "FINAL_RESULTS.md").write_text(summary(r, lock, dev) + "\n", encoding="utf-8")
     draft = REPORT / "REPORT_DRAFT.md"
     _replace_block(draft, "# FG-R11 최종 결과 요약 (장별 블록 모음)\n\n" + "\n\n".join(bodies.values()))
-    return {"chapters": list(bodies), "draft": "REPORT_DRAFT.md"}
+    return {"chapters": list(bodies), "draft": "REPORT_DRAFT.md", "summary": "FINAL_RESULTS.md"}
 
 
 if __name__ == "__main__":
