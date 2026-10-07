@@ -64,3 +64,26 @@ def test_v2_gate_uses_most_recent_exact_day():
     X = F.build([origin], 8)
     assert gate2(X)[0]
     assert X.a_today_pred.iloc[0] == history.power.loc[origin + pd.Timedelta(minutes=120)]
+
+
+def test_gate_chronos_uses_analog_when_gated_and_chronos_otherwise():
+    from phase_f import goal_gate_chronos as G
+    history = _history(days=45)
+    F = G.Features(history)
+    idx = history.index
+    contexts = {}
+    for h in G.HORIZONS:
+        o = idx[96 * 30:96 * 44 - 20]
+        y = pd.Series(history.power.reindex(o + pd.Timedelta(minutes=15 * h)).to_numpy(), index=o)
+        contexts[(h, 0)] = {"cal": o[:400], "score": o[400:800], "fit": o[:400], "tau": 150.,
+                            "y": y, "target_time": pd.Series(o + pd.Timedelta(minutes=15 * h), index=o),
+                            "d2": pd.Series(False, index=o)}
+    origins = idx[96 * 30:96 * 44]
+    chronos = pd.DataFrame([(o, h, 1., 2., 3., 4., 5.) for o in origins for h in G.HORIZONS],
+                           columns=["origin", "horizon", "ch_q05", "ch_q10", "ch_q50", "ch_q90", "ch_q95"])
+    out = G.predict(F, contexts, chronos, [0])
+    gated = out[out.gated]
+    assert len(gated) and np.allclose(gated.pred, gated.analog)
+    ungated = out[~out.gated]
+    assert np.allclose(ungated.point_r0, 3.)
+    assert set(np.round(ungated.pred - 3., 6)) <= {0., float(out["shift"].iloc[0])}
