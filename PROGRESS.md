@@ -459,3 +459,11 @@
 - 테스트 구간 정확 복제 1.5%(개발 48%) → 개발 성능은 복제 구조 의존. 커버리지 q90 0.897 / q95 0.948. 익일 최대 MAE Chronos 8.68.
 - 예측결과 파일: outputs/predictions/final_test_fg_r8.csv, final_test_fg_r8_h4.csv, final_test_next_day_max.csv (git 제외 경로).
 - 다음: 보고서 1~5장 수치 갱신, run_all.py 연결, 게이트 최소 prefix 등은 후속 연구로만 기록.
+
+
+## 2026-10-08 FG-R9 최종 라운드
+
+- 파운데이션 모델 3종 추가(TimesFM-3, TimesFM-2.5, TiRex) + 앙상블 + Chronos 변형 3종: 모두 Chronos-2 단독 이하(부정적 결과).
+- 게이트 최소 5칸(개발 정밀도 기준)으로 테스트 우연 게이트 제거. 테스트 2차: MAE 6.781, Peak 8.032, h4 6.450, h16 7.130.
+- 결론: 복제 없는 구간에서 이 데이터의 실질 상한은 Chronos-2 수준(MAE 약 6.65). 피크 보정으로 Peak 22% 감소.
+- 다음: 보고서·run_all.py 연결·제출 패키지(마감 10/8 23:59).
