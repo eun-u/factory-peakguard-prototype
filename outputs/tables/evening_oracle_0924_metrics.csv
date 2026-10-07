@@ -1,0 +1,5 @@
+model,scope,n,peak_n,mae,peak_mae,episode_f1,false_alarms_positions,reference_only,selection_used,scenario_label
+baseline_point_common,all,7549,423,8.166205529693256,14.141074254363005,0.5885885885885885,593,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+baseline_point_common,evening_16_24,2560,59,6.7220529330047984,13.313231957068702,0.4473684210526316,136,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+oracle_point_common,all,7549,423,8.458553022218997,16.4306279616031,0.5609065155807366,773,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+oracle_point_common,evening_16_24,2560,59,6.980571543199533,17.726578490940412,0.35051546391752575,195,True,False,사후 관측 생산량 기반 사후 가정 시나리오

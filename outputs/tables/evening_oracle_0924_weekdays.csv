@@ -1,0 +1,10 @@
+status,weekday,episodes,reference_only,selection_used,analysis_role
+FN,Friday,1,True,False,retrospective_descriptive
+FN,Monday,3,True,False,retrospective_descriptive
+FN,Thursday,1,True,False,retrospective_descriptive
+FN,Tuesday,2,True,False,retrospective_descriptive
+TP,Friday,3,True,False,retrospective_descriptive
+TP,Monday,2,True,False,retrospective_descriptive
+TP,Thursday,3,True,False,retrospective_descriptive
+TP,Tuesday,2,True,False,retrospective_descriptive
+TP,Wednesday,1,True,False,retrospective_descriptive

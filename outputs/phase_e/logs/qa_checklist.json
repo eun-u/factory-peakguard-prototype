@@ -1,0 +1,149 @@
+{
+  "scope": "technical implementation/evidence checks; not a composite scientific success score",
+  "checks": [
+    {
+      "id": "A",
+      "requirement": "Only h16 / 240 min",
+      "evidence": "prediction_qa; direct timestamp assertions",
+      "status": "PASS"
+    },
+    {
+      "id": "B",
+      "requirement": "Only B5 point model",
+      "evidence": "prediction_qa; no point model fit call",
+      "status": "PASS"
+    },
+    {
+      "id": "C",
+      "requirement": "Point prediction and metrics parity <=1e-8",
+      "evidence": "source_parity_audit",
+      "status": "PASS"
+    },
+    {
+      "id": "D",
+      "requirement": "Fit-only tau unchanged",
+      "evidence": "h16 fold manifest replay and exact saved tau parity",
+      "status": "PASS"
+    },
+    {
+      "id": "E",
+      "requirement": "Fit-only phi/q/r",
+      "evidence": "hash-verified Phase C cache; no new parameter fit call; source audit",
+      "status": "PASS"
+    },
+    {
+      "id": "F",
+      "requirement": "Cal labels only Platt/conformal fitting",
+      "evidence": "no B5 refit; independent optimizer gradient/rank recomputation",
+      "status": "PASS"
+    },
+    {
+      "id": "G",
+      "requirement": "Score labels excluded from fitting",
+      "evidence": "cal-only perturbation test; fit logs; chronology/embargo assertions",
+      "status": "PASS"
+    },
+    {
+      "id": "H",
+      "requirement": "Finite positive sigma",
+      "evidence": "prediction_qa; synthetic variance and causal perturbation tests",
+      "status": "PASS"
+    },
+    {
+      "id": "I",
+      "requirement": "Probability within [0,1]",
+      "evidence": "prediction_qa; independent formula recomputation",
+      "status": "PASS"
+    },
+    {
+      "id": "J",
+      "requirement": "Probability clipping 1e-6 and 1-1e-6",
+      "evidence": "fit logs; clipping test; independent formula",
+      "status": "PASS"
+    },
+    {
+      "id": "K",
+      "requirement": "Conformal scores cal-only",
+      "evidence": "fit log; independent cal residual recomputation",
+      "status": "PASS"
+    },
+    {
+      "id": "L",
+      "requirement": "Finite-sample ceil((n+1)*.95) rank",
+      "evidence": "independent_metric_audit_after_f1_correction",
+      "status": "PASS"
+    },
+    {
+      "id": "M",
+      "requirement": "Exactly six fixed thresholds",
+      "evidence": "config gate; independent table set assertion",
+      "status": "PASS"
+    },
+    {
+      "id": "N",
+      "requirement": "Probability-only trigger",
+      "evidence": "uncertainty-perturbation synthetic test; 96 position rows recomputed",
+      "status": "PASS"
+    },
+    {
+      "id": "O",
+      "requirement": "2/2 same fold exact 15-minute origins",
+      "evidence": "gap/fold synthetic tests and full flag recomputation",
+      "status": "PASS"
+    },
+    {
+      "id": "P",
+      "requirement": "Only 1/1 and 2/2",
+      "evidence": "independent table policy set assertion",
+      "status": "PASS"
+    },
+    {
+      "id": "Q",
+      "requirement": "No cross-fold episode linking",
+      "evidence": "per-fold matcher; one-to-one key assertions and tests",
+      "status": "PASS"
+    },
+    {
+      "id": "R",
+      "requirement": "No D2 refitting",
+      "evidence": "cal fits once per fold; inherited flag test; D2 values same prediction rows",
+      "status": "PASS"
+    },
+    {
+      "id": "S",
+      "requirement": "No expected-exceedance model call",
+      "evidence": "AST call check; independent source review",
+      "status": "PASS"
+    },
+    {
+      "id": "T",
+      "requirement": "No production/tariff/action simulation in risk",
+      "evidence": "audited B5 power-only inputs and probability-only flags",
+      "status": "PASS"
+    },
+    {
+      "id": "U",
+      "requirement": "No holdout/final content in fitting/evaluation",
+      "evidence": "sealed prefix; poisoned boundary tail test; timestamp-first parquet read; scoped access logs",
+      "status": "PASS"
+    },
+    {
+      "id": "V",
+      "requirement": "Existing C/D evidence unchanged",
+      "evidence": "pre-evaluation and current full protected hash checks; clean tracked diff",
+      "status": "PASS"
+    },
+    {
+      "id": "W",
+      "requirement": "No new final-test artifact",
+      "evidence": "new Git paths only outputs/phase_e; scoped writes; prediction filename and timestamp assertions",
+      "status": "PASS"
+    }
+  ],
+  "synthetic_tests_passed": 27,
+  "independent_metric_audit_passed": true,
+  "figures_visually_reviewed": 8,
+  "visual_revisions": "figure_layout_revision.json",
+  "new_tracked_candidates": 77,
+  "scientific_layer_judgments": "phase_e_result.md"
+}

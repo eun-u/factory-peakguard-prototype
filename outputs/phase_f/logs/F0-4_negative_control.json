@@ -1,0 +1,8 @@
+{
+  "synthetic_only": true,
+  "causal_max_abs_difference": 0.0,
+  "intentional_leak_detected": true,
+  "oracle_ineligible": true,
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

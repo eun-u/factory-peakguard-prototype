@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-06T10:13:24.072420+00:00",
+  "aliases": [
+    {
+      "duplicate": "F6-1-c512-native_mean",
+      "canonical": "F6-1-c512-median",
+      "explore_prediction_max_abs_difference": 0.0,
+      "n_explore_keys": 46732
+    },
+    {
+      "duplicate": "F6-1-c1024-native_mean",
+      "canonical": "F6-1-c1024-median",
+      "explore_prediction_max_abs_difference": 0.0,
+      "n_explore_keys": 46732
+    },
+    {
+      "duplicate": "F6-1-c2048-native_mean",
+      "canonical": "F6-1-c2048-median",
+      "explore_prediction_max_abs_difference": 0.0,
+      "n_explore_keys": 46732
+    },
+    {
+      "duplicate": "F6-1-c4096-native_mean",
+      "canonical": "F6-1-c4096-median",
+      "explore_prediction_max_abs_difference": 0.0,
+      "n_explore_keys": 46732
+    },
+    {
+      "duplicate": "F6-1-c8192-native_mean",
+      "canonical": "F6-1-c8192-median",
+      "explore_prediction_max_abs_difference": 0.0,
+      "n_explore_keys": 46732
+    }
+  ],
+  "native_mean": "q0.5 alias; integrated_mean remains a separate quantile-integral approximation",
+  "calendar_covariates": [
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos",
+    "holiday"
+  ],
+  "calendar_source": "timestamps plus fixed HOLIDAYS_2021 only; no raw measurement or production source",
+  "saved_calendar_future_perturbation_differences": [
+    0.0
+  ],
+  "saved_calendar_audit_sha256": "823bb52f1a3cf9a0235d0741564fc9614471ff91fafc0090639b2875977731ba",
+  "candidate_confirm_metric_read": false,
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

@@ -1,0 +1,120 @@
+{
+  "selected_M_star": "B5",
+  "primary_min_auc_model": "M1",
+  "strongest_baseline": "B1",
+  "statistical_tie_models": [
+    "M1",
+    "M1-W",
+    "B5"
+  ],
+  "removed_counts": {
+    "B0": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "B1": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "B2": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 1862,
+      "removed_for_pairing": 0,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "B3": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "B4": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "B5": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "M1": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "M1-W": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "M2": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    },
+    "C1": {
+      "input": 101872,
+      "union_keys": 101872,
+      "raw_missing": 0,
+      "nonfinite": 0,
+      "removed_for_pairing": 1862,
+      "common_finite": 100010,
+      "removed": 1862
+    }
+  },
+  "D2_available": true,
+  "peak_safeguard_available": true,
+  "selection_status": "selected",
+  "development_only": true,
+  "auc_definition": "equally spaced horizon-normalized mean error",
+  "paths": {
+    "model_horizon_fold_metrics.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\model_horizon_fold_metrics.csv",
+    "model_horizon_pooled_metrics.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\model_horizon_pooled_metrics.csv",
+    "model_pairwise_ci.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\model_pairwise_ci.csv",
+    "d2_novel_profile_metrics.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\d2_novel_profile_metrics.csv",
+    "model_auc_summary.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\model_auc_summary.csv",
+    "model_stability.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\model_stability.csv",
+    "model_selection_decision.csv": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\tables\\model_selection_decision.csv",
+    "mae_horizon_curve.png": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\figures\\mae_horizon_curve.png",
+    "peak_mae_horizon_curve.png": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\figures\\peak_mae_horizon_curve.png",
+    "skill_horizon_curve.png": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\figures\\skill_horizon_curve.png",
+    "d1_d2_comparison.png": "C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_c\\figures\\d1_d2_comparison.png"
+  }
+}

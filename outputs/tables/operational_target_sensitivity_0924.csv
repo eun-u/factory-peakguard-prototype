@@ -1,0 +1,19 @@
+horizon,rule,cl_ratio,management_target_quantile,event_tau_quantile,management_T_min,management_T_max,prep_minutes,alert_positions,actionable_positions_target_end_convention,actionable_fraction,actionable_fraction_interval_start,episode_f1,position_false_alarms,episode_false_alarms,actionable_tp_episodes_target_end_convention,actionable_tp_episodes_interval_start,tp_episodes,selection_used,scenario,lead_convention
+4,1/1,0.1,0.975,0.95,181.0,182.0,15,999,999,1.0,1.0,0.5691489361702128,594,121,107,107,107,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,1/1,0.1,0.975,0.95,181.0,182.0,30,999,999,1.0,1.0,0.5691489361702128,594,121,107,106,107,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,1/1,0.1,0.975,0.95,181.0,182.0,60,999,999,1.0,0.0,0.5691489361702128,594,121,100,63,107,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,2/2,0.1,0.975,0.95,181.0,182.0,15,771,771,1.0,1.0,0.5878787878787879,415,85,97,96,97,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,2/2,0.1,0.975,0.95,181.0,182.0,30,771,771,1.0,1.0,0.5878787878787879,415,85,96,93,97,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,2/2,0.1,0.975,0.95,181.0,182.0,60,771,771,1.0,0.0,0.5878787878787879,415,85,65,31,97,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,2/3,0.1,0.975,0.95,181.0,182.0,15,1032,1032,1.0,1.0,0.5207547169811321,659,48,69,69,69,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,2/3,0.1,0.975,0.95,181.0,182.0,30,1032,1032,1.0,1.0,0.5207547169811321,659,48,69,66,69,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+4,2/3,0.1,0.975,0.95,181.0,182.0,60,1032,1032,1.0,0.0,0.5207547169811321,659,48,49,28,69,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,1/1,0.1,0.975,0.95,181.0,182.0,15,941,941,1.0,1.0,0.5161290322580645,564,105,88,88,88,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,1/1,0.1,0.975,0.95,181.0,182.0,30,941,941,1.0,1.0,0.5161290322580645,564,105,88,88,88,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,1/1,0.1,0.975,0.95,181.0,182.0,60,941,941,1.0,1.0,0.5161290322580645,564,105,88,88,88,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,2/2,0.1,0.975,0.95,181.0,182.0,15,748,748,1.0,1.0,0.552901023890785,412,64,81,81,81,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,2/2,0.1,0.975,0.95,181.0,182.0,30,748,748,1.0,1.0,0.552901023890785,412,64,81,81,81,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,2/2,0.1,0.975,0.95,181.0,182.0,60,748,748,1.0,1.0,0.552901023890785,412,64,81,81,81,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,2/3,0.1,0.975,0.95,181.0,182.0,15,952,952,1.0,1.0,0.484375,599,46,62,62,62,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,2/3,0.1,0.975,0.95,181.0,182.0,30,952,952,1.0,1.0,0.484375,599,46,62,62,62,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported
+16,2/3,0.1,0.975,0.95,181.0,182.0,60,952,952,1.0,1.0,0.484375,599,46,62,62,62,False,사후 가정 시나리오,existing target end; interval start feasibility separately reported

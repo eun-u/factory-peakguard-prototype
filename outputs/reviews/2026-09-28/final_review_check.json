@@ -1,0 +1,28 @@
+{
+  "verified_at": "2026-09-28T21:20:05.866761+09:00",
+  "artifact_sha256": {
+    "docs/reviews/2026-09-28/service_review.md": "f75243224d569bacc7c44e0f7b7ab30e95a812fc1f002fe02904103ea665799e",
+    "docs/reviews/2026-09-28/build_visual.py": "f5ad1431d3167b39b4acda52eda120a04b2dcf7bd6dcbbd8f620522dd06a36b9",
+    "docs/reviews/2026-09-28/qa_visual.py": "ee382b04cc5a3281263978158e9041c9108296ff0cd61c1e07768805537485c1",
+    "docs/reviews/2026-09-28/audit_review.py": "833532457daf54ef5cdcf60cfa7f28ffdca426b82da810bcd17fae210d83e4c2",
+    "outputs/reviews/2026-09-28/service_domain_map.html": "aa780207fddc54f538e3c0e1fad12f00f5767c60456a8e4f71fbd50e2a13ef2f",
+    "outputs/reviews/2026-09-28/visual_validation.json": "d82fc82034ed448810c54dd3a49b9172edd922d5518773e4646bacf511eef2e2",
+    "outputs/reviews/2026-09-28/validation.json": "84c2a355bb5c2ff8287d09d5f032caa92c5ce57ea3342c08d1e6ef68375ae1b6",
+    "outputs/reviews/2026-09-28/source_manifest.json": "19289edf049bff2e11e83e86f10965b39c3c10681a5e130fa1ea52b6f88eed42"
+  },
+  "scientific_evidence_unchanged": true,
+  "holdout_read": false,
+  "viewport_widths": [
+    390,
+    800,
+    1024,
+    1440
+  ],
+  "hard_check_failures": [],
+  "final_screen_regression_changed_images": [],
+  "independent_review": {
+    "status": "no_remaining_material_findings",
+    "reviewed": "document source facts and rendered images",
+    "resolved": "NORMAL definition, horizon label, mobile label/table/flow, middle viewport flow, contrast/targets, priority mapping"
+  }
+}

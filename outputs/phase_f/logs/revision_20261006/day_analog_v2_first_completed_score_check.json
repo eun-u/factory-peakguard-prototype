@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-06T14:50:10.683138+00:00",
+  "candidate": "FG-R4-analog-w16-k3",
+  "completed_record_sha256": "dae360213ad73689e82e3fb549811891abd0094830d4ee76ce74f87b5d0523a5",
+  "manifest_sha256": "623ead7339ddff0fc06e6ca59ac3bbcd16c71eda5f87b6d8bfb91d16148d3336",
+  "source_runtime_plan_current_verified": true,
+  "prior_root_full_replay_identity_sha256": "5713e19f1dc8158d2e90520ddf4f9cfe3f68403eaa791bdcfd62798651be51a5",
+  "actual_prediction_target_fields_recomputed": {
+    "AUC_MAE": 9.108648342499755,
+    "AUC_PeakMAE": 14.122079389577427,
+    "AUC_nMAE": 0.09698680969916225,
+    "h4_MAE": 6.491971618643168,
+    "h16_MAE": 11.590659528413834,
+    "h4_PeakMAE": 11.070886923665816,
+    "h16_PeakMAE": 16.361531107049238
+  },
+  "score_artifact_count_verified": 7,
+  "targets_met": false,
+  "whole_four_config_wave_complete": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}

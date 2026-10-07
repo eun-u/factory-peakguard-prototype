@@ -1,0 +1,56 @@
+# 2021 snapshot for Industrial (Eul), not a verified customer bill.
+contract_type: industrial_eul
+effective_date: '2021-01-01'
+verified_source: https://www.keei.re.kr/keei/download/YES2021.pdf
+source_location: 'printed page 233, PDF page 249, seasonal time-band table'
+time_bands_confirmed: true
+voltage_option_confirmed: false
+rates_confirmed: false
+rates: {off_peak: null, mid_peak: null, peak: null}
+# Ordinal scenario coefficients only: no KRW or actual saving is implied.
+scenario_weights: {off_peak: 1, mid_peak: 2, peak: 3}
+saturday_peak_to_mid: true
+sunday_holiday_off_peak: true
+holiday_dates_2021:
+  - '2021-01-01'
+  - '2021-02-11'
+  - '2021-02-12'
+  - '2021-02-13'
+  - '2021-03-01'
+  - '2021-05-05'
+  - '2021-05-19'
+  - '2021-06-06'
+  - '2021-08-15'
+  - '2021-08-16'
+bands:
+  summer:
+    months: [6, 7, 8]
+    intervals:
+      - {start: '00:00', end: '09:00', band: off_peak}
+      - {start: '09:00', end: '10:00', band: mid_peak}
+      - {start: '10:00', end: '12:00', band: peak}
+      - {start: '12:00', end: '13:00', band: mid_peak}
+      - {start: '13:00', end: '17:00', band: peak}
+      - {start: '17:00', end: '23:00', band: mid_peak}
+      - {start: '23:00', end: '24:00', band: off_peak}
+  spring_autumn:
+    months: [3, 4, 5, 9, 10]
+    intervals:
+      - {start: '00:00', end: '09:00', band: off_peak}
+      - {start: '09:00', end: '10:00', band: mid_peak}
+      - {start: '10:00', end: '12:00', band: peak}
+      - {start: '12:00', end: '13:00', band: mid_peak}
+      - {start: '13:00', end: '17:00', band: peak}
+      - {start: '17:00', end: '23:00', band: mid_peak}
+      - {start: '23:00', end: '24:00', band: off_peak}
+  winter:
+    months: [11, 12, 1, 2]
+    intervals:
+      - {start: '00:00', end: '09:00', band: off_peak}
+      - {start: '09:00', end: '10:00', band: mid_peak}
+      - {start: '10:00', end: '12:00', band: peak}
+      - {start: '12:00', end: '17:00', band: mid_peak}
+      - {start: '17:00', end: '20:00', band: peak}
+      - {start: '20:00', end: '22:00', band: mid_peak}
+      - {start: '22:00', end: '23:00', band: peak}
+      - {start: '23:00', end: '24:00', band: off_peak}

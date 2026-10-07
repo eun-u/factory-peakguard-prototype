@@ -1,0 +1,8 @@
+﻿{
+  "attempts": [
+    {"attempt": 1, "stage": "protected_preflight", "status": "failed_before_training", "reason": "Initial broad pytest collection generated three new prototype bytecode caches; no pinned original file content changed."},
+    {"action": "delete_generated_caches", "status": "automatic_review_rejected", "reason": "blocked by policy"},
+    {"action": "quarantine_generated_caches", "status": "completed", "destination": "_validation/session_0924_generated_cache", "files_preserved": 3, "protected_count_after": 75, "protected_unchanged_after": true}
+  ],
+  "final_result": "session_0924_repro.json"
+}

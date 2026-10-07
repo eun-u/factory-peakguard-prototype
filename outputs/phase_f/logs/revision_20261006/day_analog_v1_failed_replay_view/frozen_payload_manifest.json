@@ -1,0 +1,7 @@
+{
+  "zip_sha256": "bdeccb2bce952733763c8ab4bf264196b3c432f571da2fbfa9d27e985fe584a5",
+  "failure_manifest_sha256": "85f017785839af4a27deb06e900d927ba544984e4fec51895369b3b413faebee",
+  "archived_files": 14,
+  "verified_exact_original_bytes": true,
+  "purpose": "preserve exact v1 source/evidence bytes independently of Git checkout newline conversion"
+}

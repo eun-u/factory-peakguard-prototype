@@ -1,0 +1,505 @@
+{
+  "viewports": [
+    {
+      "width": 390,
+      "horizontal_overflow": 0,
+      "filter_results": [
+        {
+          "filter": "all",
+          "visible": 6
+        },
+        {
+          "filter": "P0",
+          "visible": 2
+        },
+        {
+          "filter": "P1",
+          "visible": 2
+        },
+        {
+          "filter": "P2",
+          "visible": 2
+        }
+      ],
+      "details_checked": 3,
+      "link_count": 15,
+      "layout_heuristics": {
+        "gates": {
+          "overflow_px": 0,
+          "contrast_fails": 0,
+          "tap_too_small": 0
+        },
+        "gates_pass": true,
+        "collisions": 0,
+        "collision_labels": [],
+        "signals": {
+          "balance_offset": 0.049,
+          "balance_centroid": [
+            0.488,
+            0.508
+          ],
+          "align_nearmiss": 0,
+          "spacing_cov": 0
+        },
+        "contrast_detail": [],
+        "note": "These are HEURISTICS. (1) LOOK at the annotated screenshot — a flag marks WHERE to look, never a verdict. (2) GATES (overflow/contrast/tap) are correctness — fix them. (3) SIGNALS (balance/alignment/spacing) measure CONVENTION = the generic mean; off-center balance, deliberate misalignment, uneven rhythm are creative tools — do NOT \"fix\" a signal toward symmetry unless the eye judges the deviation worse. Maximizing signals designs the mean. (4) collisions: usually a bug, sometimes intentional (overlap aesthetics) — eye-confirm. gates_pass is necessary, not sufficient; a passing layout can still be generic."
+      },
+      "action_sizes": [
+        {
+          "label": "서비스 층위",
+          "w": 95.578125,
+          "h": 44
+        },
+        {
+          "label": "운영 흐름",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "판정 근거",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "역량 지도",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "우선순위",
+          "w": 78,
+          "h": 44
+        },
+        {
+          "label": "근거",
+          "w": 52,
+          "h": 44
+        },
+        {
+          "label": "전체",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "label": "P0",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P1",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P2",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "서비스 수치와 현재 상태의 근거",
+          "w": 356,
+          "h": 44.671875
+        },
+        {
+          "label": "책 자료의 범위와 검수 상태",
+          "w": 356,
+          "h": 44.671875
+        },
+        {
+          "label": "검토에서 열어 둔 불일치",
+          "w": 356,
+          "h": 44.671875
+        }
+      ],
+      "table_scroll_checks": [
+        {
+          "client": 354,
+          "scroll": 720,
+          "tabindex": "0",
+          "scrolled_to": 366
+        },
+        {
+          "client": 354,
+          "scroll": 650,
+          "tabindex": "0",
+          "scrolled_to": 296
+        }
+      ]
+    },
+    {
+      "width": 800,
+      "horizontal_overflow": 0,
+      "filter_results": [
+        {
+          "filter": "all",
+          "visible": 6
+        },
+        {
+          "filter": "P0",
+          "visible": 2
+        },
+        {
+          "filter": "P1",
+          "visible": 2
+        },
+        {
+          "filter": "P2",
+          "visible": 2
+        }
+      ],
+      "details_checked": 3,
+      "link_count": 15,
+      "layout_heuristics": {
+        "gates": {
+          "overflow_px": 0,
+          "contrast_fails": 0,
+          "tap_too_small": 0
+        },
+        "gates_pass": true,
+        "collisions": 0,
+        "collision_labels": [],
+        "signals": {
+          "balance_offset": 0.041,
+          "balance_centroid": [
+            0.467,
+            0.485
+          ],
+          "align_nearmiss": 0,
+          "spacing_cov": 0
+        },
+        "contrast_detail": [],
+        "note": "These are HEURISTICS. (1) LOOK at the annotated screenshot — a flag marks WHERE to look, never a verdict. (2) GATES (overflow/contrast/tap) are correctness — fix them. (3) SIGNALS (balance/alignment/spacing) measure CONVENTION = the generic mean; off-center balance, deliberate misalignment, uneven rhythm are creative tools — do NOT \"fix\" a signal toward symmetry unless the eye judges the deviation worse. Maximizing signals designs the mean. (4) collisions: usually a bug, sometimes intentional (overlap aesthetics) — eye-confirm. gates_pass is necessary, not sufficient; a passing layout can still be generic."
+      },
+      "action_sizes": [
+        {
+          "label": "서비스 층위",
+          "w": 95.578125,
+          "h": 44
+        },
+        {
+          "label": "운영 흐름",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "판정 근거",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "역량 지도",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "우선순위",
+          "w": 78,
+          "h": 44
+        },
+        {
+          "label": "근거",
+          "w": 52,
+          "h": 44
+        },
+        {
+          "label": "전체",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "label": "P0",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P1",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P2",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "서비스 수치와 현재 상태의 근거",
+          "w": 744,
+          "h": 44.671875
+        },
+        {
+          "label": "책 자료의 범위와 검수 상태",
+          "w": 744,
+          "h": 44.671875
+        },
+        {
+          "label": "검토에서 열어 둔 불일치",
+          "w": 744,
+          "h": 44.671875
+        }
+      ],
+      "table_scroll_checks": [
+        {
+          "client": 742,
+          "scroll": 742,
+          "tabindex": "0"
+        },
+        {
+          "client": 742,
+          "scroll": 742,
+          "tabindex": "0"
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "horizontal_overflow": 0,
+      "filter_results": [
+        {
+          "filter": "all",
+          "visible": 6
+        },
+        {
+          "filter": "P0",
+          "visible": 2
+        },
+        {
+          "filter": "P1",
+          "visible": 2
+        },
+        {
+          "filter": "P2",
+          "visible": 2
+        }
+      ],
+      "details_checked": 3,
+      "link_count": 15,
+      "layout_heuristics": {
+        "gates": {
+          "overflow_px": 0,
+          "contrast_fails": 0,
+          "tap_too_small": 0
+        },
+        "gates_pass": true,
+        "collisions": 0,
+        "collision_labels": [],
+        "signals": {
+          "balance_offset": 0.068,
+          "balance_centroid": [
+            0.436,
+            0.483
+          ],
+          "align_nearmiss": 0,
+          "spacing_cov": 0
+        },
+        "contrast_detail": [],
+        "note": "These are HEURISTICS. (1) LOOK at the annotated screenshot — a flag marks WHERE to look, never a verdict. (2) GATES (overflow/contrast/tap) are correctness — fix them. (3) SIGNALS (balance/alignment/spacing) measure CONVENTION = the generic mean; off-center balance, deliberate misalignment, uneven rhythm are creative tools — do NOT \"fix\" a signal toward symmetry unless the eye judges the deviation worse. Maximizing signals designs the mean. (4) collisions: usually a bug, sometimes intentional (overlap aesthetics) — eye-confirm. gates_pass is necessary, not sufficient; a passing layout can still be generic."
+      },
+      "action_sizes": [
+        {
+          "label": "서비스 층위",
+          "w": 95.578125,
+          "h": 44
+        },
+        {
+          "label": "운영 흐름",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "판정 근거",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "역량 지도",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "우선순위",
+          "w": 78,
+          "h": 44
+        },
+        {
+          "label": "근거",
+          "w": 52,
+          "h": 44
+        },
+        {
+          "label": "전체",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "label": "P0",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P1",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P2",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "서비스 수치와 현재 상태의 근거",
+          "w": 968,
+          "h": 44.671875
+        },
+        {
+          "label": "책 자료의 범위와 검수 상태",
+          "w": 968,
+          "h": 44.671875
+        },
+        {
+          "label": "검토에서 열어 둔 불일치",
+          "w": 968,
+          "h": 44.671875
+        }
+      ],
+      "table_scroll_checks": [
+        {
+          "client": 966,
+          "scroll": 966,
+          "tabindex": "0"
+        },
+        {
+          "client": 966,
+          "scroll": 966,
+          "tabindex": "0"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "horizontal_overflow": 0,
+      "filter_results": [
+        {
+          "filter": "all",
+          "visible": 6
+        },
+        {
+          "filter": "P0",
+          "visible": 2
+        },
+        {
+          "filter": "P1",
+          "visible": 2
+        },
+        {
+          "filter": "P2",
+          "visible": 2
+        }
+      ],
+      "details_checked": 3,
+      "link_count": 15,
+      "layout_heuristics": {
+        "gates": {
+          "overflow_px": 0,
+          "contrast_fails": 0,
+          "tap_too_small": 0
+        },
+        "gates_pass": true,
+        "collisions": 0,
+        "collision_labels": [],
+        "signals": {
+          "balance_offset": 0.067,
+          "balance_centroid": [
+            0.433,
+            0.462
+          ],
+          "align_nearmiss": 0,
+          "spacing_cov": 0
+        },
+        "contrast_detail": [],
+        "note": "These are HEURISTICS. (1) LOOK at the annotated screenshot — a flag marks WHERE to look, never a verdict. (2) GATES (overflow/contrast/tap) are correctness — fix them. (3) SIGNALS (balance/alignment/spacing) measure CONVENTION = the generic mean; off-center balance, deliberate misalignment, uneven rhythm are creative tools — do NOT \"fix\" a signal toward symmetry unless the eye judges the deviation worse. Maximizing signals designs the mean. (4) collisions: usually a bug, sometimes intentional (overlap aesthetics) — eye-confirm. gates_pass is necessary, not sufficient; a passing layout can still be generic."
+      },
+      "action_sizes": [
+        {
+          "label": "서비스 층위",
+          "w": 95.578125,
+          "h": 44
+        },
+        {
+          "label": "운영 흐름",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "판정 근거",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "역량 지도",
+          "w": 82.578125,
+          "h": 44
+        },
+        {
+          "label": "우선순위",
+          "w": 78,
+          "h": 44
+        },
+        {
+          "label": "근거",
+          "w": 52,
+          "h": 44
+        },
+        {
+          "label": "전체",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "label": "P0",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P1",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "P2",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "label": "서비스 수치와 현재 상태의 근거",
+          "w": 1104,
+          "h": 44.671875
+        },
+        {
+          "label": "책 자료의 범위와 검수 상태",
+          "w": 1104,
+          "h": 44.671875
+        },
+        {
+          "label": "검토에서 열어 둔 불일치",
+          "w": 1104,
+          "h": 44.671875
+        }
+      ],
+      "table_scroll_checks": [
+        {
+          "client": 1102,
+          "scroll": 1102,
+          "tabindex": "0"
+        },
+        {
+          "client": 1102,
+          "scroll": 1102,
+          "tabindex": "0"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "hard_check_failures": []
+}

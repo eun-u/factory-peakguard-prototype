@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "stage": "smoke",
+  "at": "2026-10-06T13:36:34.067835+00:00",
+  "error_type": "ValueError",
+  "error": "Reconstructed R1 rolling paths differ from signed required cohort",
+  "goal_achieved": false,
+  "holdout_read": false
+}

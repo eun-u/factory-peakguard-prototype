@@ -1,0 +1,2175 @@
+{
+  "version": 2,
+  "scope": "Phase F walk-forward development evaluation",
+  "boundary": "2021-08-09 09:45:00",
+  "raw_source_sha256": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+  "parent_seal_sha256": "66c99816564ded40ef5553aab5aeb7258674a4d1bcd35fbf262b1c1b4d2183ed",
+  "source_sha256": {
+    "phase_c/data.py": "fee8922ed85bec860d9870f85d5eeeeeb29dc61fb74ee692e3aabab5ca9600fb",
+    "src/training.py": "f2b4de3a20e43ab1afa89c91c6e5d841b348bf1c76acfa7eb6da9281d8b5a3d7",
+    "phase_f/wf_harness.py": "177dab7c5bf39862ff2f77d69d347f96550fe14df155611b1f35af08b26dcefd"
+  },
+  "cohort": "Phase C finite 15 core features, valid target, complete causal 96-slot context",
+  "split_by": "target_calendar_ISO_week",
+  "even": "EXPLORE",
+  "odd": "CONFIRM",
+  "first_candidate_week": "2021-04-12 00:00:00",
+  "score_slots_per_calendar_week": 672,
+  "cal_slots_requested": 362,
+  "cal_to_score_ratio_rule": "ceil(672 * .35 / .65)",
+  "fit_share_before_cal": 0.8,
+  "min_fit_weeks": 8,
+  "weeks": [
+    {
+      "fold": 0,
+      "week_start": "2021-04-12 00:00:00",
+      "week_end_exclusive": "2021-04-19 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 15,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 1,
+      "week_start": "2021-04-19 00:00:00",
+      "week_end_exclusive": "2021-04-26 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 16,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 2,
+      "week_start": "2021-04-26 00:00:00",
+      "week_end_exclusive": "2021-05-03 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 17,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 3,
+      "week_start": "2021-05-03 00:00:00",
+      "week_end_exclusive": "2021-05-10 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 18,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 4,
+      "week_start": "2021-05-10 00:00:00",
+      "week_end_exclusive": "2021-05-17 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 19,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 5,
+      "week_start": "2021-05-17 00:00:00",
+      "week_end_exclusive": "2021-05-24 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 20,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 6,
+      "week_start": "2021-05-24 00:00:00",
+      "week_end_exclusive": "2021-05-31 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 21,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 7,
+      "week_start": "2021-05-31 00:00:00",
+      "week_end_exclusive": "2021-06-07 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 22,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 8,
+      "week_start": "2021-06-07 00:00:00",
+      "week_end_exclusive": "2021-06-14 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 23,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 9,
+      "week_start": "2021-06-14 00:00:00",
+      "week_end_exclusive": "2021-06-21 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 24,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 10,
+      "week_start": "2021-06-21 00:00:00",
+      "week_end_exclusive": "2021-06-28 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 25,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 11,
+      "week_start": "2021-06-28 00:00:00",
+      "week_end_exclusive": "2021-07-05 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 26,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 12,
+      "week_start": "2021-07-05 00:00:00",
+      "week_end_exclusive": "2021-07-12 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 27,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 13,
+      "week_start": "2021-07-12 00:00:00",
+      "week_end_exclusive": "2021-07-19 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 28,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 14,
+      "week_start": "2021-07-19 00:00:00",
+      "week_end_exclusive": "2021-07-26 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 29,
+      "arm": "CONFIRM"
+    },
+    {
+      "fold": 15,
+      "week_start": "2021-07-26 00:00:00",
+      "week_end_exclusive": "2021-08-02 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 30,
+      "arm": "EXPLORE"
+    },
+    {
+      "fold": 16,
+      "week_start": "2021-08-02 00:00:00",
+      "week_end_exclusive": "2021-08-09 00:00:00",
+      "iso_year": 2021,
+      "iso_week": 31,
+      "arm": "CONFIRM"
+    }
+  ],
+  "counts": [
+    {
+      "horizon": 4,
+      "fold": 0,
+      "fit": 6921,
+      "stop": 1728,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 4,
+      "fold": 1,
+      "fit": 7459,
+      "stop": 1862,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 4,
+      "fold": 2,
+      "fit": 7996,
+      "stop": 1997,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 4,
+      "fold": 3,
+      "fit": 8534,
+      "stop": 2131,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 4,
+      "fold": 4,
+      "fit": 9072,
+      "stop": 2265,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 4,
+      "fold": 5,
+      "fit": 9609,
+      "stop": 2400,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 4,
+      "fold": 6,
+      "fit": 10147,
+      "stop": 2534,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 4,
+      "fold": 7,
+      "fit": 10684,
+      "stop": 2669,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 4,
+      "fold": 8,
+      "fit": 11222,
+      "stop": 2803,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 4,
+      "fold": 9,
+      "fit": 11760,
+      "stop": 2937,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 4,
+      "fold": 10,
+      "fit": 12297,
+      "stop": 3072,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 4,
+      "fold": 11,
+      "fit": 12835,
+      "stop": 3206,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 4,
+      "fold": 12,
+      "fit": 13372,
+      "stop": 3341,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 4,
+      "fold": 13,
+      "fit": 13910,
+      "stop": 3475,
+      "cal": 362,
+      "score": 285,
+      "d2_novel": 285
+    },
+    {
+      "horizon": 4,
+      "fold": 14,
+      "fit": 14138,
+      "stop": 3532,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 4,
+      "fold": 15,
+      "fit": 14522,
+      "stop": 3628,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 4,
+      "fold": 16,
+      "fit": 15060,
+      "stop": 3762,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 5,
+      "fold": 0,
+      "fit": 6919,
+      "stop": 1727,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 5,
+      "fold": 1,
+      "fit": 7457,
+      "stop": 1861,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 5,
+      "fold": 2,
+      "fit": 7995,
+      "stop": 1995,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 5,
+      "fold": 3,
+      "fit": 8532,
+      "stop": 2130,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 5,
+      "fold": 4,
+      "fit": 9070,
+      "stop": 2264,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 5,
+      "fold": 5,
+      "fit": 9607,
+      "stop": 2399,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 5,
+      "fold": 6,
+      "fit": 10145,
+      "stop": 2533,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 5,
+      "fold": 7,
+      "fit": 10683,
+      "stop": 2667,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 5,
+      "fold": 8,
+      "fit": 11220,
+      "stop": 2802,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 5,
+      "fold": 9,
+      "fit": 11758,
+      "stop": 2936,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 5,
+      "fold": 10,
+      "fit": 12295,
+      "stop": 3071,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 5,
+      "fold": 11,
+      "fit": 12833,
+      "stop": 3205,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 5,
+      "fold": 12,
+      "fit": 13371,
+      "stop": 3339,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 5,
+      "fold": 13,
+      "fit": 13908,
+      "stop": 3474,
+      "cal": 362,
+      "score": 284,
+      "d2_novel": 284
+    },
+    {
+      "horizon": 5,
+      "fold": 14,
+      "fit": 14135,
+      "stop": 3531,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 5,
+      "fold": 15,
+      "fit": 14519,
+      "stop": 3627,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 5,
+      "fold": 16,
+      "fit": 15057,
+      "stop": 3761,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 6,
+      "fold": 0,
+      "fit": 6918,
+      "stop": 1725,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 6,
+      "fold": 1,
+      "fit": 7455,
+      "stop": 1860,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 6,
+      "fold": 2,
+      "fit": 7993,
+      "stop": 1994,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 6,
+      "fold": 3,
+      "fit": 8530,
+      "stop": 2129,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 6,
+      "fold": 4,
+      "fit": 9068,
+      "stop": 2263,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 6,
+      "fold": 5,
+      "fit": 9606,
+      "stop": 2397,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 6,
+      "fold": 6,
+      "fit": 10143,
+      "stop": 2532,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 6,
+      "fold": 7,
+      "fit": 10681,
+      "stop": 2666,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 6,
+      "fold": 8,
+      "fit": 11218,
+      "stop": 2801,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 6,
+      "fold": 9,
+      "fit": 11756,
+      "stop": 2935,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 6,
+      "fold": 10,
+      "fit": 12294,
+      "stop": 3069,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 6,
+      "fold": 11,
+      "fit": 12831,
+      "stop": 3204,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 6,
+      "fold": 12,
+      "fit": 13369,
+      "stop": 3338,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 6,
+      "fold": 13,
+      "fit": 13906,
+      "stop": 3473,
+      "cal": 362,
+      "score": 283,
+      "d2_novel": 283
+    },
+    {
+      "horizon": 6,
+      "fold": 14,
+      "fit": 14133,
+      "stop": 3529,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 6,
+      "fold": 15,
+      "fit": 14517,
+      "stop": 3625,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 6,
+      "fold": 16,
+      "fit": 15054,
+      "stop": 3760,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 7,
+      "fold": 0,
+      "fit": 6916,
+      "stop": 1724,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 7,
+      "fold": 1,
+      "fit": 7453,
+      "stop": 1859,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 7,
+      "fold": 2,
+      "fit": 7991,
+      "stop": 1993,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 7,
+      "fold": 3,
+      "fit": 8529,
+      "stop": 2127,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 7,
+      "fold": 4,
+      "fit": 9066,
+      "stop": 2262,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 7,
+      "fold": 5,
+      "fit": 9604,
+      "stop": 2396,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 7,
+      "fold": 6,
+      "fit": 10141,
+      "stop": 2531,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 7,
+      "fold": 7,
+      "fit": 10679,
+      "stop": 2665,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 7,
+      "fold": 8,
+      "fit": 11217,
+      "stop": 2799,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 7,
+      "fold": 9,
+      "fit": 11754,
+      "stop": 2934,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 7,
+      "fold": 10,
+      "fit": 12292,
+      "stop": 3068,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 7,
+      "fold": 11,
+      "fit": 12829,
+      "stop": 3203,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 7,
+      "fold": 12,
+      "fit": 13367,
+      "stop": 3337,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 7,
+      "fold": 13,
+      "fit": 13905,
+      "stop": 3471,
+      "cal": 362,
+      "score": 282,
+      "d2_novel": 282
+    },
+    {
+      "horizon": 7,
+      "fold": 14,
+      "fit": 14130,
+      "stop": 3528,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 7,
+      "fold": 15,
+      "fit": 14514,
+      "stop": 3624,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 7,
+      "fold": 16,
+      "fit": 15052,
+      "stop": 3758,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 8,
+      "fold": 0,
+      "fit": 6914,
+      "stop": 1723,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 8,
+      "fold": 1,
+      "fit": 7452,
+      "stop": 1857,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 8,
+      "fold": 2,
+      "fit": 7989,
+      "stop": 1992,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 8,
+      "fold": 3,
+      "fit": 8527,
+      "stop": 2126,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 8,
+      "fold": 4,
+      "fit": 9064,
+      "stop": 2261,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 8,
+      "fold": 5,
+      "fit": 9602,
+      "stop": 2395,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 8,
+      "fold": 6,
+      "fit": 10140,
+      "stop": 2529,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 8,
+      "fold": 7,
+      "fit": 10677,
+      "stop": 2664,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 8,
+      "fold": 8,
+      "fit": 11215,
+      "stop": 2798,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 8,
+      "fold": 9,
+      "fit": 11752,
+      "stop": 2933,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 8,
+      "fold": 10,
+      "fit": 12290,
+      "stop": 3067,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 8,
+      "fold": 11,
+      "fit": 12828,
+      "stop": 3201,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 8,
+      "fold": 12,
+      "fit": 13365,
+      "stop": 3336,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 8,
+      "fold": 13,
+      "fit": 13903,
+      "stop": 3470,
+      "cal": 362,
+      "score": 281,
+      "d2_novel": 281
+    },
+    {
+      "horizon": 8,
+      "fold": 14,
+      "fit": 14128,
+      "stop": 3526,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 8,
+      "fold": 15,
+      "fit": 14512,
+      "stop": 3622,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 8,
+      "fold": 16,
+      "fit": 15049,
+      "stop": 3757,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 9,
+      "fold": 0,
+      "fit": 6912,
+      "stop": 1722,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 9,
+      "fold": 1,
+      "fit": 7450,
+      "stop": 1856,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 9,
+      "fold": 2,
+      "fit": 7987,
+      "stop": 1991,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 9,
+      "fold": 3,
+      "fit": 8525,
+      "stop": 2125,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 9,
+      "fold": 4,
+      "fit": 9063,
+      "stop": 2259,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 9,
+      "fold": 5,
+      "fit": 9600,
+      "stop": 2394,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 9,
+      "fold": 6,
+      "fit": 10138,
+      "stop": 2528,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 9,
+      "fold": 7,
+      "fit": 10675,
+      "stop": 2663,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 9,
+      "fold": 8,
+      "fit": 11213,
+      "stop": 2797,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 9,
+      "fold": 9,
+      "fit": 11751,
+      "stop": 2931,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 9,
+      "fold": 10,
+      "fit": 12288,
+      "stop": 3066,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 9,
+      "fold": 11,
+      "fit": 12826,
+      "stop": 3200,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 9,
+      "fold": 12,
+      "fit": 13363,
+      "stop": 3335,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 9,
+      "fold": 13,
+      "fit": 13901,
+      "stop": 3469,
+      "cal": 362,
+      "score": 280,
+      "d2_novel": 280
+    },
+    {
+      "horizon": 9,
+      "fold": 14,
+      "fit": 14125,
+      "stop": 3525,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 9,
+      "fold": 15,
+      "fit": 14509,
+      "stop": 3621,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 9,
+      "fold": 16,
+      "fit": 15047,
+      "stop": 3755,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 10,
+      "fold": 0,
+      "fit": 6910,
+      "stop": 1721,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 10,
+      "fold": 1,
+      "fit": 7448,
+      "stop": 1855,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 10,
+      "fold": 2,
+      "fit": 7986,
+      "stop": 1989,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 10,
+      "fold": 3,
+      "fit": 8523,
+      "stop": 2124,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 10,
+      "fold": 4,
+      "fit": 9061,
+      "stop": 2258,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 10,
+      "fold": 5,
+      "fit": 9598,
+      "stop": 2393,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 10,
+      "fold": 6,
+      "fit": 10136,
+      "stop": 2527,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 10,
+      "fold": 7,
+      "fit": 10674,
+      "stop": 2661,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 10,
+      "fold": 8,
+      "fit": 11211,
+      "stop": 2796,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 10,
+      "fold": 9,
+      "fit": 11749,
+      "stop": 2930,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 10,
+      "fold": 10,
+      "fit": 12286,
+      "stop": 3065,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 10,
+      "fold": 11,
+      "fit": 12824,
+      "stop": 3199,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 10,
+      "fold": 12,
+      "fit": 13362,
+      "stop": 3333,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 10,
+      "fold": 13,
+      "fit": 13899,
+      "stop": 3468,
+      "cal": 362,
+      "score": 279,
+      "d2_novel": 279
+    },
+    {
+      "horizon": 10,
+      "fold": 14,
+      "fit": 14122,
+      "stop": 3524,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 10,
+      "fold": 15,
+      "fit": 14506,
+      "stop": 3620,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 10,
+      "fold": 16,
+      "fit": 15044,
+      "stop": 3754,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 11,
+      "fold": 0,
+      "fit": 6909,
+      "stop": 1719,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 11,
+      "fold": 1,
+      "fit": 7446,
+      "stop": 1854,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 11,
+      "fold": 2,
+      "fit": 7984,
+      "stop": 1988,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 11,
+      "fold": 3,
+      "fit": 8521,
+      "stop": 2123,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 11,
+      "fold": 4,
+      "fit": 9059,
+      "stop": 2257,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 11,
+      "fold": 5,
+      "fit": 9597,
+      "stop": 2391,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 11,
+      "fold": 6,
+      "fit": 10134,
+      "stop": 2526,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 11,
+      "fold": 7,
+      "fit": 10672,
+      "stop": 2660,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 11,
+      "fold": 8,
+      "fit": 11209,
+      "stop": 2795,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 11,
+      "fold": 9,
+      "fit": 11747,
+      "stop": 2929,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 11,
+      "fold": 10,
+      "fit": 12285,
+      "stop": 3063,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 11,
+      "fold": 11,
+      "fit": 12822,
+      "stop": 3198,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 11,
+      "fold": 12,
+      "fit": 13360,
+      "stop": 3332,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 11,
+      "fold": 13,
+      "fit": 13897,
+      "stop": 3467,
+      "cal": 362,
+      "score": 278,
+      "d2_novel": 278
+    },
+    {
+      "horizon": 11,
+      "fold": 14,
+      "fit": 14120,
+      "stop": 3522,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 11,
+      "fold": 15,
+      "fit": 14504,
+      "stop": 3619,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 11,
+      "fold": 16,
+      "fit": 15041,
+      "stop": 3753,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 12,
+      "fold": 0,
+      "fit": 6907,
+      "stop": 1718,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 12,
+      "fold": 1,
+      "fit": 7444,
+      "stop": 1853,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 12,
+      "fold": 2,
+      "fit": 7982,
+      "stop": 1987,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 12,
+      "fold": 3,
+      "fit": 8520,
+      "stop": 2121,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 12,
+      "fold": 4,
+      "fit": 9057,
+      "stop": 2256,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 12,
+      "fold": 5,
+      "fit": 9595,
+      "stop": 2390,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 12,
+      "fold": 6,
+      "fit": 10132,
+      "stop": 2525,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 12,
+      "fold": 7,
+      "fit": 10670,
+      "stop": 2659,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 12,
+      "fold": 8,
+      "fit": 11208,
+      "stop": 2793,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 12,
+      "fold": 9,
+      "fit": 11745,
+      "stop": 2928,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 12,
+      "fold": 10,
+      "fit": 12283,
+      "stop": 3062,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 12,
+      "fold": 11,
+      "fit": 12820,
+      "stop": 3197,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 12,
+      "fold": 12,
+      "fit": 13358,
+      "stop": 3331,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 12,
+      "fold": 13,
+      "fit": 13896,
+      "stop": 3465,
+      "cal": 362,
+      "score": 277,
+      "d2_novel": 277
+    },
+    {
+      "horizon": 12,
+      "fold": 14,
+      "fit": 14117,
+      "stop": 3521,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 12,
+      "fold": 15,
+      "fit": 14501,
+      "stop": 3620,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 12,
+      "fold": 16,
+      "fit": 15039,
+      "stop": 3751,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 13,
+      "fold": 0,
+      "fit": 6905,
+      "stop": 1717,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 13,
+      "fold": 1,
+      "fit": 7443,
+      "stop": 1851,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 13,
+      "fold": 2,
+      "fit": 7980,
+      "stop": 1986,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 13,
+      "fold": 3,
+      "fit": 8518,
+      "stop": 2120,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 13,
+      "fold": 4,
+      "fit": 9055,
+      "stop": 2255,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 13,
+      "fold": 5,
+      "fit": 9593,
+      "stop": 2389,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 13,
+      "fold": 6,
+      "fit": 10131,
+      "stop": 2523,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 13,
+      "fold": 7,
+      "fit": 10668,
+      "stop": 2658,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 13,
+      "fold": 8,
+      "fit": 11206,
+      "stop": 2792,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 13,
+      "fold": 9,
+      "fit": 11743,
+      "stop": 2927,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 13,
+      "fold": 10,
+      "fit": 12281,
+      "stop": 3061,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 13,
+      "fold": 11,
+      "fit": 12819,
+      "stop": 3195,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 13,
+      "fold": 12,
+      "fit": 13356,
+      "stop": 3330,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 13,
+      "fold": 13,
+      "fit": 13894,
+      "stop": 3464,
+      "cal": 362,
+      "score": 276,
+      "d2_novel": 276
+    },
+    {
+      "horizon": 13,
+      "fold": 14,
+      "fit": 14115,
+      "stop": 3519,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 13,
+      "fold": 15,
+      "fit": 14499,
+      "stop": 3620,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 13,
+      "fold": 16,
+      "fit": 15036,
+      "stop": 3750,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 14,
+      "fold": 0,
+      "fit": 6903,
+      "stop": 1716,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 14,
+      "fold": 1,
+      "fit": 7441,
+      "stop": 1850,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 14,
+      "fold": 2,
+      "fit": 7978,
+      "stop": 1985,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 14,
+      "fold": 3,
+      "fit": 8516,
+      "stop": 2119,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 14,
+      "fold": 4,
+      "fit": 9054,
+      "stop": 2253,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 14,
+      "fold": 5,
+      "fit": 9591,
+      "stop": 2388,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 14,
+      "fold": 6,
+      "fit": 10129,
+      "stop": 2522,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 14,
+      "fold": 7,
+      "fit": 10666,
+      "stop": 2657,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 14,
+      "fold": 8,
+      "fit": 11204,
+      "stop": 2791,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 14,
+      "fold": 9,
+      "fit": 11742,
+      "stop": 2925,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 14,
+      "fold": 10,
+      "fit": 12279,
+      "stop": 3060,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 14,
+      "fold": 11,
+      "fit": 12817,
+      "stop": 3194,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 14,
+      "fold": 12,
+      "fit": 13354,
+      "stop": 3329,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 14,
+      "fold": 13,
+      "fit": 13892,
+      "stop": 3463,
+      "cal": 362,
+      "score": 275,
+      "d2_novel": 275
+    },
+    {
+      "horizon": 14,
+      "fold": 14,
+      "fit": 14112,
+      "stop": 3518,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 14,
+      "fold": 15,
+      "fit": 14496,
+      "stop": 3621,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 14,
+      "fold": 16,
+      "fit": 15034,
+      "stop": 3748,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 15,
+      "fold": 0,
+      "fit": 6901,
+      "stop": 1715,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 15,
+      "fold": 1,
+      "fit": 7439,
+      "stop": 1849,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 15,
+      "fold": 2,
+      "fit": 7977,
+      "stop": 1983,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 15,
+      "fold": 3,
+      "fit": 8514,
+      "stop": 2118,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 15,
+      "fold": 4,
+      "fit": 9052,
+      "stop": 2252,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 15,
+      "fold": 5,
+      "fit": 9589,
+      "stop": 2387,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 15,
+      "fold": 6,
+      "fit": 10127,
+      "stop": 2521,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 15,
+      "fold": 7,
+      "fit": 10665,
+      "stop": 2655,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 15,
+      "fold": 8,
+      "fit": 11202,
+      "stop": 2790,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 15,
+      "fold": 9,
+      "fit": 11740,
+      "stop": 2924,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 15,
+      "fold": 10,
+      "fit": 12277,
+      "stop": 3059,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 15,
+      "fold": 11,
+      "fit": 12815,
+      "stop": 3193,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 15,
+      "fold": 12,
+      "fit": 13353,
+      "stop": 3327,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 15,
+      "fold": 13,
+      "fit": 13890,
+      "stop": 3462,
+      "cal": 362,
+      "score": 274,
+      "d2_novel": 274
+    },
+    {
+      "horizon": 15,
+      "fold": 14,
+      "fit": 14109,
+      "stop": 3517,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 15,
+      "fold": 15,
+      "fit": 14493,
+      "stop": 3622,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 15,
+      "fold": 16,
+      "fit": 15031,
+      "stop": 3747,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 16,
+      "fold": 0,
+      "fit": 6900,
+      "stop": 1713,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 16,
+      "fold": 1,
+      "fit": 7437,
+      "stop": 1848,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 16,
+      "fold": 2,
+      "fit": 7975,
+      "stop": 1982,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 16,
+      "fold": 3,
+      "fit": 8512,
+      "stop": 2117,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 479
+    },
+    {
+      "horizon": 16,
+      "fold": 4,
+      "fit": 9050,
+      "stop": 2251,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 16,
+      "fold": 5,
+      "fit": 9588,
+      "stop": 2385,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 575
+    },
+    {
+      "horizon": 16,
+      "fold": 6,
+      "fit": 10125,
+      "stop": 2520,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 385
+    },
+    {
+      "horizon": 16,
+      "fold": 7,
+      "fit": 10663,
+      "stop": 2654,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 16,
+      "fold": 8,
+      "fit": 11200,
+      "stop": 2789,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 0
+    },
+    {
+      "horizon": 16,
+      "fold": 9,
+      "fit": 11738,
+      "stop": 2923,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 95
+    },
+    {
+      "horizon": 16,
+      "fold": 10,
+      "fit": 12276,
+      "stop": 3057,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 96
+    },
+    {
+      "horizon": 16,
+      "fold": 11,
+      "fit": 12813,
+      "stop": 3192,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 384
+    },
+    {
+      "horizon": 16,
+      "fold": 12,
+      "fit": 13351,
+      "stop": 3326,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 16,
+      "fold": 13,
+      "fit": 13888,
+      "stop": 3461,
+      "cal": 362,
+      "score": 273,
+      "d2_novel": 273
+    },
+    {
+      "horizon": 16,
+      "fold": 14,
+      "fit": 14107,
+      "stop": 3515,
+      "cal": 362,
+      "score": 480,
+      "d2_novel": 480
+    },
+    {
+      "horizon": 16,
+      "fold": 15,
+      "fit": 14491,
+      "stop": 3622,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    },
+    {
+      "horizon": 16,
+      "fold": 16,
+      "fit": 15028,
+      "stop": 3746,
+      "cal": 362,
+      "score": 672,
+      "d2_novel": 672
+    }
+  ],
+  "skipped_candidate_weeks": [],
+  "score_key_sha256": "6ad954186dd6199d11155d5c6ce94bdd08c0352ff518916dbafd0db5d6121c51",
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "independent_unseen_validation": false,
+  "prior_score_use": "Phase C and Phase E development evaluation",
+  "development_history_audit": {
+    "sealed_boundary": "2021-08-09 09:45:00",
+    "history_first": "2021-01-01 00:15:00",
+    "history_last": "2021-08-09 09:30:00",
+    "history_intervals": 21158,
+    "time_repaired_intervals": 192,
+    "erp_missing_intervals": 194,
+    "raw_zero_power_intervals": 0,
+    "gap_hours": 0,
+    "gap_intervals": 0,
+    "clean_power_finite_intervals": 20966,
+    "raw_source": "data/raw/task05_power/okm_augumented_2021.csv",
+    "raw_sha256": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+    "source_mode": "development_prefix_only",
+    "boundary_partial_hour": true,
+    "development_only": true
+  },
+  "lock_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8"
+}

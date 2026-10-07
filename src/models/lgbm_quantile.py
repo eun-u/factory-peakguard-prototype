@@ -1,38 +1,37 @@
-"""LightGBM 분위수 예측, 분위수 보간 초과확률, split conformal 보정."""
-
+"""Direct conditional quantiles; crossing is removed at inference."""
 from __future__ import annotations
 
 import numpy as np
-import pandas as pd
-
-from .lgbm_point import regression_model
+from .lgbm_point import _lightgbm
 
 
-def fit_quantiles(cfg: dict, x: pd.DataFrame, y: pd.Series, quantiles) -> dict:
-    return {q: regression_model(cfg, alpha=q).fit(x, y) for q in quantiles}
+def fit_quantiles(x_train, y_train, x_stop, y_stop, cfg, alphas=None, params=None):
+    lgb = _lightgbm()
+    settings = cfg.get("lgbm", {})
+    params = params or {}
+    alphas = list(alphas or cfg.get("quantiles", [.1, .5, .9, .95, .975]))
+    out = {}
+    for alpha in alphas:
+        model = lgb.LGBMRegressor(
+            objective="quantile", alpha=float(alpha),
+            num_leaves=int(params.get("num_leaves", settings.get("num_leaves", 31))),
+            min_child_samples=int(params.get("min_child_samples", params.get("min_data_in_leaf", settings.get("min_child_samples", 40)))),
+            learning_rate=float(params.get("learning_rate", settings.get("learning_rate", .05))),
+            n_estimators=int(params.get("n_estimators", settings.get("n_estimators", 400))),
+            random_state=int(cfg.get("seed", 42)), n_jobs=int(settings.get("n_jobs", 2)),
+            verbosity=-1,
+        )
+        kwargs = {}
+        if len(x_stop):
+            kwargs = {"eval_set": [(x_stop, y_stop)], "eval_metric": "quantile",
+                      "callbacks": [lgb.early_stopping(int(settings.get("early_stopping", 50)), verbose=False)]}
+        model.fit(x_train, y_train, **kwargs)
+        out[float(alpha)] = model
+    return out
 
 
-def predict_quantiles(models: dict, x: pd.DataFrame) -> np.ndarray:
-    return np.column_stack([models[q].predict(x) for q in models])
-
-
-def quantile_event_probability(preds: np.ndarray, threshold: float, quantiles) -> tuple[np.ndarray, int]:
-    """분위수 4개 사이를 선형 보간해 P(y > threshold)를 근사한다. 교차는 정렬로 해소한다."""
-    q = tuple(quantiles)
-    crossings = int(np.sum(np.any(np.diff(preds, axis=1) < 0, axis=1)))
-    p = np.sort(preds, axis=1)
-    cdf = np.full(len(p), 0.95)
-    cdf[threshold <= p[:, 0]] = 0.10
-    for j in range(3):
-        mask = (threshold > p[:, j]) & (threshold <= p[:, j + 1])
-        width = np.maximum(p[mask, j + 1] - p[mask, j], 1e-9)
-        cdf[mask] = q[j] + (q[j + 1] - q[j]) * (threshold - p[mask, j]) / width
-    return np.clip(1.0 - cdf, 0, 1), crossings
-
-
-def conformal_offset(y_cal: np.ndarray, q_cal: np.ndarray, level: float) -> float:
-    """상단 분위수 q̂의 split conformal 보정량 δ: P(y ≤ q̂ + δ) ≥ level (교환가능성 가정)."""
-    scores = np.sort(y_cal - q_cal)
-    n = len(scores)
-    rank = int(np.ceil((n + 1) * level))
-    return float(scores[min(rank, n) - 1])
+def predict_quantiles(models, x):
+    alphas = sorted(models)
+    arr = np.column_stack([models[a].predict(x) for a in alphas])
+    arr.sort(axis=1)
+    return {a: arr[:, i] for i, a in enumerate(alphas)}

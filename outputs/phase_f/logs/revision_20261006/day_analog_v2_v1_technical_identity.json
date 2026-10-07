@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-06T14:44:50.060323+00:00",
+  "same_model_source_sha256": "b1fd37e538cb61cc97a1bafca4f3762c9d7a9bfd6fb8e2eeba94b56b3847d795",
+  "first_fold_results": [
+    {
+      "id": "FG-R4-analog-w16-k3",
+      "v1_v2_technical_forecast_identical": true,
+      "prediction_sha256": "2b55c2e78d3cf0291d0f253a3864b0e6c41c8752c2149933f060637b307da323"
+    },
+    {
+      "id": "FG-R4-analog-w16-k5",
+      "v1_v2_technical_forecast_identical": true,
+      "prediction_sha256": "f81a0402e48d9ee55b432e4251d2ebe57c4223a0aa78a25d24f9f9dfb8e491f3"
+    },
+    {
+      "id": "FG-R4-analog-w96-k3",
+      "v1_v2_technical_forecast_identical": true,
+      "prediction_sha256": "429740554cbd20846aa45903a5819a38a02416cd94a3ddc8d3993f3dee66e2d1"
+    },
+    {
+      "id": "FG-R4-analog-w96-k5",
+      "v1_v2_technical_forecast_identical": true,
+      "prediction_sha256": "4224ce456002184c58d33b6dbb22fa64981d4130d2580ba0cfffd3acd20a08ca"
+    }
+  ],
+  "scope": "same-science technical repeat only; not full fresh replay or additional independent evidence",
+  "full_candidate_score_computed": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}

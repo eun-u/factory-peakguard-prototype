@@ -1,0 +1,60 @@
+# 2026-04-16 Industrial (Eul) counterfactual on 2021 observations.
+contract_type: industrial_eul
+effective_date: '2026-04-16'
+verified_source: https://www.korea.kr/news/policyNewsView.do?newsId=148960823
+secondary_source: https://www.kepco.co.kr/KEPCO_FILE/html/2026_08/issue.html
+winter_reference_source: https://kesis.keei.re.kr/pdfOpen.es?bid=0047&list_no=1060&seq=2
+source_location: 'MCEE 2026-03-13 reform notice and KEPCO 2026-08 time-band chart'
+time_bands_confirmed: true
+winter_time_bands_confirmed: false  # Inferred carry-forward; 2026 official winter table not independently obtained.
+voltage_option_confirmed: false
+rates_confirmed: false
+rates: {off_peak: null, mid_peak: null, peak: null}
+# Ordinal scenario coefficients only: no KRW or actual saving is implied.
+scenario_weights: {off_peak: 1, mid_peak: 2, peak: 3}
+saturday_peak_to_mid: true
+sunday_holiday_off_peak: true
+holiday_dates_2021:
+  - '2021-01-01'
+  - '2021-02-11'
+  - '2021-02-12'
+  - '2021-02-13'
+  - '2021-03-01'
+  - '2021-05-05'
+  - '2021-05-19'
+  - '2021-06-06'
+  - '2021-08-15'
+  - '2021-08-16'
+weekend_day_discount:
+  months: [3, 4, 5, 9, 10]
+  start: '11:00'
+  end: '14:00'
+  factor: 0.5
+  eligible_days: [saturday, sunday, holiday]
+bands:
+  summer:
+    months: [6, 7, 8]
+    intervals:
+      - {start: '00:00', end: '08:00', band: off_peak}
+      - {start: '08:00', end: '15:00', band: mid_peak}
+      - {start: '15:00', end: '21:00', band: peak}
+      - {start: '21:00', end: '22:00', band: mid_peak}
+      - {start: '22:00', end: '24:00', band: off_peak}
+  spring_autumn:
+    months: [3, 4, 5, 9, 10]
+    intervals:
+      - {start: '00:00', end: '08:00', band: off_peak}
+      - {start: '08:00', end: '15:00', band: mid_peak}
+      - {start: '15:00', end: '21:00', band: peak}
+      - {start: '21:00', end: '22:00', band: mid_peak}
+      - {start: '22:00', end: '24:00', band: off_peak}
+  winter:
+    months: [11, 12, 1, 2]
+    intervals:
+      - {start: '00:00', end: '08:00', band: off_peak}
+      - {start: '08:00', end: '09:00', band: mid_peak}
+      - {start: '09:00', end: '12:00', band: peak}
+      - {start: '12:00', end: '16:00', band: mid_peak}
+      - {start: '16:00', end: '19:00', band: peak}
+      - {start: '19:00', end: '22:00', band: mid_peak}
+      - {start: '22:00', end: '24:00', band: off_peak}

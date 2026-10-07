@@ -1,0 +1,15 @@
+{
+  "name": "stage1_targets",
+  "spec_ids": [
+    "F2-3",
+    "F2-5"
+  ],
+  "last_id": "F2-5",
+  "resolved": 2,
+  "total": 2,
+  "status": "completed",
+  "updated_at": "2026-10-03T15:34:19.508132+00:00",
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "completed_at": "2026-10-03T15:34:19.508923+00:00"
+}

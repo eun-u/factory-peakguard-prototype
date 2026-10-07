@@ -1,0 +1,12 @@
+{
+  "development_only": true,
+  "reference_only": true,
+  "unique_origins": 7888,
+  "inference_seconds": 22.132341897813603,
+  "prediction_paths_shared_across_horizons": true,
+  "pretrained_training_seconds": null,
+  "local_fit_seconds": 0.0,
+  "input_fingerprint": "87c2c382de6a7bd95e0c628d2b377f4a926bab93ca422b743c002dc23cd9b28d",
+  "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+  "missing_context_policy": "Native Chronos observed-value mask for NaN; no interpolation or future fill"
+}

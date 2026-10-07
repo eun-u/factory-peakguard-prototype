@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "comparisons": [
+    {
+      "horizon": 4,
+      "baseline_model": "c2a_max_4_5_adjusted",
+      "rows": 7551,
+      "max_abs_difference": 0.0
+    },
+    {
+      "horizon": 16,
+      "baseline_model": "c3_holiday_hybrid",
+      "rows": 7498,
+      "max_abs_difference": 0.0
+    },
+    {
+      "horizon": 96,
+      "baseline_model": "c3_holiday_hybrid",
+      "rows": 7155,
+      "max_abs_difference": 0.0
+    }
+  ],
+  "original_oof_sha256": "4bffcf1e86a38ca4518a3568afba63f56c111c02b16c0c124396634cb5f8e366",
+  "original_selection_sha256": "0a6a1b7ff1bb229468426df9b81ef4d6d0e127d6d462746b85e37c3a0fa46c38",
+  "candidate_oof_sha256": "1c7a643a9157e3894ae0bf944818614cefcf8518e555dd1bc4c67a689f33de3e"
+}

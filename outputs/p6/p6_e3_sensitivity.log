@@ -1,0 +1,7 @@
+seeds {'max_abs_diff_any_seed': 0.0, 'note': 'LightGBM 설정에 행·열 부분표집이 없어 seed가 적합에 영향을 주지 않는지 확인'} 54.2
+tau done 70.8
+{'target_horizon': 1, 'delay_intervals': 1, 'model_horizon': 2, 'seconds': 68.6}
+{'target_horizon': 1, 'delay_intervals': 2, 'model_horizon': 3, 'seconds': 65.9}
+{'target_horizon': 4, 'delay_intervals': 1, 'model_horizon': 5, 'seconds': 58.9}
+{'target_horizon': 4, 'delay_intervals': 2, 'model_horizon': 6, 'seconds': 60.3}
+E3 done 332.8

@@ -1,0 +1,17 @@
+{
+  "sealed_boundary": "2021-08-09 09:45:00",
+  "history_first": "2021-01-01 00:15:00",
+  "history_last": "2021-08-09 09:30:00",
+  "history_intervals": 21158,
+  "time_repaired_intervals": 192,
+  "erp_missing_intervals": 194,
+  "raw_zero_power_intervals": 0,
+  "gap_hours": 0,
+  "gap_intervals": 0,
+  "clean_power_finite_intervals": 20966,
+  "raw_source": "data/raw/task05_power/okm_augumented_2021.csv",
+  "raw_sha256": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+  "source_mode": "development_prefix_only",
+  "boundary_partial_hour": true,
+  "development_only": true
+}

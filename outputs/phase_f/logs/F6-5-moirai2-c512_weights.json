@@ -1,0 +1,11 @@
+{
+  "repo": "Salesforce/moirai-2.0-R-small",
+  "revision": "30f43ff08c8494f4943ae1521e9d4e94a0fbb389",
+  "spec_hash": "83a9e97d45ea7321633c2b68c305daeae5b6af6c389b780949c130a18e88127a",
+  "license": "cc-by-nc-4.0",
+  "commercially_eligible": false,
+  "source": "https://github.com/SalesforceAIResearch/uni2ts",
+  "training_on_local_data": false,
+  "development_only": true,
+  "holdout_read": false
+}

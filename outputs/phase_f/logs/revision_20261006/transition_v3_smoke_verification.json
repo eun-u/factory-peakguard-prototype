@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-06T13:57:53.887234+00:00",
+  "namespace": "goal_r1_transition_v3",
+  "plan_sha256": "5f2676d5c72cde981ff145d2d01dc8b81220eb21d67df4e95aa5597076d00bdd",
+  "root_source_runtime_diagnosis_physical_path_and_smoke_verification": "passed",
+  "verified_signed_path_rows": 249246,
+  "physical_parts": 37,
+  "producer_paths_sha256": "476b02d1bb8f49e249ba36d204bbac0461e7f1fbde6f3094e82ba2287b38cc60",
+  "normalized_model_paths_sha256": "36f8f97168475ab8c82e9e56def90bd1ef187dfb5efdbcb57a1114f33d797582",
+  "rows": [
+    {
+      "id": "FG-R3-transition-power",
+      "seed": 42,
+      "n_fold_models": 1,
+      "fold": 1,
+      "forecast_rows": 13442,
+      "prediction_sha256": "be0e9cae878ecf470f2233797f2c7eac0b751c3ddcd52c7aacf59130415cda40",
+      "metadata_sha256": "a2a70ca320be08ca3652d6a640e3c650b23ec68106f7721dafb69f6ed1d8adfe",
+      "model_sha256": "23fa48ddf70bd7163d140817304a0544c549bdd3a87cbd6e03a2574dc624d1d0",
+      "future_perturbation_max_abs_difference": 0.0,
+      "train_seconds": 25.32545090000076,
+      "smoke_only": true,
+      "five_seed_score": false
+    },
+    {
+      "id": "FG-R3-transition-production",
+      "seed": 42,
+      "n_fold_models": 1,
+      "fold": 1,
+      "forecast_rows": 13442,
+      "prediction_sha256": "c3c7a1b3d5f6f5faff99e13bc249905f74ceee23a0dc08e36c34fd2522892840",
+      "metadata_sha256": "1d3eaf67ee3c7e3dbbdfc1114ee613447b356c130359d593b1c3627c7fa3577e",
+      "model_sha256": "ec3160a0f7b2cf49c7753a6c24d0d4ac4ee619eaf77f14b14313e442ac0e6d71",
+      "future_perturbation_max_abs_difference": 0.0,
+      "train_seconds": 25.078079299999445,
+      "smoke_only": true,
+      "five_seed_score": false
+    }
+  ],
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "goal_achieved": false,
+  "independent_confirmation": "pending"
+}

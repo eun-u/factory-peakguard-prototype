@@ -1,92 +1,73 @@
-# 제조 생산데이터 기반 전력사용량 예측 및 최대피크 위험조건 분석
+# PeakGuard — 제조 전력피크 예측 연구
 
-제6회 K-인공지능 제조데이터 분석 경진대회 과제 ⑤(자원 최적화 AI 데이터셋)의 소스코드다.
-명령 한 줄(`python run_all.py`)로 전처리 → 학습 → 평가 → 오류·조건 분석 → 예측결과 파일 → 그림·표를 모두 다시 만든다.
+**제조 전력의 피크 예측 정확도와 선행 경보의 유효성을 실험으로 검증하는 응용연구 프로젝트.**
 
-## 1. 환경
+주 과제는 한 시간 뒤에 끝나는 15분 구간의 전력값 예측이다. 피크 오차 개선을 중심으로 불확실성·오경보·준비시간·실패 조건을 분석한다. 현재 결과는 개발 평가이며 실제 현장 절감 효과를 입증한 시스템이 아니다.
 
-| 항목 | 값 |
-| :-- | :-- |
-| Python | 3.13 |
-| 패키지 | `requirements.txt` (pandas 2.3.3, numpy 2.5.3, scikit-learn 1.9.1, lightgbm 4.6.0, matplotlib 3.10.6, pyyaml 6.0.2) |
-| 난수 | seed 42 고정 (`configs/default.yaml`) |
-| 딥러닝·GPU | 사용하지 않음 |
-| 한글 그림 | Windows는 맑은 고딕을 자동 사용. 다른 OS는 NanumGothic 또는 Noto Sans CJK KR 설치 권장 |
+## 먼저 읽을 것
 
-## 2. 설치와 실행
+| 목적 | 문서 |
+|---|---|
+| Background~Contribution 12항목과 RQ | [연구 현황](research/generated/status.md) / [원본 정의](research/charter.json) |
+| 가설·실험·다음 행동 | [실험 관리](experiments/README.md) / [등록부](experiments/registry.json) |
+| 현재 주장과 근거 | [주장 등록부](research/claims.json) / [현재 스냅샷](research/generated/current_snapshot.json) |
+| 논문 초안 | [본문](paper/manuscript.md) / [집필과 대회 목차 매핑](paper/README.md) |
+| 현재 수치 | [자동 결과표](paper/generated/results.md) |
+| 작업 규칙·변경 이력 | [AGENTS.md](AGENTS.md), [PROGRESS.md](PROGRESS.md), [DECISIONS.md](DECISIONS.md) |
 
-Windows PowerShell (압축을 푼 폴더에서):
+## 연구 관리와 집필 — Python 3.10+, 추가 패키지 불필요
 
-    py -3.13 -m venv .venv
-    .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-    .\.venv\Scripts\python.exe -X utf8 run_all.py
+```bash
+python -m research status
+python -m research show R2-EX02
+python -m research validate
+python -m research build
+python -m research check
+python -m unittest discover -s research/tests -v
+```
 
-macOS·Linux:
+이 명령은 Git에 있는 작은 결과 파일만 읽는다. 원자료·GPU·모델 학습 없이 연구 현황과 본문을 생성한다. 계획의 존재와 검증된 성과를 구분하며, 근거 누락·비교 행 중복·모델 선정 불일치·생성물 갱신 누락은 실패로 처리한다.
 
-    python3.13 -m venv .venv
-    .venv/bin/python -m pip install -r requirements.txt
-    .venv/bin/python -X utf8 run_all.py
+## 구조
 
-단위 점검(합성 자료, 원자료 불필요): `python -m unittest discover -s tests -v`
+| 위치 | 역할 |
+|---|---|
+| research/ | 정의·주장·근거·검증·문서 생성 |
+| experiments/ | 연구 질문별 계획과 기존 실험 이력 |
+| paper/ | 수동 집필 절 + 자동 결과 + 통합 본문 |
+| src/, research_p4/, scripts/ | 예측·평가·기존 실험 구현 |
+| outputs/, verification/ | 결과·사전 계획·동결 증거 |
+| prototype/ | 기존 Streamlit 흐름 시연 |
+| report/, slides/, submission/ | 이전 산출물과 대회 제출 전달 |
 
-예상 실행 시간: 4코어 노트북 기준 약 1~2분 (부트스트랩 1,000회 포함). 실제 소요 시간은 `outputs/logs/run_summary.json`의 `runtime_seconds`에 기록된다.
+## 모델 개발 실행 — 별도 데이터·환경 필요
 
-## 3. 입력 데이터
+원자료는 Git에 포함하지 않는다. 사용 권한이 있는 원자료를 `data/raw/task05_power/okm_augumented_2021.csv`에 두고 기존 환경 잠금 파일을 사용한다. 학습 환경 기준은 Python 3.13 및 `requirements-pipeline.lock.txt`이며 연구 관리의 표준 라이브러리 환경과 구별한다.
 
-| 경로 | 내용 |
-| :-- | :-- |
-| `data/raw/task05_power/okm_augumented_2021.csv` | 대회 제공 원자료(학습용 데이터). 6,168행 × 18열, 2021-01-01 ~ 2021-09-14. SHA-256 `8f7af2e4…4674830` |
+```bash
+python -m pip install -r requirements.txt
+python run_all.py --development-only
+```
 
-원자료는 읽기만 한다. 시간 복원·15분 전개 결과를 이 폴더에 쓰지 않는다.
+개발 명령은 기존 봉인 개발 로더와 검증을 사용한다. 모델/설정 변경은 캐시를 무효화하며 새 개발 실행이 필요하다. `run_all.py --from report`는 기존 전체 데이터 단계의 게이트와 연결되어 있으므로 일반 집필 명령으로 쓰지 않는다. 논문 갱신은 `python -m research build`를 사용한다.
 
-## 4. 폴더 구조
+최종 평가는 기존 날짜·사람 승인·해시·일회 실행 조건을 따른다. 문서 생성·구조 개편·main 반영은 동결 승인이나 예약 활성화를 뜻하지 않는다. 과거 마지막 15% 열람 이력, 단위·시간 경계 미확인, 통계적 피크와 실제 계약 한도의 차이를 유지한다.
 
-    run_all.py                 전체 실행 진입점
-    configs/default.yaml       모든 설정값(분할 비율, 시차, LightGBM 하이퍼파라미터, 피크 정의, 부트스트랩 횟수 등)
-    src/
-      data.py                  로딩, 시간 오류 48행 복원, 15분 전개, 품질 점검, 변수 사전
-      features.py              시차·이동통계·완료 생산량·달력 특징 (특징별 가용 시점 표 포함)
-      split.py                 시간순 분할, 경계 간격, rolling-origin 폴드
-      evaluate.py              지표, 피크 에피소드 1:1 매칭, 날짜 블록 부트스트랩
-      daily_max.py             보조 과제: 익일 일간 최대 15분 전력
-      viz.py                   그림 (한글 폰트 설정은 이 파일에서만)
-      models/                  기준선(계절 나이브·persistence), LightGBM 점·분위수·분류기
-      analysis/                rolling-origin·예측거리·conformal, 조건별 FN·FP, 영향변수,
-                               피크 발생 조건, 경보 규칙, 비용-손실 REV, 생산량 이동 시뮬레이션
-    tests/                     누수·분할·매칭 단위 점검과 합성 자료 전체 실행 점검
-    outputs/                   실행 결과 (아래 5절)
+## 최종 모델 FG-R11 재현 — GPU 필요
 
-## 5. 산출물
+FG-R11 = 정확 복제 게이트(5칸 이상 일치) + Chronos-2(문맥 2048)의 시간 계층 조정(15분~4시간, WLS-분산) + 실현 오차 보정(MOS) + 피크 상향 보정 + conformal 위험 추정. 근거와 실험 기록은 `outputs/phase_f/goal_fm_ensemble_v1/`, 잠금과 테스트 결과는 `outputs/phase_f/final_fg_r11/`에 있다.
 
-| 파일 | 내용 | 보고서 |
-| :-- | :-- | :-- |
-| `outputs/predictions/test_predictions_1h.csv` | **테스트 구간 예측결과(주 과제)**: 원점, 목표 시각, 실제값, 계절 나이브·persistence·LightGBM 예측, 분위수(10·50·90·95%), 초과확률, 경보 여부 | 2장 |
-| `outputs/predictions/test_predictions_daily_max.csv` | **테스트 구간 예측결과(보조 과제)**: 익일 일간 최대 15분 전력 | 2장 |
-| `outputs/tables/final_test.csv` | 최종 모델 비교표 (피크 위치·에피소드·날짜 단위 지표와 95% CI, TP/FP/FN) | 2장 |
-| `outputs/tables/t1_*.csv` | 변수 사전, 0값 연속 구간, 월·요일·시각 분포, 변수 간 관계 | 1장 |
-| `outputs/tables/t2_*.csv` | 기준선 선택, 개선률, 분위수·확률 지표, 피크 정의 민감도, rolling-origin, 예측거리 곡선, conformal, 익일 최대 | 2장 |
-| `outputs/tables/t3_*.csv` | 조건별 FN·FP, 저녁 미탐 사례, permutation importance, 부분의존, 피크 발생 조건 | 3장 |
-| `outputs/tables/t4_*.csv` | 경보 규칙 KPI, REV, 생산량–전력 기울기, 이동 시뮬레이션 | 4장 |
-| `outputs/figures/f*.png` | 보고서 그림 (파일 이름 앞 숫자가 장 번호) | 1~4장 |
-| `outputs/logs/run_summary.json` | 분할 범위, 피크 경계, 선택된 기준선·임계값, 재현 점검 결과, 실행 환경·시간 | 6장 |
+```bash
+python -m pip install -r requirements.txt
+python -m venv outputs/phase_f/env
+outputs/phase_f/env/Scripts/python -m pip install -r requirements-chronos.txt --extra-index-url https://download.pytorch.org/whl/cu126
+python run_all.py --fg-r11
+```
 
-## 6. 평가 설계 요약
+`--fg-r11`은 캐시(Chronos·시간 계층 예측)를 확인하고, 잠금이 없으면 개발 데이터로 잠근 뒤 테스트를 1회 평가한다. 이미 평가된 경우 저장 결과를 덮어쓰지 않고 임시 폴더에서 재계산해 일치 여부만 확인한다. 이어서 예측결과 CSV(`outputs/predictions/final_test_fg_r11*.csv`, `final_test_next_day_max.csv`)를 검사하고 보고서 각 장의 FG-R11 블록을 갱신한다. `--refresh-caches`를 붙이면 GPU로 캐시를 다시 만들고 잠금 해시와 대조한다. 캐시가 이미 있으면 GPU 없이 실행된다.
 
-- 주 과제: 원점 t에서 **1시간 후 15분 전력** 예측. 보조 과제: 전날 23:45에 **다음 날 일간 최대 15분 전력** 예측.
-- 분할: 시간순 학습 70% / 검증 15% / 테스트 15%. 경계마다 예측거리(4개 원점)만큼 비운다. 랜덤 분할 없음.
-- 피크: 테스트 실제값 > 학습 구간 상위 5% 경계. 경보 임계값은 검증 구간 F1 최대로 고정한다.
-- 신뢰구간: 테스트 날짜 단위 1,000회 복원추출의 95% 백분위 구간.
-- 모델 설정은 사전 검증 때 고정했고, 이후 테스트 결과를 보고 바꾸지 않았다. 예측거리 곡선과 conformal 보정은 테스트 이전 개발 폴드에서만 평가한다.
+## 과거 결과와 제출
 
-## 7. 가정
+현재 선정은 [스냅샷](research/generated/current_snapshot.json)으로 확인한다. P4/P5/P6는 기존 기록으로 보존하고 새 실험은 R2-EX01~06의 planned 상태에서 시작한다. [기존 보고서](report/REPORT_DRAFT.md)·발표·프로토타입은 생성 시점과 모델 범위가 다를 수 있다.
 
-| ID | 가정 |
-| :-- | :-- |
-| A1 | 주 과제는 1시간 후 15분 전력, 보조 과제는 익일 일간 최대 15분 전력 (출제문의 '지정된 시간구간' 미확정) |
-| A3 | 전력 단위(kW·kWh)는 확인되지 않았다. 모든 수치는 원자료 단위로 쓴다 |
-| A4 | `15분`·`30분`·`45분`·`60분` 열은 HH:15, HH:30, HH:45, (HH+1):00에 끝나는 연속 15분 구간이다 |
-| A5 | 피크는 학습 구간 상위 5% 초과(통계적 사건)이며 계약전력 초과가 아니다. 상위 2.5%·10%도 민감도로 보고한다 |
-| A6 | 설비 동시가동·제품 전환·교대 정보가 없어 시각대(00–08·08–16·16–24), 요일, 생산량 구간을 대리변수로 쓴다 |
-| A7 | 별도 테스트 파일이 없어 마지막 15% 구간 예측을 두 과제 각각 CSV로 낸다 |
-| A8 | 생산량은 그 시간이 끝난 뒤에만 안다. 미래 생산량, 실측 기상, 같은 시간 평균 전력은 입력에서 뺀다 |
-| — | 2021-07-13·15의 시간 열 48행은 0~23 범위를 벗어나 날짜별 행 순서로 임시 복원했고, 해당 위치와 이에 의존하는 특징 행은 학습·평가에서 제외했다 |
+논문형 본문을 대회 6장과 배점(15/40/15/10/10/10)에 맞춰 옮긴다. PDF·PPT·코드/데이터·예측결과·설문 및 블라인드 조건은 [인계](submission/HANDOFF.md)와 공식 양식을 따른다. Git push를 대회 제출 완료로 표현하지 않는다.

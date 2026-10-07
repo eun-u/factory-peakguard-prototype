@@ -1,0 +1,312 @@
+{
+  "status": "passed",
+  "development_only": true,
+  "test_opened": false,
+  "output": "_validation/session_0924_repro",
+  "protected_preflight": {
+    "count": 75,
+    "unchanged": true
+  },
+  "reference_sha256": {
+    "development_oof": "4bffcf1e86a38ca4518a3568afba63f56c111c02b16c0c124396634cb5f8e366",
+    "development_selection": "0a6a1b7ff1bb229468426df9b81ef4d6d0e127d6d462746b85e37c3a0fa46c38"
+  },
+  "task_input_sha256": {
+    "configs/default.yaml": "493730657f943ed2822e5245d9f566123aacb173a3eefae743511da35c4db6cc",
+    "configs/tariff_2021.yaml": "6b0c88df9d96831c9a8fa5865d9262dd231598b4c1cfd61a387c79a5aeb64674",
+    "configs/tariff_2026.yaml": "b546e9ac2af3a24d1ade2ebd33b8a4c37d14f6f8c5eb0ea355201a2eb3701554",
+    "outputs/tables/T2-1_fva.csv": "15ed260be1a2e782dfbb26390cd2c0ab43593353b2702dea7e40a97ad913b0af",
+    "outputs/models/development_h96_fold0_lgbm.joblib": "1bfdfb3d41cfab6bd8c178b39f414c9a1ab904aa3bdf014aef31af65884a77ff",
+    "outputs/models/development_h96_fold0_lgbm_no_holiday.joblib": "d428abfed16f8731b3ca12a9ea6a87b01cd1a974afa5aabc3914c78c847050ac",
+    "outputs/models/development_h96_fold1_lgbm.joblib": "9ad9bc088d771625ee570d525748ca19ed749cb9ac39570ee9236dbcf19b021b",
+    "outputs/models/development_h96_fold1_lgbm_no_holiday.joblib": "9431a8094c728a5e03d1f632281997eaac83f14dc2d60d94980ff5cc3dfbe80b",
+    "outputs/models/development_h96_fold2_lgbm.joblib": "40b3fd45cb3be6df6dd6fc48d22f2a0d3e1d9210859852e0d52aab5a4a37d212",
+    "outputs/models/development_h96_fold2_lgbm_no_holiday.joblib": "161eb18cd263dcc46220d2cdc92648a1e85ce4efd0c7931770d3ef552e2fa36a",
+    "src/__init__.py": "a1db1b068fd28304db9042fbebb855fed77307b456929c79fe7000bca38ed87e",
+    "src/analysis/__init__.py": "46941c4570d4615bdd181b144047caf3ef29cf7679e2b95584253b6817d613e6",
+    "src/analysis/_common.py": "28ae6e3d3585bed35fc5c7e1083b33e83b3b8e0d5528c6e51f989734128381ec",
+    "src/analysis/alerting.py": "380d5fc15fb8135f46bf633c7f5cfb372e4bc27efa90daecd40d374e18894c0a",
+    "src/analysis/applicability.py": "ff81ad1eec01d02dada7ed2c2d1c0b3a7359c8c1e4915b7c74c5b6648d123d07",
+    "src/analysis/decision.py": "8a012426225c43cdfd812467289c8e7368667b4bbdeb238cf4672e2ff4f3935c",
+    "src/analysis/energy_baseline.py": "2569c7155ca622c7a3689fefd1309550537494cdb6f93a14c8099dd4c5878ac0",
+    "src/analysis/energy_baseline_v2.py": "24f91567110e6b7fa777841f56a421e8f943413c6a92ce96f3b1ddbe0aaf164f",
+    "src/analysis/errors.py": "2f874bccf08789f45e5e3a2dedff6fdd4ad40e61143e187022c4ed3b9b365849",
+    "src/analysis/horizon_curve.py": "662264f51024e7e0acd7f148c4c03bc205d7d5b8a4f93b9822fca357714a37fd",
+    "src/analysis/importance.py": "dd42ad998eae2c9676edb5c3a80b2bd1b5fe70ea6853e9ca838cd1dbd138d644",
+    "src/analysis/operational_sensitivity_0924.py": "ccbb637ee85e000311c380484a497566a24176e968b44bcfa72ccd5c470a77d2",
+    "src/analysis/pipeline.py": "4912fd9d2607d96ab4d2f6a2038f84aadccbf671d2919bd5f1859c42bfe4f971",
+    "src/analysis/shift_v2.py": "0ca8b3f840deeb58e70a8df9f3475e01f0f962163c673f538969d2b18494f301",
+    "src/analysis/simulate_shift.py": "b0f92b83b17320fbcb478f0f117ce986d64cd1d944a196cf5f4e3fda70640be4",
+    "src/analysis/supplemental.py": "5bed732f6590b2db99fe60710231025106ab9f749c854f539b0941ec80bd08d2",
+    "src/analysis/symmetric_metrics.py": "1e54de4484c82f5fb6dffb1791c4d4c848988d5323059b45b6146f1f7556bd8d",
+    "src/analysis/tariff.py": "e529e061d1d442aa0523b58dbca8007b39f9a3cce9c2ba6db116bce68f503473",
+    "src/bootstrap.py": "1cca328b5dbc7f219eb7e50ad9436706e9036e9d79ce430a835bd06b1c41e755",
+    "src/data.py": "0fad75e60482f60ef42c571f3dc39ace515e89afc0fe15138a7feddd68c91631",
+    "src/evaluate.py": "f11c5432b03990fa45f02c48480abd3206b3e33715d0ad2afdb588c0aa2a6703",
+    "src/features.py": "aa6e359e681861960608160921a909949ecb98910f3ef653a09f83850596e32a",
+    "src/finalize.py": "fb9bf049b2eb183ffcf71f052ac5d8689625e1de51b33c3ec0572ecb3f9817b5",
+    "src/holidays.py": "7a867876f471dd57343b574936c609b8286c62c130607dd6b86db88aecc19d5c",
+    "src/model_reporting.py": "3d5bf7a15cec49be1cb818d62d8d89a05ea32e5503f5d8a70671c15b725b0420",
+    "src/models/__init__.py": "1906a3639c5632fe0c2d99bb5201319714f77bdb71b86d1e771fe4fcdee734d8",
+    "src/models/baselines.py": "0dbb1f7d18ad3b2c6957be072ad2d1691527538db15bdbfbef419966c661740d",
+    "src/models/cbl.py": "5674d1a1c34f310680b8e05d03a6848c10522014ea6e7faaaa7ae6ef30b4cc3d",
+    "src/models/conformal.py": "301a8d67701c10b91755e397db1d90b7f3c36e706a686c76cace4196b40e7e6a",
+    "src/models/expected_exceedance.py": "28446abd70701f0187845011ec552900119220d987a47c4fe350819be3c70106",
+    "src/models/lgbm_point.py": "bcfaa188afdeb43c8d8171debed6965dde64f2b36eb3c88f414c4bf262cb3560",
+    "src/models/lgbm_quantile.py": "f800e66ad2bdd07a3c41045eeffcdf73ea0e240094c08e96eb3c8382c83d8805",
+    "src/models/peak_prob.py": "45ed4f11734bf248f6d04ca424934c34d7885c9bcbd40482a3729d23ae4820b8",
+    "src/packaging.py": "d1ed79f13881228f0e300fb2d0bf00e278ebb32dbef3478a97e5acc73c9d7717",
+    "src/reporting.py": "b7c878a09128682d7f9c963312b986e417606050047e6ea30f86a9875f366d7b",
+    "src/session_data.py": "6045278116f1245a272f28eef653e1480f0decb72663e40d91516e38fea78b32",
+    "src/split.py": "05fd019cf2399e6f9940617e552e7a827cb3eaa87a5e6180e0a3fa7e1dd1d9bb",
+    "src/targets.py": "ff97de3c152a699b1a0cbea046b5eb16430b71144084f5363b95382f66c3cfa4",
+    "src/training.py": "61d6847be9f57d0c9ad9c9203c6dc35396bc2a8202b824cdf03ac03314bce183",
+    "src/viz.py": "feb61f0c41e11ea1190f532ad9ada13a074bab4a9463c5c5813de995d71e2491",
+    "src/workflow.py": "8f7cdbc405a8e6de343661b3ec9aa20a20e00d42a68c6598abeb8d72725bf03e",
+    "scripts/build_slides.py": "070bd84e7bf6f9b3a4b969b46c6986e53a2968f5911b45cf5ccd6938e2723068",
+    "scripts/diagnose_h96_0924.py": "d564b6f096588bd82d176bb4c6853818d703e8ab8cd57cde884fdc58939dfaa0",
+    "scripts/evening_oracle_0924.py": "d27170e782cd49b98f23ff2613c2b4a7de5a6f0ff1ee89e943416f5adb565712",
+    "scripts/export_slides.py": "cf11e51802652c89e94e74d0e9453264bc64239e7216a7f27699499e7b67ad19",
+    "scripts/peak_sensitivity_0924.py": "e2ad8a6c9fd4fe39ce5250421680001aa6a6b324ff6e7352455d4ef7b6da4fff",
+    "scripts/pin_verification.py": "0af8ff10fd98dfff16b00c17619d9fb099b543fc46c1f3046b8dc3d56ddbb112",
+    "scripts/qa_roadmap.py": "0a200aa7ef7cc418b85b805689ba1be86adbfd03f5706ca616fed722370459a2",
+    "scripts/run_session_0924.py": "cbc9d4e1f1eb2c7784ceb1f643f483799214480d24ce209b688387d3b3d2a844",
+    "scripts/verify_reproduction.py": "4fffc024cd1fadcad2ed4bed791ebc44418e0fde37765f1c703e3e4a2583d826",
+    "scripts/verify_session_0924.py": "1515ff3a39ac55e8bf63fce1501b80dac8f45f9ececbdf0639066546df0a4102"
+  },
+  "task1_manifest_sha256": "0a7d9f3127ba8364d69d64c64132c29897f635aa9023785b6ef8b8f4a35ad5a1",
+  "numerical_tolerance": {
+    "atol": 1e-10,
+    "rtol": 1e-10
+  },
+  "compared_csvs": [
+    {
+      "file": "predictions/energy_baseline_oof_predictions_v2.csv",
+      "rows": 7551,
+      "columns": 7,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/T2-1a_fva_point.csv",
+      "rows": 7,
+      "columns": 38,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/T2-1b_fva_uncertainty.csv",
+      "rows": 3,
+      "columns": 45,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/T2-3_symmetric_peak_metrics.csv",
+      "rows": 80,
+      "columns": 37,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/cbl_alias_audit_0924.csv",
+      "rows": 4,
+      "columns": 8,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/energy_baseline_coefficient_ci_v2.csv",
+      "rows": 3,
+      "columns": 11,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/energy_baseline_fold_metrics_v2.csv",
+      "rows": 3,
+      "columns": 13,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_audit_20.csv",
+      "rows": 20,
+      "columns": 23,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_early_stopping_metrics.csv",
+      "rows": 6,
+      "columns": 8,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_existing_candidates.csv",
+      "rows": 6,
+      "columns": 4,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_feature_missing.csv",
+      "rows": 3096,
+      "columns": 7,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_fold_grid.csv",
+      "rows": 12,
+      "columns": 24,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_learning_curve.csv",
+      "rows": 2195,
+      "columns": 5,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/h96_diagnostic_model_compare.csv",
+      "rows": 16,
+      "columns": 28,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/peak_type_representatives_v2.csv",
+      "rows": 3,
+      "columns": 23,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/peak_type_summary_v2.csv",
+      "rows": 4,
+      "columns": 10,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/peak_types_v2.csv",
+      "rows": 148,
+      "columns": 22,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/shift_actions_v2.csv",
+      "rows": 9102,
+      "columns": 17,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/shift_alert_audit_v2.csv",
+      "rows": 3879,
+      "columns": 9,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/shift_monthly_v2.csv",
+      "rows": 90,
+      "columns": 24,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    },
+    {
+      "file": "tables/shift_summary_v2.csv",
+      "rows": 18,
+      "columns": 15,
+      "max_abs_numeric_difference": 0.0,
+      "atol": 1e-10,
+      "rtol": 1e-10,
+      "passed": true
+    }
+  ],
+  "task_results": {
+    "1": {
+      "status": "completed",
+      "elapsed_seconds": 205.444190299997
+    },
+    "2": {
+      "status": "completed",
+      "elapsed_seconds": 132.59549009999319
+    },
+    "3": {
+      "status": "completed",
+      "elapsed_seconds": 77.66230499999074
+    },
+    "4": {
+      "status": "completed",
+      "elapsed_seconds": 13.797990199993365
+    },
+    "5": {
+      "status": "completed",
+      "elapsed_seconds": 17.198566999999457
+    }
+  },
+  "legacy_cv": {
+    "file": "tables/development_cv.csv",
+    "rows": 252,
+    "excluded_new_columns": [
+      "overpredict_rate",
+      "peak_bias",
+      "peak_mae_union"
+    ],
+    "max_abs_numeric_difference": 5.684341886080802e-14,
+    "peak_mae_ci95_max_abs_difference": 1.4210854715202004e-14,
+    "passed": true
+  },
+  "protected_postflight": {
+    "count": 75,
+    "unchanged": true
+  },
+  "total_elapsed_seconds": 516.0366878000059
+}

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "fit_checks": [
+    {
+      "fold": 0,
+      "cal_n": 1479,
+      "mean_gradient": [
+        -9.251442974333078e-12,
+        -1.2083658729921532e-11
+      ],
+      "rank": 1406
+    },
+    {
+      "fold": 1,
+      "cal_n": 1479,
+      "mean_gradient": [
+        6.496850771285629e-10,
+        -1.441239472775389e-09
+      ],
+      "rank": 1406
+    },
+    {
+      "fold": 2,
+      "cal_n": 1272,
+      "mean_gradient": [
+        2.5498122132224427e-13,
+        -9.65922032479239e-13
+      ],
+      "rank": 1210
+    }
+  ],
+  "recomputed": {
+    "risk_rows": 8,
+    "uncertainty_rows": 46,
+    "position_rows": 96,
+    "decision_rows": 48,
+    "episode_rows": 96,
+    "reliability_bins": 160
+  },
+  "score_rows": 7810,
+  "predictions_sha256": "6c92d06e66f39cc9811857c7137fe637fcdc76d8a19a1adcb8f08be281ace156",
+  "independent_of_report_generator": true,
+  "historical_final_artifact_read": false
+}

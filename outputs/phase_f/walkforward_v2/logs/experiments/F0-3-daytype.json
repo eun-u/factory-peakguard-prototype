@@ -1,0 +1,16 @@
+{
+  "exp_id": "F0-3-daytype",
+  "family": "F0-3",
+  "tier": 0,
+  "parent_exp": "",
+  "config_json": "{\"adapter\":\"statistical\",\"family\":\"F0-3\",\"id\":\"F0-3-daytype\",\"kind\":\"daytype_profile\",\"nonfinite_policy\":\"weekly_anchor\",\"params\":{\"level_span\":96,\"statistic\":\"median\"},\"tier\":0}",
+  "config_hash": "7f1b49a6a272e89d06b227b049aa46207866a97018e2b67324762060f424a44d",
+  "code_commit": "ce6d09aced2dcce4bf31789aeaff1a1e6804fba9",
+  "source_digest": "2460f0358504a3cd8e416c8da865772bea5e443a4755a7fbfa83088fd6d8ff59",
+  "status": "planned",
+  "created_at": "2026-10-06T10:51:09.267539+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": ""
+}

@@ -1,0 +1,7 @@
+{
+  "persistence": 27.731182795698924,
+  "lgb": 17.770141448807113,
+  "status": "verified_from_frozen_predictions",
+  "new_test_evaluation": false,
+  "note": "과거 저장 예측의 산술 재현이며 재학습 또는 신규 모델의 테스트 성능이 아님"
+}

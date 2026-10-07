@@ -1,0 +1,14 @@
+score_keys.parquet
+models/
+optional_envs/
+predictions/
+cache/
+*.sqlite*
+*.log
+finalists_v2/models/
+finalists_v2/optional_envs/
+finalists_v2/predictions/
+pc3_finalists/models/
+pc3_finalists/optional_envs/
+pc3_finalists/predictions/
+**/score_probabilities.csv

@@ -1,0 +1,5 @@
+﻿analysis_id,hypothesis_id,horizon,feature,test_kind,estimate,ci_low,ci_high,p_raw,n_positive_folds,eligible,null_value,analysis_role,fold_direction_definition,n_score_peaks,n_boot_valid
+A3,A3_origin_level,16,origin_level,coefficient,,,,1.0,0,False,0.0,pre_origin,sign_matches_pooled_estimate,0,0
+A3,A3_target_weekday,16,target_weekday,coefficient,,,,1.0,0,False,0.0,pre_origin,sign_matches_pooled_estimate,0,0
+A3,A3_observed_production,16,observed_production,coefficient,,,,1.0,0,False,0.0,retrospective_only,sign_matches_pooled_estimate,0,0
+A3,A3_temperature,16,temperature,coefficient,,,,1.0,0,False,0.0,retrospective_only,sign_matches_pooled_estimate,0,0

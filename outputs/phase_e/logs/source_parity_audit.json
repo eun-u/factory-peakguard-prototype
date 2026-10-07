@@ -1,0 +1,235 @@
+{
+  "development_only": true,
+  "model": "B5",
+  "horizon": 16,
+  "horizon_minutes": 240,
+  "point_prediction_max_abs_difference": 0.0,
+  "point_prediction_tolerance": 1e-08,
+  "all_b5_score_metrics": {
+    "n": 7810,
+    "peak_n": 415,
+    "MAE": 14.701255120624648,
+    "Peak_MAE": 18.942241303632045,
+    "RMSE": 28.72669320220495
+  },
+  "all_b5_d2_metrics": {
+    "n": 5337,
+    "peak_n": 286,
+    "MAE": 17.531397744755168,
+    "Peak_MAE": 17.334431218809858,
+    "RMSE": 33.32757077156201
+  },
+  "phase_c_main10_common_metrics": {
+    "D1": {
+      "pooled": {
+        "n": 7666,
+        "peak_n": 415,
+        "MAE": 14.857547647258379,
+        "Peak_MAE": 18.942241303632045,
+        "RMSE": 28.970177354164626
+      },
+      "folds": {
+        "0": {
+          "n": 2731,
+          "peak_n": 40,
+          "MAE": 17.841641289101815,
+          "Peak_MAE": 50.39973099042162,
+          "RMSE": 31.851901900022245
+        },
+        "1": {
+          "n": 2731,
+          "peak_n": 124,
+          "MAE": 7.730166645778589,
+          "Peak_MAE": 16.219968742732412,
+          "RMSE": 11.051632489468464
+        },
+        "2": {
+          "n": 2204,
+          "peak_n": 251,
+          "MAE": 19.99153938009272,
+          "Peak_MAE": 15.27396325614189,
+          "RMSE": 38.86767099350313
+        }
+      }
+    },
+    "D2": {
+      "pooled": {
+        "n": 5193,
+        "peak_n": 286,
+        "MAE": 17.840598408542768,
+        "Peak_MAE": 17.334431218809858,
+        "RMSE": 33.754736136911774
+      },
+      "folds": {
+        "0": {
+          "n": 2731,
+          "peak_n": 40,
+          "MAE": 17.841641289101815,
+          "Peak_MAE": 50.39973099042162,
+          "RMSE": 31.851901900022245
+        },
+        "1": {
+          "n": 296,
+          "peak_n": 0,
+          "MAE": 3.84345319433652,
+          "Peak_MAE": null,
+          "RMSE": 5.947261796699136
+        },
+        "2": {
+          "n": 2166,
+          "peak_n": 246,
+          "MAE": 19.75209742820957,
+          "Peak_MAE": 11.957959711230709,
+          "RMSE": 38.048079167630405
+        }
+      }
+    }
+  },
+  "all_b5_score_count": 7810,
+  "phase_c_main10_common_count": 7666,
+  "history": {
+    "sealed_boundary": "2021-08-09 09:45:00",
+    "history_first": "2021-01-01 00:15:00",
+    "history_last": "2021-08-09 09:30:00",
+    "history_intervals": 21158,
+    "time_repaired_intervals": 192,
+    "erp_missing_intervals": 194,
+    "raw_zero_power_intervals": 0,
+    "gap_hours": 0,
+    "gap_intervals": 0,
+    "clean_power_finite_intervals": 20966,
+    "raw_source": "data/raw/task05_power/okm_augumented_2021.csv",
+    "raw_sha256": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+    "source_mode": "development_prefix_only",
+    "boundary_partial_hour": true,
+    "development_only": true
+  },
+  "kalman_fit_artifacts": [
+    {
+      "fold": 0,
+      "path": "outputs/phase_c/models/B5_h16_f0.joblib",
+      "sha256": "932ed24eb5b61636fd547235cef1da7ce19a6e1a8d8b46dc1a1bdd57d7a6e94a",
+      "phi": 0.9403451099507182,
+      "q": 219.37358078778533,
+      "r": 0.23630793478726786,
+      "tau_fit_only": 177.0,
+      "prevalence_fit": 0.0444015444015444,
+      "fit_count": 6216,
+      "cal_count": 1479,
+      "score_count": 2731,
+      "partition": {
+        "horizon_quarters": 16,
+        "horizon_minutes": 240,
+        "fold": 0,
+        "full_grid_origins": 21158,
+        "eligible_origins": 19895,
+        "fit_count": 6216,
+        "stop_count": 1559,
+        "cal_count": 1479,
+        "score_count": 2731,
+        "fit_first": "2021-01-07 20:15:00",
+        "fit_last_target": "2021-03-13 18:00:00",
+        "stop_first": "2021-03-13 18:15:00",
+        "cal_first": "2021-03-30 04:00:00",
+        "score_first": "2021-04-14 17:45:00",
+        "score_last_target": "2021-05-13 08:15:00",
+        "embargo_minutes": 240,
+        "complete_profile_days": 218,
+        "incomplete_profile_days": 3,
+        "d2_fit_profile_hashes": 34,
+        "d2_score_complete": 2731,
+        "d2_score_incomplete": 0,
+        "d2_score_novel": 2731,
+        "tau": 177.0
+      }
+    },
+    {
+      "fold": 1,
+      "path": "outputs/phase_c/models/B5_h16_f1.joblib",
+      "sha256": "2cb0676573c6bb916f56d0f88a25dd3a10a146caeb627d52702ac2fb5057bf00",
+      "phi": 0.949201203214633,
+      "q": 187.2599785924719,
+      "r": 0.6162198792794522,
+      "tau_fit_only": 178.0,
+      "prevalence_fit": 0.04490986766697926,
+      "fit_count": 9597,
+      "cal_count": 1479,
+      "score_count": 2731,
+      "partition": {
+        "horizon_quarters": 16,
+        "horizon_minutes": 240,
+        "fold": 1,
+        "full_grid_origins": 21158,
+        "eligible_origins": 19895,
+        "fit_count": 9597,
+        "stop_count": 2404,
+        "cal_count": 1479,
+        "score_count": 2731,
+        "fit_first": "2021-01-07 20:15:00",
+        "fit_last_target": "2021-04-17 23:15:00",
+        "stop_first": "2021-04-17 23:30:00",
+        "cal_first": "2021-05-13 04:30:00",
+        "score_first": "2021-05-28 18:15:00",
+        "score_last_target": "2021-06-26 08:45:00",
+        "embargo_minutes": 240,
+        "complete_profile_days": 218,
+        "incomplete_profile_days": 3,
+        "d2_fit_profile_hashes": 46,
+        "d2_score_complete": 2731,
+        "d2_score_incomplete": 0,
+        "d2_score_novel": 296,
+        "tau": 178.0
+      }
+    },
+    {
+      "fold": 2,
+      "path": "outputs/phase_c/models/B5_h16_f2.joblib",
+      "sha256": "b75644a32da14284cfe06dc16453968b4aad7dbe7ac812aba8ebbc756ad2fa00",
+      "phi": 0.9543915162816249,
+      "q": 168.23212213795588,
+      "r": 3.354705165470098,
+      "tau_fit_only": 176.0,
+      "prevalence_fit": 0.04723378024348898,
+      "fit_count": 12978,
+      "cal_count": 1272,
+      "score_count": 2348,
+      "partition": {
+        "horizon_quarters": 16,
+        "horizon_minutes": 240,
+        "fold": 2,
+        "full_grid_origins": 21158,
+        "eligible_origins": 19895,
+        "fit_count": 12978,
+        "stop_count": 3249,
+        "cal_count": 1272,
+        "score_count": 2348,
+        "fit_first": "2021-01-07 20:15:00",
+        "fit_last_target": "2021-05-23 04:30:00",
+        "stop_first": "2021-05-23 04:45:00",
+        "cal_first": "2021-06-26 05:00:00",
+        "score_first": "2021-07-09 15:00:00",
+        "score_last_target": "2021-08-09 09:30:00",
+        "embargo_minutes": 240,
+        "complete_profile_days": 218,
+        "incomplete_profile_days": 3,
+        "d2_fit_profile_hashes": 61,
+        "d2_score_complete": 2310,
+        "d2_score_incomplete": 38,
+        "d2_score_novel": 2310,
+        "tau": 176.0
+      }
+    }
+  ],
+  "source_sha256": {
+    "raw": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+    "fold_manifest": "fe9213e9347f8add8f9fd3b29d9c08f7f23f6555e104417bac1c715544abf28a",
+    "phase_c_predictions": "112797099f8e1584f718470ff468baa251aeb5e4166cff02d4347e3f6c9bc466",
+    "phase_c_cache_manifest": "8c191dbb399535a79d3f500ea02d7deb042f96eace20503339008dd526687ae4",
+    "phase_c_fold_metrics": "ad2dff7f0c53db52605e6be5fc288a5eb87ad13e00fb7348e53796e770675215",
+    "phase_c_pooled_metrics": "f6528fd9d11ad1d3116c255b3b30b4698ac8ca6b451294efed96fc8874abe3d9"
+  },
+  "d2_refit": false,
+  "historical_final_artifact_read": false,
+  "final_holdout_parsed": false,
+  "parity_passed": true
+}

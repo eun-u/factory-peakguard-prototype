@@ -1,0 +1,43 @@
+{
+  "development_only": true,
+  "seed": 42,
+  "boundary": "2021-08-09 09:45:00",
+  "horizons": [4,5,6,7,8,9,10,11,12,13,14,15,16],
+  "anchors": [4,8,12,16],
+  "bootstrap_n": 1000,
+  "feature_groups": {
+    "G0": ["hour_sin","hour_cos","dow_sin","dow_cos","weekend","holiday"],
+    "G1": ["current","lag4","slot1d","slot7d"],
+    "G2": ["r4_mean","r4_max","r4_std","r16_max","r96_max"]
+  },
+  "ridge": {"alpha": 100.0, "scaler_ddof": 1},
+  "lgbm": {
+    "objective": "regression", "learning_rate": 0.05,
+    "n_estimators": 600, "early_stopping": 60, "n_jobs": 4,
+    "candidates": [
+      {"id":"small_leaves", "num_leaves":15, "min_child_samples":40},
+      {"id":"larger_min_child", "num_leaves":31, "min_child_samples":80},
+      {"id":"default", "num_leaves":31, "min_child_samples":40}
+    ]
+  },
+  "peak_weight": 2.0,
+  "tau_quantile": 0.95,
+  "tcn": {
+    "context_length":96, "kernel_size":3,"dilations":[1,2,4,8,16,32],
+    "optimizer":"AdamW","learning_rate":0.001,"weight_decay":0.0001,
+    "batch_size":256,"max_epochs":100,"patience":10,"seed":42,
+    "candidates":[
+      {"id":"c32_d02","channels":32,"dropout":0.2},
+      {"id":"c32_d01","channels":32,"dropout":0.1},
+      {"id":"c64_d02","channels":64,"dropout":0.2},
+      {"id":"c64_d01","channels":64,"dropout":0.1}
+    ],
+    "context_columns":["hour_sin","hour_cos","dow_sin","dow_cos","weekend","holiday","slot1d","slot7d"]
+  },
+  "cbl_candidates":["c1_mid_6_10","c2_max_4_5","c3_holiday_mid_4_6","c1a_mid_6_10_adjusted","c2a_max_4_5_adjusted"],
+  "mstl":{"periods":[96,672],"fit_context_days":28,"trend":"AutoETS_ZZN","refit":"fit_only_once_per_horizon_fold","missing":"fit_only_forward_fill"},
+  "kalman":{"state":"power_minus_observed_weekly_power","phi_bounds":[-0.99,0.99],"fit":"Gaussian_innovation_likelihood_LBFGSB","noise_log_bounds_relative_to_fit_variance":[-18,7]},
+  "chronos":{"model_id":"amazon/chronos-2","context_length":2048,"prediction_length":96,"batch_size":32,"quantile":0.5,"reference_only":true},
+  "complexity_order":["B0","B1","B2","B4","B5","B3","M1","M1-W","C1","M2"],
+  "selection":{"primary":"mean_of_13_pooled_horizon_MAE","strongest_baseline":"min_AUC_MAE_of_B1_B2_B3","peak_exclusion":"paired_AUC_peak_error_difference_CI_lower_gt_0","residual_requirements":["MAE_difference_vs_M1_CI_upper_lt_0","positive_MAE_improvement_in_at_least_2_of_3_folds","D2_available_and_no_AUC_MAE_reversal_vs_M1"],"complexity_tie":"95pct_paired_MAE_CI_against_lowest_AUC_eligible_model_includes_0"}
+}

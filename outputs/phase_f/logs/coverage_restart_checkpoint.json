@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-03T11:09:44.383391+00:00",
+  "reason": "Match approved continuous peak-weight formula and expand foundation training step search before full tuning",
+  "experiments": [
+    "F1-3-five-workdays-ridge"
+  ],
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

@@ -1,0 +1,76 @@
+{
+  "status": "verified_cold_reproduction",
+  "command": "python run_all.py",
+  "isolated_directory": "_validation/package_reproduction",
+  "source_fingerprint": {
+    "requirements.txt": "b18b7c772f3c4c709f98521872561aac94b106e845942a77f02abbaff93e30f9",
+    "eval_protocol.md": "1849bdf568d1d15d302713f2a5e11ac5fd04f041d8b656cdde4cc3ad9209bcaf",
+    "outputs/logs/adoption_criteria.md": "96d295770df82e736d059495a11a48ba8f1e1b09da59a24520326b3e2a5dc5df",
+    "src/data.py": "0fad75e60482f60ef42c571f3dc39ace515e89afc0fe15138a7feddd68c91631",
+    "src/features.py": "aa6e359e681861960608160921a909949ecb98910f3ef653a09f83850596e32a",
+    "src/holidays.py": "7a867876f471dd57343b574936c609b8286c62c130607dd6b86db88aecc19d5c",
+    "src/targets.py": "ff97de3c152a699b1a0cbea046b5eb16430b71144084f5363b95382f66c3cfa4",
+    "src/split.py": "05fd019cf2399e6f9940617e552e7a827cb3eaa87a5e6180e0a3fa7e1dd1d9bb",
+    "src/training.py": "403c11b01e4ea7b640abf7aa516b1ed538dec62edc4a12501e55963e12ed1b17",
+    "src/evaluate.py": "fb4d25ca78b341ac39f3990e21e90988927a0d835fb829ce944da42081412637",
+    "src/bootstrap.py": "1cca328b5dbc7f219eb7e50ad9436706e9036e9d79ce430a835bd06b1c41e755",
+    "src/models/__init__.py": "1906a3639c5632fe0c2d99bb5201319714f77bdb71b86d1e771fe4fcdee734d8",
+    "src/models/baselines.py": "0dbb1f7d18ad3b2c6957be072ad2d1691527538db15bdbfbef419966c661740d",
+    "src/models/cbl.py": "5674d1a1c34f310680b8e05d03a6848c10522014ea6e7faaaa7ae6ef30b4cc3d",
+    "src/models/conformal.py": "301a8d67701c10b91755e397db1d90b7f3c36e706a686c76cace4196b40e7e6a",
+    "src/models/expected_exceedance.py": "28446abd70701f0187845011ec552900119220d987a47c4fe350819be3c70106",
+    "src/models/lgbm_point.py": "bcfaa188afdeb43c8d8171debed6965dde64f2b36eb3c88f414c4bf262cb3560",
+    "src/models/lgbm_quantile.py": "f800e66ad2bdd07a3c41045eeffcdf73ea0e240094c08e96eb3c8382c83d8805",
+    "src/models/peak_prob.py": "45ed4f11734bf248f6d04ca424934c34d7885c9bcbd40482a3729d23ae4820b8",
+    "configs/default.yaml": "493730657f943ed2822e5245d9f566123aacb173a3eefae743511da35c4db6cc",
+    "data/raw/task05_power/okm_augumented_2021.csv": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830"
+  },
+  "elapsed_seconds": 1611.629,
+  "stage_seconds": {
+    "data": 0.168,
+    "development": 1430.266,
+    "final": 0.0,
+    "analysis": 146.405,
+    "report": 32.778,
+    "package": 1.983
+  },
+  "prediction_and_metric_comparison": [
+    {
+      "file": "predictions/development_oof.csv",
+      "rows": 625128,
+      "numerically_identical": true,
+      "cold_sha256": "4bffcf1e86a38ca4518a3568afba63f56c111c02b16c0c124396634cb5f8e366"
+    },
+    {
+      "file": "tables/development_cv.csv",
+      "rows": 252,
+      "numerically_identical": true,
+      "cold_sha256": "62bd731c7064523c58570f8b10a72983b8dd0490e52d9df289e7bcb84c9bd1e3"
+    },
+    {
+      "file": "predictions/t2_development_oof.csv",
+      "rows": 255,
+      "numerically_identical": true,
+      "cold_sha256": "267b6f96077557aa7dedd8636acff719cdbcf42da3360e65d9d11e7cfe2cd48e"
+    },
+    {
+      "file": "tables/t2_development_cv.csv",
+      "rows": 3,
+      "numerically_identical": true,
+      "cold_sha256": "c75b3885a524eb46ef6cee983b571f8fc63ac6ca32f6196889b3a5f39fb9812f"
+    }
+  ],
+  "selection_identical": true,
+  "test_opened": false,
+  "promoted": true,
+  "numerical_tolerance": {
+    "rtol": 1e-10,
+    "atol": 1e-10
+  },
+  "core_environment": "requirements-pipeline.lock.txt",
+  "note": "Report/layout-only maintenance is validated separately; forecasting source and results match.",
+  "powershell_redirection_wrapper_exit_code": 1,
+  "wrapper_note": "PowerShell native stderr redirection reported warning records. Python pipeline recorded all stages completed; isolated predictions, metrics and selection were independently compared and matched. Final integration uses Start-Process with separate stdout/stderr and actual Python ExitCode.",
+  "final_integration_python_exit_code": 0,
+  "final_integration_seconds": 179.091
+}

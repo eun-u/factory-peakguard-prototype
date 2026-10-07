@@ -1,0 +1,17 @@
+{
+  "point_selection_after_p5": {
+    "1": "p4_mstl_daily",
+    "4": "p4_blend3",
+    "16": "lgbm_residual_cbl",
+    "96": "c3_holiday_hybrid"
+  },
+  "incumbent_p4": {
+    "1": "p4_mstl_daily",
+    "4": "p4_blend3",
+    "16": "lgbm_residual_cbl",
+    "96": "c3_holiday_hybrid"
+  },
+  "holm_family": 8,
+  "preregistration": "outputs/logs/preregistration_0929_P5.md",
+  "post_hoc_promotion_disclosed": true
+}

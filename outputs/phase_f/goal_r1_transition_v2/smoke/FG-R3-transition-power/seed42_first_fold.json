@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-06T13:45:21.832413+00:00",
+  "sha256": "be0e9cae878ecf470f2233797f2c7eac0b751c3ddcd52c7aacf59130415cda40",
+  "audit": {
+    "adapter": "transition_expert",
+    "paths_sha256": "36f8f97168475ab8c82e9e56def90bd1ef187dfb5efdbcb57a1114f33d797582",
+    "rolling_audit_sha256": "81b6b38272c3bc19656d4bae7c10fd8a966653d5576642e17f008a57d0609423",
+    "rolling_upstream_causal_manifest_verified": true,
+    "leakage_test": "passed",
+    "cells": [
+      {
+        "common_fit_before_purge": 7425,
+        "common_stop_before_purge": 1826,
+        "common_fit_after_purge": 7425,
+        "common_stop_after_purge": 1826,
+        "fit_last_target": "2021-03-26 11:15:00",
+        "stop_last_target": "2021-04-14 21:15:00",
+        "stop_first_origin": "2021-03-26 17:00:00",
+        "cal_first_origin": "2021-04-14 21:30:00",
+        "identity": "ec0f2b0a213b97534a286ec99d045245b3155adfd4645489b864d463f98e4374",
+        "model_sha256": "23fa48ddf70bd7163d140817304a0544c549bdd3a87cbd6e03a2574dc624d1d0",
+        "seed": 42,
+        "fold": 1,
+        "alpha": 1.0,
+        "stop_objectives": {
+          "0.0": {
+            "MAE": 12.161271226969552,
+            "PeakMAE": 38.76730967849576,
+            "objective": 21.85309864659349
+          },
+          "0.25": {
+            "MAE": 11.767672067564915,
+            "PeakMAE": 36.98881859548108,
+            "objective": 21.014876716435182
+          },
+          "0.5": {
+            "MAE": 11.553381008222557,
+            "PeakMAE": 35.24704956484958,
+            "objective": 20.365143399434952
+          },
+          "0.75": {
+            "MAE": 11.47300809889862,
+            "PeakMAE": 33.530266558476974,
+            "objective": 19.855574738517863
+          },
+          "1.0": {
+            "MAE": 11.519710693970923,
+            "PeakMAE": 31.854368334744052,
+            "objective": 19.483302777656938
+          }
+        },
+        "fit_class_count": [
+          14699,
+          66884,
+          14942
+        ],
+        "stop_class_count": [
+          3809,
+          16412,
+          3517
+        ],
+        "fit_invalid_origin_count": 0,
+        "stop_invalid_origin_count": 0,
+        "stop_peak_count": 1079,
+        "production_availability": {
+          "fit": {
+            "production_group_used": false
+          },
+          "stop": {
+            "production_group_used": false
+          }
+        },
+        "n_fit": 96525,
+        "n_stop": 23738,
+        "best_iterations": {
+          "classifier": 97,
+          "0": 900,
+          "1": 665,
+          "2": 898
+        },
+        "train_seconds": 23.558144399999946,
+        "fit_only_preprocessing": true,
+        "fit_only_peak_tau": true,
+        "cache_reused": false,
+        "checkpoint_metadata_sha256": "ceb72add8de4e14875dee054fd231d9e427eca6bb5e6257a61a0ea98613ceb32",
+        "prediction_production_availability": [],
+        "future_perturbation_max_abs_difference": 0.0
+      }
+    ],
+    "n_fold_models": 1,
+    "seed": 42,
+    "future_perturbation_max_abs_difference": 0.0,
+    "smoke_first_fold": true,
+    "development_only": true,
+    "holdout_read": false
+  },
+  "plan_sha256": "6bd5398f57a3a634da2b079c38e7b94785fe167535a3c9b6a946c88b7835c523",
+  "child_spec": {
+    "id": "FG-R3-transition-power__smoke_seed42",
+    "adapter": "transition_expert",
+    "family": "R1-transition-expert",
+    "arm": "EXPLORE",
+    "groups": [
+      "lag_1_16",
+      "slot_7_28d",
+      "profile",
+      "rolling",
+      "trend",
+      "calendar",
+      "peak"
+    ],
+    "seed": 42,
+    "rolling_audit_sha256": "81b6b38272c3bc19656d4bae7c10fd8a966653d5576642e17f008a57d0609423"
+  },
+  "smoke_only": true,
+  "five_seed_score": false
+}

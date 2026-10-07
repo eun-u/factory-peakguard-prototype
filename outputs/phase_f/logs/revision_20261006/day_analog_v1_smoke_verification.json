@@ -1,0 +1,149 @@
+{
+  "at": "2026-10-06T14:28:14.404571+00:00",
+  "plan_sha256": "d3f3450f7097d8b2013291b92c9237274aa6f291db3a2325dad897ada681b9a5",
+  "source_runtime_raw_parent_verified": true,
+  "root_tests_source_binding_verified": true,
+  "physical_checkpoints_verified": true,
+  "required_R1_path_keys": 249246,
+  "candidate_count": 4,
+  "cells": [
+    {
+      "id": "FG-R4-analog-w16-k3",
+      "rows": 13442,
+      "n_fold_models": 1,
+      "horizons": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "prediction_sha256": "2b55c2e78d3cf0291d0f253a3864b0e6c41c8752c2149933f060637b307da323",
+      "metadata_sha256": "101b96f4603a37253908ab2980028bbeefaadf851ccf03067c67c3fd41adafbf",
+      "checkpoint_sha256": "8c848b17369382986828fed47b0d0beb720d4d54a116cfd6234142b0f2ccc67a",
+      "checkpoint_metadata_sha256": "b78ed0edd8a5cd36c7cd37321b0dbf5db090b7b524e88734ca44683992962072",
+      "bank_cases": 5377,
+      "stop_alpha": 0.5,
+      "train_seconds": 0.11471410000012838,
+      "future_perturbation_max_abs_difference": 0.0,
+      "future_perturbation_touched_columns": [
+        "power",
+        "quality_bad",
+        "time_repaired"
+      ]
+    },
+    {
+      "id": "FG-R4-analog-w16-k5",
+      "rows": 13442,
+      "n_fold_models": 1,
+      "horizons": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "prediction_sha256": "f81a0402e48d9ee55b432e4251d2ebe57c4223a0aa78a25d24f9f9dfb8e491f3",
+      "metadata_sha256": "862965b383da9a711cc436f8298785aea986badda6d756c0da7421111b4e9dd2",
+      "checkpoint_sha256": "39fde84e3a854a1d8d33ceb13a2e72021503c5bdc4970e489e4f8eda5ba2c7ea",
+      "checkpoint_metadata_sha256": "3f9ec5f52be7c80a4b661957e969f5763ec72456cb259056ef194594f61b82be",
+      "bank_cases": 5377,
+      "stop_alpha": 0.25,
+      "train_seconds": 0.11961999999948603,
+      "future_perturbation_max_abs_difference": 0.0,
+      "future_perturbation_touched_columns": [
+        "power",
+        "quality_bad",
+        "time_repaired"
+      ]
+    },
+    {
+      "id": "FG-R4-analog-w96-k3",
+      "rows": 13442,
+      "n_fold_models": 1,
+      "horizons": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "prediction_sha256": "429740554cbd20846aa45903a5819a38a02416cd94a3ddc8d3993f3dee66e2d1",
+      "metadata_sha256": "443a41136bb5b7f9b12156e2ebbc08913aeefdafad1e1e7e411bd652b29c1b81",
+      "checkpoint_sha256": "e1c736ae6e5c4bf1960dc6265adb5cde01b2500edaac34bd6c002897fa9a3c53",
+      "checkpoint_metadata_sha256": "1efa5606dd9a978952002d60011fe423291269685aed35290fc5b08e086c3406",
+      "bank_cases": 5377,
+      "stop_alpha": 0.75,
+      "train_seconds": 0.15645150000000285,
+      "future_perturbation_max_abs_difference": 0.0,
+      "future_perturbation_touched_columns": [
+        "power",
+        "quality_bad",
+        "time_repaired"
+      ]
+    },
+    {
+      "id": "FG-R4-analog-w96-k5",
+      "rows": 13442,
+      "n_fold_models": 1,
+      "horizons": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "prediction_sha256": "4224ce456002184c58d33b6dbb22fa64981d4130d2580ba0cfffd3acd20a08ca",
+      "metadata_sha256": "ef1793424b3f7bb50ed01c76e873e89fb92415d14f112e0516ffd7ed1376c1b9",
+      "checkpoint_sha256": "a5ef6ae1cf4e42b2657d83c591398db98605177e354bac61a81087e450093789",
+      "checkpoint_metadata_sha256": "7f7ae8075f0a4b72daa46dce20cad876ccc429c8aeea5d5e847148a3f9466785",
+      "bank_cases": 5377,
+      "stop_alpha": 0.75,
+      "train_seconds": 0.1619946999999229,
+      "future_perturbation_max_abs_difference": 0.0,
+      "future_perturbation_touched_columns": [
+        "power",
+        "quality_bad",
+        "time_repaired"
+      ]
+    }
+  ],
+  "technical_smoke_only": true,
+  "full_primary_replay_complete": false,
+  "numerical_SCORE_computed": false,
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false
+}

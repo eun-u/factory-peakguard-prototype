@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-06T14:49:02.752511+00:00",
+  "candidate": "FG-R4-analog-w16-k3",
+  "scope": "root physical hash and exact full replay equality; checkpoint payload/STOP revalidation performed separately by runner",
+  "n_rows": 102427,
+  "n_primary_weekly_models": 8,
+  "n_fresh_weekly_models": 8,
+  "primary_prediction_sha256": "bf95e7c61b3b1a2aa4fe317ab5bb3f411eae43f036c47992a78b0284d73a3776",
+  "fresh_prediction_sha256": "bf95e7c61b3b1a2aa4fe317ab5bb3f411eae43f036c47992a78b0284d73a3776",
+  "exact_equality": {
+    "ordered_keys_equal": true,
+    "point_predictions_equal": true,
+    "auxiliary_columns_equal": [
+      "analog_fallback",
+      "analog_point",
+      "analog_support",
+      "r1",
+      "analog_alpha"
+    ],
+    "locked_context_equal": true
+  },
+  "fresh_models_initial_cache_reused": false,
+  "metrics_computed_by_this_check": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}

@@ -1,0 +1,37 @@
+..........F.....                                                         [100%]
+================================== FAILURES ===================================
+_________ test_final_holdout_cannot_run_before_freeze_even_with_data __________
+
+    def test_final_holdout_cannot_run_before_freeze_even_with_data():
+        cfg = {"freeze": {"not_before": "2100-01-01T18:00:00+09:00"}}
+        with pytest.raises(RuntimeError, match="sealed"):
+>           freeze_and_evaluate(pd.DataFrame(), cfg)
+
+tests\test_training_guard.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\training.py:539: in freeze_and_evaluate
+    from .finalize import freeze_and_evaluate as audited_freeze
+src\finalize.py:25: in <module>
+    from .models.seasonal import (DSHW, mstl_day_paths, mstl_forecast, mstl_phi, origin_days,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    """Seasonal statistical forecasters adopted in P4 (preregistration_0928_P4.md).
+    
+    * Taylor (2003) additive double-seasonal Holt-Winters with AR(1) error term
+      (day 96, week 672 quarter-hours).
+    * Daily-refit MSTL (statsforecast) with an AR(1) intraday correction.
+    
+    Availability: a forecast issued at origin t reads only observations stamped
+    <= t. Missing or time-repaired observations never update a state; the one-step
+    forecast stands in for them. MSTL day D is fitted on the 28 days ending at D
+    00:00 and used only for origins in (D, D+1 day].
+    """
+    from __future__ import annotations
+    
+>   import numba
+E   ModuleNotFoundError: No module named 'numba'
+
+src\models\seasonal.py:14: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_training_guard.py::test_final_holdout_cannot_run_before_freeze_even_with_data
+1 failed, 15 passed in 1.94s

@@ -1,0 +1,10 @@
+{
+  "source": "sealed Phase C predictions",
+  "baseline": "B5",
+  "retrained": false,
+  "leakage_test": "parent_sealed_contract",
+  "config_hash": "1d9277772a536d3aba4822ff30bfbaecf98292c49299b61f268938880a4bb623",
+  "prediction_sha256": "638476af438958ca82654ce078f658a04b6a82c8a4dabcd8e7a6ed5082648476",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

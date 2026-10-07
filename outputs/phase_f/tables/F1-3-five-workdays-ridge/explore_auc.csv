@@ -1,0 +1,3 @@
+dataset,model,n_horizons,n_available_horizons,AUC_MAE,AUC_PeakMAE,AUC_PredPeakMAE,auc_definition
+D1,F1-3-five-workdays-ridge,13,13,17.241565463853245,29.003819101699282,10.746495354992506,mean of 13 pooled horizon metrics
+D2,F1-3-five-workdays-ridge,13,13,18.69675136765356,27.230118116996394,10.856454788166918,mean of 13 pooled horizon metrics

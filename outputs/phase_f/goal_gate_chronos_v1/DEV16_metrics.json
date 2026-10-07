@@ -1,0 +1,275 @@
+{
+  "config": {
+    "id": "FG-R8-gate-chronos",
+    "chronos_context": 2048,
+    "point": "median",
+    "shift_margin": 25.0,
+    "shift_grid": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "cqr_min_cal": 30,
+    "levels": [
+      0.05,
+      0.1,
+      0.5,
+      0.9,
+      0.95
+    ]
+  },
+  "selection": "16 development weeks (EXPLORE+CONFIRM)",
+  "holdout_read": false,
+  "ALL16": {
+    "point": {
+      "AUC_MAE": 3.4773015224446593,
+      "AUC_PeakMAE": 5.2437952564785855,
+      "h4_MAE": 2.623515603684126,
+      "h16_MAE": 4.32161304942571,
+      "AUC_nMAE": 0.0370596490821706,
+      "D2_AUC_MAE": 4.722379830031229
+    },
+    "point_without_shift": {
+      "AUC_MAE": 3.4874463098156445,
+      "AUC_PeakMAE": 6.015173915588152,
+      "h4_MAE": 2.6247492482883144,
+      "h16_MAE": 4.352716309822003,
+      "AUC_nMAE": 0.037167764006360154,
+      "D2_AUC_MAE": 4.73727884399025
+    },
+    "risk": {
+      "coverage_q90_nongated": 0.888522006169065,
+      "coverage_q95_nongated": 0.9441658853423559,
+      "coverage_q90_all": 0.9366177691668973,
+      "coverage_q95_all": 0.9656794907279269,
+      "brier": 0.010609889510405002,
+      "pr_auc": 0.9469431448566976
+    },
+    "alerts": [
+      {
+        "horizon": 4,
+        "alert_score": "pred",
+        "position_F1": 0.5956719817767654,
+        "episode_F1": 0.7572815533980582,
+        "episode_TP": 156,
+        "episode_FP": 44,
+        "episode_FN": 56,
+        "position_false_alarms": 632,
+        "peak_location_MAE": 5.171112035157875,
+        "default_threshold_weeks": 5
+      },
+      {
+        "horizon": 16,
+        "alert_score": "pred",
+        "position_F1": 0.7833827893175074,
+        "episode_F1": 0.7573696145124716,
+        "episode_TP": 167,
+        "episode_FP": 62,
+        "episode_FN": 45,
+        "position_false_alarms": 219,
+        "peak_location_MAE": 5.448648513057664,
+        "default_threshold_weeks": 5
+      },
+      {
+        "horizon": 4,
+        "alert_score": "p_exceed",
+        "position_F1": 0.7976366322008862,
+        "episode_F1": 0.8171021377672208,
+        "episode_TP": 172,
+        "episode_FP": 37,
+        "episode_FN": 40,
+        "position_false_alarms": 213,
+        "peak_location_MAE": 5.171112035157875,
+        "default_threshold_weeks": 5
+      },
+      {
+        "horizon": 16,
+        "alert_score": "p_exceed",
+        "position_F1": 0.7792571829011913,
+        "episode_F1": 0.8086124401913876,
+        "episode_TP": 169,
+        "episode_FP": 37,
+        "episode_FN": 43,
+        "position_false_alarms": 270,
+        "peak_location_MAE": 5.448648513057664,
+        "default_threshold_weeks": 5
+      }
+    ]
+  },
+  "EXPLORE": {
+    "point": {
+      "AUC_MAE": 3.8081096611314242,
+      "AUC_PeakMAE": 4.353606686773976,
+      "h4_MAE": 2.710135635189409,
+      "h16_MAE": 4.91358470246091,
+      "AUC_nMAE": 0.040547873733973935,
+      "D2_AUC_MAE": 5.393427393859298
+    },
+    "point_without_shift": {
+      "AUC_MAE": 3.793614741404075,
+      "AUC_PeakMAE": 4.747794492092819,
+      "h4_MAE": 2.686712234812094,
+      "h16_MAE": 4.9286172064715466,
+      "AUC_nMAE": 0.040393531672061576,
+      "D2_AUC_MAE": 5.371221201025429
+    },
+    "risk": {
+      "coverage_q90_nongated": 0.9041054108460929,
+      "coverage_q95_nongated": 0.9556518025986702,
+      "coverage_q90_all": 0.9461245156609395,
+      "coverage_q95_all": 0.9722132172463298,
+      "brier": 0.01052013555040005,
+      "pr_auc": 0.9690880325147231
+    },
+    "alerts": [
+      {
+        "horizon": 4,
+        "alert_score": "pred",
+        "position_F1": 0.8817204301075269,
+        "episode_F1": 0.8715596330275229,
+        "episode_TP": 95,
+        "episode_FP": 4,
+        "episode_FN": 24,
+        "position_false_alarms": 55,
+        "peak_location_MAE": 4.433127828582172,
+        "default_threshold_weeks": 4
+      },
+      {
+        "horizon": 16,
+        "alert_score": "pred",
+        "position_F1": 0.8843537414965986,
+        "episode_F1": 0.8909090909090909,
+        "episode_TP": 98,
+        "episode_FP": 3,
+        "episode_FN": 21,
+        "position_false_alarms": 49,
+        "peak_location_MAE": 4.338515263184946,
+        "default_threshold_weeks": 4
+      },
+      {
+        "horizon": 4,
+        "alert_score": "p_exceed",
+        "position_F1": 0.8305489260143198,
+        "episode_F1": 0.8547008547008547,
+        "episode_TP": 100,
+        "episode_FP": 15,
+        "episode_FN": 19,
+        "position_false_alarms": 129,
+        "peak_location_MAE": 4.433127828582172,
+        "default_threshold_weeks": 4
+      },
+      {
+        "horizon": 16,
+        "alert_score": "p_exceed",
+        "position_F1": 0.8149010477299186,
+        "episode_F1": 0.8521739130434782,
+        "episode_TP": 98,
+        "episode_FP": 13,
+        "episode_FN": 21,
+        "position_false_alarms": 148,
+        "peak_location_MAE": 4.338515263184946,
+        "default_threshold_weeks": 4
+      }
+    ]
+  },
+  "CONFIRM": {
+    "point": {
+      "AUC_MAE": 3.195905600690501,
+      "AUC_PeakMAE": 6.582787230075935,
+      "h4_MAE": 2.5497199518433034,
+      "h16_MAE": 3.818497797179092,
+      "AUC_nMAE": 0.03408748817115655,
+      "D2_AUC_MAE": 4.194076290628444
+    },
+    "point_without_shift": {
+      "AUC_MAE": 3.2270175051218124,
+      "AUC_PeakMAE": 7.921523798429049,
+      "h4_MAE": 2.5719600850767126,
+      "h16_MAE": 3.8632595539093018,
+      "AUC_nMAE": 0.034419325760599445,
+      "D2_AUC_MAE": 4.238201093813176
+    },
+    "risk": {
+      "coverage_q90_nongated": 0.876001666380768,
+      "coverage_q95_nongated": 0.9349376332491974,
+      "coverage_q90_all": 0.9285282681799075,
+      "coverage_q95_all": 0.9601197982345523,
+      "brier": 0.010686263141331349,
+      "pr_auc": 0.9037866975066706
+    },
+    "alerts": [
+      {
+        "horizon": 4,
+        "alert_score": "pred",
+        "position_F1": 0.38537549407114624,
+        "episode_F1": 0.6288659793814433,
+        "episode_TP": 61,
+        "episode_FP": 40,
+        "episode_FN": 32,
+        "position_false_alarms": 577,
+        "peak_location_MAE": 6.2811632792154946,
+        "default_threshold_weeks": 1
+      },
+      {
+        "horizon": 16,
+        "alert_score": "pred",
+        "position_F1": 0.6623164763458401,
+        "episode_F1": 0.6244343891402715,
+        "episode_TP": 69,
+        "episode_FP": 59,
+        "episode_FN": 24,
+        "position_false_alarms": 170,
+        "peak_location_MAE": 7.1184739430745445,
+        "default_threshold_weeks": 1
+      },
+      {
+        "horizon": 4,
+        "alert_score": "p_exceed",
+        "position_F1": 0.7441860465116279,
+        "episode_F1": 0.7700534759358288,
+        "episode_TP": 72,
+        "episode_FP": 22,
+        "episode_FN": 21,
+        "position_false_alarms": 84,
+        "peak_location_MAE": 6.2811632792154946,
+        "default_threshold_weeks": 1
+      },
+      {
+        "horizon": 16,
+        "alert_score": "p_exceed",
+        "position_F1": 0.7253521126760564,
+        "episode_F1": 0.7553191489361702,
+        "episode_TP": 71,
+        "episode_FP": 24,
+        "episode_FN": 22,
+        "position_false_alarms": 122,
+        "peak_location_MAE": 7.1184739430745445,
+        "default_threshold_weeks": 1
+      }
+    ]
+  },
+  "targets_ALL16": {
+    "targets_met": true,
+    "individual": {
+      "AUC_MAE": true,
+      "AUC_PeakMAE": true,
+      "h4_MAE": true,
+      "h16_MAE": true,
+      "AUC_nMAE": true
+    }
+  },
+  "wall_seconds": 73.9
+}

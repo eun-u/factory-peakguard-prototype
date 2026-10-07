@@ -1,0 +1,10 @@
+{
+  "development_only": true,
+  "status": "preregistered_ready",
+  "feature_count": 15,
+  "contexts": 39,
+  "training_started": false,
+  "score_evaluation_started": false,
+  "raw_holdout_observations_parsed": false,
+  "historical_final_artifact_read": true
+}

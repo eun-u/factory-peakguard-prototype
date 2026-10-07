@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-06T14:12:27.853452+00:00",
+  "candidate": "FG-R3-transition-power",
+  "seed": 42,
+  "rows": 102427,
+  "n_fold_models": 8,
+  "source_runtime_raw_parent_verified": true,
+  "physical_checkpoints_verified": true,
+  "prediction_sha256": "0daa59c8ec9524c489ed63ddb1f6be6e9b2a348a4b7eff2936f6bc521005d997",
+  "metadata_sha256": "95b432eb7bfe65677fc5e3594c00fb91cc90bbe000d44e7c4df76ff08334882f",
+  "future_perturbation_max_abs_difference": 0.0,
+  "five_seed_score_complete": false,
+  "metrics_computed": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}

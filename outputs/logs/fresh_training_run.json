@@ -1,0 +1,16 @@
+{
+  "status": "training_analysis_report_completed_packaging_restart_required",
+  "seconds": 1561.527,
+  "development_seconds": 1389.749,
+  "steps": {
+    "data": 0.266,
+    "development": 1389.749,
+    "final": 0.0,
+    "analysis": 142.079,
+    "report": 29.423
+  },
+  "core_fingerprint_verified": true,
+  "prediction_rows": 625128,
+  "holdout": "date_locked",
+  "issue": "Packaging imported a new helper into an already-running Python process; restart current orchestrator with verified development cache."
+}

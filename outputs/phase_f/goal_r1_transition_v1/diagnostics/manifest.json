@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-06T13:16:36.838969+00:00",
+  "analysis_only": true,
+  "arm": "EXPLORE",
+  "score_rows": 64779,
+  "threshold_data_units": 30,
+  "threshold_origin": "Post-observation EXPLORE error diagnosis",
+  "aggregation": "Diagnostic rows pooled; official target is equal mean of 13 horizons",
+  "future_outcomes_used_as_inputs": false,
+  "independent_validation": "pending",
+  "prediction_sha256": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf",
+  "metadata_sha256": "6c542bb4980ec95195327a2fce548ca4aba5077fe4ac4dcb03e18303f5599155",
+  "source_sha256": "a11f81b8db8257894511b411a0505f8adf93bcd1e523166841c02b4332bd3cd8",
+  "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8",
+  "raw_sha256": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "artifacts": {
+    "error_cohorts.csv": "83b21aefce2b81a569779733d45068f60998472aae7ee5f5b8393136184bb91b",
+    "fit_stop_class_support.csv": "1b010ba82c865e1b5fdd17a4e53c731a94eb0f5a0483445c55ff7b53490e5b3d",
+    "past_future_ramp.csv": "958cc6be746a02337e1fc803ad25a236039e6ff22b8fca0a3ee3574f98f83b3c"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "protocol": "absolute_goal_confirmation_gate_v1",
+  "status": "integration_pending",
+  "absolute_targets": {
+    "AUC_MAE": 4.5,
+    "AUC_PeakMAE": 9.0,
+    "h4_MAE": 3.5,
+    "h16_MAE": 5.5,
+    "AUC_nMAE": 0.05
+  },
+  "absolute_goal_contract_sha256": "cea5b74906f79c67541e81c19c31b4545745e1157f8c895499c3a67ad56592de",
+  "phase_f_contract_sha256": "7d3885842b7e303bb017e9e23a1df0697d939c78ce5f26d81262fb15482ca79f",
+  "stage0_3_budget": {
+    "minimum_gbdt_trials_each": 500,
+    "maximum_wallclock_budget": null,
+    "stochastic_seeds": 5,
+    "relative_improvement_minimum": 0.02,
+    "nonimproving_rounds": 2
+  },
+  "stage0_3_budget_unchanged": true,
+  "finalist_cap": 7,
+  "confirm_transaction_count": 1,
+  "candidate_confirm_metric_read": false,
+  "holdout_authorized": false,
+  "holdout_read": false,
+  "goal_achieved": false,
+  "policy_sha256": "73e16241adbccd04c64188b26082cb7d77c54a0099affcd12554136f08785624"
+}

@@ -1,0 +1,11 @@
+{
+  "repo": "amazon/chronos-bolt-small",
+  "revision": "772f3d25d38aec6d914c8949dab4462e2d46f5d8",
+  "spec_hash": "c7b3f697aaface658d522105647b34f253b3c0ead7d24099f8e232b3d614dc36",
+  "license": "apache-2.0",
+  "commercially_eligible": true,
+  "source": "https://huggingface.co/amazon/chronos-bolt-small",
+  "training_on_local_data": false,
+  "development_only": true,
+  "holdout_read": false
+}

@@ -1,0 +1,23 @@
+dataset,model,AUC_MAE,AUC_PeakMAE,n_horizons,definition,development_only
+D1,B0,20.97051359263789,53.70769230769231,13,equally spaced horizon-normalized mean error,True
+D1,B1,19.196394603241643,19.49638554216867,13,equally spaced horizon-normalized mean error,True
+D1,B2,21.0572527311057,23.80279322417876,13,equally spaced horizon-normalized mean error,True
+D1,B3,113.73120084316942,50.86843086148026,13,equally spaced horizon-normalized mean error,True
+D1,B4,17.38677297975607,33.86667848201462,13,equally spaced horizon-normalized mean error,True
+D1,B5,13.036669630683535,18.481252627815643,13,equally spaced horizon-normalized mean error,True
+D1,C1,13.410552456779799,19.393601782341232,13,equally spaced horizon-normalized mean error,True
+D1,M1,12.757334826932347,20.225566046562484,13,equally spaced horizon-normalized mean error,True
+D1,M1-W,12.87344559539235,18.561171322038607,13,equally spaced horizon-normalized mean error,True
+D1,M2,10.050901407981577,31.128641424978102,13,equally spaced horizon-normalized mean error,True
+D1,R1,6.418942535328791,15.2963359305989,13,equally spaced horizon-normalized mean error,True
+D2,B0,19.842364768503536,52.866325981710595,13,equally spaced horizon-normalized mean error,True
+D2,B1,24.179508948301645,17.293706293706293,13,equally spaced horizon-normalized mean error,True
+D2,B2,22.88622809751753,23.17749985057677,13,equally spaced horizon-normalized mean error,True
+D2,B3,161.04310185321407,64.05432601026892,13,equally spaced horizon-normalized mean error,True
+D2,B4,18.990568291228332,32.532374758268084,13,equally spaced horizon-normalized mean error,True
+D2,B5,15.116034875428001,17.616284164988,13,equally spaced horizon-normalized mean error,True
+D2,C1,16.237035146269395,20.68082066772387,13,equally spaced horizon-normalized mean error,True
+D2,M1,15.065930336709084,20.734103541399893,13,equally spaced horizon-normalized mean error,True
+D2,M1-W,15.200220539648951,19.74602742789089,13,equally spaced horizon-normalized mean error,True
+D2,M2,11.232092718479736,31.840249384377277,13,equally spaced horizon-normalized mean error,True
+D2,R1,6.457008904665923,14.066867197374298,13,equally spaced horizon-normalized mean error,True

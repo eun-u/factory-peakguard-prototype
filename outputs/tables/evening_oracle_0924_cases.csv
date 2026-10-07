@@ -1,0 +1,19 @@
+status,start,actual_max,overlapping_alarm_count,missed_reason,weekday,lookback_n,power_trend_4h,power_mean_4h,production_change_4h,temperature_mean_4h,baseline_point_episode_status,oracle_point_episode_status,reference_only,selection_used,scenario_label
+FN,2021-06-08 16:00:00,180.0,0.0,no_overlap,Tuesday,16,-18.0,148.0625,-846.0,27.03125,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-06-14 18:00:00,182.0,1.0,,Monday,16,-29.0,168.5625,-1422.0,22.63125,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-06-15 16:45:00,181.0,1.0,,Tuesday,16,80.0,162.3125,2940.0,21.1875,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+FN,2021-06-24 16:00:00,180.0,0.0,no_overlap,Thursday,16,10.0,145.8125,-21.0,24.15,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-06-25 18:00:00,180.0,1.0,,Friday,16,-20.0,164.3125,-476.0,24.90625,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-08 16:00:00,186.0,1.0,,Thursday,16,-19.0,162.75,-212.0,24.5375,TP,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+FN,2021-07-12 16:45:00,177.0,1.0,one_to_one_assignment,Monday,16,57.0,163.125,1039.0,31.150000000000002,FN,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-23 18:00:00,178.0,1.0,,Friday,16,-34.0,172.3125,-424.0,28.4875,TP,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+FN,2021-07-23 19:00:00,176.0,1.0,one_to_one_assignment,Friday,16,-10.0,169.75,358.0,27.89375,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+FN,2021-07-26 16:45:00,177.0,1.0,one_to_one_assignment,Monday,16,58.0,161.5625,1238.0,30.5,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-26 18:15:00,186.0,1.0,,Monday,16,-7.0,161.9375,5910.0,29.625,TP,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+FN,2021-07-26 19:30:00,177.0,1.0,one_to_one_assignment,Monday,16,33.0,161.1875,1016.0,28.575000000000003,FN,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-27 18:00:00,184.0,1.0,,Tuesday,16,-26.0,180.5625,-256.0,29.03125,TP,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+FN,2021-07-27 19:45:00,180.0,1.0,one_to_one_assignment,Tuesday,16,-37.0,174.1875,2168.0,27.975,FN,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-28 18:00:00,190.0,1.0,,Wednesday,16,-30.0,170.0625,-806.0,29.16875,TP,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-29 18:45:00,180.0,1.0,,Thursday,16,-20.0,160.125,2595.0,29.8375,TP,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-29 19:45:00,181.0,1.0,,Thursday,16,-23.0,160.875,432.0,29.174999999999997,TP,FN,True,False,사후 관측 생산량 기반 사후 가정 시나리오
+TP,2021-07-30 18:00:00,190.0,1.0,,Friday,16,-30.0,170.0625,-1769.0,32.5375,TP,TP,True,False,사후 관측 생산량 기반 사후 가정 시나리오

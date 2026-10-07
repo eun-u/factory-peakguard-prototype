@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-06T15:21:52.116696+00:00",
+  "independent_checkpoint_report_sha256": "ecd16d7fbfe3ef12f7dae2b3bf23f0c6ba4a8c2606b1b60e941e35aa49c60428",
+  "physical_model_and_metadata_hashes_reverified": true,
+  "verified_model_pairs": 406,
+  "expected_total": 520,
+  "seed_model_counts": {
+    "42": 104,
+    "123": 104,
+    "2024": 104,
+    "3407": 94,
+    "777": 0
+  },
+  "original_stage_1_incomplete": true,
+  "user_paused": true,
+  "automatic_resume": false,
+  "goal_achieved": false,
+  "holdout_read": false
+}

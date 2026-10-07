@@ -1,0 +1,3 @@
+dataset,model,n_horizons,n_available_horizons,AUC_MAE,AUC_PeakMAE,AUC_PredPeakMAE,auc_definition
+D1,FG-R1-expanded-peak2__guard-q95-suppress,13,13,7.324324586021761,13.846943832616146,8.681656068793465,mean of 13 pooled horizon metrics
+D2,FG-R1-expanded-peak2__guard-q95-suppress,13,13,7.5902337920049385,14.11303735123319,8.22282672358892,mean of 13 pooled horizon metrics

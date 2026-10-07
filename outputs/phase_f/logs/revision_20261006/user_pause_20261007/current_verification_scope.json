@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-06T15:15:35.170236+00:00",
+  "user_request": "검증 후 점수가 안나와도 멈춰",
+  "current_final_wave": "FG-R5 fixed four recipes, technical smoke then one EXPLORE search if valid",
+  "no_further_wave": true,
+  "original_worker_stop_issued": true,
+  "goal_achieved": false,
+  "status": "current_verification_then_pause",
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

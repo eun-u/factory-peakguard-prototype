@@ -1,0 +1,3 @@
+dataset,model,n_horizons,n_available_horizons,AUC_MAE,AUC_PeakMAE,AUC_PredPeakMAE,auc_definition
+D1,F1-2-daily-lightgbm,13,13,11.729417420993839,21.969275831902873,16.97914192227325,mean of 13 pooled horizon metrics
+D2,F1-2-daily-lightgbm,13,13,13.391403417696777,22.157684149085657,17.569453955232564,mean of 13 pooled horizon metrics

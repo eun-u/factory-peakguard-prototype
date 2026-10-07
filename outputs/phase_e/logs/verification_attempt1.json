@@ -1,0 +1,8 @@
+{
+  "stage": "independent_metric_verifier",
+  "passed": false,
+  "reason": "Verifier compared the single-class D2 fold 1 PR-AUC to sklearn's conventional zero instead of the preregistered unavailable/NaN result.",
+  "action": "Correct only verifier's expectation for single-class PR-AUC; retain the original evaluated metric and scientific implementation.",
+  "experiment_repeated": false,
+  "probability_or_policy_changed": false
+}

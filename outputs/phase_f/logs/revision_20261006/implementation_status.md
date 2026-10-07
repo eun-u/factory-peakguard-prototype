@@ -1,0 +1,17 @@
+# Phase F revised implementation — 2026-10-06
+
+The authorized revised request is preserved in user_request.md. The active protocol is walkforward_v2. Implementation is complete enough to run the sequential driver; the actual full experiment has not completed and no performance improvement or commercial qualification is established.
+
+Final synthetic/regression suite: 98 passed in 13.96 seconds. See final_tests_20261006.txt. Independent code review covered the zero-shot validation fix, weekly cache identity boundaries, CONFIRM reservation/audit seals, cached unavailable evaluation, and fixed combined Phase E inputs. Protected parent verification: 803 files unchanged.
+
+B5 and M1 each produced all 104 EXPLORE week/horizon cell forecasts. Their mean artifacts are preserved with checksums. R1's first attempt rejected explicit finetune=False; its failed record and trace are preserved here. Accepting literal False as zero-shot was tested, while True, 0 and unknown modes remain rejected. The resumed driver reused unchanged B5/M1 caches and began real R1 GPU inference.
+
+Resumed command: python -m phase_f.run --stage all --retry. Started 2026-10-06 19:48:45 KST, Python PID 26204. Live status: outputs/phase_f/walkforward_v2/logs/driver_status.json; execution log: outputs/phase_f/logs/revised_full_resume_20261006.log. The driver proceeds through the full search, frozen finalist replay, one reserved development CONFIRM transaction, combined fixed-policy Phase E evaluation, and final report if all required completion checks pass. A failed driver status must not be represented as a completed run.
+
+Search remains EXPLORE-only. Candidate CONFIRM has not been read at this checkpoint. Holdout remains excluded. No automatic GitHub push, deployment, release or field control is part of this protocol. ASHRAE M&V calibration references in the final report are descriptive context, not a commercial forecast acceptance gate. Independent new-period/site field evidence is still required for a commercial claim.
+
+Actual integration follow-up: R1's 8,121-origin inference and independent fresh-cache repeat completed with maximum prediction difference 0. A mixed-horizon Phase E integration bug was fixed and covered by a poisoned non-h16 regression case. Chronos leakage status now requires numeric finite zero perturbation evidence from every distinct recorded seed. Additional focused integration suite: 27 passed. Existing R1 score tables were copied here before the status correction; all three baseline prediction byte hashes remained unchanged.
+
+The actual h16 check exposes a data limitation: all eight EXPLORE weeks have zero peak positives in their 173-row later CAL subsets, so none provides both classes required by the frozen Platt fit. All three baseline Phase E evaluations are currently unavailable, so alert eligibility is not established. Counts are recorded in cal_class_availability.json; actual_h16_integration.json contains the status. No calibration fallback or altered alert thresholds were silently introduced. A separately revised CAL duration/split experiment is needed to establish alert qualification.
+
+Current restarted driver: PID 21428, started 2026-10-06 19:54:36 KST, Stage 1. Log: outputs/phase_f/logs/revised_full_resume2_20261006.log. The live driver_status.json takes precedence over this checkpoint note. Full Phase F completion and commercial suitability remain unproven.

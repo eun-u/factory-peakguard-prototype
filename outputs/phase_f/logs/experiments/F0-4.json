@@ -1,0 +1,22 @@
+{
+  "exp_id": "F0-4",
+  "family": "F0",
+  "tier": 0,
+  "parent_exp": "",
+  "config_json": "{\"family\":\"F0\",\"id\":\"F0-4\",\"kind\":\"synthetic_leakage_negative_control\",\"note\":\"Approved replacement; no real future-truth input or performance oracle\",\"tier\":0}",
+  "config_hash": "d3e21cdb15e6e7efd69ec296e5c29a98639488f34a49e5f97964b397c243a748",
+  "code_commit": "e76523c84587727ec2137f8d34c75dc371b7be62",
+  "source_digest": "7bc7c2d0c2d9d6e3afc94b0f7d9672c5cc7fda7cf31ad9fc260b0157dccb6c38",
+  "status": "diagnostic_passed",
+  "created_at": "2026-10-03T10:06:15.885591+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": "Approved replacement; no real future-truth input or performance oracle",
+  "leakage_test": "passed",
+  "synthetic_only": true,
+  "causal_max_abs_difference": 0.0,
+  "intentional_leak_detected": true,
+  "oracle_ineligible": true,
+  "updated_at": "2026-10-03T11:03:55.329565+00:00"
+}

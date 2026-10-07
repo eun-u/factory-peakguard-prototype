@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-06T15:20:37.359968+00:00",
+  "proof_sha256": "3fc1e61a4f214f698b196dc5b1c453274d08fce80fe82b08468d849b22cc5eb7",
+  "smoke_exit_code": 0,
+  "root_verifier_exit_code": 0,
+  "required_configurations": 4,
+  "plan_sha256": "05357b02aa6c7a9714b4b8f5f64290eb99f231784935281470350ab9b9110df1",
+  "current_final_search_session": 17563,
+  "no_further_wave": true,
+  "score_status": "pending",
+  "goal_achieved": false,
+  "holdout_read": false
+}

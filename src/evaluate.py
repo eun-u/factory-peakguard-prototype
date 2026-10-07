@@ -1,222 +1,171 @@
-"""평가 지표, 피크 에피소드 매칭, 날짜 블록 부트스트랩.
-
-- 피크: 실제값 > 학습 구간 상위 분위수(기본 95%)
-- 에피소드: 같은 날짜 안에서 연속된 15분 초과 위치. 위치가 빠지면 새 에피소드
-- 매칭: 경보 에피소드와 실제 에피소드를 시간 겹침으로 최대 1:1 매칭
-- 신뢰구간: 테스트 날짜를 묶어 1,000회 복원추출한 백분위 95% 구간. 임계값·모델 선택은 고정
-"""
-
+"""Forecast and peak-episode evaluation on chronological scoring rows."""
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import (
-    average_precision_score,
-    brier_score_loss,
-    f1_score,
-    mean_pinball_loss,
-    precision_recall_curve,
-)
+from sklearn.metrics import average_precision_score, brier_score_loss
 
-from .analysis.decision import rev
+from .bootstrap import day_mean_ci
 
 
-def val_f1_cutoff(y: np.ndarray, score: np.ndarray) -> float:
-    """검증 구간에서 위치 F1을 최대로 하는 점수 임계값."""
-    if np.unique(y).size < 2:
-        return 0.5
-    precision, recall, thresholds = precision_recall_curve(y, score)
-    f1 = 2 * precision[:-1] * recall[:-1] / np.maximum(precision[:-1] + recall[:-1], 1e-12)
-    return float(thresholds[int(np.nanargmax(f1))])
-
-
-def safe_ap(y: np.ndarray, p: np.ndarray) -> float:
-    return float(average_precision_score(y, p)) if np.unique(y).size == 2 else float("nan")
-
-
-def metric_bundle(frame: pd.DataFrame, peak: float, cutoffs: dict[str, float], ratios, quantiles) -> dict:
-    """사전 검증 05_summary.json과 같은 지표 묶음."""
-    y = frame["y"].to_numpy()
-    event = y > peak
-    out = {}
-    for model in ("day", "week", "average", "naive", "lgb"):
-        pred = frame[model].to_numpy()
-        err = y - pred
-        out[f"{model}_mae"] = float(np.mean(np.abs(err)))
-        out[f"{model}_rmse"] = float(np.sqrt(np.mean(err ** 2)))
-        nz = y != 0
-        out[f"{model}_mape"] = float(np.mean(np.abs(err[nz] / y[nz])) * 100) if nz.any() else float("nan")
-        out[f"{model}_peak_mae"] = float(np.mean(np.abs(err[event]))) if event.any() else float("nan")
-    out["peak_mae_improvement_fraction"] = (float(1 - out["lgb_peak_mae"] / out["naive_peak_mae"])
-                                            if out["naive_peak_mae"] > 0 else float("nan"))
-    for q in quantiles:
-        name = f"q{int(q * 100)}"
-        pred = frame[name].to_numpy()
-        out[f"{name}_pinball"] = float(mean_pinball_loss(y, pred, alpha=q))
-        out[f"{name}_coverage"] = float(np.mean(y <= pred))
-    out["mean_pinball"] = float(np.mean([out[f"q{int(q * 100)}_pinball"] for q in quantiles]))
-    for model in ("classifier", "quantile"):
-        prob = frame[f"{model}_prob"].to_numpy()
-        out[f"{model}_f1"] = float(f1_score(event, prob >= cutoffs[model], zero_division=0))
-        out[f"{model}_prauc"] = safe_ap(event, prob)
-        out[f"{model}_brier"] = float(brier_score_loss(event, prob))
-        action = prob >= cutoffs[model]
-        out[f"{model}_precision"] = float(np.sum(action & event) / np.sum(action)) if action.any() else float("nan")
-        out[f"{model}_recall"] = float(np.sum(action & event) / np.sum(event)) if event.any() else float("nan")
-    for i, ratio in enumerate(ratios):
-        out[f"rev_{i}"] = rev(event, frame["classifier_prob"].to_numpy(), frame["climate_prob"].to_numpy(), ratio)
-    return out
-
-
-def block_bootstrap(frame: pd.DataFrame, fn, n: int = 1000, seed: int = 42) -> tuple[dict, dict]:
-    """날짜(frame['date']) 단위 복원추출. 표본 절반 이상이 유한할 때만 구간을 낸다."""
-    point = fn(frame)
-    groups = [np.where(frame["date"].to_numpy() == day)[0] for day in pd.unique(frame["date"])]
-    rng = np.random.default_rng(seed)
-    values = {k: [] for k in point}
-    for _ in range(n):
-        sampled = rng.integers(0, len(groups), len(groups))
-        take = np.concatenate([groups[i] for i in sampled])
-        result = fn(frame.iloc[take])
-        for key, value in result.items():
-            values[key].append(value)
-    ci = {}
-    for key, arr in values.items():
-        finite = np.asarray(arr, dtype=float)
-        finite = finite[np.isfinite(finite)]
-        ci[key] = ([float(v) for v in np.quantile(finite, [0.025, 0.975])]
-                   if len(finite) >= n // 2 else [None, None])
-    return point, ci
-
-
-# ---- 피크 위치·에피소드·날짜 단위 지표 (사전 검증 t5b_persistence와 동일) ----
-
-STAT_KEYS = ("mae", "rmse", "peak_position_mae", "peak_episode_mae", "peak_day_mae",
-             "position_f1", "episode_f1", "day_f1")
-
-
-def runs(flags: np.ndarray, times: np.ndarray) -> list[tuple[int, int]]:
-    """닫힌 구간 [시작, 끝]. 15분 간격이 끊기면 새 에피소드."""
-    out: list[tuple[int, int]] = []
-    start: int | None = None
-    for i, flag in enumerate(flags):
-        contiguous = i > 0 and times[i] - times[i - 1] == np.timedelta64(15, "m")
-        if start is not None and (not flag or not contiguous):
-            out.append((start, i - 1))
+def _episodes(mask, times=None):
+    active = np.asarray(mask, dtype=bool)
+    if times is None:
+        times = pd.date_range("2000-01-01", periods=len(active), freq="15min")
+    time = pd.DatetimeIndex(times)
+    if len(active) != len(time):
+        raise ValueError("Mask and timestamp lengths differ")
+    segments = []
+    start = None
+    for i, flag in enumerate(active):
+        adjacent = i > 0 and time[i] - time[i - 1] == pd.Timedelta(minutes=15)
+        if start is not None and (not flag or not adjacent):
+            segments.append((start, i - 1))
             start = None
         if flag and start is None:
             start = i
     if start is not None:
-        out.append((start, len(flags) - 1))
+        segments.append((start, len(active) - 1))
+    return segments
+
+
+def match_episodes(actual_mask, alert_mask, times=None, actual_values=None, predicted_values=None):
+    """Maximum-cardinality one-to-one overlap matching, then most overlap."""
+    from scipy.optimize import linear_sum_assignment
+    actual = _episodes(actual_mask, times)
+    alerts = _episodes(alert_mask, times)
+    overlap = np.zeros((len(actual), len(alerts)), dtype=int)
+    for ai, (a0, a1) in enumerate(actual):
+        for pi, (p0, p1) in enumerate(alerts):
+            overlap[ai, pi] = max(0, min(a1, p1) - max(a0, p0) + 1)
+    pairs = []
+    if overlap.size:
+        # Cardinality dominates total overlap. Zero-overlap pairs are discarded.
+        reward = np.where(overlap > 0, 1_000_000 + overlap, 0)
+        left, right = linear_sum_assignment(-reward)
+        pairs = [(int(ai), int(pi)) for ai, pi in zip(left, right) if overlap[ai, pi] > 0]
+    out = {"tp": len(pairs), "fp": len(alerts) - len(pairs), "fn": len(actual) - len(pairs),
+           "actual_episodes": actual, "alert_episodes": alerts, "matches": pairs}
+    if times is not None and actual_values is not None and predicted_values is not None:
+        time = pd.DatetimeIndex(times)
+        y = np.asarray(actual_values, dtype=float)
+        p = np.asarray(predicted_values, dtype=float)
+        timing, magnitude = [], []
+        for ai, pi in pairs:
+            a0, a1 = actual[ai]; p0, p1 = alerts[pi]
+            ya = a0 + int(np.nanargmax(y[a0:a1 + 1]))
+            pp = p0 + int(np.nanargmax(p[p0:p1 + 1]))
+            timing.append(float((time[pp] - time[ya]).total_seconds() / 60))
+            magnitude.append(float(p[pp] - y[ya]))
+        out["timing_errors_minutes"] = timing
+        out["magnitude_errors"] = magnitude
     return out
 
 
-def overlap_match_count(truth: list[tuple[int, int]], alarms: list[tuple[int, int]]) -> int:
-    """최대 1:1 겹침 매칭. 긴 경보 하나가 여러 실제 에피소드를 동시에 맞힌 것으로 세지 않는다."""
-    edges = [[j for j, (a0, a1) in enumerate(alarms) if max(t0, a0) <= min(t1, a1)] for t0, t1 in truth]
-    matched_alarm: dict[int, int] = {}
-
-    def augment(i: int, seen: set[int]) -> bool:
-        for j in edges[i]:
-            if j in seen:
-                continue
-            seen.add(j)
-            if j not in matched_alarm or augment(matched_alarm[j], seen):
-                matched_alarm[j] = i
-                return True
-        return False
-
-    return sum(augment(i, set()) for i in range(len(truth)))
+def _safe_mean(x):
+    values = np.asarray(x, dtype=float)
+    finite = values[np.isfinite(values)]
+    return float(np.mean(finite)) if len(finite) else float("nan")
 
 
-def daily_stats(frame: pd.DataFrame, peak: float, cutoff: float | None, model: str,
-                alarm_column: str | None = None) -> pd.DataFrame:
-    """날짜별 합계. alarm_column이 있으면 그 불리언 열을 경보로 쓰고, 없으면 예측값 ≥ cutoff."""
-    records = []
-    for date, group in frame.groupby("date", sort=True):
-        actual = group["y"].to_numpy(dtype=float)
-        predicted = group[model].to_numpy(dtype=float)
-        times = group["target_time"].to_numpy(dtype="datetime64[ns]")
-        true_event = actual > peak
-        alarm = group[alarm_column].to_numpy(dtype=bool) if alarm_column else predicted >= cutoff
-        error = np.abs(actual - predicted)
-        truth_runs = runs(true_event, times)
-        alarm_runs = runs(alarm, times)
-        matched = overlap_match_count(truth_runs, alarm_runs)
-        records.append({
-            "date": date, "n": len(group),
-            "ae_sum": float(error.sum()), "se_sum": float(np.square(actual - predicted).sum()),
-            "peak_n": int(true_event.sum()), "peak_ae_sum": float(error[true_event].sum()),
-            "episode_n": len(truth_runs),
-            "episode_ae_sum": float(sum(error[a:b + 1].mean() for a, b in truth_runs)),
-            "peak_day_n": int(true_event.any()),
-            "peak_day_ae_sum": float(error[true_event].mean()) if true_event.any() else 0.0,
-            "position_tp": int(np.sum(true_event & alarm)),
-            "position_fp": int(np.sum(~true_event & alarm)),
-            "position_fn": int(np.sum(true_event & ~alarm)),
-            "episode_tp": matched, "episode_fp": len(alarm_runs) - matched, "episode_fn": len(truth_runs) - matched,
-            "alarm_episode_n": len(alarm_runs),
-            "day_tp": int(true_event.any() and alarm.any()),
-            "day_fp": int(not true_event.any() and alarm.any()),
-            "day_fn": int(true_event.any() and not alarm.any()),
-        })
-    return pd.DataFrame.from_records(records)
+def symmetric_peak_metrics(y, predicted, tau):
+    """Auxiliary, selection-unused errors; predicted peak means pred > tau.
 
-
-def _f1(tp: float, fp: float, fn: float) -> float:
-    denom = 2 * tp + fp + fn
-    return float(2 * tp / denom) if denom > 0 else float("nan")
-
-
-def summarize_stats(stats: pd.DataFrame) -> dict[str, float]:
-    s = stats.drop(columns="date").sum(numeric_only=True)
-
-    def ratio(num: str, den: str) -> float:
-        return float(s[num] / s[den]) if s[den] > 0 else float("nan")
-
+    Empty conditional populations return NaN. These measures deliberately
+    do not use the separately calibrated operational/episode alert threshold.
+    """
+    y, predicted, tau = np.broadcast_arrays(np.asarray(y, dtype=float),
+                                           np.asarray(predicted, dtype=float),
+                                           np.asarray(tau, dtype=float))
+    valid = np.isfinite(y) & np.isfinite(predicted) & np.isfinite(tau)
+    y, predicted, tau = y[valid], predicted[valid], tau[valid]
+    actual_peak, predicted_peak = y > tau, predicted > tau
     return {
-        "mae": ratio("ae_sum", "n"),
-        "rmse": float(np.sqrt(ratio("se_sum", "n"))),
-        "peak_position_mae": ratio("peak_ae_sum", "peak_n"),
-        "peak_episode_mae": ratio("episode_ae_sum", "episode_n"),
-        "peak_day_mae": ratio("peak_day_ae_sum", "peak_day_n"),
-        "position_f1": _f1(s["position_tp"], s["position_fp"], s["position_fn"]),
-        "episode_f1": _f1(s["episode_tp"], s["episode_fp"], s["episode_fn"]),
-        "day_f1": _f1(s["day_tp"], s["day_fp"], s["day_fn"]),
+        "peak_mae_union": _safe_mean(np.abs(predicted - y)[actual_peak | predicted_peak]),
+        "peak_bias": _safe_mean((predicted - y)[actual_peak]),
+        "overpredict_rate": _safe_mean(predicted_peak[~actual_peak]),
     }
 
 
-def _ci(values, n: int) -> list[float]:
-    array = np.asarray(values, dtype=float)
-    finite = array[np.isfinite(array)]
-    if len(finite) < n // 2:
-        return [float("nan"), float("nan")]
-    return [float(x) for x in np.quantile(finite, [0.025, 0.975])]
-
-
-def paired_stats_bootstrap(stats: dict[str, pd.DataFrame], baseline: str = "persistence",
-                           candidate: str = "lgb", n: int = 1000, seed: int = 42):
-    """모델들을 같은 날짜 표본으로 함께 재표집한다. 개선률 = 1 − 후보 피크 MAE / 기준 피크 MAE."""
-    names = tuple(stats)
-    dates = stats[names[0]]["date"].tolist()
-    if any(item["date"].tolist() != dates for item in stats.values()):
-        raise AssertionError("Models have different evaluation dates")
-    point = {name: summarize_stats(item) for name, item in stats.items()}
-    rng = np.random.default_rng(seed)
-    samples = {name: {metric: [] for metric in STAT_KEYS} for name in names}
-    improvements = []
-    for _ in range(n):
-        take = rng.integers(0, len(dates), size=len(dates))
-        draw = {name: summarize_stats(item.iloc[take]) for name, item in stats.items()}
-        for name in names:
-            for metric in STAT_KEYS:
-                samples[name][metric].append(draw[name][metric])
-        base = draw[baseline]["peak_position_mae"]
-        improvements.append(1 - draw[candidate]["peak_position_mae"] / base if base > 0 else float("nan"))
-    intervals = {name: {metric: _ci(samples[name][metric], n) for metric in STAT_KEYS} for name in names}
-    comparison = {
-        "baseline": baseline, "candidate": candidate,
-        "peak_mae_improvement": 1 - point[candidate]["peak_position_mae"] / point[baseline]["peak_position_mae"],
-        "ci95": _ci(improvements, n), "resampling_dates": len(dates), "bootstrap_draws": n,
+def score_predictions(frame, threshold=None):
+    """Score one model/horizon/fold without reselecting its alert threshold."""
+    frame = frame.sort_values("target_time")
+    y = frame.y.to_numpy(dtype=float)
+    p = frame.pred.to_numpy(dtype=float)
+    tau = frame.tau.to_numpy(dtype=float) if threshold is None else float(threshold)
+    valid = np.isfinite(y) & np.isfinite(p)
+    if not valid.all():
+        frame = frame.iloc[np.flatnonzero(valid)]
+        y, p = y[valid], p[valid]
+        tau = tau[valid] if np.ndim(tau) else tau
+    if not len(y):
+        return {}
+    peak = y > tau
+    alert = frame.alert.to_numpy(dtype=bool) if "alert" in frame else p > tau
+    episodes = match_episodes(peak, alert, frame.target_time, y, p)
+    n_alerts = int(alert.sum())
+    tp = int((peak & alert).sum()); fp = int((~peak & alert).sum()); fn = int((peak & ~alert).sum())
+    e_tp, e_fp, e_fn = (episodes[k] for k in ("tp", "fp", "fn"))
+    nonzero = y != 0
+    result = {
+        "n": len(y), "peak_n": int(peak.sum()), "mae": _safe_mean(np.abs(y - p)),
+        "rmse": float(np.sqrt(np.mean((y - p) ** 2))),
+        "mape_nonzero": _safe_mean(np.abs((y[nonzero] - p[nonzero]) / y[nonzero])) * 100 if nonzero.any() else float("nan"),
+        "peak_mae": _safe_mean(np.abs(y[peak] - p[peak])),
+        "position_tp": tp, "position_fp": fp, "position_fn": fn,
+        "position_f1": 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else float("nan"),
+        "episode_tp": e_tp, "episode_fp": e_fp, "episode_fn": e_fn,
+        "episode_f1": 2 * e_tp / (2 * e_tp + e_fp + e_fn) if 2 * e_tp + e_fp + e_fn else float("nan"),
+        "false_alarms_positions": n_alerts - tp,
+        "timing_mae_minutes": _safe_mean(np.abs(episodes.get("timing_errors_minutes", []))),
+        "magnitude_mae": _safe_mean(np.abs(episodes.get("magnitude_errors", []))),
     }
-    return point, intervals, comparison
+    # Auxiliary only: the selection implementation consumes its original keys.
+    result.update(symmetric_peak_metrics(y, p, tau))
+    if "p_exceed" in frame and frame.p_exceed.notna().any():
+        prob = frame.p_exceed.to_numpy(dtype=float)
+        ok = np.isfinite(prob)
+        if ok.any():
+            result["brier"] = float(brier_score_loss(peak[ok], prob[ok]))
+            result["pr_auc"] = float(average_precision_score(peak[ok], prob[ok])) if peak[ok].any() else float("nan")
+    for level in (.1, .5, .9, .95, .975):
+        suffix = "975" if level == .975 else str(int(level * 100))
+        calibrated = f"q{suffix}_cal"
+        raw = f"q{suffix}"
+        # Mixed-model tables have calibration columns globally. A raw-model
+        # group still has those columns, filled with NaN, so use them only
+        # when this group's calibrated predictions are actually finite.
+        col = calibrated if calibrated in frame and np.isfinite(frame[calibrated].to_numpy(dtype=float)).any() else raw
+        if col in frame and np.isfinite(frame[col].to_numpy(dtype=float)).any():
+            q = frame[col].to_numpy(dtype=float)
+            mask = np.isfinite(q)
+            result[f"coverage_{level}"] = _safe_mean(y[mask] <= q[mask])
+            if "q50" in frame and frame.q50.notna().any():
+                if "q50_top_edge" in frame and frame.q50_top_edge.notna().any():
+                    hi = frame.q50.to_numpy(dtype=float) >= frame.q50_top_edge.to_numpy(dtype=float)
+                else:
+                    hi = frame.q50.to_numpy(dtype=float) >= np.nanquantile(frame.q50, .9)
+                result[f"top_coverage_{level}"] = _safe_mean(y[mask & hi] <= q[mask & hi])
+            result[f"pinball_{level}"] = _safe_mean(np.maximum(level * (y[mask] - q[mask]), (level - 1) * (y[mask] - q[mask])))
+    losses = [result[f"pinball_{level}"] for level in (.1, .5, .9, .95, .975)
+              if f"pinball_{level}" in result]
+    if losses:
+        result["pinball_mean"] = _safe_mean(losses)
+    return result
+
+
+def evaluate_all(pred_frame, tau=None, cfg=None):
+    """A tidy metric table with date-block uncertainty for primary errors."""
+    cfg = cfg or {}
+    rows = []
+    for key, group in pred_frame.groupby(["horizon", "model", "fold"], dropna=False, sort=True):
+        score = score_predictions(group, threshold=tau)
+        if not score:
+            continue
+        if len(group) and score["peak_n"]:
+            peak = group.loc[group.y > (tau if tau is not None else group.tau)]
+            score["peak_mae_ci95"] = list(day_mean_ci(peak, abs(peak.y - peak.pred),
+                                                      n=int(cfg.get("bootstrap", {}).get("n", 1000)),
+                                                      seed=int(cfg.get("seed", 42))))
+        rows.append(dict(zip(["horizon", "model", "fold"], key), **score))
+    return pd.DataFrame(rows)

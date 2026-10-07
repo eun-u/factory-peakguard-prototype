@@ -1,7 +1,15 @@
-# 과제 ⑤ 제출 파이프라인 (Python 3.13에서 확인)
-pandas==2.3.3
 numpy==2.5.3
+pandas==2.3.3  # statsforecast 2.1.1 requires pandas<3 (P4 integration, 2026-09-29)
 scikit-learn==1.9.1
-lightgbm==4.6.0
-matplotlib==3.10.6
-pyyaml==6.0.2
+lightgbm==4.7.0
+matplotlib==3.11.2
+PyYAML==6.0.3
+pyarrow==25.0.1
+scipy==1.18.1
+joblib==1.6.0
+pytest==9.1.1
+statsforecast==2.1.1
+numba==0.67.0
+# Retained for the original prototype/ app.
+streamlit==1.64.0
+plotly==6.9.0

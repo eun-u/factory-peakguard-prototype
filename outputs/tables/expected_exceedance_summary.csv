@@ -1,0 +1,2 @@
+﻿status,episodes,evaluated_episodes,mean_signed_error,mean_signed_error_ci95,mae,mae_ci95,spearman,interpretation
+ok,148,148,-7.490824834227691,"[-9.336712334084442, -5.674496756629085]",7.962808004189939,"[6.118309561800286, 9.770562320521341]",0.6731289083119373,"Observed peak episodes only; maximum pointwise expected excess is a proxy, not calibrated episode-maximum expectation."

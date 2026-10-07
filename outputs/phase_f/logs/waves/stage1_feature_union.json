@@ -1,0 +1,412 @@
+{
+  "name": "stage1_feature_union",
+  "hypothesis": "Combine only individually helpful EXPLORE feature groups",
+  "specs": [
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_16-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_4-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_8-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-legacy-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-profile-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_2w-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_5work-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-slot_1_7d-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d"
+      ],
+      "id": "F1-union-without-slot_7_28d-ridge",
+      "kind": "ridge",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-ridge"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_16-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_4-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-lag_1_8-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-legacy-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-profile-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_5work",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_2w-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "slot_1_7d",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-same_slot_5work-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_7_28d"
+      ],
+      "id": "F1-union-without-slot_1_7d-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "lag_1_16",
+        "lag_1_4",
+        "lag_1_8",
+        "legacy",
+        "profile",
+        "same_slot_2w",
+        "same_slot_5work",
+        "slot_1_7d"
+      ],
+      "id": "F1-union-without-slot_7_28d-lightgbm",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-core-lightgbm"
+    }
+  ],
+  "config_sha256": "482fde6984a21e51eca641a939b6de066b6b5699142ce3f1b3685e0805257036",
+  "selection_arm": "EXPLORE",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

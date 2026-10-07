@@ -1,0 +1,54 @@
+{
+  "protocol": "goal_r1_recent_analog_v1",
+  "arm": "EXPLORE",
+  "specs": [
+    {
+      "id": "FG-R5-recent-w16-k3",
+      "adapter": "recent_day_analog",
+      "family": "R1-causal-recent-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 16,
+      "top_k": 3,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R5-recent-w16-k5",
+      "adapter": "recent_day_analog",
+      "family": "R1-causal-recent-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 16,
+      "top_k": 5,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R5-recent-w96-k3",
+      "adapter": "recent_day_analog",
+      "family": "R1-causal-recent-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 96,
+      "top_k": 3,
+      "bank_days": 56
+    },
+    {
+      "id": "FG-R5-recent-w96-k5",
+      "adapter": "recent_day_analog",
+      "family": "R1-causal-recent-day-analog",
+      "arm": "EXPLORE",
+      "prefix_length": 96,
+      "top_k": 5,
+      "bank_days": 56
+    }
+  ],
+  "prediction_input": "raw observed power through each origin, including elapsed evaluation-period history",
+  "training": "stateless recent-history retrieval; no evaluation-frame label access or fitted bank",
+  "selection": "purged STOP-only weekly alpha; no SCORE tuning or model-state update",
+  "n_stochastic_seeds": 0,
+  "n_deterministic_runs": 1,
+  "fresh_replay": "second physical run in separate model namespace; reproducibility only",
+  "ranking": "metrics of one deterministic primary forecast",
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "contract_sha256": "a2d4b11fb11559293d57fe24aab2cd640710923f3a24eef19e8debaf5e6f8a1b"
+}

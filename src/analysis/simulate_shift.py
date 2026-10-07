@@ -1,124 +1,138 @@
-"""생산량 시간대 이동 시뮬레이션 (가정 기반, 인과 효과 아님).
-
-1) 학습 구간 시간 단위 자료로 전력 = a + b·생산량 + 시각 고정효과 + 요일 고정효과 를 최소제곱 추정한다.
-   b는 같은 시각·요일 안에서 생산량이 한 단위 늘 때의 평균 전력 차이이며 인과 계수로 해석하지 않는다.
-2) 시험 구간 각 날짜에서 '이동 대상 시간'의 생산량 비율 f를 같은 날 다른 가동 시간(생산량 > 0)으로
-   옮긴다고 가정한다. 받는 시간은 계획 전력이 피크 경계의 95%를 넘지 않는 여유만큼만 받는다.
-   각 시간의 4개 15분 위치 실측 전력에 b·Δ생산량을 더한다. 밤 시간대 신규 가동은 가정하지 않는다.
-3) 이동 전후의 최대 15분 전력과 피크 경계 초과 위치 수를 비교한다.
-
-이동 대상 시간을 정하는 세 방식:
-- forecast: 1시간 후 점예측 경보가 하나라도 있는 시간. 받는 시간의 여유도 예측값으로 판단 (운영 가능 방식)
-- forecast_q95: forecast와 같은 이동 대상. 받는 시간의 여유를 95% 분위수 예측으로 보수적으로 판단
-- static: 학습 구간에서 피크율이 전체의 2배 이상인 시각. 여유는 예측값으로 판단 (고정 일정)
-- oracle: 실제로 피크가 발생한 시간. 여유도 실측으로 판단 (사후 정보, 효과의 상한)
-"""
+"""Retrospective same-day load-shift sensitivity, with operational feasibility gates."""
 
 from __future__ import annotations
+
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-
-def hourly_frame(series: pd.DataFrame) -> pd.DataFrame:
-    s = series.loc[~series["recovered"] & series["power"].notna()].copy()
-    s["hour_start"] = (s.index - pd.Timedelta(minutes=15)).floor("h")
-    g = s.groupby("hour_start").agg(power=("power", "mean"), production=("production_target", "first"),
-                                    positions=("power", "size"))
-    g = g[g["positions"] == 4]
-    g["hour"] = g.index.hour
-    g["weekday"] = g.index.dayofweek
-    g["date"] = g.index.date
-    return g
+from ._common import write_table
+from .energy_baseline import EnergyBaseline
+from .tariff import classify_tariff, discount_factor, tariff_weight_basis
 
 
-def _design(g: pd.DataFrame) -> np.ndarray:
-    hour = pd.get_dummies(g["hour"].astype(pd.CategoricalDtype(range(24))), drop_first=True).to_numpy(float)
-    wd = pd.get_dummies(g["weekday"].astype(pd.CategoricalDtype(range(7))), drop_first=True).to_numpy(float)
-    return np.column_stack([np.ones(len(g)), g["production"].to_numpy(float), hour, wd])
+def _hour(stamp: pd.Timestamp) -> pd.Timestamp:
+    return (stamp-pd.Timedelta(nanoseconds=1)).floor("h")
 
 
-def fit_slope(hourly_train: pd.DataFrame, n: int = 1000, seed: int = 42) -> dict:
-    X, y = _design(hourly_train), hourly_train["power"].to_numpy(float)
-    beta = np.linalg.lstsq(X, y, rcond=None)[0]
-    days = np.array(sorted(set(hourly_train["date"])))
-    index = {d: np.where(hourly_train["date"].to_numpy() == d)[0] for d in days}
-    rng = np.random.default_rng(seed)
-    draws = []
-    for _ in range(n):
-        take = np.concatenate([index[d] for d in rng.choice(days, len(days))])
-        draws.append(np.linalg.lstsq(X[take], y[take], rcond=None)[0][1])
-    low, high = np.quantile(draws, [.025, .975])
-    return {"slope": float(beta[1]), "ci_low": float(low), "ci_high": float(high), "hours": len(hourly_train)}
-
-
-def simulate(series_test: pd.DataFrame, plan_power: pd.Series, shift_hours: dict, slope: float,
-             fraction: float, peak: float, cap_ratio: float = 0.95) -> dict:
-    """series_test: 시험 구간 15분 실측(power, production_target). plan_power: 계획에 쓰는 전력(예측 또는 실측).
-
-    각 날짜에서 이동 대상 시간의 생산량 f 비율을 같은 날 다른 가동 시간으로 옮기되, 받는 시간의 계획 전력이
-    피크 경계의 cap_ratio 배를 넘지 않는 만큼만 옮긴다(여유가 적은 시간부터 채우지 않고 여유가 큰 시간부터).
-    전력 변화는 b × Δ생산량을 그 시간의 4개 15분 위치에 더해 실측 전력에 적용한다.
-    """
-    s = series_test.copy()
-    s["hour_start"] = (s.index - pd.Timedelta(minutes=15)).floor("h")
-    s["date"] = s["hour_start"].dt.date
-    adjusted = s["power"].to_numpy(float).copy()
-    production = s.groupby("hour_start")["production_target"].first()
-    plan_max = plan_power.reindex(s.index).groupby(s["hour_start"].to_numpy()).max()
-    desired_total = placed_total = 0.0
-    days_with_sources = days_shifted = 0
-    for date, hours in shift_hours.items():
-        day_hours = production[production.index.date == date]
-        sources = [h for h in hours if h in day_hours.index and day_hours[h] > 0]
-        if not sources or slope <= 0:
+def simulate_shift(pred: pd.DataFrame, history: pd.DataFrame, train: pd.DataFrame,
+                   baseline: EnergyBaseline, tariff: dict,
+                   fractions=(0.1, 0.2, 0.3), prep_minutes: int = 30,
+                   destination_start: int = 11, destination_end: int = 15) -> tuple[pd.DataFrame, pd.DataFrame]:
+    if baseline.production_coefficient_per_hour <= 0:
+        raise ValueError("Non-positive explanatory production coefficient cannot support a load reduction scenario")
+    if "production_target" not in history:
+        raise ValueError("Hourly production is unavailable")
+    p = pred.loc[pred.horizon.eq(4)].copy()
+    if p.empty:
+        raise ValueError("No 1-hour OOF forecasts for action stage")
+    prob = pd.to_numeric(p.get("p_exceed", pd.Series(np.nan, index=p.index)), errors="coerce")
+    q95 = pd.to_numeric(p.get("q95_cal", pd.Series(np.nan, index=p.index)), errors="coerce")
+    p["action"] = prob.gt(0.1) | q95.gt(p.tau)
+    p["source_hour"] = p.target_time.map(_hour)
+    p = p.loc[p.action].sort_values("origin").drop_duplicates("source_hour")
+    train_slots = train.copy()
+    train_slots["slot_hour"] = train_slots.index.hour
+    slot_medians = train_slots.groupby("slot_hour").power.median()
+    bands = classify_tariff(history.index, tariff)
+    weight_map, basis = tariff_weight_basis(tariff)
+    if weight_map is None:
+        raise ValueError("No rate or declared scenario weight is available to rank cheaper target hours")
+    candidate_hours = list(range(destination_start, destination_end))
+    records = []
+    for row in p.itertuples(index=False):
+        source_hour = row.source_hour
+        source_times = pd.date_range(source_hour+pd.Timedelta(minutes=15), periods=4, freq="15min")
+        if not source_times.isin(history.index).all():
             continue
-        days_with_sources += 1
-        sinks = [h for h in day_hours.index if h not in hours and day_hours[h] > 0]
-        desired = {h: fraction * day_hours[h] for h in sources}
-        want = sum(desired.values())
-        capacity = {h: max(0.0, (cap_ratio * peak - plan_max.get(h, np.inf)) / slope) for h in sinks}
-        room = sum(capacity.values())
-        placed = min(want, room)
-        desired_total += want
-        if placed <= 0:
+        if "time_repaired" in history and history.loc[source_times, "time_repaired"].astype(bool).any():
             continue
-        days_shifted += 1
-        placed_total += placed
-        delta = {h: -d * placed / want for h, d in desired.items()}
-        remaining = placed
-        for h in sorted(capacity, key=capacity.get, reverse=True):
-            take = min(capacity[h], remaining)
-            if take <= 0:
-                break
-            delta[h] = delta.get(h, 0.0) + take
-            remaining -= take
-        for h, d in delta.items():
-            adjusted[(s["hour_start"] == h).to_numpy()] += slope * d
-    before, after = s["power"].to_numpy(float), adjusted
-    months = s.index.to_period("M")
-    monthly = {str(m): (float(before[months == m].max()), float(after[months == m].max())) for m in months.unique()}
-    daily_before = pd.Series(before).groupby(s["date"].to_numpy()).max()
-    daily_after = pd.Series(after).groupby(s["date"].to_numpy()).max()
-    return {"fraction": fraction, "slope": slope, "desired_production": desired_total,
-            "moved_production": placed_total,
-            "placed_share": placed_total / desired_total if desired_total else np.nan,
-            "days_with_sources": days_with_sources, "days_shifted": days_shifted,
-            "max_before": float(np.nanmax(before)), "max_after": float(np.nanmax(after)),
-            "exceed_before": int(np.sum(before > peak)), "exceed_after": int(np.sum(after > peak)),
-            "daily_max_mean_before": float(daily_before.mean()), "daily_max_mean_after": float(daily_after.mean()),
-            "daily_max_reduced_days": int(np.sum(daily_after < daily_before - 1e-9)),
-            "monthly_max": monthly}
+        if not np.isfinite(pd.to_numeric(history.loc[source_times, "power"], errors="coerce")).all():
+            continue
+        prod = pd.to_numeric(history.loc[source_times, "production_target"], errors="coerce")
+        if prod.isna().any() or prod.iloc[0] <= 0:
+            continue
+        source_band = bands.reindex(source_times).iloc[0]
+        source_effective_weight = weight_map[source_band]*float(np.mean(discount_factor(source_times, tariff)))
+        available_after = row.origin + pd.Timedelta(minutes=prep_minutes)
+        dests = []
+        for hour in candidate_hours:
+            start = source_hour.normalize()+pd.Timedelta(hours=hour)
+            times = pd.date_range(start+pd.Timedelta(minutes=15), periods=4, freq="15min")
+            if start <= available_after or start <= source_hour or not times.isin(history.index).all():
+                continue
+            if "time_repaired" in history and history.loc[times, "time_repaired"].astype(bool).any():
+                continue
+            if not np.isfinite(pd.to_numeric(history.loc[times, "power"], errors="coerce")).all():
+                continue
+            if len(set(bands.reindex(times).dropna())) != 1:
+                continue
+            dest_band = bands.reindex(times).iloc[0]
+            dest_effective_weight = weight_map[dest_band]*float(np.mean(discount_factor(times, tariff)))
+            if dest_effective_weight >= source_effective_weight:
+                continue
+            dests.append((float(slot_medians.get(hour, np.inf)), start, times))
+        if not dests:
+            records.append({"origin": row.origin, "source_hour": source_hour,
+                            "destination_hour": pd.NaT, "status": "no_future_low_band_window",
+                            "production": prod.iloc[0]})
+            continue
+        _, dest_hour, dest_times = min(dests)
+        records.append({"origin": row.origin, "source_hour": source_hour,
+                        "destination_hour": dest_hour, "status": "retrospective_feasible_time",
+                        "production": float(prod.iloc[0])})
+    actions = pd.DataFrame(records)
+    if actions.empty:
+        return actions, pd.DataFrame()
+    summaries = []
+    original = history.power.astype(float)
+    for fraction in fractions:
+        moved = original.copy()
+        applied = 0
+        for act in actions.loc[actions.status.eq("retrospective_feasible_time")].itertuples(index=False):
+            src = pd.date_range(act.source_hour+pd.Timedelta(minutes=15), periods=4, freq="15min")
+            dst = pd.date_range(act.destination_hour+pd.Timedelta(minutes=15), periods=4, freq="15min")
+            delta = baseline.production_coefficient_per_hour*act.production*float(fraction)/4
+            if (moved.loc[src] < delta).any():
+                continue
+            moved.loc[src] -= delta
+            moved.loc[dst] += delta
+            applied += 1
+        before_month = original.groupby(original.index.to_period("M")).max()
+        after_month = moved.groupby(moved.index.to_period("M")).max()
+        for month in before_month.index:
+            month_mask = moved.index.to_period("M") == month
+            month_tau = float(pred.loc[pred.target_time.dt.to_period("M").eq(month), "tau"].median())
+            entry = {"fraction": float(fraction), "month": str(month),
+                     "applied_source_hours": applied,
+                     "max_before": float(before_month[month]), "max_after": float(after_month[month]),
+                     "max_change": float(after_month[month]-before_month[month]),
+                     "new_peak_positions": int(((moved > month_tau) & (original <= month_tau) & month_mask).sum()) if np.isfinite(month_tau) else np.nan,
+                     "peak_threshold_proxy": month_tau,
+                     "weight_basis": basis}
+            if weight_map is not None:
+                weights = bands.map(weight_map).to_numpy(float)*discount_factor(history.index, tariff)
+                if np.isfinite(weights).all():
+                    entry["weighted_load_change"] = float(np.sum((moved-original).to_numpy()[month_mask]*weights[month_mask]))
+            summaries.append(entry)
+    return actions, pd.DataFrame(summaries)
 
 
-def shift_targets(frame: pd.DataFrame, peak: float, cutoff: float, static_hours: set[int]) -> dict[str, dict]:
-    """세 방식의 날짜별 이동 대상 시간(hour_start) 집합."""
-    f = frame.copy()
-    f["hour_start"] = (f["target_time"] - pd.Timedelta(minutes=15)).dt.floor("h")
-    f["date"] = f["hour_start"].dt.date
-    out = {"forecast": {}, "oracle": {}, "static": {}}
-    for date, g in f.groupby("date"):
-        out["forecast"][date] = set(g.loc[g["lgb"] >= cutoff, "hour_start"])
-        out["oracle"][date] = set(g.loc[g["y"] > peak, "hour_start"])
-        out["static"][date] = set(h for h in g["hour_start"].unique() if h.hour in static_hours)
-    return out
+def run_simulate_shift(pred: pd.DataFrame, history: pd.DataFrame, train: pd.DataFrame,
+                       baseline: EnergyBaseline | None, tariff: dict | None,
+                       outdir: Path, cfg: dict) -> dict:
+    if baseline is None or tariff is None:
+        return {"status": "unsupported", "reason": "Energy baseline and 2026 band schedule are required"}
+    try:
+        actions, summary = simulate_shift(pred, history, train, baseline, tariff,
+            fractions=cfg.get("shift", {}).get("fractions", [0.1, 0.2, 0.3]),
+            prep_minutes=int(cfg.get("alert", {}).get("default_prep_minutes", 30)))
+    except ValueError as exc:
+        return {"status": "unsupported", "reason": str(exc)}
+    paths = {"shift_actions": str(write_table(actions, outdir/"tables"/"shift_actions.csv")),
+             "shift_summary": str(write_table(summary, outdir/"tables"/"shift_summary.csv"))}
+    return {"status": "ok" if not summary.empty else "unsupported", "paths": paths,
+            "time_feasible_actions": int(actions.status.eq("retrospective_feasible_time").sum()) if not actions.empty else 0,
+            "no_future_low_band_window": int(actions.status.eq("no_future_low_band_window").sum()) if not actions.empty else 0,
+            "warning": "사후 관측 생산량으로 계산한 가상 시나리오이며 설비 제약, 실제 이동 가능성 및 인과 효과는 검증되지 않았습니다. 오후 경보는 이미 지난 11~15시로 이동할 수 없습니다."}

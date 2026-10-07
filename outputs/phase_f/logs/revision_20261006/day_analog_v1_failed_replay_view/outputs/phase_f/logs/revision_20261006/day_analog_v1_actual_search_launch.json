@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-06T14:30:17.9350318Z",
+  "analog_session": 40902,
+  "source_commit": "41b3304",
+  "technical_smoke_session": 71106,
+  "technical_smoke_exit_code": 0,
+  "root_smoke_verification_session": 17665,
+  "root_smoke_verification_exit_code": 0,
+  "analog_search_processes": [
+    {
+      "ProcessId": 32156,
+      "ParentProcessId": 29136,
+      "CommandLine": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.goal_day_analog --stage search"
+    },
+    {
+      "ProcessId": 28540,
+      "ParentProcessId": 32156,
+      "CommandLine": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.goal_day_analog --stage search"
+    }
+  ],
+  "original_full_phase_live": true,
+  "transition_search_live": true,
+  "goal_achieved": false,
+  "holdout_read": false
+}

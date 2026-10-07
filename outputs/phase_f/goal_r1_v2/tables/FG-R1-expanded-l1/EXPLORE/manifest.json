@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-06T12:47:48.711915+00:00",
+  "candidate": "FG-R1-expanded-l1",
+  "arm": "EXPLORE",
+  "fields": {
+    "AUC_MAE": 7.353973437385654,
+    "AUC_PeakMAE": 15.948161370718509,
+    "AUC_nMAE": 0.07830352585082984,
+    "h4_MAE": 5.90908274282406,
+    "h16_MAE": 8.774552603008429,
+    "h4_PeakMAE": 13.392562526860198,
+    "h16_PeakMAE": 17.790667604306275
+  },
+  "targets_met": false,
+  "individual": {
+    "AUC_MAE": false,
+    "AUC_PeakMAE": false,
+    "h4_MAE": false,
+    "h16_MAE": false,
+    "AUC_nMAE": false
+  },
+  "seed_uncertainty": {
+    "AUC_MAE": {
+      "individual_mean": 7.398068952583863,
+      "individual_sd": 0.04825639606121499
+    },
+    "AUC_PeakMAE": {
+      "individual_mean": 15.960376011295356,
+      "individual_sd": 0.3784621321161637
+    },
+    "AUC_nMAE": {
+      "individual_mean": 0.07877304680531451,
+      "individual_sd": 0.000513826441034986
+    },
+    "h4_MAE": {
+      "individual_mean": 5.957627096190876,
+      "individual_sd": 0.055336136608254066
+    },
+    "h16_MAE": {
+      "individual_mean": 8.817403300490351,
+      "individual_sd": 0.038463804733989616
+    },
+    "h4_PeakMAE": {
+      "individual_mean": 13.396367591243166,
+      "individual_sd": 0.3359693106884514
+    },
+    "h16_PeakMAE": {
+      "individual_mean": 17.802902570985587,
+      "individual_sd": 0.38910182445834324
+    }
+  },
+  "n_seeds": 5,
+  "ranking_basis": "metrics of mean forecasts",
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false,
+  "leakage_test": "passed",
+  "prediction_sha256": "ac1530d3e28d5e157d143c202c522ff1fbf8a54c29ab7af8d4b46cfc4e23dc78",
+  "artifacts": {
+    "auc.csv": "57ad9f56844d34b8d4439cc6cb953b0cb7646f2bc4539b6d2d6ee762512880bf",
+    "daily.csv": "f31d2a9841b43e0de783e09a568bc739b52f82125f0e4401e16d4e094d5da375",
+    "daily_summary.csv": "7b84f4b474bc99786cd7cf48dbf0a044bf73822576ef9de785cf087280ec8ab9",
+    "fold.csv": "dcf364879bc16aae8591e9b9c11a91bf489150f6a6586d95d2216c0d5ead54f4",
+    "paired_ci.csv": "c7ec3ae15725cdb9b0690bec5062c10b3ef230ad0df30eece7d21d11a44918e3",
+    "pooled.csv": "b9ec5d95b495724b582bd7cada3cac32fbafc700b7d0519e7432ccfcc1ff9092",
+    "seed_metrics.csv": "5dc84a329844be34dd8606746afa7b83474904241a2a2e14bfa8fa95a838361f"
+  }
+}

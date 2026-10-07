@@ -1,0 +1,13 @@
+{
+  "status": "ready_for_human_approval",
+  "holdout_read": false,
+  "development_cache_sha256": "88900fdd39135c43f6f7da389c92d1a65cedd5d9ab021c20eebdbcd023609254",
+  "selection_sha256": "9ced8ce901550346c52b80b01cafed6c3faf3283a11cf342dfdf89d87ec10b02",
+  "config_sha256": "bb3839cccaaecb8eecf711f8aca2105851792895b2aba4d0d95ec7a728b1422f",
+  "source_sha256": "8f7af2e49366c93e1d6f5fdef4b5e350066c1792ac463c2c2886e370f4674830",
+  "fingerprint_sha256": "0727ec1e3e6a69e2bae7b9313eec21def53b8ce819d708fb0fa1be68a622c27f",
+  "test_start_origin": "2021-08-09 09:45:00",
+  "date_gate_open": false,
+  "human_approval": "pending_or_invalid",
+  "approval_reason": "Explicit human freeze approval is required"
+}

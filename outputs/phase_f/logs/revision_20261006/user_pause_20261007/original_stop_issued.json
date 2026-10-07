@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-06T15:14:47.9910513Z",
+  "user_request": "검증 후 점수가 안나와도 멈춰",
+  "action": "terminate only verified original actual worker, preserve checkpoints",
+  "worker": {
+    "ProcessId": 27432,
+    "ParentProcessId": 27880,
+    "CreationDate": "2026-10-06T22:31:04.932998+09:00",
+    "CommandLine": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.run --stage all --retry"
+  },
+  "launcher": {
+    "ProcessId": 27880,
+    "ParentProcessId": 19436,
+    "CreationDate": "2026-10-06T22:31:04.926597+09:00",
+    "CommandLine": "\"C:\\Users\\User\\Downloads\\제조데이터 종합 판단 폴\\phase_c_workspace\\outputs\\phase_f\\env\\Scripts\\python.exe\" -u -m phase_f.run --stage all --retry"
+  },
+  "stage_complete": false,
+  "holdout_read": false,
+  "stop_issued_at": "2026-10-06T15:14:48.0392099Z"
+}

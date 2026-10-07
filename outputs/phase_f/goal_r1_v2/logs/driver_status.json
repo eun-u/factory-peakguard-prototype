@@ -1,0 +1,10 @@
+{
+  "status": "completed_explore_stage",
+  "stage": "search",
+  "at": "2026-10-06T12:52:13.229916+00:00",
+  "configuration_subset": null,
+  "full_explore_search_complete": true,
+  "independent_confirmation": "pending",
+  "goal_achieved": false,
+  "holdout_read": false
+}

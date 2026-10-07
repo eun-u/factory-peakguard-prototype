@@ -1,0 +1,47 @@
+{
+  "arm": "EXPLORE",
+  "candidate": "F0-1-R1",
+  "at": "2026-10-06T10:53:47.340422+00:00",
+  "prediction_sha256": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf",
+  "metrics_source_sha256": "4e09ad06b93c66be85b0821c50f6f0c45b5da623183ba545e62bdfbc7128d6f2",
+  "split_sha256": "a0081e091fa726cde97b766e1197d7d68700f762a6e3e89f79a29d3c0f4c3de8",
+  "tables": {
+    "auc.csv": "8bc6ac23bdd577120098c1fd31dc2af1f60e1273a03833ac0ece11d7f401a5ec",
+    "daily.csv": "917018058d2f9fa1c9ff0d4ebdf85ad038cc2d8149245696397221107dcfc21a",
+    "daily_summary.csv": "9879bbc80beaeb371463a271cce9ebad2bbf548b30ae5681e30516a22363986d",
+    "fold.csv": "4f707588f19718736ca85817c26663ecd56e8e6f258a70a942c078f5286ca21f",
+    "pairwise_ci.csv": "ae22633cf3c09fa8c4e95e590cf49f5ee40f0a3138b3daf20be8367b8f4e6d7a",
+    "pooled.csv": "9372ddbc52d1033eb6b04d34f05bd1c2fbf7a0643d6eeb17da4c706bc90bd38c",
+    "seed_metrics.csv": "caffda4e8e8f3ff00de7d9034250d62c64caa6680787f60ecb0da33cf3c78b4d",
+    "weekly_improvement.csv": "a1e7bde9564b16ec6f76a87454504c36882dcce9110210fac928e41e129e3454"
+  },
+  "baseline_prediction_sha256": {
+    "B5": "f26ae698e1e63cce402ed8683ab6eba1bde4fd77aa33acc58939347f2ccb0bf4",
+    "M1": "98695282309a934f0c7b511cb1758eb1ea74fccdd7740d3e791ad65c4dd4b382",
+    "R1": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf"
+  },
+  "registry_metrics": {
+    "wf_explore_AUC_MAE": 7.332247638581336,
+    "wf_explore_AUC_PeakMAE": 14.306290949836306,
+    "D2_wf_explore_AUC_MAE": 7.580251971653204,
+    "D2_wf_explore_AUC_PeakMAE": 14.742926262043142,
+    "wf_explore_h16_MAE": 8.793679645700054,
+    "wf_explore_h16_Peak": 16.316823235509137,
+    "wf_explore_PredPeakMAE": 8.548049510191793,
+    "wf_explore_AUC_MAE_seed_sd": 0.0,
+    "n_seeds": 1,
+    "seed_auc_mae_mean": 7.332247638581336,
+    "leakage_test": "passed",
+    "ranking_basis": "metric of seed-mean predictions",
+    "wf_explore_AUC_PeakMAE_seed_sd": 0.0,
+    "wf_explore_h16_Peak_seed_sd": 0.0,
+    "wf_weeks_won_vs_B5": 8,
+    "wf_explore_weeks": 8,
+    "ciLow_vs_B5": 2.834771485953573,
+    "wf_peak_degradation_ci_high_vs_B5": 1.0696297311336358,
+    "wf_D2_mae_improvement_vs_B5": 4.5831523197708
+  },
+  "candidate_confirm_metric_read": false,
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

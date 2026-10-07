@@ -1,0 +1,172 @@
+{
+  "B0": {
+    "development_only": true,
+    "effective": {},
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\B0_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.0002948999172076583,
+    "selected_config": {
+      "feature": "current"
+    },
+    "train_seconds": 1.00000761449337e-06
+  },
+  "B1": {
+    "development_only": true,
+    "effective": {},
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\B1_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.0005223000189289451,
+    "selected_config": {
+      "feature": "slot7d"
+    },
+    "train_seconds": 6.00004568696022e-07
+  },
+  "B2": {
+    "development_only": true,
+    "effective": {},
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\B2_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.8068800999317318,
+    "selected_config": {
+      "selected_cbl": "c1a_mid_6_10_adjusted"
+    },
+    "train_seconds": 0.0
+  },
+  "B3": {
+    "development_only": true,
+    "effective": {},
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\B3_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.0010203999700024724,
+    "selected_config": {
+      "fit_context_days": 28,
+      "missing": "fit_only_forward_fill",
+      "periods": [
+        96,
+        672
+      ],
+      "refit": "fit_only_once_per_horizon_fold",
+      "trend": "AutoETS_ZZN"
+    },
+    "train_seconds": 1.976107000024058
+  },
+  "B4": {
+    "development_only": true,
+    "effective": {},
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\B4_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.0008409000001847744,
+    "selected_config": {
+      "alpha": 100.0,
+      "scaler_ddof": 1
+    },
+    "train_seconds": 0.0014626000775024295
+  },
+  "B5": {
+    "development_only": true,
+    "effective": {},
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\B5_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.022169600008055568,
+    "selected_config": {
+      "fit": "Gaussian_innovation_likelihood_LBFGSB",
+      "noise_log_bounds_relative_to_fit_variance": [
+        -18,
+        7
+      ],
+      "phi_bounds": [
+        -0.99,
+        0.99
+      ],
+      "state": "power_minus_observed_weekly_power"
+    },
+    "train_seconds": 3.582481999997981
+  },
+  "C1": {
+    "development_only": true,
+    "effective": {
+      "best_iteration": 339
+    },
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\score_lgbm_C1_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.012532100081443787,
+    "selected_config": {
+      "model_params": {
+        "min_child_samples": 80,
+        "num_leaves": 31
+      },
+      "peak_weight": 1.0,
+      "selected_id": "larger_min_child",
+      "target_transform": "weekly_residual"
+    },
+    "train_seconds": 0.19168499996885657
+  },
+  "M1": {
+    "development_only": true,
+    "effective": {
+      "best_iteration": 63
+    },
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\score_lgbm_M1_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.002126400009728968,
+    "selected_config": {
+      "model_params": {
+        "min_child_samples": 80,
+        "num_leaves": 31
+      },
+      "peak_weight": 1.0,
+      "selected_id": "larger_min_child",
+      "target_transform": "direct"
+    },
+    "train_seconds": 0.06527120003011078
+  },
+  "M1-W": {
+    "development_only": true,
+    "effective": {
+      "best_iteration": 73
+    },
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\score_lgbm_M1-W_h14_f1.joblib",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.002460299991071224,
+    "selected_config": {
+      "model_params": {
+        "min_child_samples": 80,
+        "num_leaves": 31
+      },
+      "peak_weight": 2.0,
+      "selected_id": "larger_min_child",
+      "target_transform": "direct"
+    },
+    "train_seconds": 0.0662284999853
+  },
+  "M2": {
+    "development_only": true,
+    "effective": {
+      "best_epoch": 74,
+      "epochs_ran": 84
+    },
+    "fit_artifact": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_c\\models\\score_tcn_M2_h14_f1.pt",
+    "fold": 1,
+    "horizon": 14,
+    "inference_seconds": 0.023022099980153143,
+    "selected_config": {
+      "model_params": {
+        "channels": 64,
+        "dropout": 0.1
+      },
+      "peak_weight": 1.0,
+      "selected_id": "c64_d01",
+      "target_transform": "direct"
+    },
+    "train_seconds": 17.005776299978606
+  }
+}

@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 696, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 676, in main
+    paths, plan = preflight(original, prepared)
+                  ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 244, in preflight
+    paths, rolling = _rolling_paths(original, prepared, parent)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Downloads\제조데이터 종합 판단 폴\phase_c_workspace\phase_f\goal_transition.py", line 206, in _rolling_paths
+    raise ValueError("Reconstructed R1 rolling paths differ from signed required cohort")
+ValueError: Reconstructed R1 rolling paths differ from signed required cohort

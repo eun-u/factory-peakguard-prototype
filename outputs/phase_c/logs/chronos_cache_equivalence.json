@@ -1,0 +1,63 @@
+{
+  "development_only": true,
+  "reference_only": true,
+  "equivalent_cache_found": false,
+  "new_inference_required": true,
+  "required_horizons": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "checks": [
+    {
+      "path": "outputs/p4/p4_chronos2_ref.parquet",
+      "exists": true,
+      "equivalent": false,
+      "schema_columns": [
+        "origin",
+        "target_time",
+        "horizon",
+        "fold",
+        "model",
+        "y",
+        "pred",
+        "tau",
+        "holiday_near",
+        "alert",
+        "alert_cutoff",
+        "reference_only"
+      ],
+      "reason": "Historical scalar prediction schema has no sealed 13-horizon path cache bound to this origin and input-quality contract; no data columns opened"
+    },
+    {
+      "path": "outputs/p4/p5_chronos2.parquet",
+      "exists": true,
+      "equivalent": false,
+      "schema_columns": [
+        "origin",
+        "target_time",
+        "horizon",
+        "fold",
+        "model",
+        "y",
+        "pred",
+        "tau",
+        "holiday_near",
+        "alert",
+        "alert_cutoff"
+      ],
+      "reason": "Historical scalar prediction schema has no sealed 13-horizon path cache bound to this origin and input-quality contract; no data columns opened"
+    }
+  ],
+  "historical_predictions_used": false
+}

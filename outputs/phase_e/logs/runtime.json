@@ -1,0 +1,31 @@
+{
+  "stages": [
+    {
+      "stage": "evaluate",
+      "started_at": "20261002T094249268275Z",
+      "seconds": 9.696778499986976,
+      "success": true
+    },
+    {
+      "stage": "finalize",
+      "started_at": "20261002T095048052460Z",
+      "seconds": 2.161983700003475,
+      "success": true
+    },
+    {
+      "stage": "parity",
+      "started_at": "20261002T093848648665Z",
+      "seconds": 3.394984499900602,
+      "success": true
+    },
+    {
+      "stage": "report",
+      "started_at": "20261002T094807169890Z",
+      "seconds": 2.0753692000871524,
+      "success": true
+    }
+  ],
+  "total_stage_seconds": 17.329115899978206,
+  "time_scope": "successful stages including final verification, excluding checksum-inventory serialization",
+  "development_only": true
+}

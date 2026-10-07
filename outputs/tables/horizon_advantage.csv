@@ -1,0 +1,13 @@
+﻿horizon,minutes,model,selected_model,comparison_role,baseline_family,baseline_model,paired_peak_n,peak_mae_gain,ci_low,ci_high,model_beats_baseline_ci
+1,15,lgbm_no_holiday,p1_latest,development_comparator_not_selected,persistence,p1_latest,416,1.0535684623826849,-0.5150910730600896,2.83939346262213,False
+1,15,lgbm_no_holiday,p1_latest,development_comparator_not_selected,seasonal,s2_week,416,8.572799231613454,3.789406160202746,16.074975270353885,True
+1,15,lgbm_no_holiday,p1_latest,development_comparator_not_selected,cbl,c2a_max_4_5_adjusted,416,4.468482324562169,0.9716534165356596,9.361212036707874,True
+4,60,lgbm_no_holiday_weight_2,lgbm_no_holiday_weight_2,selected_point_model,persistence,p1_latest,425,19.81572583111,15.697908231270805,24.97157616847257,True
+4,60,lgbm_no_holiday_weight_2,lgbm_no_holiday_weight_2,selected_point_model,seasonal,s2_week,425,4.542784654639406,0.336406896082093,10.874223334460545,True
+4,60,lgbm_no_holiday_weight_2,lgbm_no_holiday_weight_2,selected_point_model,cbl,c2a_max_4_5_adjusted,425,3.8130297526786188,-0.9259927696793501,9.869083914036512,False
+16,240,lgbm_no_holiday,c3_holiday_hybrid,development_comparator_not_selected,persistence,p3_recent_mean,425,27.162908285476846,10.57302330215262,43.27634427788675,True
+16,240,lgbm_no_holiday,c3_holiday_hybrid,development_comparator_not_selected,seasonal,s2_week,425,-19.77356230275845,-30.083563068666802,-9.431846440390405,False
+16,240,lgbm_no_holiday,c3_holiday_hybrid,development_comparator_not_selected,cbl,c3_holiday_hybrid,425,-23.47434661648394,-33.79124689274827,-14.175953782280994,False
+96,1440,lgbm_no_holiday,c3_holiday_hybrid,development_comparator_not_selected,persistence,p1_latest,369,20.65584838578702,-11.993295924689589,57.3682864856528,False
+96,1440,lgbm_no_holiday,c3_holiday_hybrid,development_comparator_not_selected,seasonal,s2_week,369,-21.47965296922653,-29.27606294789248,-11.784846532366792,False
+96,1440,lgbm_no_holiday,c3_holiday_hybrid,development_comparator_not_selected,cbl,c3_holiday_hybrid,369,-24.97829795567639,-33.16591493240626,-15.496110741922857,False

@@ -1,0 +1,10 @@
+{
+  "status": "running",
+  "stage": "all",
+  "pid": 56304,
+  "started_at": "2026-10-03T11:18:34.010336+00:00",
+  "full_phase_complete": false,
+  "stage_details": "logs/workflow/stage_*.json",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

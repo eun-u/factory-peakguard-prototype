@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "scope": "archived_development_evidence",
+  "evidence_base_commit": "94fb41bae821a0172543279dfc5c3a7b3e018918",
+  "new_experiments_executed": false,
+  "holdout_read": false,
+  "models": {
+    "1": {
+      "point_model": "p4_mstl_daily",
+      "risk_model": "p4_quantile_dense",
+      "risk_resolution": "explicit",
+      "horizon_minutes": 15,
+      "scope": "development_selected"
+    },
+    "4": {
+      "point_model": "p4_blend3",
+      "risk_model": "lgbm_quantile_b",
+      "risk_resolution": "legacy_conformal_field_confirmed_by_p4_summary",
+      "horizon_minutes": 60,
+      "scope": "development_selected"
+    },
+    "16": {
+      "point_model": "lgbm_residual_cbl",
+      "risk_model": "lgbm_quantile_b",
+      "risk_resolution": "explicit",
+      "horizon_minutes": 240,
+      "scope": "development_selected"
+    },
+    "96": {
+      "point_model": "c3_holiday_hybrid",
+      "risk_model": "lgbm_quantile_b",
+      "risk_resolution": "explicit",
+      "horizon_minutes": 1440,
+      "scope": "development_selected"
+    }
+  },
+  "claims": {
+    "C01": "supported_development",
+    "C02": "hypothesis",
+    "C03": "exploratory",
+    "C04": "simulation_only",
+    "C05": "design_only",
+    "C06": "exploratory"
+  },
+  "experiments": {
+    "H-P4": "completed",
+    "H-P5": "completed",
+    "H-P6": "completed",
+    "H-OPS": "completed",
+    "R2-EX01": "planned",
+    "R2-EX02": "planned",
+    "R2-EX03": "planned",
+    "R2-EX04": "planned",
+    "R2-EX05": "planned",
+    "R2-EX06": "planned"
+  },
+  "known_limitations": [
+    "개발 결과이며 최종 현장 성능이나 실제 절감 효과가 아니다.",
+    "마지막 15% 테스트를 과거에 1회 열람했으며 재봉인으로 미열람성이 복원되지 않는다.",
+    "전력 단위·15분 경계·설비별 제약·실제 교대가 미확인이다.",
+    "h4는 원점+60분에 끝나는 단일 구간이며 다음 한 시간의 최대나 전체 미래 궤적이 아니다.",
+    "h4 위험 모델은 기존 conformal:b 필드로 지정되어 P4 요약과 교차 확인한다. 과거 ranking_evidence는 최신 모델 지표로 재사용하지 않는다.",
+    "P6 walk-forward의 공통 τ는 원 JSON 177과 과거 요약 176이 불일치한다. 원인 확인 전 요약 수치를 전용하지 않는다.",
+    "신규 실험 계획은 planned 상태다. 기존 결과를 본 후의 가설이며 실행 전 후보·예산·판정 기준의 별도 고정이 필요하다."
+  ],
+  "sources": {
+    "configs/default.yaml": "4f50a299b47879dc3251cffb459c9df3dc71c133192dfd055ce9434ef8cb3b2c",
+    "eval_protocol.md": "625245e9a7d11f54bde4e35b9f519262440333a6ea95a7ef19f83ed09b1702f9",
+    "experiments/plans/R2-EX01.md": "469bbbfd60ba0b7eeae51ecf16249d3cd565dfc42ec38c15e5601666e26dbb69",
+    "experiments/plans/R2-EX02.md": "7eb801e554429473ac44f40302648c309654227a87caee8508149a71c46d8266",
+    "experiments/plans/R2-EX03.md": "13318ba52278c5c3af3823c5a69b9aeadedf49e87a6c00ca82c82b5f9ef4aaaf",
+    "experiments/plans/R2-EX04.md": "f1a3f0c123ede7f93b0a1b15de0eadc199c274491685a2fd84ebe7a9b88ab6d8",
+    "experiments/plans/R2-EX05.md": "033c27a8cbf45953a1ea6a5b27aef1f5e03f23765a96bfcd6ffc80ee633f5864",
+    "experiments/plans/R2-EX06.md": "743187c61093a5919502fb2147c8071770a97b2b9ea7a970d21b120473356ff8",
+    "experiments/registry.json": "2fac58370de1dc06f95ff9a7d5eb3b8acd120715a6f83b112d348ac26d7993f9",
+    "outputs/analysis_p1/A4_A5_summary.json": "c9949f3ea8bb82fc8577fa5e60259d7f621aa6003415892386ae0fc6d984dc4c",
+    "outputs/logs/P4_integration.json": "bc609fa9beff39eeb9df1c9018da4fdb50c8102811516b932000afd48af9d259",
+    "outputs/logs/development_selection.json": "613547deb6d3bcb3113d3ffdd4f7fbf2e4fc4871bbc05894d83db65dd1d79250",
+    "outputs/logs/preregistration_0925_P1.md": "fb4da983cf967565ee8beb4989fcf1b07a16e19c7b758b3124be0c23cc1e6a19",
+    "outputs/logs/preregistration_0928_P4.md": "0261ab566f0862abe3e84bbf16bf4f73bc214a0de13b862cb7b6077df5a9478b",
+    "outputs/logs/preregistration_0929_P5.md": "32924def2c48d5a792da04b79588bd42d52e2f461c94eff73067f38cd226d3f3",
+    "outputs/logs/preregistration_0929_P6.md": "9ecf0129a918f126c417427bfcaf64f4360b5087c247497d6d62fb042cacb27a",
+    "outputs/p4/p4_point_comparisons.csv": "2f246c8d32a92b62bc396971d221780332cb19605c476adfeec9f62976212d85",
+    "outputs/p4/p4_summary.json": "e261c6758bb28f3d2ae34ee8f768670921a0cad65c4991fe247f47328e5a28a4",
+    "outputs/p4/p5_point_comparisons.csv": "552771d75ac300f7e10d67a409eac432ed6192a7a62b02d39c43bbd08353341e",
+    "outputs/p6/P6_summary.md": "5bd43aa7f71c9db0930d772c3bfa6b3f936f7b84ecc82a86bcef5248597f595b",
+    "outputs/p6/e2_walkforward/summary.json": "90c8858ea6d1cd5f3a8963d92f0ad750fb56ce2c1b3b50619173f38a7ecb91fd",
+    "outputs/p6/e4_chronos/chronos_variants_table.csv": "3fd506222c44a1c5c08c8060441a968af159916b3ad4f71a600837e419834722",
+    "outputs/p6/e5_fn/summary.json": "eabc469517cc18b93c2fdb30576eb101e79f48014fcb49bc7557cb3a437fcd59",
+    "paper/references.bib": "773bea229a998e12e859326c61d9df26567fc6a03165bd5ee2f1714ff05502db",
+    "paper/sections/01_introduction.md": "75010d478b9563c500107489a6579d3ef7d6a53640e9a93e46d5045c5e084c1b",
+    "paper/sections/02_related_work.md": "c8756a5f62493d630eef6e86ff797172e17acea3f9ad684e7024079cff4bbc0d",
+    "paper/sections/03_method.md": "86f18de51d19a4e3f5132aecba3dec056d905b34412053b64c5c8a96d18bd7d0",
+    "paper/sections/04_experimental_design.md": "e662cfbc1e7a1a352ba95d6fc364735e92aa621a41a2519b9f41db3c82735314",
+    "paper/sections/06_discussion.md": "5d9f88c9404708716a10db253d2b067fa009c6d90a66ccc014a3083ee19cdcf7",
+    "paper/sections/07_threats.md": "ff424a7d815a31a76d298982485ac3594ef307635c6bc6a5c426f61d7ec84aca",
+    "paper/sections/08_conclusion.md": "61c9a3f82236c737090c9bf2ec91389f99a371824f78a9aaa92906df6445b425",
+    "research/__init__.py": "e546f7bbc60e74164177496d89238f9b43e9862ad2ff768e288bb69a3ee85ef5",
+    "research/__main__.py": "482b8693e2fe6dbd732e3d7961e03827d3efa187bad11d29da188be580ebbeea",
+    "research/charter.json": "5a12eaeb96cd297c19361d3b5eb480a67283c160ed6a311a43685f106f4b5635",
+    "research/claims.json": "58d1f699ac5b44745ce58f08c63424a7c1abec7bdb7e0831f1b7eea304a18f66",
+    "research/cli.py": "59f4ea020de90619cb39ae18d9a682f11efe523d318e019fcaa4eb5392cc1838",
+    "research/project.py": "f237cd4fce629fe9759f3070532a74c191a3ac7f0c1b6000efec7535d4375212",
+    "research_p4/evaluate_p4.py": "d2b7e6fe1351f8f2b9bf366624b77954122c6ad983b51f1928b79c5c28e02eca",
+    "research_p4/p5.py": "c65b22292f830f5fe2ab89ad984de9557eba53fa766018ae63f8b80591e0c411",
+    "research_p4/p6_e2_walkforward.py": "9bda200d766b55b466fc0b8ad8f59842d818505ca79bcca3f8b542977809a620",
+    "research_p4/p6_e5_fn.py": "caedbb14c9d3eba2269e763278440492d39ea40240f863cd70707df679fd61a3",
+    "src/analysis/decision.py": "3b4675457acecda0f051bd89d61f993e60579f57742f300eb6ba767c52ae44b5",
+    "src/analysis/shift_v2.py": "c8ef43ab6080341d224b6755e52ceb0f6649cca4c6083efc61b8281549c590c0",
+    "src/research_p4_integration.py": "9ec9bba4d8c116b06b6e682bed16cb1937cff110d228b67d033e6bc1ad73b8a2"
+  }
+}

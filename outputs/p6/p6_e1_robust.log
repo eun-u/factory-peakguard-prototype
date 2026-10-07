@@ -1,0 +1,19 @@
+{'scheme': 'S1_5fold', 'horizon': 1, 'folds': 5, 'seconds': 98.3, 'score_windows': [('2021-04-08 10:15:00', '2021-04-25 14:15:00'), ('2021-05-04 20:45:00', '2021-05-22 01:00:00'), ('2021-05-31 07:30:00', '2021-06-17 11:45:00'), ('2021-06-26 10:15:00', '2021-07-12 23:45:00'), ('2021-07-29 14:45:00', '2021-08-09 09:15:00')]}
+{'scheme': 'S1_5fold', 'horizon': 4, 'folds': 5, 'seconds': 83.7, 'score_windows': [('2021-04-08 11:00:00', '2021-04-25 14:15:00'), ('2021-05-04 21:30:00', '2021-05-22 00:45:00'), ('2021-05-31 08:00:00', '2021-06-17 11:15:00'), ('2021-06-26 10:30:00', '2021-07-12 23:00:00'), ('2021-07-29 15:30:00', '2021-08-09 08:30:00')]}
+{'scheme': 'S2_3fold_cal50', 'horizon': 1, 'folds': 3, 'seconds': 75.2, 'score_windows': [('2021-04-21 05:00:00', '2021-05-13 05:30:00'), ('2021-06-04 06:45:00', '2021-06-26 07:15:00'), ('2021-07-12 20:45:00', '2021-08-09 09:15:00')]}
+{'scheme': 'S2_3fold_cal50', 'horizon': 4, 'folds': 3, 'seconds': 67.4, 'score_windows': [('2021-04-21 05:45:00', '2021-05-13 05:15:00'), ('2021-06-04 07:15:00', '2021-06-26 06:45:00'), ('2021-07-12 20:30:00', '2021-08-09 08:30:00')]}
+            scheme  horizon                         a              b  peak_mae_a  peak_mae_b    gain  ci_low  ci_high  p4_gates_nominal
+0         S1_5fold        1                 p1_latest  p4_mstl_daily      11.404       8.196   3.207   2.353    4.211              True
+1         S1_5fold        1                   cbl_rep  p4_mstl_daily      14.557       8.196   6.360   2.944   11.490              True
+2         S1_5fold        1                 p1_latest        p4_dshw      11.404       8.250   3.154   2.213    4.154             False
+3         S1_5fold        4  lgbm_no_holiday_weight_2      p4_blend3      15.174      13.565   1.608  -0.135    4.088             False
+4         S1_5fold        4                   cbl_rep      p4_blend3      17.990      13.565   4.425  -0.229    9.789             False
+5         S1_5fold        4                 p1_latest      p4_blend3      37.504      13.565  23.939  20.052   28.855              True
+6         S1_5fold        4  lgbm_no_holiday_weight_2  p4_mstl_daily      15.174      15.708  -0.535  -4.619    3.402             False
+7   S2_3fold_cal50        1                 p1_latest  p4_mstl_daily      11.447       8.203   3.244   2.123    4.161              True
+8   S2_3fold_cal50        1                   cbl_rep  p4_mstl_daily      15.994       8.203   7.791   4.103   13.790              True
+9   S2_3fold_cal50        1                 p1_latest        p4_dshw      11.447       8.267   3.180   2.097    4.025              True
+10  S2_3fold_cal50        4  lgbm_no_holiday_weight_2      p4_blend3      15.307      13.042   2.265   0.840    3.539             False
+11  S2_3fold_cal50        4                   cbl_rep      p4_blend3      19.908      13.042   6.866   2.190   13.695              True
+12  S2_3fold_cal50        4                 p1_latest      p4_blend3      34.623      13.042  21.581  17.792   26.625              True
+13  S2_3fold_cal50        4  lgbm_no_holiday_weight_2  p4_mstl_daily      15.307      14.332   0.975  -2.666    3.802             False

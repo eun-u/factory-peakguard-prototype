@@ -1,0 +1,6 @@
+{
+  "checked_at_utc": "2026-10-01T12:10:13.074155+00:00",
+  "development_only": true,
+  "error": "AssertionError: Nonfinite pred; paired cohort must not shrink",
+  "status": "failed"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "stage1_feature_union",
+  "spec_ids": [
+    "F1-union-ridge",
+    "F1-union-without-lag_1_16-ridge",
+    "F1-union-without-lag_1_4-ridge",
+    "F1-union-without-lag_1_8-ridge",
+    "F1-union-without-legacy-ridge",
+    "F1-union-without-profile-ridge",
+    "F1-union-without-same_slot_2w-ridge",
+    "F1-union-without-same_slot_5work-ridge",
+    "F1-union-without-slot_1_7d-ridge",
+    "F1-union-without-slot_7_28d-ridge",
+    "F1-union-lightgbm",
+    "F1-union-without-lag_1_16-lightgbm",
+    "F1-union-without-lag_1_4-lightgbm",
+    "F1-union-without-lag_1_8-lightgbm",
+    "F1-union-without-legacy-lightgbm",
+    "F1-union-without-profile-lightgbm",
+    "F1-union-without-same_slot_2w-lightgbm",
+    "F1-union-without-same_slot_5work-lightgbm",
+    "F1-union-without-slot_1_7d-lightgbm",
+    "F1-union-without-slot_7_28d-lightgbm"
+  ],
+  "last_id": "F1-union-without-slot_7_28d-lightgbm",
+  "resolved": 20,
+  "total": 20,
+  "status": "completed",
+  "updated_at": "2026-10-03T15:29:21.171190+00:00",
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "completed_at": "2026-10-03T15:29:21.172047+00:00"
+}

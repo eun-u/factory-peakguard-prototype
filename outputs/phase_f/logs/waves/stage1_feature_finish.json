@@ -1,0 +1,67 @@
+{
+  "name": "stage1_feature_finish",
+  "hypothesis": "One production check and fit-only feature compression",
+  "specs": [
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d",
+        "production"
+      ],
+      "id": "F1-10-production-once",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm",
+      "production_single_check": true
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-11-top10",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm",
+      "feature_top_k": 10
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-11-top20",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm",
+      "feature_top_k": 20
+    },
+    {
+      "adapter": "regression",
+      "family": "F1",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F1-11-top40",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm",
+      "feature_top_k": 40
+    }
+  ],
+  "config_sha256": "7d35a26ab5612721da1a9e9d6c31b34c51a3ac644b1fb090736d465987613c6e",
+  "selection_arm": "EXPLORE",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

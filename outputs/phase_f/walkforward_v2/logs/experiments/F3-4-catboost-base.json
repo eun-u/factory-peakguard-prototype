@@ -1,0 +1,16 @@
+{
+  "exp_id": "F3-4-catboost-base",
+  "family": "F3",
+  "tier": 2,
+  "parent_exp": "F1-11-top40",
+  "config_json": "{\"adapter\":\"regression\",\"family\":\"F3\",\"feature_top_k\":40,\"groups\":[\"slot_1_7d\"],\"id\":\"F3-4-catboost-base\",\"kind\":\"catboost\",\"model_params\":{},\"nonfinite_policy\":\"weekly_anchor\",\"parent\":\"F1-11-top40\",\"target\":\"direct\",\"tier\":2}",
+  "config_hash": "f1599564671773e1e7683142d6e154218f8d5ddf89edb0e7eb3f4717345b3d33",
+  "code_commit": "ce6d09aced2dcce4bf31789aeaff1a1e6804fba9",
+  "source_digest": "2460f0358504a3cd8e416c8da865772bea5e443a4755a7fbfa83088fd6d8ff59",
+  "status": "planned",
+  "created_at": "2026-10-06T10:51:21.117179+00:00",
+  "explore_queries": 0,
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "note": ""
+}

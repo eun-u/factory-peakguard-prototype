@@ -1,0 +1,6 @@
+models/
+predictions/
+r1_paths/
+cache/
+*.log
+test_scratch/

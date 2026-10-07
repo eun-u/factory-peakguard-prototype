@@ -1,0 +1,117 @@
+{
+  "config": {
+    "id": "FG-R7-full-analog-gated-shallow-huber",
+    "members": [
+      {
+        "num_leaves": 3,
+        "min_child_samples": 300
+      },
+      {
+        "num_leaves": 7,
+        "min_child_samples": 300
+      }
+    ],
+    "objective": "huber",
+    "huber_alpha": 8.0,
+    "params": {
+      "learning_rate": 0.03,
+      "colsample_bytree": 0.7,
+      "subsample": 0.8,
+      "subsample_freq": 1,
+      "reg_lambda": 5.0,
+      "n_estimators": 8000
+    },
+    "early_stopping_rounds": 200,
+    "non_gated_weight": 3.0,
+    "seeds": [
+      42,
+      123,
+      2024,
+      3407,
+      777
+    ],
+    "gate": "today_prefix_distance==0 & same calendar day; most recent exact lag"
+  },
+  "arm": "CONFIRM",
+  "seeds": [
+    42,
+    123,
+    2024,
+    3407,
+    777
+  ],
+  "seed_mean_metrics": {
+    "AUC_MAE": 5.8163988056933835,
+    "AUC_PeakMAE": 14.163791543095005,
+    "h4_MAE": 3.9705175574780713,
+    "h16_MAE": 7.570140012931455,
+    "AUC_nMAE": 0.06203713271123694,
+    "D2_AUC_MAE": 7.7313444615094715
+  },
+  "targets": {
+    "targets_met": false,
+    "individual": {
+      "AUC_MAE": false,
+      "AUC_PeakMAE": false,
+      "h4_MAE": false,
+      "h16_MAE": false,
+      "AUC_nMAE": false
+    }
+  },
+  "per_seed": {
+    "42": {
+      "AUC_MAE": 5.8569790444621,
+      "AUC_PeakMAE": 14.157320096365076,
+      "h4_MAE": 4.016674341899266,
+      "h16_MAE": 7.606512292908526,
+      "AUC_nMAE": 0.06246997173047057,
+      "D2_AUC_MAE": 7.796361507652365
+    },
+    "123": {
+      "AUC_MAE": 5.811680871241737,
+      "AUC_PeakMAE": 14.130161104322905,
+      "h4_MAE": 3.957814748459128,
+      "h16_MAE": 7.571706513945578,
+      "AUC_nMAE": 0.06198680376001332,
+      "D2_AUC_MAE": 7.7201122927452905
+    },
+    "2024": {
+      "AUC_MAE": 5.8299271551059055,
+      "AUC_PeakMAE": 14.164319600739068,
+      "h4_MAE": 3.9810565574409966,
+      "h16_MAE": 7.59019280693813,
+      "AUC_nMAE": 0.06218142101609751,
+      "D2_AUC_MAE": 7.750794161412104
+    },
+    "3407": {
+      "AUC_MAE": 5.812633118170674,
+      "AUC_PeakMAE": 14.213402885326888,
+      "h4_MAE": 3.9603927790417557,
+      "h16_MAE": 7.567917105245421,
+      "AUC_nMAE": 0.06199696504825544,
+      "D2_AUC_MAE": 7.717961859604193
+    },
+    "777": {
+      "AUC_MAE": 5.789012082492467,
+      "AUC_PeakMAE": 14.156048532354943,
+      "h4_MAE": 3.9538151308938785,
+      "h16_MAE": 7.535032109598432,
+      "AUC_nMAE": 0.06174503182425842,
+      "D2_AUC_MAE": 7.694404521751509
+    }
+  },
+  "gated_share": 0.4639685792349727,
+  "folds": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+  ],
+  "holdout_read": false,
+  "wall_seconds": 2166.9
+}

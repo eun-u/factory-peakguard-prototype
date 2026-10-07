@@ -1,0 +1,101 @@
+{
+  "spec": {
+    "adapter": "r1_residual",
+    "groups": [
+      "lag_1_16",
+      "slot_7_28d",
+      "profile",
+      "rolling",
+      "trend",
+      "calendar",
+      "peak"
+    ],
+    "peak_weight": 1.0,
+    "model_params": {
+      "n_estimators": 1200,
+      "learning_rate": 0.03,
+      "num_leaves": 31,
+      "min_child_samples": 100,
+      "objective": "regression",
+      "colsample_bytree": 0.85,
+      "subsample": 0.85,
+      "subsample_freq": 1,
+      "reg_lambda": 5.0,
+      "n_jobs": 4
+    },
+    "early_stopping_rounds": 60,
+    "id": "FG-R1-expanded-l2",
+    "family": "F2",
+    "recency_halflife_days": null
+  },
+  "status": "completed",
+  "result": {
+    "at": "2026-10-06T12:47:55.819644+00:00",
+    "candidate": "FG-R1-expanded-l2",
+    "arm": "EXPLORE",
+    "fields": {
+      "AUC_MAE": 7.332247638581336,
+      "AUC_PeakMAE": 14.306290949836306,
+      "AUC_nMAE": 0.07807218496428556,
+      "h4_MAE": 5.81226590879696,
+      "h16_MAE": 8.793679645700054,
+      "h4_PeakMAE": 11.450385180866949,
+      "h16_PeakMAE": 16.316823235509137
+    },
+    "targets_met": false,
+    "individual": {
+      "AUC_MAE": false,
+      "AUC_PeakMAE": false,
+      "h4_MAE": false,
+      "h16_MAE": false,
+      "AUC_nMAE": false
+    },
+    "seed_uncertainty": {
+      "AUC_MAE": {
+        "individual_mean": 7.332247638581336,
+        "individual_sd": 0.0
+      },
+      "AUC_PeakMAE": {
+        "individual_mean": 14.306290949836306,
+        "individual_sd": 0.0
+      },
+      "AUC_nMAE": {
+        "individual_mean": 0.07807218496428556,
+        "individual_sd": 0.0
+      },
+      "h4_MAE": {
+        "individual_mean": 5.81226590879696,
+        "individual_sd": 0.0
+      },
+      "h16_MAE": {
+        "individual_mean": 8.793679645700054,
+        "individual_sd": 0.0
+      },
+      "h4_PeakMAE": {
+        "individual_mean": 11.450385180866949,
+        "individual_sd": 0.0
+      },
+      "h16_PeakMAE": {
+        "individual_mean": 16.316823235509137,
+        "individual_sd": 0.0
+      }
+    },
+    "n_seeds": 5,
+    "ranking_basis": "metrics of mean forecasts",
+    "independent_confirmation": "pending",
+    "goal_achieved": false,
+    "holdout_read": false,
+    "leakage_test": "passed",
+    "prediction_sha256": "fca7953bff5e986b02b3ffc3c2c2bac37feffa5257547cf5d123beee3273731e",
+    "artifacts": {
+      "auc.csv": "27cd40dcef64ff7e082366da57e12678ee9cbd563e86d6481ccd4c5984c4d73a",
+      "daily.csv": "1c6714ce5d2f9e970e0d175559fc06a2f673575e1247c99c423a4d1391fece94",
+      "daily_summary.csv": "ecb1b8ace9c24c3001494c510cf90bc2dcdbf1969d38ca7b55560178d7098d0b",
+      "fold.csv": "31e83648f9bd3ee3b926aabe8a0fc8d75f33f17d053da0ec1251ca88f55abe93",
+      "paired_ci.csv": "e356582dcb42a4d34fd795efad503fd01d39a0b458edbae510064367e8405696",
+      "pooled.csv": "4484d46a370754edbcc09ef546936c9c51a0455d19b879f294cc23f5a066b963",
+      "seed_metrics.csv": "0e4a0d424b2db522cdafe35851fcbedb6c1cc05abbc1574922b527010cad7607"
+    }
+  },
+  "holdout_read": false
+}

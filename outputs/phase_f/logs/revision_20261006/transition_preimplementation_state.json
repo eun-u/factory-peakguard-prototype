@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-06T13:25:19.695013+00:00",
+  "frozen_source_checks": [
+    {
+      "namespace": "goal_r1_v2",
+      "checked": 15,
+      "changed": []
+    },
+    {
+      "namespace": "goal_r1_ft_v1",
+      "checked": 17,
+      "changed": []
+    },
+    {
+      "namespace": "goal_r1_guard_v1",
+      "checked": 19,
+      "changed": []
+    }
+  ],
+  "protected_files_verified": 803,
+  "holdout_read": false,
+  "historical_final_artifact_read": false,
+  "new_candidate_trained": false,
+  "goal_achieved": false,
+  "transition_diagnosis_sha256": "f2baabeb629d693d97666f857641899f60b4cbce5042a7a71afa2dbbab86d007",
+  "transition_plan_sha256": "9e075bc894e98cc25b5e8cce50a3a8d5b456c602994c704e80e2e6670535e8ea",
+  "research_build_check": "passed",
+  "research_tests": {
+    "passed": 10,
+    "environment_errors": 2,
+    "reason": "Windows file-symlink creation lacks WinError1314 privilege"
+  }
+}

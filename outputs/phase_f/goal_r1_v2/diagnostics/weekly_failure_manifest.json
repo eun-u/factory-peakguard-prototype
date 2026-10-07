@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-06T11:58:24.950407+00:00",
+  "sources": {
+    "outputs\\phase_f\\walkforward_v2\\tables\\F0-1-R1\\EXPLORE\\fold.csv": "4f707588f19718736ca85817c26663ecd56e8e6f258a70a942c078f5286ca21f",
+    "outputs\\phase_f\\goal_r1_v2\\tables\\FG-R1-core-l1\\EXPLORE\\fold.csv": "5e745046aa2944144c78aeed13570b92fa5414b8b58798ee1d2a0331b484d77a"
+  },
+  "artifacts": {
+    "core_R1_weekly_failure.png": "02e1b9fd0ee2a29e05414450abaacd79d9d4673d0e8b8820f1d183b34dc71051",
+    "core_R1_weekly_horizon_mean.csv": "6e6ed765c5c92075e2cb7557a25d1e6848fecb63f80e136baf3d23d9bd387a70"
+  },
+  "grouping": "equal horizon mean within each EXPLORE fold; missing peak cells remain unavailable",
+  "arm": "EXPLORE",
+  "analysis_only": true,
+  "holdout_read": false
+}

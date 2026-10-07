@@ -1,146 +1,174 @@
-"""개발 구간(시험 이전) rolling-origin 평가: 사전 검증 재현, 예측거리 곡선, conformal 보정.
-
-시험 구간(마지막 15%)은 여기서 사용하지 않는다. 각 폴드의 피크 경계는 그 폴드의 학습 구간에서 계산한다.
-"""
+"""Development-only horizon performance curve from matched OOF rows."""
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from ..evaluate import block_bootstrap
-from ..features import feature_frame
-from ..models.baselines import naive_predict, persistence_predict
-from ..models.lgbm_point import regression_model
-from ..models.lgbm_quantile import conformal_offset
-from ..split import rolling_origin_folds
+from src.viz import configure, save
+from ._common import write_table
+from .errors import match_episode_table
 
 
-def rolling_origin(cfg: dict, x: pd.DataFrame, y: pd.Series, meta: pd.DataFrame) -> list[dict]:
-    """사전 검증 05_rolling_origin.csv와 같은 계산. persistence(최근 15분)를 추가로 기록한다."""
+def horizon_metrics(predictions: pd.DataFrame, selected_models: dict[int, str] | None = None,
+                    n_boot: int = 1000, seed: int = 42) -> pd.DataFrame:
     rows = []
-    n = len(x)
-    ro = cfg["rolling_origin"]
-    purge = cfg["one_hour"]["purge_origins"]
-    for fold, (train_end, start, end) in enumerate(rolling_origin_folds(n, ro["start_fractions"], ro["width_fraction"], purge), 1):
-        train_x, train_y = x.iloc[:train_end], y.iloc[:train_end]
-        fold_x, fold_y, fold_meta = x.iloc[start:end], y.iloc[start:end], meta.iloc[start:end]
-        if meta.iloc[train_end - 1]["target_time"] >= fold_x.index.min():
-            raise AssertionError("Rolling-origin training label overlaps evaluation origin")
-        model = regression_model(cfg).fit(train_x, train_y)
-        peak = float(train_y.quantile(cfg["one_hour"]["peak_quantile"]))
-        frame = pd.DataFrame({"y": fold_y, "date": fold_meta["date"],
-                              "day": naive_predict(fold_x, "day"), "week": naive_predict(fold_x, "week"),
-                              "average": naive_predict(fold_x, "average"),
-                              "lgb": model.predict(fold_x),
-                              "persistence": persistence_predict(fold_x, "latest_15m")})
-
-        def metrics(f):
-            actual = f["y"].to_numpy()
-            event = actual > peak
-            answer = {}
-            for name in ("day", "week", "average", "lgb", "persistence"):
-                e = np.abs(actual - f[name].to_numpy())
-                answer[f"{name}_mae"] = float(np.mean(e))
-                answer[f"{name}_peak_mae"] = float(np.mean(e[event])) if event.any() else float("nan")
-            return answer
-
-        point, ci = block_bootstrap(frame, metrics, cfg["bootstrap_draws"], cfg["seed"])
-        for name in ("day", "week", "average", "lgb", "persistence"):
-            rows.append({"fold": fold, "model": name, "training_rows": len(train_x),
-                         "evaluation_rows": len(fold_x), "evaluation_first": str(fold_x.index.min()),
-                         "evaluation_last": str(fold_x.index.max()), "peak_threshold": peak,
-                         "peak_events": int((fold_y > peak).sum()),
-                         "mae": point[f"{name}_mae"], "mae_ci_low": ci[f"{name}_mae"][0],
-                         "mae_ci_high": ci[f"{name}_mae"][1],
-                         "peak_mae": point[f"{name}_peak_mae"],
-                         "peak_mae_ci_low": ci[f"{name}_peak_mae"][0],
-                         "peak_mae_ci_high": ci[f"{name}_peak_mae"][1]})
-    return rows
-
-
-def _pooled_folds(cfg: dict, series: pd.DataFrame, horizon: int):
-    """1시간 설정과 같은 비율의 폴드. 모든 폴드는 시험 구간(85% 지점 이후) 앞에서 끝난다."""
-    x, y, meta = feature_frame(series, horizon, cfg["one_hour"]["lags"])
-    ro = cfg["rolling_origin"]
-    folds = rolling_origin_folds(len(x), ro["start_fractions"], ro["width_fraction"], horizon)
-    dev_end = int(len(x) * cfg["one_hour"]["split_fractions"][1]) - horizon
-    if any(end > dev_end for _, _, end in folds):
-        raise AssertionError("Development fold reaches the held-out test period")
-    for train_end, start, _ in folds:
-        if meta.iloc[train_end - 1]["target_time"] >= x.index[start]:
-            raise AssertionError("Fold training label overlaps evaluation origin")
-    return x, y, meta, folds
-
-
-def horizon_curve(cfg: dict, series: pd.DataFrame) -> pd.DataFrame:
-    rows = []
-    for horizon in cfg["horizon_curve"]["horizons_steps"]:
-        x, y, meta, folds = _pooled_folds(cfg, series, horizon)
-        frames = []
-        for fold, (train_end, start, end) in enumerate(folds, 1):
-            model = regression_model(cfg).fit(x.iloc[:train_end], y.iloc[:train_end])
-            peak = float(y.iloc[:train_end].quantile(cfg["one_hour"]["peak_quantile"]))
-            fx = x.iloc[start:end]
-            frames.append(pd.DataFrame({"y": y.iloc[start:end].to_numpy(), "date": meta["date"].iloc[start:end].to_numpy(),
-                                        "event": (y.iloc[start:end] > peak).to_numpy(),
-                                        "persistence": persistence_predict(fx, "latest_15m"),
-                                        "week": naive_predict(fx, "week", horizon),
-                                        "day": naive_predict(fx, "day", horizon),
-                                        "lgb": model.predict(fx)}))
-        frame = pd.concat(frames, ignore_index=True)
-
-        def metrics(f):
-            out = {}
-            event = f["event"].to_numpy()
-            for name in ("persistence", "day", "week", "lgb"):
-                e = np.abs(f["y"].to_numpy() - f[name].to_numpy())
-                out[f"{name}_mae"] = float(e.mean())
-                out[f"{name}_peak_mae"] = float(e[event].mean()) if event.any() else float("nan")
-            best = min(out["persistence_peak_mae"], out["day_peak_mae"], out["week_peak_mae"])
-            out["lgb_vs_best_baseline_peak"] = float(1 - out["lgb_peak_mae"] / best) if best > 0 else float("nan")
-            return out
-
-        point, ci = block_bootstrap(frame, metrics, cfg["bootstrap_draws"], cfg["seed"])
-        for key, value in point.items():
-            rows.append({"horizon_minutes": horizon * 15, "metric": key, "value": value,
-                         "ci_low": ci[key][0], "ci_high": ci[key][1], "rows": len(frame),
-                         "peak_positions": int(frame["event"].sum())})
+    for (horizon, model), group in predictions.groupby(["horizon", "model"]):
+        group = group.sort_values("target_time").copy()
+        if group.duplicated("target_time").any():
+            continue
+        actual_peak = group.y > group.tau
+        peaks = group.loc[actual_peak].copy()
+        if peaks.empty:
+            peak_mae = low = high = np.nan
+        else:
+            peaks["abs_error"] = (peaks.y-peaks.pred).abs()
+            daily = peaks.groupby(peaks.target_time.dt.normalize()).abs_error.agg(["sum", "count"])
+            peak_mae = float(daily["sum"].sum()/daily["count"].sum())
+            if len(daily) >= 2:
+                rng = np.random.default_rng(seed)
+                ids = rng.integers(0, len(daily), size=(n_boot, len(daily)))
+                sums, counts = daily["sum"].to_numpy(), daily["count"].to_numpy()
+                low, high = map(float, np.quantile(sums[ids].sum(axis=1)/counts[ids].sum(axis=1), [.025, .975]))
+            else:
+                low = high = np.nan
+        group["alert_flag"] = pd.to_numeric(group.get("alert", group.pred > group.tau), errors="coerce").astype(bool)
+        events = match_episode_table(group)
+        tp = int(events.status.eq("TP").sum())
+        fp = int(events.status.eq("FP").sum())
+        fn = int(events.status.eq("FN").sum())
+        f1 = 2*tp/(2*tp+fp+fn) if 2*tp+fp+fn else np.nan
+        rows.append({"horizon": int(horizon), "minutes": int(horizon*15), "model": model,
+                     "selected": bool(selected_models and selected_models.get(int(horizon)) == model),
+                     "n": len(group), "peak_n": int(actual_peak.sum()),
+                     "mae": float((group.y-group.pred).abs().mean()),
+                     "peak_mae": peak_mae, "peak_mae_ci_low": low, "peak_mae_ci_high": high,
+                     "episode_f1": f1, "tp": tp, "fp": fp, "fn": fn})
     return pd.DataFrame(rows)
 
 
-def conformal_dev(cfg: dict, x: pd.DataFrame, y: pd.Series, meta: pd.DataFrame) -> pd.DataFrame:
-    """각 개발 폴드: 학습 앞부분으로 분위수 모델 학습, 뒷부분(보정 세트)으로 δ 계산, 폴드 평가 창에서 커버리지."""
-    ro = cfg["rolling_origin"]
-    purge = cfg["one_hour"]["purge_origins"]
-    frac = cfg["conformal"]["calibration_fraction"]
-    rows, frames = [], []
-    for fold, (train_end, start, end) in enumerate(rolling_origin_folds(len(x), ro["start_fractions"], ro["width_fraction"], purge), 1):
-        cal_start = int(train_end * (1 - frac))
-        fit_end = cal_start - purge
-        fx = x.iloc[start:end]
-        frame = pd.DataFrame({"y": y.iloc[start:end].to_numpy(), "date": meta["date"].iloc[start:end].to_numpy()})
-        for level in cfg["conformal"]["targets"]:
-            model = regression_model(cfg, alpha=level).fit(x.iloc[:fit_end], y.iloc[:fit_end])
-            delta = conformal_offset(y.iloc[cal_start:train_end].to_numpy(), model.predict(x.iloc[cal_start:train_end]), level)
-            pred = model.predict(fx)
-            frame[f"raw_{level}"] = pred
-            frame[f"conf_{level}"] = pred + delta
-            rows.append({"fold": fold, "level": level, "delta": delta,
-                         "calibration_rows": train_end - cal_start, "fit_rows": fit_end})
-        frames.append(frame)
-    pooled = pd.concat(frames, ignore_index=True)
+def plot_horizon_curve(table: pd.DataFrame, path: Path,
+                       representatives: dict[int, dict] | None = None) -> Path | None:
+    if table.empty:
+        return None
+    configure()
+    families = {"Persistence": r"^p[123]_", "Seasonal": r"^s[123]_", "CBL": r"^c[123]a?_"}
+    series = []
+    for horizon, group in table.groupby("horizon"):
+        point = group.loc[group.selected & group.model.astype(str).str.startswith("lgbm")]
+        if point.empty:
+            point = group.loc[group.model.eq("lgbm_no_holiday")]
+        if not point.empty:
+            role = "selected" if bool(point.selected.iloc[0]) else "baseline_winner_comparator"
+            series.append(point.iloc[[0]].assign(curve="LightGBM", comparison_role=role))
+        for label, pattern in families.items():
+            candidates = group.loc[group.model.astype(str).str.match(pattern)]
+            if not candidates.empty:
+                if representatives is not None:
+                    name = representatives.get(int(horizon), {}).get(label.lower())
+                    candidates = candidates.loc[candidates.model.eq(name)]
+                else:
+                    candidates = candidates.sort_values("mae").iloc[[0]]
+                if not candidates.empty:
+                    series.append(candidates.iloc[[0]].assign(curve=label))
+    if not series:
+        return None
+    keep = pd.concat(series)
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.1), sharex=True)
+    for model, frame in keep.groupby("curve"):
+        frame = frame.sort_values("minutes")
+        axes[0].plot(frame.minutes, frame.peak_mae, marker="o", label=str(model))
+        axes[1].plot(frame.minutes, frame.episode_f1, marker="o", label=str(model))
+    for ax in axes:
+        ax.set_xscale("log")
+        ax.set_xticks(sorted(table.minutes.unique()))
+        ax.set_xticklabels([f"{m//60}시간" if m >= 60 else f"{m}분" for m in sorted(table.minutes.unique())])
+        ax.set_xlabel("예측거리")
+        ax.grid(True)
+    axes[0].set_ylabel("피크 위치 MAE (원자료 단위)")
+    axes[0].set_title("피크 위치 오차")
+    axes[1].set_ylabel("에피소드 F1")
+    axes[1].set_ylim(0, 1)
+    axes[1].set_title("피크 에피소드 적중")
+    axes[0].legend(fontsize=7, ncol=2)
+    if keep.get("comparison_role", pd.Series(dtype=str)).eq("baseline_winner_comparator").any():
+        fig.text(.5, .01, "기준선이 선택된 예측거리의 LightGBM은 공휴일 제외 개발 비교 모델",
+                 ha="center", fontsize=8, color="#B8741A")
+    fig.suptitle("예측거리별 성능 · 개발 교차검증")
+    fig.tight_layout(rect=(0, .04, 1, .93))
+    return save(fig, path)
 
-    def metrics(f):
-        out = {}
-        for level in cfg["conformal"]["targets"]:
-            for kind in ("raw", "conf"):
-                cover = float(np.mean(f["y"].to_numpy() <= f[f"{kind}_{level}"].to_numpy()))
-                out[f"{kind}_{level}_coverage"] = cover
-                out[f"{kind}_{level}_coverage_error"] = abs(cover - level)
-                out[f"{kind}_{level}_mean_bound"] = float(f[f"{kind}_{level}"].mean())
-        return out
 
-    point, ci = block_bootstrap(pooled, metrics, cfg["bootstrap_draws"], cfg["seed"])
-    summary = pd.DataFrame([{"metric": k, "value": v, "ci_low": ci[k][0], "ci_high": ci[k][1]} for k, v in point.items()])
-    return summary, pd.DataFrame(rows)
+def paired_horizon_advantage(predictions: pd.DataFrame, selected_models: dict[int, str] | None,
+                             n_boot: int, seed: int, representatives: dict[int, dict] | None = None) -> pd.DataFrame:
+    """Paired day-block MAE gain over each baseline family at each horizon."""
+    families = {"persistence": r"^p[123]_", "seasonal": r"^s[123]_", "cbl": r"^c[123]a?_"}
+    rows = []
+    keys = ["target_time", "fold", "horizon"]
+    for horizon, group in predictions.groupby("horizon"):
+        chosen = (selected_models or {}).get(int(horizon), "lgbm")
+        model = chosen if str(chosen).startswith("lgbm") else "lgbm_no_holiday"
+        comparison_role = "selected_point_model" if model == chosen else "development_comparator_not_selected"
+        point = group.loc[group.model.eq(model), keys+["y", "pred", "tau"]].rename(columns={"pred": "model_pred"})
+        if point.empty:
+            continue
+        for family, pattern in families.items():
+            candidates = group.loc[group.model.astype(str).str.match(pattern)]
+            if candidates.empty:
+                continue
+            if representatives is not None:
+                representative = representatives.get(int(horizon), {}).get(family)
+                if representative not in set(candidates.model):
+                    continue
+            else:
+                representative = (candidates.assign(abs_error=lambda x: (x.y-x.pred).abs())
+                                  .groupby("model").abs_error.mean().idxmin())
+            base = candidates.loc[candidates.model.eq(representative), keys+["pred"]].rename(columns={"pred": "base_pred"})
+            pair = point.merge(base, on=keys, how="inner", validate="one_to_one")
+            pair = pair.loc[pair.y.gt(pair.tau) & pair.model_pred.notna() & pair.base_pred.notna()].copy()
+            if pair.empty:
+                continue
+            pair["gain"] = (pair.y-pair.base_pred).abs()-(pair.y-pair.model_pred).abs()
+            daily = pair.groupby(pair.target_time.dt.normalize()).gain.agg(["sum", "count"])
+            gain = float(daily["sum"].sum()/daily["count"].sum())
+            if len(daily) >= 2:
+                rng = np.random.default_rng(seed)
+                ids = rng.integers(0, len(daily), size=(n_boot, len(daily)))
+                samples = daily["sum"].to_numpy()[ids].sum(axis=1)/daily["count"].to_numpy()[ids].sum(axis=1)
+                low, high = map(float, np.quantile(samples, [.025, .975]))
+            else:
+                low = high = np.nan
+            rows.append({"horizon": int(horizon), "minutes": int(horizon*15), "model": model,
+                         "selected_model": chosen, "comparison_role": comparison_role,
+                         "baseline_family": family, "baseline_model": representative,
+                         "paired_peak_n": len(pair), "peak_mae_gain": gain,
+                         "ci_low": low, "ci_high": high,
+                         "model_beats_baseline_ci": bool(np.isfinite(low) and low > 0)})
+    return pd.DataFrame(rows)
+
+
+def run_horizon_curve(predictions: pd.DataFrame, outdir: Path, cfg: dict,
+                      selected_models: dict[int, str] | None = None,
+                      representatives: dict[int, dict] | None = None) -> dict:
+    n_boot, seed = int(cfg.get("bootstrap", {}).get("n", 1000)), int(cfg.get("seed", 42))
+    table = horizon_metrics(predictions, selected_models, n_boot=n_boot, seed=seed)
+    advantage = paired_horizon_advantage(predictions, selected_models, n_boot, seed, representatives)
+    path = write_table(table, outdir/"tables"/"horizon_curve.csv")
+    advantage_path = write_table(advantage, outdir/"tables"/"horizon_advantage.csv")
+    fig = plot_horizon_curve(table, outdir/"figures"/"horizon_curve.png", representatives)
+    selected_gain = (advantage.loc[advantage.comparison_role.eq("selected_point_model")]
+                     if not advantage.empty else advantage)
+    comparator_gain = (advantage.loc[advantage.comparison_role.eq("development_comparator_not_selected")]
+                       if not advantage.empty else advantage)
+    def furthest(frame: pd.DataFrame) -> dict:
+        return {family: int(group.loc[group.model_beats_baseline_ci, "minutes"].max())
+                for family, group in frame.groupby("baseline_family")
+                if group.model_beats_baseline_ci.any()} if not frame.empty else {}
+    maximum = furthest(selected_gain)
+    return {"status": "ok", "paths": {"table": str(path), "advantage": str(advantage_path),
+                                     "figure": str(fig) if fig else None},
+            "maximum_horizon_minutes_beating_baseline_ci": maximum,
+            "development_comparator_maximum_horizon_minutes_beating_baseline_ci": furthest(comparator_gain)}

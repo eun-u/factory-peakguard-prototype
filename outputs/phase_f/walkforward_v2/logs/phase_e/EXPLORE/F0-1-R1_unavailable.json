@@ -1,0 +1,7 @@
+{
+  "candidate": "F0-1-R1",
+  "reason": "ValueError: Platt calibration requires both classes in cal",
+  "prediction_sha256": "84290467799a5a282c65334cfb23637347283df776cd0ed59674212d9ddcbfcf",
+  "holdout_read": false,
+  "historical_final_artifact_read": false
+}

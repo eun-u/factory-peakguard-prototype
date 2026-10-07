@@ -1,0 +1,23 @@
+{
+  "protocol": "goal_r1_guard_v1",
+  "targets": {
+    "AUC_MAE": 4.5,
+    "AUC_PeakMAE": 9.0,
+    "h4_MAE": 3.5,
+    "h16_MAE": 5.5,
+    "AUC_nMAE": 0.05
+  },
+  "target_authorization": "User accepted competitive targets and requested execution",
+  "primary_geometry": "existing walkforward_v2; 13 horizons h4..h16",
+  "ranking": "metrics of the mean of five individually guarded seed forecasts",
+  "training": "no new fitting; fixed point-forecast transforms of each of five frozen parent seeds",
+  "selection_arm": "EXPLORE",
+  "confirmation": "independent locked WF CONFIRM and auxiliary checks remain pending",
+  "holdout_read": false,
+  "commercial_qualification": "not implied by target attainment on this single-site development set",
+  "past_result_used_for_design": "R1 EXPLORE outcomes, FG-R1-core-l1 five-seed fold-15 negative-correction failure, and a posthoc R1 q90 tail-guard counterfactual",
+  "parent_requirements": "all ten initial R1 residual candidates complete before any guard score",
+  "guard_grid": "three fixed tail policies times ten fixed parent candidates",
+  "design_status": "post-observation exploratory hypothesis, frozen before guard-candidate scoring",
+  "contract_sha256": "135a9bc0f0330ab057376a1cbc25eeba7021a273b04552a59dc13db7e6031a84"
+}

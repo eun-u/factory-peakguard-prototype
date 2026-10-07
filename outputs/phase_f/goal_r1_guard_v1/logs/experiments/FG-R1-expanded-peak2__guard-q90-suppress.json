@@ -1,0 +1,103 @@
+{
+  "spec": {
+    "id": "FG-R1-expanded-peak2__guard-q90-suppress",
+    "adapter": "frozen_r1_tail_guard",
+    "parent": "FG-R1-expanded-peak2",
+    "family": "R1-tail-guard",
+    "policy": {
+      "name": "q90-suppress",
+      "quantile": "q90",
+      "negative_factor": 0.0
+    },
+    "arm": "EXPLORE",
+    "n_seeds": 5
+  },
+  "status": "completed",
+  "result": {
+    "at": "2026-10-06T12:56:43.229657+00:00",
+    "candidate": "FG-R1-expanded-peak2__guard-q90-suppress",
+    "arm": "EXPLORE",
+    "fields": {
+      "AUC_MAE": 7.325662347219382,
+      "AUC_PeakMAE": 13.877402556310404,
+      "AUC_nMAE": 0.07800207756141876,
+      "h4_MAE": 5.879449580082247,
+      "h16_MAE": 8.713432286473695,
+      "h4_PeakMAE": 11.302605256009171,
+      "h16_PeakMAE": 15.675948184575526
+    },
+    "targets_met": false,
+    "individual": {
+      "AUC_MAE": false,
+      "AUC_PeakMAE": false,
+      "h4_MAE": false,
+      "h16_MAE": false,
+      "AUC_nMAE": false
+    },
+    "seed_uncertainty": {
+      "AUC_MAE": {
+        "individual_mean": 7.38650214372538,
+        "individual_sd": 0.08971716033310269
+      },
+      "AUC_PeakMAE": {
+        "individual_mean": 13.88165745648458,
+        "individual_sd": 0.15580800349655868
+      },
+      "AUC_nMAE": {
+        "individual_mean": 0.0786498880463656,
+        "individual_sd": 0.0009552931091828409
+      },
+      "h4_MAE": {
+        "individual_mean": 5.944944172640417,
+        "individual_sd": 0.0963456818303983
+      },
+      "h16_MAE": {
+        "individual_mean": 8.775369864599737,
+        "individual_sd": 0.07716500171025575
+      },
+      "h4_PeakMAE": {
+        "individual_mean": 11.302786828462317,
+        "individual_sd": 0.04250970240354599
+      },
+      "h16_PeakMAE": {
+        "individual_mean": 15.682426265119158,
+        "individual_sd": 0.22695881266460252
+      }
+    },
+    "n_seeds": 5,
+    "ranking_basis": "metrics of mean forecasts",
+    "independent_confirmation": "pending",
+    "goal_achieved": false,
+    "holdout_read": false,
+    "leakage_test": "passed",
+    "prediction_sha256": "12367fea0c866ef34868fbb434f5cede2e62ccebaa998974ac5ecce962e9e909",
+    "artifacts": {
+      "auc.csv": "f0936ffe542e0feb149cbdc26b9dcc26653ae84babd363cdc04955a86e696280",
+      "daily.csv": "e4c2ac255bb9e7c19aecf401f5435ef4067860986b6a39a96d690403e3289656",
+      "daily_summary.csv": "1d2e51d9618c94fae6170e1f9a00c54c490b7f51a7e4b347a376181cd63f099c",
+      "fold.csv": "c52aca153684ae6027601a5b3660b361274d4d0e4b23bac2ef5d1ed428072fb8",
+      "paired_ci.csv": "bf46581f31a0c363ce53f3a5dd355526b1a80ea191720e5feaaf6b410471d626",
+      "pooled.csv": "c0f461f7f4f00c4cd19aa2c02b0781a12539541eea29364934d54a3678c17ffb",
+      "seed_metrics.csv": "4cc380a978a67b17deb285e765249476ae11e9a2f67531489ae0f86ab6ae2630",
+      "paired_vs_parent.csv": "680156ff92345e14c37b2dcb2a490a80cd07f522809adea5e157e4971fb7fc0f"
+    },
+    "parent": "FG-R1-expanded-peak2",
+    "policy": {
+      "name": "q90-suppress",
+      "quantile": "q90",
+      "negative_factor": 0.0
+    },
+    "parent_plan_sha256": "847093579d244487f83a2784126f311da13baf1693f94d2a51897e9e378ae173",
+    "guard_triggered_rows_by_seed": {
+      "42": 9493,
+      "123": 9001,
+      "2024": 8855,
+      "3407": 8768,
+      "777": 6351
+    },
+    "local_training": false,
+    "paired_vs_parent_sha256": "680156ff92345e14c37b2dcb2a490a80cd07f522809adea5e157e4971fb7fc0f"
+  },
+  "goal_achieved": false,
+  "holdout_read": false
+}

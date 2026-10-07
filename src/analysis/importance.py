@@ -1,59 +1,78 @@
-"""영향변수: 특징군·개별 특징 permutation importance와 시각 × 완료 생산량 부분의존(PDP).
-
-동결된 1시간 LightGBM을 다시 학습하지 않고, 테스트 입력의 열을 섞었을 때 오차가 얼마나 늘어나는지 본다.
-중요도는 '모델이 의존하는 정도'이며 전력에 대한 인과 효과가 아니다.
-"""
+"""Permutation importance on saved validation-fold models and OOF targets."""
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import joblib
 import numpy as np
 import pandas as pd
-from sklearn.inspection import partial_dependence
+from sklearn.inspection import permutation_importance
 
-GROUPS = {
-    "최근 전력(0~2시간)": ["current", "lag_1", "lag_2", "lag_4", "lag_8", "recent_hour_mean"],
-    "전일·전주 같은 시각": ["lag_92", "lag_96", "lag_668", "lag_672", "recent_day_mean"],
-    "완료 생산량": ["known_production", "known_production_prev_day"],
-    "목표 시각 달력": ["target_hour", "target_quarter", "target_weekday", "target_month",
-                   "target_day_of_year", "target_is_weekend"],
-}
+from ._common import write_table
 
 
-def permutation_importance(model, x: pd.DataFrame, y: pd.Series, peak: float, repeats: int = 10,
-                           seed: int = 42) -> pd.DataFrame:
-    rng = np.random.default_rng(seed)
-    actual = y.to_numpy()
-    event = actual > peak
+def run_importance(history: pd.DataFrame, predictions: pd.DataFrame, cfg: dict,
+                   outdir: Path, model_dir: Path | None = None,
+                   selected_models: dict[int, str] | None = None) -> dict:
+    if model_dir is None or not model_dir.is_dir():
+        return {"status": "unsupported", "reason": "Saved validation-fold models unavailable; no feature attribution inferred from OOF predictions"}
+    from src.features import build_features
 
-    def errors(frame):
-        e = np.abs(actual - model.predict(frame))
-        return e.mean(), e[event].mean()
-
-    base_mae, base_peak = errors(x)
-    units = [(name, cols) for name, cols in GROUPS.items()] + [(c, [c]) for c in x.columns]
     rows = []
-    for name, cols in units:
-        cols = [c for c in cols if c in x.columns]
-        deltas = []
-        for _ in range(repeats):
-            shuffled = x.copy()
-            order = rng.permutation(len(x))
-            shuffled[cols] = x[cols].to_numpy()[order]
-            mae, peak_mae = errors(shuffled)
-            deltas.append((mae - base_mae, peak_mae - base_peak))
-        deltas = np.asarray(deltas)
-        rows.append({"unit": name, "kind": "group" if name in GROUPS else "feature",
-                     "delta_mae": float(deltas[:, 0].mean()), "delta_mae_sd": float(deltas[:, 0].std(ddof=1)),
-                     "delta_peak_mae": float(deltas[:, 1].mean()), "delta_peak_mae_sd": float(deltas[:, 1].std(ddof=1))})
-    out = pd.DataFrame(rows)
-    out.attrs["base_mae"], out.attrs["base_peak_mae"] = float(base_mae), float(base_peak)
-    return out.sort_values(["kind", "delta_peak_mae"], ascending=[True, False])
-
-
-def interaction_pdp(model, x: pd.DataFrame, features=("target_hour", "known_production")) -> pd.DataFrame:
-    """두 특징의 2차원 부분의존. 생산량 축은 테스트 입력의 5~95% 분위 범위의 격자."""
-    result = partial_dependence(model, x.astype(float), list(features), grid_resolution=12,
-                                percentiles=(0.05, 0.95), kind="average")
-    grid0, grid1 = result["grid_values"]
-    values = result["average"][0]
-    return pd.DataFrame(values, index=pd.Index(grid0, name=features[0]), columns=pd.Index(grid1, name=features[1]))
+    for path in sorted(model_dir.glob("development_h*_fold*_*.joblib")):
+        bundle = joblib.load(path)
+        if not isinstance(bundle, dict) or "model" not in bundle:
+            continue
+        h = int(bundle["horizon"])
+        fold = bundle["fold"]
+        model_name = str(bundle.get("model_name", "lgbm"))
+        selected = (selected_models or {}).get(h, "lgbm_no_holiday")
+        # Statistical baselines have no fitted feature attribution. Explain
+        # the saved development LightGBM comparator instead of that baseline.
+        attributed = selected if selected.startswith("lgbm") else "lgbm_no_holiday"
+        if model_name != attributed:
+            continue
+        role = "selected_point_model" if selected == attributed else "development_comparator_not_selected"
+        score = predictions.loc[predictions.horizon.eq(h) & predictions.fold.eq(fold) & predictions.model.eq(model_name)]
+        if score.empty:
+            continue
+        origins = pd.DatetimeIndex(score.origin)
+        x, latest = build_features(history, origins, h, {**cfg, "_tau": float(bundle["tau"])})
+        x.index = pd.DatetimeIndex(x.index)
+        if (pd.DatetimeIndex(latest) > origins).any():
+            raise AssertionError("Rebuilt importance feature uses a future observation")
+        x = x.reindex(columns=bundle.get("feature_names", list(x.columns)))
+        valid = x.notna().all(axis=1)
+        x = x.loc[valid]
+        targets = score.drop_duplicates("origin").set_index("origin").y
+        common = x.index.intersection(targets.index)
+        x = x.loc[common]
+        y = targets.loc[common]
+        if len(x) < 25:
+            continue
+        max_rows = int(cfg.get("analysis", {}).get("importance_max_rows", 1500))
+        if len(x) > max_rows:
+            take = np.linspace(0, len(x)-1, max_rows, dtype=int)
+            x, y = x.iloc[take], y.iloc[take]
+        result = permutation_importance(bundle["model"], x, y, scoring="neg_mean_absolute_error",
+                                        n_repeats=int(cfg.get("analysis", {}).get("importance_repeats", 3)),
+                                        random_state=int(cfg.get("seed", 42)), n_jobs=1)
+        rows.extend({"horizon": h, "fold": fold, "model": model_name,
+                     "selected_model": selected, "attribution_role": role,
+                     "feature": name, "mae_increase": float(value), "repeat_std": float(sd),
+                     "scored_rows": len(x)} for name, value, sd in
+                    zip(x.columns, result.importances_mean, result.importances_std))
+    if not rows:
+        return {"status": "unsupported", "reason": "No compatible saved validation models and OOF rows"}
+    detail = pd.DataFrame(rows)
+    summary = detail.groupby(["horizon", "model", "selected_model", "attribution_role", "feature"],
+                             as_index=False).mae_increase.mean()
+    summary = summary.sort_values(["horizon", "mae_increase"], ascending=[True, False])
+    summary["rank"] = summary.groupby("horizon").cumcount()+1
+    paths = {"detail": str(write_table(detail, outdir/"tables"/"permutation_importance_detail.csv")),
+             "top10": str(write_table(summary.loc[summary["rank"] <= 10], outdir/"tables"/"permutation_importance_top10.csv"))}
+    return {"status": "ok", "paths": paths,
+            "attribution_models": detail[["horizon", "model", "selected_model", "attribution_role"]]
+                                  .drop_duplicates().to_dict("records"),
+            "warning": "검증 폴드 순열 중요도는 연관된 특징의 예측 기여 진단이며 인과 중요도가 아닙니다."}

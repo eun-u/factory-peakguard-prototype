@@ -1,0 +1,5 @@
+﻿horizon,point_before,point_after,conformal_before,conformal_after,risk_before,risk_after,point_changed,risk_changed
+1,p1_latest,p1_latest,b,b,lgbm_quantile_b,lgbm_quantile_b,False,False
+4,lgbm_no_holiday_weight_2,lgbm_no_holiday_weight_2,b,b,lgbm_quantile_b,lgbm_quantile_b,False,False
+16,c3_holiday_hybrid,lgbm_residual_cbl,b,b,lgbm_quantile_b,lgbm_quantile_b,True,False
+96,c3_holiday_hybrid,c3_holiday_hybrid,b,b,lgbm_quantile_b,lgbm_quantile_b,False,False

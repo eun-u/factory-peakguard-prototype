@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-06T13:48:54.256089+00:00",
+  "status": "terminal_search_failed_before_full_candidate_fit",
+  "namespace": "goal_r1_transition_v2",
+  "root_verification_error": "Technical smoke weekly model checkpoint changed",
+  "root_verification_did_not_pass": true,
+  "technical_single_seed_first_fold_models": 2,
+  "full_candidate_fit_started": false,
+  "files": [
+    {
+      "source": "phase_f/goal_transition.py",
+      "sha256": "6ceb7821d63293a96d10f1aad4a0fc15194f4ae2f433ec9a037be23cae90e021",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/goal_transition.py"
+    },
+    {
+      "source": "phase_f/models/transition_expert.py",
+      "sha256": "7d93c3e29e649b82752d9194cb4a4c5c41e4dd2d93c6d4745d8e6b29d3e39e47",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/transition_expert.py"
+    },
+    {
+      "source": "phase_f/tests/test_goal_transition.py",
+      "sha256": "8d67641ba67f81c8fe48155ba5dc32f3f1f631b5d189a159f294dc348f670aae",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/test_goal_transition.py"
+    },
+    {
+      "source": "outputs/phase_f/goal_r1_transition_v2/logs/driver_status.json",
+      "sha256": "e057d4821e227426e52ace6849812262fb1a0e50f1750400d06cd08d63bbe880",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/driver_status.json"
+    },
+    {
+      "source": "outputs/phase_f/goal_r1_transition_v2/logs/execution_plan.json",
+      "sha256": "5699a18fce720f70a5aab711f5c96b26404d4f5a2103cb489105a3f9eb17042c",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/execution_plan.json"
+    },
+    {
+      "source": "outputs/phase_f/goal_r1_transition_v2/logs/target_contract.json",
+      "sha256": "dda8f5b58fa08aca45da3fc8472b5c81bfdb9de9e4d310ec03e84c6f1215d0c9",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/target_contract.json"
+    },
+    {
+      "source": "outputs/phase_f/logs/transition_smoke_v2_20261006.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/transition_smoke_v2_20261006.log"
+    },
+    {
+      "source": "outputs/phase_f/logs/transition_search_v2_20261006.log",
+      "sha256": "cdf59a86f75d37363b0052b8a2e2ed8787a09fe5c8eefcdef5499bebc5255fd0",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/transition_search_v2_20261006.log"
+    },
+    {
+      "source": "outputs/phase_f/logs/revision_20261006/run_transition_v2.ps1",
+      "sha256": "bf50d8fab15dc9aaeaf9048a799ae48fdbac8e2cc7fe2cc9dfa326acd4431f38",
+      "preserved": "outputs/phase_f/logs/revision_20261006/transition_v2_failed_integrity/run_transition_v2.ps1"
+    }
+  ],
+  "physical_smoke_files_retained_in_old_namespace": [
+    {
+      "metadata": "outputs/phase_f/goal_r1_transition_v2/smoke/FG-R3-transition-power/seed42_first_fold.json",
+      "metadata_sha256": "15c0b0d0a10e59a044e4df9654146000ac7c31ab8be7033e6095414e40617ae9",
+      "prediction_sha256": "be0e9cae878ecf470f2233797f2c7eac0b751c3ddcd52c7aacf59130415cda40",
+      "model_path": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_f\\goal_r1_transition_v2\\models\\transition_expert\\FG-R3-transition-power__smoke_seed42\\seed42_f1.joblib",
+      "model_sha256": "23fa48ddf70bd7163d140817304a0544c549bdd3a87cbd6e03a2574dc624d1d0",
+      "model_metadata_sha256": "ceb72add8de4e14875dee054fd231d9e427eca6bb5e6257a61a0ea98613ceb32",
+      "model_paths_sha256": "36f8f97168475ab8c82e9e56def90bd1ef187dfb5efdbcb57a1114f33d797582",
+      "future_perturbation_max_abs_difference": 0.0,
+      "five_seed_score": false
+    },
+    {
+      "metadata": "outputs/phase_f/goal_r1_transition_v2/smoke/FG-R3-transition-production/seed42_first_fold.json",
+      "metadata_sha256": "8b81670596f3f86f6c1e806d8ce3ae8c9ed26319d1d8d6ae8f3c49ad74c8b097",
+      "prediction_sha256": "c3c7a1b3d5f6f5faff99e13bc249905f74ceee23a0dc08e36c34fd2522892840",
+      "model_path": "C:\\Users\\User\\Downloads\\\uc81c\uc870\ub370\uc774\ud130 \uc885\ud569 \ud310\ub2e8 \ud3f4\\phase_c_workspace\\outputs\\phase_f\\goal_r1_transition_v2\\models\\transition_expert\\FG-R3-transition-production__smoke_seed42\\seed42_f1.joblib",
+      "model_sha256": "ec3160a0f7b2cf49c7753a6c24d0d4ac4ee619eaf77f14b14313e442ac0e6d71",
+      "model_metadata_sha256": "ac5c09447257046c2dfcab7ad4ef187dacf964be4b244f0db32f2a95a787d532",
+      "model_paths_sha256": "36f8f97168475ab8c82e9e56def90bd1ef187dfb5efdbcb57a1114f33d797582",
+      "future_perturbation_max_abs_difference": 0.0,
+      "five_seed_score": false
+    }
+  ],
+  "holdout_read": false,
+  "goal_achieved": false
+}

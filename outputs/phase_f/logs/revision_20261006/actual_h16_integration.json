@@ -1,0 +1,25 @@
+{
+  "prediction_bytes_unchanged": true,
+  "holdout_read": false,
+  "candidate_confirm_read": false,
+  "E": {
+    "F0-1-B5": {
+      "E_status": "unavailable",
+      "E_c10_22_recall": null,
+      "E_B5_c10_22_recall": null,
+      "E_reason": "ValueError: Platt calibration requires both classes in cal"
+    },
+    "F0-1-M1": {
+      "E_status": "unavailable",
+      "E_c10_22_recall": null,
+      "E_B5_c10_22_recall": null,
+      "E_reason": "ValueError: Platt calibration requires both classes in cal"
+    },
+    "F0-1-R1": {
+      "E_status": "unavailable",
+      "E_c10_22_recall": null,
+      "E_B5_c10_22_recall": null,
+      "E_reason": "ValueError: Platt calibration requires both classes in cal"
+    }
+  }
+}

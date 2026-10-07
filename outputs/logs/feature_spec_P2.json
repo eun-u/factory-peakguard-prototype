@@ -1,0 +1,18 @@
+{
+  "a1_passed": false,
+  "a2_h16_passed": false,
+  "a2_h16_auc": null,
+  "a2_h16_auc_ci95": [
+    null,
+    null
+  ],
+  "negative_override": true,
+  "allowed_by_horizon": {
+    "16": [],
+    "96": []
+  },
+  "features": [],
+  "family_size": 23,
+  "m2_allowed": false,
+  "test_opened": false
+}

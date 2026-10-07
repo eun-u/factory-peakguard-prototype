@@ -1,0 +1,27 @@
+[
+  {
+    "model": "dshw",
+    "origin": "2021-06-26 09:30:00",
+    "max_abs_change": 0.0
+  },
+  {
+    "model": "dshw",
+    "origin": "2021-07-23 06:15:00",
+    "max_abs_change": 0.0
+  },
+  {
+    "model": "dshw",
+    "origin": "2021-08-03 13:00:00",
+    "max_abs_change": 0.0
+  },
+  {
+    "model": "mstl_daily",
+    "origin": "2021-07-23 06:15:00",
+    "max_abs_change": 0.0
+  },
+  {
+    "model": "mstl_daily",
+    "origin": "2021-08-03 13:00:00",
+    "max_abs_change": 0.0
+  }
+]

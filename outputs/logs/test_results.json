@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "test_command": "python -m pytest tests -q",
+  "exit_code": 0,
+  "stdout": ".............................................                            [100%]\n45 passed in 6.88s",
+  "stderr": "",
+  "dependency_check": "No broken requirements found.",
+  "dependency_check_exit_code": 0,
+  "seconds": 8.151,
+  "python": "3.14.5"
+}

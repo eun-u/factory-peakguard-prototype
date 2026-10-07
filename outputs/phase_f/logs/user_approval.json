@@ -1,0 +1,15 @@
+{
+  "approved_at_recorded": "2026-10-03T09:42:55.963189+00:00",
+  "user_reply": "수정안으로 진행",
+  "preflight_sha256": "137e1aa0bb93762865bc8d5a0337d0c636733794ca1c6026b470ab2912c66377",
+  "branch": "Phase4_performance",
+  "approved_rules": [
+    "neural_training",
+    "foundation_official_and_fit_only_finetuning",
+    "causal_power_extension",
+    "completed_production_once",
+    "exploratory_preserve_C_D"
+  ],
+  "split_sha256": "0d68bc2921e518111aa6918c5bbdfb3fe543f21855c0e941f09cdeabba7d202f",
+  "final_holdout_authorized": false
+}

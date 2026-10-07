@@ -1,0 +1,5 @@
+﻿type,episodes,share,ci_low,ci_high,denominator_episodes,r2_gate_passed,classification_role,attribution_scope,type_label
+production_explained,60,0.40540540540540543,0.2957628320257113,0.5339356915014809,148,True,descriptive,full_ridge_baseline_including_weather_calendar_not_production_only,생산 기인형(전체 기준선 설명형; 생산 단독 귀속 아님)
+mixed,18,0.12162162162162163,0.07459942932396839,0.16669463087248318,148,True,descriptive,full_ridge_baseline_including_weather_calendar_not_production_only,혼합형
+residual,70,0.47297297297297297,0.33541401996370235,0.6013702316369585,148,True,descriptive,full_ridge_baseline_including_weather_calendar_not_production_only,잔차형
+unclassified,0,0.0,0.0,0.0,148,True,descriptive,full_ridge_baseline_including_weather_calendar_not_production_only,분류 불가

@@ -1,0 +1,130 @@
+{
+  "name": "stage1_target_plan",
+  "hypothesis": "Freeze one feature/model parent for every F2 target",
+  "specs": [
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-1",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-2",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "delta",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-3",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "weekly",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-4",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "profile",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-5",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "b5_residual",
+      "tier": 1,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-6",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "log1p",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm"
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-4-profile2",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "profile",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm",
+      "profile_weeks": 2
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-4-profile3",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "profile",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm",
+      "profile_weeks": 3
+    },
+    {
+      "adapter": "regression",
+      "family": "F2",
+      "groups": [
+        "slot_1_7d"
+      ],
+      "id": "F2-7-daytype",
+      "kind": "lightgbm",
+      "nonfinite_policy": "weekly_anchor",
+      "target": "direct",
+      "tier": 3,
+      "parent": "F1-2-daily-lightgbm",
+      "daytype": true
+    }
+  ],
+  "config_sha256": "b69d72b8d1e6e604808385a6f2f62d53405033379db95048d843da6a16bb97a4",
+  "selection_arm": "EXPLORE",
+  "historical_final_artifact_read": false,
+  "holdout_read": false
+}

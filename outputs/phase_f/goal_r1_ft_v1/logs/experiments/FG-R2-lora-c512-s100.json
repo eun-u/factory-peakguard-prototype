@@ -1,0 +1,95 @@
+{
+  "status": "completed_explore",
+  "spec": {
+    "id": "FG-R2-lora-c512-s100",
+    "family": "F6",
+    "tier": 2,
+    "kind": "chronos2",
+    "context_length": 512,
+    "point": "median",
+    "finetune": "lora",
+    "learning_rate": 1e-05,
+    "num_steps": 100,
+    "adapter": "foundation",
+    "parent": "F6-4-lora-c512-lr1e-05",
+    "fit_batch_size": 16,
+    "seeds": [
+      42,
+      123,
+      2024,
+      3407,
+      777
+    ]
+  },
+  "plan_sha256": "7c57e19fa5705e1feb639d3e7cd70873e99055acbe518eb082f69fdf50b30b60",
+  "result": {
+    "at": "2026-10-06T13:03:24.443778+00:00",
+    "candidate": "FG-R2-lora-c512-s100",
+    "arm": "EXPLORE",
+    "fields": {
+      "AUC_MAE": 10.72945157916807,
+      "AUC_PeakMAE": 19.22307481422319,
+      "AUC_nMAE": 0.11424477025840966,
+      "h4_MAE": 7.632835888399058,
+      "h16_MAE": 13.515316968676025,
+      "h4_PeakMAE": 12.668139690705614,
+      "h16_PeakMAE": 23.134330339511013
+    },
+    "targets_met": false,
+    "individual": {
+      "AUC_MAE": false,
+      "AUC_PeakMAE": false,
+      "h4_MAE": false,
+      "h16_MAE": false,
+      "AUC_nMAE": false
+    },
+    "seed_uncertainty": {
+      "AUC_MAE": {
+        "individual_mean": 10.730819282996512,
+        "individual_sd": 0.009089668528694538
+      },
+      "AUC_PeakMAE": {
+        "individual_mean": 19.224741786694235,
+        "individual_sd": 0.16025541053472248
+      },
+      "AUC_nMAE": {
+        "individual_mean": 0.11425933333944045,
+        "individual_sd": 9.678365659573113e-05
+      },
+      "h4_MAE": {
+        "individual_mean": 7.634415716560075,
+        "individual_sd": 0.009889110808582728
+      },
+      "h16_MAE": {
+        "individual_mean": 13.517010056869509,
+        "individual_sd": 0.02340502172742019
+      },
+      "h4_PeakMAE": {
+        "individual_mean": 12.670598460696741,
+        "individual_sd": 0.0380917356915849
+      },
+      "h16_PeakMAE": {
+        "individual_mean": 23.135226474244178,
+        "individual_sd": 0.20461081829587394
+      }
+    },
+    "n_seeds": 5,
+    "ranking_basis": "metrics of mean forecasts",
+    "independent_confirmation": "pending",
+    "goal_achieved": false,
+    "holdout_read": false,
+    "leakage_test": "passed",
+    "prediction_sha256": "2e75de5c3f7dfbbace3d87848af8e386bb49892e7b44a57a169b16ad5aa97fb7",
+    "artifacts": {
+      "auc.csv": "5554e0e36a01d2fd62d892b7ec514e0b08f077178e33a580d3378b476c7e1fff",
+      "daily.csv": "725c1ce51d85a5e2ae72de88edc65b3bc11bac66317200ccc18187e12d67fce8",
+      "daily_summary.csv": "3f95bc062836fd2ef2465f79bd58880fbd4f8bac894f4d6791a38b9c4efd177a",
+      "fold.csv": "df8b8275b1bd35344ef4923bc066a1e84d55e2806431a4d915600c71319fc5f6",
+      "paired_ci.csv": "5f054c1f94ed037ff353adf95335682b047319ba4ffa1ea13ce40cbca561c468",
+      "pooled.csv": "8b556e8d7aa4e4145734c89225bf36a14141bf6144e51c772ecadb63586422ca",
+      "seed_metrics.csv": "da7d31cd0d1fb34859ae8b81ff829572bfd42d8c8e0f6926ba942d8a5d5d2161"
+    }
+  },
+  "goal_achieved": false,
+  "holdout_read": false
+}

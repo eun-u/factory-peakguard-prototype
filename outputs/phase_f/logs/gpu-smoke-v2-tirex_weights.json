@@ -1,0 +1,11 @@
+{
+  "repo": "NX-AI/TiRex",
+  "revision": "63c740922493f5fbe60b277609ec62babfba2762",
+  "spec_hash": "0106d843de984fd1c9e9985cc3b94e5d3ea431acc4aacb3c48f31a19aacef1e4",
+  "license": "other: NXAI community license; review required",
+  "commercially_eligible": false,
+  "source": "https://nx-ai.github.io/tirex/how-to/forecasting/practice",
+  "training_on_local_data": false,
+  "development_only": true,
+  "holdout_read": false
+}

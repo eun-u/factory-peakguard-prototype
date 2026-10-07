@@ -1,0 +1,54 @@
+{
+  "status": "pass",
+  "scope": "sealed_development_oof_only",
+  "absolute_tolerance": 1e-10,
+  "holdout_read": false,
+  "source_unchanged": true,
+  "retrospective_ridge_fits": 6,
+  "forecast_model_fits": 0,
+  "seconds": 70.2584799000033,
+  "tables": [
+    {
+      "source": "outputs/analysis_p2/P2_auxiliary_metrics.csv",
+      "rows": 24,
+      "max_abs_difference": 1.4210854715202004e-14,
+      "sha256": "00c2134da8dedff1b43d13643205b12ec87de69781dff834aa9506c5c8332456"
+    },
+    {
+      "source": "outputs/analysis_p2/P2_hypotheses_holm.csv",
+      "rows": 27,
+      "max_abs_difference": 5.329070518200751e-15,
+      "sha256": "3db693dddd3938171435b920e110fdb77e0251d44cab48c1c6a983f1c83d39dd"
+    },
+    {
+      "source": "outputs/analysis_p2/operations/A5_actions.csv",
+      "rows": 8962,
+      "max_abs_difference": 0.0,
+      "sha256": "028fcb6b393f437258bd88fc4905bdee06cfd793082887e19b063724e5029907"
+    },
+    {
+      "source": "outputs/analysis_p2/operations/A5_alert_audit.csv",
+      "rows": 14352,
+      "max_abs_difference": 0.0,
+      "sha256": "a589a5996c7b9bdd20bd2dfc4add108e5ce3d35ad16f670369bae0547ae4247b"
+    },
+    {
+      "source": "outputs/analysis_p2/operations/A5_matched_h4_h16.csv",
+      "rows": 16,
+      "max_abs_difference": 0.0,
+      "sha256": "a8b1d9e7dfd950e2dbc84c19808e562178db63be7e4c415a391f3e38fe0260f1"
+    },
+    {
+      "source": "outputs/analysis_p2/operations/A5_monthly.csv",
+      "rows": 80,
+      "max_abs_difference": 0.0,
+      "sha256": "8eed61c71cf7588cf0713ba77ef06c770f27ad90f67821105376bb6d09749216"
+    },
+    {
+      "source": "outputs/analysis_p2/operations/A5_summary.csv",
+      "rows": 16,
+      "max_abs_difference": 0.0,
+      "sha256": "5b2ff798ce2dc622bdfdbec9628df6f4e41dba9e75b22e85bd5e3046df70e944"
+    }
+  ]
+}

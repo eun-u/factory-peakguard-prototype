@@ -1,0 +1,12 @@
+{
+  "synthetic_only": true,
+  "device": "cuda",
+  "shape": [
+    1,
+    96,
+    1
+  ],
+  "finite": true,
+  "native_nan_mask_verified": true,
+  "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c"
+}

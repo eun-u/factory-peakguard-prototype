@@ -1,0 +1,8 @@
+{
+  "locked_at": "2026-10-02T09:36:26.695336+00:00",
+  "files": {
+    "phase_e_protocol_lock.md": "fbd73d75dea11f2a241713b339fdc4bfd7ee771713fa12881eef4bddeb205457",
+    "phase_e_config_lock.json": "3ef35b55fb3e09401437b74684d8baa161c93f8b8d67db9b989ef3557a795864"
+  },
+  "before_phase_e_numeric_prediction_calibration_scoring": true
+}

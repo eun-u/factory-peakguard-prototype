@@ -1,0 +1,15 @@
+{
+  "parent_namespace": "goal_r1_transition_v1",
+  "namespace": "goal_r1_transition_v2",
+  "diagnostics_are_exact_copies": true,
+  "artifact_sha256": {
+    "error_cohorts.csv": "83b21aefce2b81a569779733d45068f60998472aae7ee5f5b8393136184bb91b",
+    "fit_stop_class_support.csv": "1b010ba82c865e1b5fdd17a4e53c731a94eb0f5a0483445c55ff7b53490e5b3d",
+    "manifest.json": "f2baabeb629d693d97666f857641899f60b4cbce5042a7a71afa2dbbab86d007",
+    "past_future_ramp.csv": "958cc6be746a02337e1fc803ad25a236039e6ff22b8fca0a3ee3574f98f83b3c"
+  },
+  "reason": "identical_keys_with_integer_storage_dtype_difference",
+  "model_or_scientific_contract_changed": false,
+  "holdout_read": false,
+  "goal_achieved": false
+}

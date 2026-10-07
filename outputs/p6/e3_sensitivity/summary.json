@@ -1,0 +1,7 @@
+{
+  "seeds": {
+    "max_abs_diff_any_seed": 0.0,
+    "note": "LightGBM 설정에 행·열 부분표집이 없어 seed가 적합에 영향을 주지 않는지 확인"
+  },
+  "seconds": 332.8
+}

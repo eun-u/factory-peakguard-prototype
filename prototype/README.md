@@ -8,7 +8,7 @@ Python 3.13 기준, PowerShell에서 저장소 루트로 이동한 뒤:
 
 ```powershell
 py -3.13 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r prototype\requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m streamlit run prototype/app.py --server.address 127.0.0.1
 ```
 

@@ -1,0 +1,851 @@
+{
+  "version": 1,
+  "boundary": "2021-08-09 09:45:00",
+  "split_by": "target_calendar_ISO_week",
+  "even": "EXPLORE",
+  "odd": "CONFIRM",
+  "independent_unseen_validation": false,
+  "prior_score_use": "Phase C and Phase E development evaluation",
+  "dates": [
+    {
+      "target_date": "2021-04-14",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-15",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-16",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-17",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-18",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-19",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-20",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-21",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-22",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-23",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-24",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-25",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-04-26",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-27",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-28",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-29",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-04-30",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-01",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-02",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-03",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-04",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-05",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-06",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-07",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-08",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-09",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-05-10",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-11",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-12",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-13",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-28",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-29",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-30",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-05-31",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-01",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-02",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-03",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-04",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-05",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-06",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-07",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-08",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-09",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-10",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-11",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-12",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-13",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-14",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-15",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-16",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-17",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-18",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-19",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-20",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-06-21",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-22",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-23",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-24",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-25",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-06-26",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-09",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-10",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-11",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-12",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-13",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-17",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-18",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-19",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-20",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-21",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-22",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-23",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-24",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-25",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-07-26",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-27",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-28",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-29",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-30",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-07-31",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-08-01",
+      "arm": "EXPLORE"
+    },
+    {
+      "target_date": "2021-08-02",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-03",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-04",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-05",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-06",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-07",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-08",
+      "arm": "CONFIRM"
+    },
+    {
+      "target_date": "2021-08-09",
+      "arm": "EXPLORE"
+    }
+  ],
+  "counts": [
+    {
+      "horizon": 4,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1402
+    },
+    {
+      "horizon": 4,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 4,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1402
+    },
+    {
+      "horizon": 4,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 4,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1314
+    },
+    {
+      "horizon": 4,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 913
+    },
+    {
+      "horizon": 5,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1401
+    },
+    {
+      "horizon": 5,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 5,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1401
+    },
+    {
+      "horizon": 5,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 5,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1313
+    },
+    {
+      "horizon": 5,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 912
+    },
+    {
+      "horizon": 6,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1399
+    },
+    {
+      "horizon": 6,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 6,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1400
+    },
+    {
+      "horizon": 6,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 6,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1312
+    },
+    {
+      "horizon": 6,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 911
+    },
+    {
+      "horizon": 7,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1398
+    },
+    {
+      "horizon": 7,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 7,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1398
+    },
+    {
+      "horizon": 7,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 7,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1312
+    },
+    {
+      "horizon": 7,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 910
+    },
+    {
+      "horizon": 8,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1397
+    },
+    {
+      "horizon": 8,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 8,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1397
+    },
+    {
+      "horizon": 8,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 8,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1310
+    },
+    {
+      "horizon": 8,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 909
+    },
+    {
+      "horizon": 9,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1396
+    },
+    {
+      "horizon": 9,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 9,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1396
+    },
+    {
+      "horizon": 9,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 9,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1310
+    },
+    {
+      "horizon": 9,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 908
+    },
+    {
+      "horizon": 10,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1395
+    },
+    {
+      "horizon": 10,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 10,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1395
+    },
+    {
+      "horizon": 10,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 10,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1309
+    },
+    {
+      "horizon": 10,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 907
+    },
+    {
+      "horizon": 11,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1394
+    },
+    {
+      "horizon": 11,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 11,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1394
+    },
+    {
+      "horizon": 11,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 11,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1308
+    },
+    {
+      "horizon": 11,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 906
+    },
+    {
+      "horizon": 12,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1392
+    },
+    {
+      "horizon": 12,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 12,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1393
+    },
+    {
+      "horizon": 12,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 12,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1307
+    },
+    {
+      "horizon": 12,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 905
+    },
+    {
+      "horizon": 13,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1391
+    },
+    {
+      "horizon": 13,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 13,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1391
+    },
+    {
+      "horizon": 13,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 13,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1306
+    },
+    {
+      "horizon": 13,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 904
+    },
+    {
+      "horizon": 14,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1390
+    },
+    {
+      "horizon": 14,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 14,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1390
+    },
+    {
+      "horizon": 14,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 14,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1305
+    },
+    {
+      "horizon": 14,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 902
+    },
+    {
+      "horizon": 15,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1388
+    },
+    {
+      "horizon": 15,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 15,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1389
+    },
+    {
+      "horizon": 15,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 15,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1305
+    },
+    {
+      "horizon": 15,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 901
+    },
+    {
+      "horizon": 16,
+      "fold": 0,
+      "arm": "CONFIRM",
+      "n": 1387
+    },
+    {
+      "horizon": 16,
+      "fold": 0,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 16,
+      "fold": 1,
+      "arm": "CONFIRM",
+      "n": 1387
+    },
+    {
+      "horizon": 16,
+      "fold": 1,
+      "arm": "EXPLORE",
+      "n": 1344
+    },
+    {
+      "horizon": 16,
+      "fold": 2,
+      "arm": "CONFIRM",
+      "n": 1304
+    },
+    {
+      "horizon": 16,
+      "fold": 2,
+      "arm": "EXPLORE",
+      "n": 900
+    }
+  ],
+  "key_sha256": "f757bfb037337ecee09017b4dd22c5370b5a38c4aa32b1446308c9f1d2225bf9",
+  "cohort": "Phase C MAIN10 finite common keys, with full R1 coverage required",
+  "long_context_policy": "No score row loss. Causal masks/imputation fixed per candidate.",
+  "baseline_models": [
+    "B1",
+    "B5",
+    "M1",
+    "M1-W",
+    "M2",
+    "R1"
+  ],
+  "historical_final_artifact_read": false,
+  "holdout_read": false,
+  "lock_sha256": "0d68bc2921e518111aa6918c5bbdfb3fe543f21855c0e941f09cdeabba7d202f"
+}
